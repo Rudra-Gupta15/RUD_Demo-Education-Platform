@@ -1,4 +1,4 @@
-# SynapseLearn — AI + Cybersecurity Education Platform
+# RUD-Demo Education Platform
 
 A full-stack, production-ready EdTech platform for AI and cybersecurity education. Features a polished dark-theme Vite/React frontend with Tailwind CSS, Framer Motion animations, and an Express/SQLite backend with JWT authentication, full CRUD REST APIs, and seeded demo content.
 
@@ -184,4 +184,4 @@ SynapseLearn/
 
 ---
 
-*Built with ❤️ by the SynapseLearn team.*
+*Built with ❤️ by the Rudra Gupta.*
