@@ -59,12 +59,15 @@ const SPECIALIZATIONS = [
 
 export default function SpecializedSolutions() {
   const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(0); // 1 for right, -1 for left
 
   const rotateClockwise = () => {
+    setDirection(1);
     setIndex((prev) => (prev + 1) % SPECIALIZATIONS.length);
   };
 
   const rotateCounterClockwise = () => {
+    setDirection(-1);
     setIndex((prev) => (prev - 1 + SPECIALIZATIONS.length) % SPECIALIZATIONS.length);
   };
 
@@ -99,21 +102,21 @@ export default function SpecializedSolutions() {
           <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 lg:px-10 z-30 pointer-events-none">
             <button 
               onClick={rotateCounterClockwise}
-              className="w-14 h-14 rounded-full bg-white shadow-xl border border-slate-100 flex items-center justify-center text-slate-900 pointer-events-auto transition-transform hover:scale-110 active:scale-95"
+              className="w-14 h-14 rounded-full bg-white shadow-xl border border-slate-100 flex items-center justify-center text-slate-900 pointer-events-auto transition-all hover:scale-110 active:scale-95 hover:bg-slate-50"
             >
               <ChevronLeft size={28} />
             </button>
             <button 
               onClick={rotateClockwise}
-              className="w-14 h-14 rounded-full bg-white shadow-xl border border-slate-100 flex items-center justify-center text-slate-900 pointer-events-auto transition-transform hover:scale-110 active:scale-95"
+              className="w-14 h-14 rounded-full bg-white shadow-xl border border-slate-100 flex items-center justify-center text-slate-900 pointer-events-auto transition-all hover:scale-110 active:scale-95 hover:bg-slate-50"
             >
               <ChevronRight size={28} />
             </button>
           </div>
 
           {/* Cards Container */}
-          <div className="relative w-full max-w-6xl h-full flex items-center justify-center perspective-1000">
-            <AnimatePresence initial={false}>
+          <div className="relative w-full max-w-6xl h-full flex items-center justify-center perspective-[2000px]">
+            <AnimatePresence initial={false} custom={direction}>
               {SPECIALIZATIONS.map((spec, i) => {
                 const pos = getPosition(i);
                 if (pos === "hidden") return null;
@@ -123,38 +126,50 @@ export default function SpecializedSolutions() {
                 return (
                   <motion.div
                     key={spec.id}
-                    layout
-                    initial={{ 
+                    custom={direction}
+                    initial={(dir) => ({ 
                       opacity: 0, 
-                      scale: 0.8, 
-                      x: pos === "right" ? 400 : pos === "left" ? -400 : 0,
-                      z: -100 
-                    }}
+                      scale: 0.7, 
+                      x: dir > 0 ? 800 : -800,
+                      z: -300,
+                      rotateY: dir > 0 ? -45 : 45
+                    })}
                     animate={{ 
                       opacity: isCenter ? 1 : 0.4, 
                       scale: isCenter ? 1 : 0.7, 
-                      x: pos === "right" ? 500 : pos === "left" ? -500 : 0,
-                      z: isCenter ? 0 : -300,
-                      rotateY: pos === "right" ? -25 : pos === "left" ? 25 : 0,
-                      filter: isCenter ? "blur(0px)" : "blur(4px)"
+                      x: pos === "right" ? 550 : pos === "left" ? -550 : 0,
+                      z: isCenter ? 0 : -400,
+                      rotateY: pos === "right" ? -35 : pos === "left" ? 35 : 0,
+                      filter: isCenter ? "blur(0px)" : "blur(4px)",
                     }}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
-                    className={`absolute w-full max-w-[850px] bg-white rounded-[3rem] shadow-2xl border border-slate-100 overflow-hidden flex flex-col md:flex-row ${isCenter ? "z-20" : "z-10"}`}
+                    exit={(dir) => ({ 
+                      opacity: 0, 
+                      scale: 0.7, 
+                      x: dir > 0 ? -800 : 800,
+                      z: -300,
+                      rotateY: dir > 0 ? 45 : -45
+                    })}
+                    transition={{ 
+                      x: { type: "spring", stiffness: 260, damping: 28 },
+                      opacity: { duration: 0.4 },
+                      default: { duration: 0.7, ease: "easeInOut" }
+                    }}
+                    className={`absolute w-full max-w-[850px] bg-white rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-100 overflow-hidden flex flex-col md:flex-row ${isCenter ? "z-20" : "z-10"}`}
                   >
                     {/* Left: Image Section */}
                     <div className="md:w-1/2 relative h-64 md:h-auto overflow-hidden bg-slate-100">
                       <img 
                         src={spec.img} 
                         alt={spec.title} 
-                        className="w-full h-full object-cover transition-transform duration-1000 hover:scale-110"
+                        className="w-full h-full object-cover transition-transform duration-1000"
                       />
-                      <div className={`absolute inset-0 bg-gradient-to-tr from-${spec.color}-900/40 to-transparent`}></div>
+                      <div className={`absolute inset-0 bg-gradient-to-tr from-slate-900/40 to-transparent`}></div>
                     </div>
 
                     {/* Right: Info Section */}
                     <div className="md:w-1/2 p-10 flex flex-col justify-between">
                       <div>
-                        <div className={`w-14 h-14 rounded-2xl bg-${spec.color}-50 flex items-center justify-center text-${spec.color}-600 mb-6`}>
+                        <div className={`w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 mb-6`}>
                           <spec.icon size={28} />
                         </div>
                         <h3 className="text-3xl font-black text-slate-900 mb-6">{spec.title}</h3>
@@ -162,7 +177,7 @@ export default function SpecializedSolutions() {
                         <div className="space-y-4">
                           {spec.points.map((point, idx) => (
                             <div key={idx} className="flex items-center gap-3">
-                              <CheckCircle2 size={18} className={`text-${spec.color}-500 shrink-0`} />
+                              <CheckCircle2 size={18} className={`text-blue-500 shrink-0`} />
                               <span className="text-slate-600 font-bold text-sm">{point}</span>
                             </div>
                           ))}
@@ -171,7 +186,7 @@ export default function SpecializedSolutions() {
 
                       <div className="mt-8 pt-6 border-t border-slate-50 flex justify-between items-center">
                         <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">Spec. Unit {spec.id}</span>
-                        <button className={`text-${spec.color}-600 font-black text-xs uppercase tracking-widest hover:underline flex items-center gap-2 group`}>
+                        <button className={`text-blue-600 font-black text-xs uppercase tracking-widest hover:underline flex items-center gap-2 group`}>
                           Learn More <ChevronRight size={14} className="transition-transform group-hover:translate-x-1" />
                         </button>
                       </div>
