@@ -8,30 +8,30 @@ import { useState, useEffect } from "react";
 
 const INDUSTRIES_DATA = [
   { 
-    id: "ai-dev",
-    name: "AI Project Development", 
-    desc: "End-to-end AI and Cybersecurity solutions built for modern enterprises.",
-    img: "/hero1.png",
-    color: "from-blue-600/90"
-  },
-  { 
-    id: "coaching",
-    name: "Coaching Courses", 
-    desc: "Expert-led learning paths in AI, hacking, and digital defense.",
+    id: "education",
+    name: "Coaching & Education", 
+    desc: "Structured courses in AI/ML fundamentals and frontier Cybersecurity.",
     img: "/program_cyber.png",
     color: "from-indigo-600/90"
   },
   { 
-    id: "training",
-    name: "Training Programs", 
-    desc: "Intensive corporate and individual upskilling for the tech-first future.",
+    id: "projects",
+    name: "Project Development", 
+    desc: "Bespoke AI and Security solutions built for modern business demands.",
+    img: "/hero1.png",
+    color: "from-blue-600/90"
+  },
+  { 
+    id: "corporate",
+    name: "Corporate Collaboration", 
+    desc: "Partnering with companies for specialized R&D and consultancy.",
     img: "/hero2.png",
     color: "from-slate-900/90"
   },
   { 
-    id: "web-sol",
-    name: "Bespoke Web Solutions", 
-    desc: "High-performance web products integrated with AI and security.",
+    id: "internships",
+    name: "Internships & Placement", 
+    desc: "Industry-aligned programs to prepare talent for real-world roles.",
     img: "/program_genai.png",
     color: "from-blue-900/90"
   }
@@ -71,21 +71,21 @@ export default function Home() {
                   }}
                 >
                   <img 
-                    src="/innovative_team.png" 
+                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" 
                     alt="Pioneering AI & Cybersecurity Team" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                   />
                 </div>
 
-                {/* Floating Success Circle Badge */}
+                {/* Floating Industry Badge */}
                 <motion.div 
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
                   className="absolute -bottom-10 right-[15%] w-40 h-40 rounded-full bg-[#0a3d62] border-[6px] border-white shadow-2xl flex flex-col items-center justify-center text-white text-center z-20"
                 >
-                  <span className="text-4xl font-black leading-none">10+</span>
-                  <span className="text-[10px] font-bold uppercase tracking-widest mt-1">Successful<br/>Years</span>
+                  <span className="text-3xl font-black leading-none">NEXT</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest mt-1">GEN<br/>STARTUP</span>
                 </motion.div>
 
                 {/* Background decorative frame */}
@@ -110,15 +110,14 @@ export default function Home() {
                 </h2>
                 <div className="space-y-4 text-slate-500 text-base md:text-lg leading-relaxed font-medium">
                   <p>
-                    We are a leading-edge AI + Cybersecurity firm specializing in custom 
-                    development, bespoke web solutions, and professional upskilling. 
-                    We empower organizations to leverage the power of Artificial Intelligence 
-                    while maintaining a robust, zero-trust security posture.
+                    We are a tech-forward startup at the intersection of Artificial Intelligence 
+                    and Cybersecurity. Our mission is to bridge the gap between academic learning 
+                    and real-world industry demands.
                   </p>
                   <p>
-                    Focused on user-friendly solutions and strong client relationships, 
-                    we ensure seamless alignment of technology with client business goals, 
-                    delivering high-quality, updated solutions that exceed expectations.
+                    From hands-on education to bespoke project development and corporate consultancy, 
+                    we deliver cutting-edge solutions. We believe the future of digital security 
+                    lies in intelligent systems — and we're here to build and teach exactly that.
                   </p>
                 </div>
                 
@@ -206,11 +205,10 @@ export default function Home() {
             </Reveal>
             <Reveal delay={0.1}>
               <p className="text-slate-600 mb-10 leading-relaxed text-lg font-medium">
-                We don't just teach technology; we build it. ConvoSec AI offers a unique synergy 
-                where professional project development meets elite-level education. 
-                Our dual-focus approach ensures that our students learn from active 
-                practitioners, and our clients receive solutions built with the latest 
-                industry rigor.
+                Modern cyber threats are no longer just human-driven — they are AI-powered. 
+                We uniquely combine both domains because defense must be as intelligent 
+                as the attack. We focus on practical, project-based learning to prepare 
+                you for the real world.
               </p>
             </Reveal>
             
@@ -221,17 +219,17 @@ export default function Home() {
                     <BrainCircuit size={24} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-[#0a192f] text-lg">Dual-Expertise Advantage</h4>
-                    <p className="text-slate-500 mt-1 font-medium">Benefit from a team that actively builds AI systems while leading the next generation of tech talent.</p>
+                    <h4 className="font-bold text-[#0a192f] text-lg">Practical-First Learning</h4>
+                    <p className="text-slate-500 mt-1 font-medium">No fluff, just real project-based learning guided by experts with hands-on industry experience.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-5">
                   <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#0052cc] flex items-center justify-center shrink-0 border border-blue-100 shadow-sm">
-                    <Lock size={24} />
+                    <Shield size={24} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-[#0a192f] text-lg">Commercial-Grade Labs</h4>
-                    <p className="text-slate-500 mt-1 font-medium">Access the same secure environments we use for our commercial projects, providing professional experience.</p>
+                    <h4 className="font-bold text-[#0a192f] text-lg">Unified Expertise</h4>
+                    <p className="text-slate-500 mt-1 font-medium">Both AI and Cybersecurity under one roof, providing a seamless synergy that is underserved in the market.</p>
                   </div>
                 </div>
               </div>

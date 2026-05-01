@@ -7,58 +7,48 @@ import Reveal from "../components/Reveal.jsx";
 import { demoCourses } from "../data/courses.js";
 
 const getCourseDescription = (course) => {
-  if (course.topic === "Generative AI") {
-    return "Master the fundamentals of Generative AI, prompt engineering, and LLM orchestration to build cutting-edge intelligent applications.";
+  if (course.topic === "AI Fundamentals") {
+    return "Master the core pillars of artificial intelligence, from high-level Python automation to deep neural network orchestration and LLM engineering.";
   }
-  if (course.topic === "AI & Machine Learning") {
-    return "Deep dive into machine learning algorithms, deep neural networks, and computer vision to solve complex real-world problems.";
+  if (course.topic === "Cybersecurity") {
+    return "Develop elite defense skills including ethical hacking, network security auditing, and professional SOC analysis to protect digital infrastructure.";
   }
-  if (course.topic === "Data Science & Business Analytics") {
-    return "Learn data analysis, predictive modeling, and data visualization techniques to drive data-informed business decisions.";
+  if (course.topic === "Integrated AI-Security") {
+    return "Explore the frontier where AI meets security. Learn to build AI-driven defense systems and defend against automated, AI-powered cyber threats.";
   }
-  if (course.topic === "Project Management") {
-    return "Master modern project management methodologies, Agile frameworks, and leadership skills to deliver successful projects.";
+  if (course.topic === "Professional Tracks") {
+    return "Accelerated career-ready programs designed to transform you into a certified expert with project-based internships and industry placement support.";
   }
-  if (course.topic === "Cyber Security") {
-    return "Acquire the skills to identify vulnerabilities, defend against cyber attacks, and secure digital infrastructure.";
-  }
-  return "Comprehensive guide to mastering the core concepts and practical applications in this field.";
+  return "Comprehensive guide to mastering the core concepts and practical applications in this specialized technical field.";
 };
 
 const getCourseBullets = (course) => {
-  if (course.topic === "Generative AI") {
+  if (course.topic === "AI Fundamentals") {
     return [
-      "Master prompt engineering and fine-tuning techniques",
-      "Build autonomous AI agents and chatbots",
-      "Integrate vector stores like Pinecone and Chroma"
+      "Master Python for automation and data orchestration",
+      "Build and fine-tune Large Language Models (LLMs)",
+      "Design complex neural network architectures"
     ];
   }
-  if (course.topic === "AI & Machine Learning") {
+  if (course.topic === "Cybersecurity") {
     return [
-      "Build and train deep neural networks with PyTorch",
-      "Deploy models to production using MLOps best practices",
-      "Implement computer vision and NLP pipelines"
+      "Perform professional-grade penetration testing",
+      "Master network defense and SOC incident response",
+      "Conduct comprehensive cybersecurity audits"
     ];
   }
-  if (course.topic === "Data Science & Business Analytics") {
+  if (course.topic === "Integrated AI-Security") {
     return [
-      "Clean and analyze large datasets using Python & SQL",
-      "Create interactive dashboards with Tableau & Power BI",
-      "Build predictive models for business forecasting"
+      "Build AI-based anomaly detection systems",
+      "Defend against deepfakes and AI-powered exploits",
+      "Automate threat intelligence pipelines using ML"
     ];
   }
-  if (course.topic === "Project Management") {
+  if (course.topic === "Professional Tracks") {
     return [
-      "Prepare for PMP and Scrum Master certifications",
-      "Master Agile methodologies and JIRA workflows",
-      "Manage project risks, budgets, and timelines effectively"
-    ];
-  }
-  if (course.topic === "Cyber Security") {
-    return [
-      "Perform penetration testing and vulnerability assessments",
-      "Secure cloud environments and network architectures",
-      "Understand threat hunting and incident response"
+      "Gain real project exposure through structured internships",
+      "Prepare for high-end industry placements with mentorship",
+      "Build a professional portfolio with verifiable case studies"
     ];
   }
   return [

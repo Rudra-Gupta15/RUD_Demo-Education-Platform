@@ -9,7 +9,7 @@ const demoBlogs = [
     category: "Cybersecurity",
     read_time: "5 min",
     slug: "prompt-injection-security",
-    author: "Kabir Sen",
+    author: "Nikky Bisen",
     created_at: "2026-04-15T12:00:00Z",
     image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&h=600&q=80",
     content: `Prompt injection is quickly becoming the number one vulnerability in applications built on Large Language Models (LLMs). As AI integrations deepen, attackers are finding ways to sneak malicious instructions into data that the model processes.
@@ -41,7 +41,7 @@ However, we are not replacing human developers yet. The true power lies in human
     category: "Tech",
     read_time: "6 min",
     slug: "essential-mlops-tools",
-    author: "Mira Shah",
+    author: "Rudra Gupta",
     created_at: "2026-04-05T12:00:00Z",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&h=600&q=80",
     content: `Deploying machine learning models is easy. Keeping them running reliably at scale is the hard part. That's where MLOps comes in.
@@ -57,7 +57,7 @@ When designing your ML pipeline, prioritize reproducibility. If you cannot track
     category: "Cybersecurity",
     read_time: "12 min",
     slug: "zero-trust-infrastructure",
-    author: "Kabir Sen",
+    author: "Nikky Bisen",
     created_at: "2026-03-28T12:00:00Z",
     image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&h=600&q=80",
     content: `The perimeter is dead. With distributed teams and cloud workloads, assuming that everything inside the network is safe is a recipe for disaster. Zero Trust operates on a simple principle: never trust, always verify.
@@ -73,7 +73,7 @@ Furthermore, we explore the integration of Istio for Mutual TLS (mTLS) and fine-
     category: "AI",
     read_time: "7 min",
     slug: "vector-databases-guide",
-    author: "Dr. Aris Thorne",
+    author: "Rudra Gupta",
     created_at: "2026-03-15T12:00:00Z",
     image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&h=600&q=80",
     content: `Traditional keyword search is no longer enough. To build applications that understand context and intent, developers are turning to semantic search powered by vector embeddings.

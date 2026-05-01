@@ -74,7 +74,7 @@ const testimonials = [
     initials: "AM"
   },
   {
-    quote: "SynapseLearn helped our team connect AI speed with security discipline.",
+    quote: "ConvoSec Academy helped our team connect AI speed with security discipline.",
     name: "Nadia S.",
     role: "Founder",
     initials: "NS"
@@ -98,33 +98,33 @@ const categories = [
 const programs = [
   {
     id: 1,
-    categories: ["Most Popular", "Project Management", "Agile and Scrum", "Business and Leadership"],
-    title: "PMP® Certification Training",
-    partner: "Project Management Institute",
-    duration: "4 Weeks",
-    cohortStart: "2nd May '26",
-    image: "/program_pmp.png",
-    logo: "PMI"
+    categories: ["Most Popular", "Integrated AI-Security", "Professional Tracks"],
+    title: "Certified AI + Cybersecurity Professional (CACP)",
+    partner: "ConvoSec Academy",
+    duration: "6 Months",
+    cohortStart: "15th May '26",
+    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+    logo: "CSA"
   },
   {
     id: 2,
-    categories: ["Most Popular", "Generative AI", "AI & Machine Learning", "Data Science & Business Analytics", "Software Development"],
-    title: "Professional Certificate Program in Generative AI Machine Learning and...",
-    partner: "Technology Innovation Hub of IIT Delhi",
-    duration: "11 Months",
-    cohortStart: "6th May '26",
-    image: "/program_genai.png",
-    logo: "IITD"
+    categories: ["Most Popular", "Generative AI", "AI Fundamentals"],
+    title: "LLM Engineering & Generative AI Systems Mastery",
+    partner: "ConvoSec Academy",
+    duration: "3 Months",
+    cohortStart: "10th May '26",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+    logo: "CSA"
   },
   {
     id: 3,
-    categories: ["Most Popular", "Cyber Security", "Cloud Computing & DevOps", "Product and Design"],
-    title: "Advanced Executive Program in Cybersecurity",
-    partner: "International Institute of Information Technology Bangalore",
-    duration: "8 Months",
-    cohortStart: "5th May '26",
-    image: "/program_cyber.png",
-    logo: "IIITB"
+    categories: ["Most Popular", "Cybersecurity", "Professional Tracks"],
+    title: "Advanced Ethical Hacking & Digital Defense",
+    partner: "ConvoSec Academy",
+    duration: "4 Months",
+    cohortStart: "20th May '26",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
+    logo: "CSA"
   }
 ];
 
@@ -143,7 +143,7 @@ export default function Learning() {
       ],
       primaryBtn: "Explore Programs",
       primaryUrl: "/courses",
-      secondaryBtn: "Try SynapseLearn for Business",
+      secondaryBtn: "Try ConvoSec for Business",
       secondaryUrl: "/contact",
       image: "/hero1.png"
     },
@@ -170,7 +170,7 @@ export default function Learning() {
   }, [slides.length]);
 
   return (
-    <div className="pt-32">
+    <div className="pt-16">
       {/* ── Top Bar with "More Courses" Button ── */}
       <div className="container-shell flex justify-end mb-4">
         <button 
@@ -232,7 +232,7 @@ export default function Learning() {
                 <div className="relative h-[400px] w-full sm:h-[500px] overflow-hidden rounded-2xl bg-slate-50 border border-slate-100 shadow-soft">
                   <img 
                     src={slides[currentSlide].image} 
-                    alt="SynapseLearn Learner" 
+                    alt="ConvoSec Learner" 
                     className="h-full w-full object-cover object-center"
                   />
                 </div>

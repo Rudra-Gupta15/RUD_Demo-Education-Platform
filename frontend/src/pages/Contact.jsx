@@ -5,7 +5,7 @@ import { api } from "../api/client.js";
 import Reveal from "../components/Reveal.jsx";
 
 const contactInfo = [
-  { icon: Mail, label: "Email", value: "hello@quorion.ai", bg: "bg-indigo-50", color: "text-brandprimary" },
+  { icon: Mail, label: "Email", value: "hello@convosec.ai", bg: "bg-indigo-50", color: "text-brandprimary" },
   { icon: MapPin, label: "Location", value: "Remote-first, worldwide", bg: "bg-cyan-50", color: "text-cyan" },
   { icon: Zap, label: "Response time", value: "Usually within 24 hours", bg: "bg-pink-50", color: "text-plasma" }
 ];
@@ -44,10 +44,10 @@ export default function Contact() {
         <div className="max-w-2xl mb-12">
           <p className="eyebrow">Contact Us</p>
           <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl mt-3 leading-tight">
-            Talk to SynapseLearn about learning paths, cohorts, and team training.
+            Talk to ConvoSec AI about learning paths, projects, and collaboration.
           </h1>
           <p className="mt-5 text-lg leading-8 text-slate-600 font-medium">
-            Whether you're an individual learner, a security team, or an AI builder, we'd love to hear what you're working on.
+            Whether you're a student, a business needing AI solutions, or a college seeking workshops, we're ready to help you build the future.
           </p>
         </div>
       </Reveal>

@@ -4,12 +4,48 @@ import { ArrowRight, Brain, Shield, Lock, Code, GraduationCap } from "lucide-rea
 import { useState, useEffect } from "react";
 
 const CAROUSEL_DATA = [
-  { id: 1, category: "Development", title: "Custom AI Solutions", icon: Brain, color: "#2563eb", img: "/hero_dashboard.png" },
-  { id: 2, category: "Security", title: "Elite Digital Defense", icon: Shield, color: "#ef4444", img: "/hero_cyber.png" },
-  { id: 3, category: "Integrated", title: "AI + Cybersecurity", icon: Lock, color: "#8b5cf6", img: "/hero2.png" },
-  { id: 4, category: "Products", title: "Bespoke Web Products", icon: Code, color: "#06b6d4", img: "/hero_webdev.png" },
-  { id: 5, category: "Education", title: "Corporate Training", icon: GraduationCap, color: "#f59e0b", img: "/program_pmp.png" }
+  { id: 1, category: "Development", title: "Next-Gen AI Solutions", icon: Brain, color: "#2563eb", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80" },
+  { id: 2, category: "Security", title: "Elite Digital Defense", icon: Shield, color: "#ef4444", img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80" },
+  { id: 3, category: "Integrated", title: "AI-Powered Security", icon: Lock, color: "#8b5cf6", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80" },
+  { id: 4, category: "Products", title: "Secure Web Architectures", icon: Code, color: "#06b6d4", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" },
+  { id: 5, category: "Education", title: "Professional Upskilling", icon: GraduationCap, color: "#f59e0b", img: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80" }
 ];
+
+function Typewriter({ words }) {
+  const [index, setIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(0);
+  const [reverse, setReverse] = useState(false);
+  const [speed, setSpeed] = useState(150);
+
+  useEffect(() => {
+    if (subIndex === words[index].length + 1 && !reverse) {
+      setTimeout(() => setReverse(true), 2500);
+      return;
+    }
+
+    if (subIndex === 0 && reverse) {
+      setReverse(false);
+      setIndex((prev) => (prev + 1) % words.length);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setSubIndex((prev) => prev + (reverse ? -1 : 1));
+      // Randomize speed slightly for more dynamic feel
+      setSpeed(reverse ? 50 : 100 + Math.random() * 100);
+    }, speed);
+
+    return () => clearTimeout(timeout);
+  }, [subIndex, index, reverse, words, speed]);
+
+  return (
+    <span className="inline-block text-left">
+      {words[index].substring(0, subIndex)}
+      <span className="inline-block w-1.5 h-[1em] bg-[#3b82f6] ml-1 align-middle animate-pulse"></span>
+    </span>
+  );
+}
+
 
 export default function ModernHero() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -45,14 +81,19 @@ export default function ModernHero() {
             </div>
             
             {/* Heading */}
-            <h1 className="text-5xl lg:text-[4.75rem] font-extrabold leading-[1.05] tracking-tight mb-6 text-[#0f172a]">
+            <h1 className="text-4xl lg:text-[4rem] font-extrabold leading-[1.05] tracking-tight mb-6 text-[#0f172a]">
               We Build AI. <br/>
               We Secure Systems. <br/>
-              <span className="text-[#3b82f6]">We Teach Both.</span>
+              <div className="flex flex-col">
+                <span className="text-[#3b82f6]">We Teach</span>
+                <span className="text-[#3b82f6] min-h-[1.2em]">
+                  <Typewriter words={["AI.", "Cybersecurity.", "Both Mixed."]} />
+                </span>
+              </div>
             </h1>
             
             {/* Subtext */}
-            <p className="text-lg lg:text-xl text-slate-500 font-medium leading-relaxed max-w-lg mb-8">
+            <p className="text-base lg:text-lg text-slate-500 font-medium leading-relaxed max-w-lg mb-8">
               From custom AI development and bespoke web solutions to elite cybersecurity coaching and corporate training programs.
             </p>
 
@@ -60,13 +101,13 @@ export default function ModernHero() {
             <div className="flex flex-wrap gap-4">
               <Link 
                 to="/learning" 
-                className="group flex items-center gap-3 px-8 py-4 bg-[#0f172a] text-white rounded-2xl font-bold text-base transition-all hover:bg-slate-800 hover:shadow-xl hover:shadow-slate-200 active:scale-95"
+                className="group flex items-center gap-3 px-8 py-4 bg-[#0f172a] text-white rounded-2xl font-bold text-sm lg:text-base transition-all hover:bg-slate-800 hover:shadow-xl hover:shadow-slate-200 active:scale-95"
               >
                 Explore Courses <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
               </Link>
               <Link 
                 to="/contact" 
-                className="px-10 py-4 bg-white border border-slate-200 text-[#0f172a] rounded-2xl font-bold text-base hover:bg-slate-50 transition-all active:scale-95 shadow-sm"
+                className="px-10 py-4 bg-white border border-slate-200 text-[#0f172a] rounded-2xl font-bold text-sm lg:text-base hover:bg-slate-50 transition-all active:scale-95 shadow-sm"
               >
                 Hire Us
               </Link>

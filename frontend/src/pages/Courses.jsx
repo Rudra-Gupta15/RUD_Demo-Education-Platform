@@ -2,36 +2,27 @@ import { useState } from "react";
 import { Clock, SlidersHorizontal } from "lucide-react";
 import Reveal from "../components/Reveal.jsx";
 
-const categories = ["All", "Generative AI", "AI & Machine Learning", "Data Science & Business Analytics", "Project Management", "Cyber Security", "Cloud Computing & DevOps"];
+const categories = ["All", "AI Fundamentals", "Cybersecurity", "Integrated AI-Security", "Professional Tracks"];
 
 const allCourses = [
-  // Generative AI
-  { id: 1, category: "Generative AI", title: "Microsoft Applied Agentic AI: Systems Design & Impact", partner: "Microsoft", duration: "10 Weeks", badge: "Trending Now", logo: "Ⓜ️" },
-  { id: 2, category: "Generative AI", title: "Microsoft Applied Generative AI Specialization", partner: "Microsoft", duration: "16 Weeks", badge: "Most Popular", logo: "Ⓜ️" },
-  { id: 3, category: "Generative AI", title: "Advanced Executive Program In Applied Generative AI", partner: "IIT Pravartak", duration: "4 Months", badge: "Most Popular", logo: "🎓" },
-  { id: 4, category: "Generative AI", title: "Michigan Engineering Applied Generative AI Specialization", partner: "Michigan Engineering", duration: "16 Weeks", badge: "New Launch", logo: "〽️" },
-  { id: 5, category: "Generative AI", title: "Michigan Engineering Generative AI Applications for Leaders", partner: "Michigan Engineering", duration: "12 Weeks", badge: "", logo: "〽️" },
-  { id: 6, category: "Generative AI", title: "Professional Certificate Course in Generative AI and Machine Learning", partner: "IIT Kanpur", duration: "11 Months", badge: "Trending Now", logo: "🎓" },
-  { id: 7, category: "Generative AI", title: "Oxford Programme in Organising for AI", partner: "Oxford University", duration: "12 Weeks", badge: "New Launch", logo: "🏰" },
+  // AI Fundamentals
+  { id: 1, category: "AI Fundamentals", title: "Python for Artificial Intelligence & Data Science", partner: "ConvoSec Academy", duration: "8 Weeks", badge: "Core", logo: "🐍" },
+  { id: 2, category: "AI Fundamentals", title: "Deep Learning & Neural Network Architectures", partner: "ConvoSec Academy", duration: "12 Weeks", badge: "Trending Now", logo: "🧠" },
+  { id: 3, category: "AI Fundamentals", title: "LLM Engineering & Generative AI Systems", partner: "ConvoSec Academy", duration: "10 Weeks", badge: "Most Popular", logo: "✨" },
   
-  // AI & Machine Learning
-  { id: 8, category: "AI & Machine Learning", title: "Professional Certificate in Machine Learning and Deep Learning", partner: "IIT Kanpur", duration: "11 Months", badge: "Bestseller", logo: "🎓" },
-  { id: 9, category: "AI & Machine Learning", title: "Machine Learning Engineering for Production (MLOps)", partner: "Google AI", duration: "12 Weeks", badge: "Trending Now", logo: "🇬" },
-  { id: 10, category: "AI & Machine Learning", title: "Computer Vision and NLP with PyTorch", partner: "Daniel Bourke", duration: "6 Months", badge: "Premium", logo: "👁️" },
-  { id: 11, category: "AI & Machine Learning", title: "TensorFlow Developer Certificate Bootcamp", partner: "Andrei Neagoie", duration: "8 Weeks", badge: "Bestseller", logo: "🤖" },
+  // Cybersecurity
+  { id: 4, category: "Cybersecurity", title: "Ethical Hacking & Network Security Essentials", partner: "ConvoSec Academy", duration: "10 Weeks", badge: "Bestseller", logo: "🛡️" },
+  { id: 5, category: "Cybersecurity", title: "SOC Analysis & Incident Response Training", partner: "ConvoSec Academy", duration: "12 Weeks", badge: "New Launch", logo: "👁️" },
+  { id: 6, category: "Cybersecurity", title: "Advanced Penetration Testing & Exploit Development", partner: "ConvoSec Academy", duration: "16 Weeks", badge: "Elite", logo: "💻" },
+  
+  // Integrated AI-Security
+  { id: 7, category: "Integrated AI-Security", title: "AI-Powered Threat Intelligence & Anomaly Detection", partner: "ConvoSec Academy", duration: "14 Weeks", badge: "Unique", logo: "🚀" },
+  { id: 8, category: "Integrated AI-Security", title: "Building AI-Driven Vulnerability Scanners", partner: "ConvoSec Academy", duration: "12 Weeks", badge: "Hands-on", logo: "🔍" },
+  { id: 9, category: "Integrated AI-Security", title: "Defending Against AI-Powered Cyber Attacks", partner: "ConvoSec Academy", duration: "10 Weeks", badge: "Frontier", logo: "⚔️" },
 
-  // Data Science
-  { id: 12, category: "Data Science & Business Analytics", title: "Data Science Professional Certificate", partner: "IBM", duration: "10 Months", badge: "Trending Now", logo: "ℹ️" },
-  { id: 13, category: "Data Science & Business Analytics", title: "Business Analytics Specialization", partner: "Wharton", duration: "16 Weeks", badge: "Most Popular", logo: "🇼" },
-
-  // Project Management
-  { id: 14, category: "Project Management", title: "PMP Certification Training Course", partner: "PMI", duration: "8 Weeks", badge: "Bestseller", logo: "📋" },
-  { id: 15, category: "Project Management", title: "Agile and Scrum Master Specialization", partner: "Scrum.org", duration: "6 Weeks", badge: "Trending", logo: "🔄" },
-
-  // Cyber Security
-  { id: 16, category: "Cyber Security", title: "Advanced Executive Program in Cybersecurity", partner: "IIT Bangalore", duration: "6 Months", badge: "Most Popular", logo: "🎓" },
-  { id: 17, category: "Cyber Security", title: "CompTIA Security+ Complete Boot Camp", partner: "CompTIA", duration: "5 Weeks", badge: "Bestseller", logo: "🛡️" },
-  { id: 18, category: "Cyber Security", title: "Certified Ethical Hacker (CEH) Masterclass", partner: "EC-Council", duration: "12 Weeks", badge: "Trending Now", logo: "💻" }
+  // Professional Tracks
+  { id: 10, category: "Professional Tracks", title: "Certified AI + Cybersecurity Professional (CACP)", partner: "ConvoSec AI", duration: "6 Months", badge: "Full Career", logo: "🎓" },
+  { id: 11, category: "Professional Tracks", title: "Corporate Digital Defense Bootcamp", partner: "ConvoSec AI", duration: "4 Weeks", badge: "Corporate", logo: "🏢" }
 ];
 
 export default function Courses() {

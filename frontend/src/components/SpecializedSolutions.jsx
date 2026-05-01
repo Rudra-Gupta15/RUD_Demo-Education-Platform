@@ -5,54 +5,54 @@ import { ChevronLeft, ChevronRight, CheckCircle2, Brain, Shield, Code, Graduatio
 const SPECIALIZATIONS = [
   {
     id: 1,
-    title: "AI Development",
-    icon: Brain,
+    title: "Coaching & Education",
+    icon: GraduationCap,
     color: "blue",
-    img: "/hero_dashboard.png",
+    img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
     points: [
-      "Generative AI Integration",
-      "Predictive Analytics Models",
-      "Neural Network Architecture",
-      "Natural Language Processing"
+      "AI/ML Fundamentals (Python, LLMs)",
+      "Cybersecurity (Hacking, SOC Analysis)",
+      "Integrated AI-Security Curriculum",
+      "Live Mentorship & Certification"
     ]
   },
   {
     id: 2,
-    title: "Cyber Security",
-    icon: Shield,
-    color: "red",
-    img: "/hero_cyber.png",
+    title: "Project Development",
+    icon: Brain,
+    color: "indigo",
+    img: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80",
     points: [
-      "Zero-Trust Infrastructure",
-      "Penetration Testing",
-      "Threat Intelligence",
-      "Digital Forensic Analysis"
+      "Bespoke AI Solutions for Business",
+      "SIEM Dashboards & Threat Intel",
+      "Automated Pipeline Development",
+      "Research-Level IEEE Projects"
     ]
   },
   {
     id: 3,
-    title: "Web Solutions",
+    title: "Corporate Collaboration",
     icon: Code,
-    color: "indigo",
-    img: "/hero_webdev.png",
+    color: "slate",
+    img: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
     points: [
-      "High-Performance PWAs",
-      "Cloud-Native Architecture",
-      "API-First Development",
-      "Enterprise CMS Integration"
+      "Outsourced Tech Development",
+      "Cybersecurity Audits & Consultancy",
+      "Staff Training & Upskilling",
+      "Joint R&D & Proofs of Concept"
     ]
   },
   {
     id: 4,
-    title: "Expert Training",
-    icon: GraduationCap,
+    title: "Internships & Placement",
+    icon: Shield,
     color: "emerald",
-    img: "/program_pmp.png",
+    img: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80",
     points: [
-      "Executive AI Briefings",
-      "Hands-on Hacking Labs",
-      "Corporate Tech Upskilling",
-      "DevOps & Cloud Mastery"
+      "Structured Project-Based Exposure",
+      "Resume & Interview Preparation",
+      "Direct Hiring Partner Network",
+      "Placement Readiness Programs"
     ]
   }
 ];
