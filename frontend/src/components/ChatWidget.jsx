@@ -53,7 +53,7 @@ export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([
-    { role: "assistant", content: "Hi! I'm your RUD AI assistant. How can I help you secure your systems or build your AI projects today?" }
+    { role: "assistant", content: "Hi! I'm your ConvoSec AI assistant. How can I help you secure your systems or build your AI projects today?" }
   ]);
   const [loading, setLoading] = useState(false);
   const chatEndRef = useRef(null);
@@ -127,7 +127,7 @@ export default function ChatWidget() {
                   <Bot size={24} className="text-white animate-pulse" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-sm">RUD AI Support Bot</h4>
+                  <h4 className="font-bold text-sm">ConvoSec AI Support Bot</h4>
                   <span className="text-xs text-indigo-100">Online & Ready</span>
                 </div>
               </div>

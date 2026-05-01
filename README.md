@@ -1,6 +1,6 @@
-# RUD-Demo Education Platform
+# ConvoSec AI Education Platform
 
-A full-stack, production-ready EdTech platform for AI and cybersecurity education. Features a polished dark-theme Vite/React frontend with Tailwind CSS, Framer Motion animations, and an Express/SQLite backend with JWT authentication, full CRUD REST APIs, and seeded demo content.
+A full-stack, production-ready EdTech platform for AI and cybersecurity education. Features a polished dark-theme Vite/React frontend with Tailwind CSS, Framer Motion animations, and an Express/SQLite backend with JWT authentication and full CRUD REST APIs.
 
 ---
 
@@ -12,8 +12,8 @@ A full-stack, production-ready EdTech platform for AI and cybersecurity educatio
 | **Courses** | AI & Cybersecurity categories, difficulty filters, detail pages with numbered syllabus |
 | **Online Learning** | Live + recorded sessions, animated progress bars, personalized dashboard |
 | **Blog / Articles** | Category filters, paragraph-formatted article pages with author meta |
-| **Projects Showcase** | Tech stack badges, expanding gradient hover, demo links |
-| **About** | Team cards with avatar initials, mission stats, value cards |
+| **Projects Showcase** | Real-world builds like the AI-driven Financial Suggestions Application |
+| **About** | Immersive hero section, team cards, mission stats, value cards |
 | **Contact** | Info panel + form that saves to SQLite via REST API |
 | **Auth** | JWT signup/login, token persisted to localStorage, navbar logout |
 | **404** | Animated space-themed error page with glitch effect |
@@ -46,7 +46,7 @@ A full-stack, production-ready EdTech platform for AI and cybersecurity educatio
 ### 1. Install Dependencies
 
 ```bash
-cd c:\Study\Projects\SynapseLearn
+cd "c:\Study\Projects\RUD-Demo Education Platform"
 npm run install:all
 ```
 
@@ -72,7 +72,7 @@ npm run dev
 - **Backend API**: http://localhost:5000
 - **Health check**: http://localhost:5000/health
 
-The backend auto-creates `backend/data/quorion.sqlite` and seeds demo courses, blogs, projects, and learning sessions on first run.
+The backend auto-creates `backend/data/convosec.sqlite` and seeds demo courses, blogs, projects, and learning sessions on first run.
 
 ---
 
@@ -120,7 +120,7 @@ The backend auto-creates `backend/data/quorion.sqlite` and seeds demo courses, b
 PORT=5000
 JWT_SECRET=change-me-to-a-random-32-char-secret
 CLIENT_ORIGIN=http://localhost:5173
-DATABASE_URL=./data/quorion.sqlite
+DATABASE_URL=./data/convosec.sqlite
 NODE_ENV=development
 ```
 
@@ -149,7 +149,7 @@ VITE_API_URL=http://localhost:5000
 ## 🗂️ Folder Structure
 
 ```
-SynapseLearn/
+ConvoSec AI/
 ├── frontend/
 │   ├── src/
 │   │   ├── api/          # Fetch client
@@ -178,10 +178,10 @@ SynapseLearn/
 
 1. User submits signup/login form → `POST /api/auth/signup` or `/login`
 2. Backend hashes password with bcrypt (12 rounds), issues a 7-day JWT
-3. Token stored in `localStorage` as `quorion_token`
+3. Token stored in `localStorage` as `convosec_token`
 4. `AuthContext` re-validates token via `GET /api/auth/me` on page load
 5. Navbar shows user name + logout button when authenticated
 
 ---
 
-*Built with ❤️ by the Rudra Gupta.*
+*Built with ❤️ by Rudra Gupta.*

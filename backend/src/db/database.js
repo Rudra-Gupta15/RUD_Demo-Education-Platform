@@ -117,7 +117,7 @@ async function seedIfEmpty(database) {
         "Evaluation, safety, and observability",
         "Production deployment capstone"
       ],
-      instructor_name: "Dr. Anaya Rao",
+      instructor_name: "Rudra.V Rajpure",
       instructor_bio: "Applied AI researcher focused on reliable agentic systems for enterprise teams.",
       featured: 1
     },

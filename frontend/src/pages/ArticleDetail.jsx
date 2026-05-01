@@ -25,7 +25,7 @@ To secure your applications, developers must treat LLM outputs as untrusted data
     category: "AI",
     read_time: "8 min",
     slug: "autonomous-ai-agents",
-    author: "Dr. Anaya Rao",
+    author: "Rudra.V Rajpure",
     created_at: "2026-04-10T12:00:00Z",
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&h=600&q=80",
     content: `We are moving from AI assistants to autonomous AI agents. Instead of simply generating code snippets, these agents can reason over entire codebases, run test suites, and fix bugs without human intervention.

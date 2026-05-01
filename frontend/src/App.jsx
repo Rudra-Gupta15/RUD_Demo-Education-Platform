@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
+import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import CosmicBackground from "./components/CosmicBackground.jsx";
 import Footer from "./components/Footer.jsx";
@@ -21,6 +22,10 @@ import Catalog from "./pages/Catalog.jsx";
 
 export default function App() {
   const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [location.pathname]);
 
   return (
     <>

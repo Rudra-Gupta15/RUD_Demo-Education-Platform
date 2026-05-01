@@ -201,12 +201,12 @@ export default function Home() {
           <div className="flex-1 z-10">
             <Reveal>
               <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight">
-                Why Choose <span className="text-blue-600">RUD?</span>
+                Why Choose <span className="text-blue-600">ConvoSec AI?</span>
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="text-slate-600 mb-10 leading-relaxed text-lg font-medium">
-                We don't just teach technology; we build it. RUD offers a unique synergy 
+                We don't just teach technology; we build it. ConvoSec AI offers a unique synergy 
                 where professional project development meets elite-level education. 
                 Our dual-focus approach ensures that our students learn from active 
                 practitioners, and our clients receive solutions built with the latest 

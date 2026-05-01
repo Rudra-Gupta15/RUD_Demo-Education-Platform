@@ -38,8 +38,8 @@ export default function Auth() {
               <ShieldCheck size={18} />
             </div>
             <div className="flex flex-col">
-              <span className="text-base font-black text-black leading-none">RUD</span>
-              <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest">AI & Cyber Platform</span>
+              <span className="text-base font-black text-black leading-none">ConvoSec AI</span>
+              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">AI & Cyber Platform</span>
             </div>
           </Link>
 
@@ -47,7 +47,7 @@ export default function Auth() {
             <h1 className="text-2xl font-black text-slate-900 leading-tight">
               {mode === "login" ? "Welcome back!" : "Start your journey."}
             </h1>
-            <p className="mt-1 text-slate-500 text-xs font-medium">
+            <p className="mt-1 text-slate-500 text-sm font-medium">
               {mode === "login" ? "Log in with your email" : "Create an account to get started"}
             </p>
           </Reveal>
@@ -55,9 +55,9 @@ export default function Auth() {
           <form className="mt-6 space-y-3.5" onSubmit={handleSubmit}>
             {mode === "signup" && (
               <div className="space-y-1">
-                <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
+                <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
                 <input 
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-xs font-bold text-slate-800 outline-none focus:bg-white focus:border-black transition-all" 
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm font-bold text-slate-800 outline-none focus:bg-white focus:border-black transition-all" 
                   placeholder="John Doe" 
                   value={form.name} 
                   onChange={(e) => setForm({ ...form, name: e.target.value })} 
@@ -66,10 +66,10 @@ export default function Auth() {
               </div>
             )}
             <div className="space-y-1">
-              <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 ml-1">Email Address</label>
+              <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 ml-1">Email Address</label>
               <input 
                 type="email" 
-                className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-xs font-bold text-slate-800 outline-none focus:bg-white focus:border-black transition-all" 
+                className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm font-bold text-slate-800 outline-none focus:bg-white focus:border-black transition-all" 
                 placeholder="rudra@example.com" 
                 value={form.email} 
                 onChange={(e) => setForm({ ...form, email: e.target.value })} 
@@ -78,12 +78,12 @@ export default function Auth() {
             </div>
             <div className="space-y-1">
               <div className="flex justify-between items-center px-1">
-                <label className="text-[9px] font-black uppercase tracking-widest text-slate-400">Password</label>
-                <button type="button" className="text-[9px] font-black uppercase tracking-widest text-blue-600 hover:underline">Forgot?</button>
+                <label className="text-[11px] font-black uppercase tracking-widest text-slate-400">Password</label>
+                <button type="button" className="text-[11px] font-black uppercase tracking-widest text-blue-600 hover:underline">Forgot?</button>
               </div>
               <input 
                 type="password" 
-                className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-xs font-bold text-slate-800 outline-none focus:bg-white focus:border-black transition-all" 
+                className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm font-bold text-slate-800 outline-none focus:bg-white focus:border-black transition-all" 
                 placeholder="••••••••" 
                 value={form.password} 
                 onChange={(e) => setForm({ ...form, password: e.target.value })} 
@@ -93,14 +93,14 @@ export default function Auth() {
 
             <div className="flex items-center gap-2 px-1">
               <input type="checkbox" id="remember" className="w-3.5 h-3.5 rounded border-slate-300 text-black focus:ring-black" />
-              <label htmlFor="remember" className="text-[10px] font-bold text-slate-500">Remember Me</label>
+              <label htmlFor="remember" className="text-xs font-bold text-slate-500">Remember Me</label>
             </div>
 
-            {error && <p className="rounded-xl bg-rose-50 border border-rose-100 p-3 text-[10px] font-bold text-rose-600">{error}</p>}
+            {error && <p className="rounded-xl bg-rose-50 border border-rose-100 p-3 text-xs font-bold text-rose-600">{error}</p>}
 
             <button 
               type="submit" 
-              className="w-full rounded-xl bg-[#3b82f6] hover:bg-blue-600 py-3.5 text-xs font-black text-white shadow-lg transition-all active:scale-95 disabled:opacity-50"
+              className="w-full rounded-xl bg-[#3b82f6] hover:bg-blue-600 py-3.5 text-sm font-black text-white shadow-lg transition-all active:scale-95 disabled:opacity-50"
               disabled={loading}
             >
               {loading ? "Processing..." : mode === "login" ? "Login" : "Create Account"}
@@ -110,21 +110,21 @@ export default function Auth() {
           {/* Social Logins */}
           <div className="mt-6 relative">
             <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-100"></div></div>
-            <div className="relative flex justify-center text-[9px] font-black uppercase tracking-widest"><span className="bg-white px-3 text-slate-400">Or continue with</span></div>
+            <div className="relative flex justify-center text-[10px] font-black uppercase tracking-widest"><span className="bg-white px-3 text-slate-400">Or continue with</span></div>
           </div>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <button className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 py-2.5 text-[10px] font-bold text-slate-700 hover:bg-slate-50 transition-all">
+            <button className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition-all">
               <svg className="w-3.5 h-3.5" viewBox="0 0 24 24"><path fill="#EA4335" d="M12.48 10.92v3.28h7.84c-.24 1.84-.9 3.33-2.03 4.44-1.33 1.33-3.38 2.78-6.94 2.78-5.48 0-9.67-4.43-9.67-9.92 0-5.49 4.19-9.92 9.67-9.92 3.1 0 5.41 1.23 7.08 2.85l2.32-2.32c-2.33-2.22-5.45-3.53-9.4-3.53-7.66 0-14 6.34-14 14s6.34 14 14 14c4.13 0 7.28-1.36 9.7-3.9 2.52-2.52 3.32-6.07 3.32-8.68 0-.64-.05-1.25-.15-1.84h-12.87z"/></svg>
               Google
             </button>
-            <button className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 py-2.5 text-[10px] font-bold text-slate-700 hover:bg-slate-50 transition-all">
+            <button className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition-all">
               <svg className="w-3.5 h-3.5" viewBox="0 0 24 24"><path fill="#0A66C2" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
               LinkedIn
             </button>
           </div>
 
-          <p className="mt-6 text-center text-[10px] font-bold text-slate-500">
+          <p className="mt-6 text-center text-xs font-bold text-slate-500">
             {mode === "login" ? "Don't have an account?" : "Already have an account?"}{" "}
             <button 
               onClick={() => setMode(mode === "login" ? "signup" : "login")}
@@ -134,8 +134,8 @@ export default function Auth() {
             </button>
           </p>
 
-          <p className="mt-8 text-center text-[9px] font-bold text-slate-400">
-            © 2009-2026 RUD Solutions. All Rights Reserved. | <Link to="/privacy" className="hover:text-slate-600">Privacy Policy</Link>
+          <p className="mt-8 text-center text-[10px] font-bold text-slate-400">
+            © 2009-2026 ConvoSec AI Solutions. All Rights Reserved. | <Link to="/privacy" className="hover:text-slate-600">Privacy Policy</Link>
           </p>
         </div>
       </div>

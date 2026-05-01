@@ -3,7 +3,7 @@ import { Linkedin, Mail, MapPin, Instagram, Twitter } from "lucide-react";
 
 const footerData = {
   contact: [
-    { icon: Mail, text: "hello@rud.ai", href: "mailto:hello@rud.ai" },
+    { icon: Mail, text: "rudraconvosecai@gmail.com", href: "mailto:rudraconvosecai@gmail.com" },
     { icon: MapPin, text: "Remote-first, Worldwide" },
     { icon: MapPin, text: "AI & Cybersecurity Hub" },
   ],
@@ -17,7 +17,7 @@ const footerData = {
     "E-commerce", "SaaS Enterprises", "Critical Infrastructure"
   ],
   products: [
-    "RUD Learning Lab", "Cyber Shield Pro", "AI Agent Suite", 
+    "ConvoSec Learning Lab", "Cyber Shield Pro", "AI Agent Suite", 
     "Security Sandbox", "Zero-Trust Mesh", "Threat Detector"
   ]
 };
@@ -128,7 +128,7 @@ export default function Footer() {
           </div>
           
           <p className="text-sm text-white/70 font-medium">
-            © {new Date().getFullYear()} RUD PLATFORM. All Rights Reserved.
+            © {new Date().getFullYear()} CONVOSEC AI PLATFORM. All Rights Reserved.
           </p>
 
           <div className="flex gap-6 text-xs font-medium text-white/70">

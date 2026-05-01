@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Brain, Compass, ShieldCheck, Users, Sparkles, Target, Linkedin, Twitter, ArrowRight } from "lucide-react";
+import { Brain, Compass, ShieldCheck, Users, Sparkles, Target, Linkedin, Mail, ArrowRight } from "lucide-react";
 import Reveal from "../components/Reveal.jsx";
 
 const infoPoints = [
-  "RUD is an AI-first education platform focusing on frontier security.",
+  "ConvoSec AI is an AI-first education platform focusing on frontier security.",
   "Our curriculum is built by industry leaders from top tech firms.",
   "We emphasize hands-on projects and real-world portfolio building.",
   "Global community of 12,000+ active technical learners.",
@@ -37,28 +37,28 @@ const values = [
 
 const team = [
   {
-    name: "Dr. Anaya Rao",
-    role: "AI Curriculum Lead",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&h=400&q=80",
-    bio: "Applied AI researcher focused on reliable agentic systems and production LLM workflows.",
-    linkedin: "#",
-    twitter: "#"
+    name: "Rudra.V Rajpure",
+    role: "CEO",
+    image: "/rudra_ceo.png",
+    bio: "Visionary leader driving the mission to bridge the gap between AI innovation and battle-tested cybersecurity.",
+    linkedin: "https://www.linkedin.com/in/rudra-rajgure-/",
+    email: "rudraconvosecai@gmail.com"
   },
   {
-    name: "Kabir Sen",
-    role: "Cybersecurity Director",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&h=400&q=80",
-    bio: "Security engineer and red-team mentor with SOC and consulting experience.",
-    linkedin: "#",
-    twitter: "#"
+    name: "Nikky Bisen",
+    role: "AIML Developer",
+    image: "/Nikky.jpg",
+    bio: "Passionate AI/ML engineer specializing in building intelligent systems and scalable neural architectures.",
+    linkedin: "https://www.linkedin.com/in/nikky-bisen-4a609115a/",
+    email: "nikky@convosec.ai"
   },
   {
-    name: "Mira Shah",
-    role: "Learning Experience",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&h=400&q=80",
-    bio: "ML engineer who helps learners turn mathematical ideas into useful products.",
-    linkedin: "#",
-    twitter: "#"
+    name: "Rudra Gupta",
+    role: "FULL STACK & Extension DEVELOPER",
+    image: "/Rudra.png",
+    bio: "Frontend engineer and AI/ML intern with a knack for building Chrome Extensions. Focused on practical, user-facing tools.",
+    linkedin: "https://www.linkedin.com/in/rudra-kumar-gupta/",
+    email: "rudra.gupta@convosec.ai"
   },
   {
     name: "Nolan Mehta",
@@ -66,7 +66,7 @@ const team = [
     image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&h=400&q=80",
     bio: "Blue-team lead specializing in enterprise detection and student portfolio reviews.",
     linkedin: "#",
-    twitter: "#"
+    email: "nolan@convosec.ai"
   }
 ];
 
@@ -81,21 +81,21 @@ export default function About() {
   }, []);
 
   return (
-    <section className="container-shell min-h-screen pt-32 pb-16">
+    <section className="container-shell min-h-screen pt-40 pb-16">
       {/* Hero Section */}
-      <div className="grid gap-12 lg:grid-cols-2 items-center mb-20">
+      <div className="grid gap-16 lg:grid-cols-2 items-center mb-32 min-h-[70vh]">
         <Reveal>
-          <p className="eyebrow">About RUD</p>
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl mt-3 leading-tight">
+          <p className="eyebrow">About ConvoSec AI</p>
+          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl mt-4 leading-tight">
             Preparing technical learners for an AI-shaped, security-critical future.
           </h1>
-          <p className="mt-5 text-lg leading-8 text-slate-600 font-medium">
-            RUD exists because AI and cybersecurity are no longer separate career lanes. We teach builders how to ship intelligent systems and teach defenders how to understand the automation changing their work.
+          <p className="mt-7 text-lg leading-8 text-slate-600 font-medium">
+            ConvoSec AI exists because AI and cybersecurity are no longer separate career lanes. We teach builders how to ship intelligent systems and teach defenders how to understand the automation changing their work.
           </p>
-          
-          <div className="mt-8 grid grid-cols-2 gap-4 max-w-sm">
+
+          <div className="mt-12 grid grid-cols-2 gap-6 max-w-sm">
             {[["12k+", "Learners trained"], ["96%", "Completion rate"]].map(([val, lbl]) => (
-              <div key={lbl} className="rounded-xl border border-slate-100 bg-white p-5 text-center shadow-soft">
+              <div key={lbl} className="rounded-2xl border border-slate-100 bg-white p-6 text-center shadow-soft">
                 <p className="text-3xl font-extrabold text-brandprimary">{val}</p>
                 <p className="mt-1 text-xs text-slate-500 font-bold uppercase tracking-wider">{lbl}</p>
               </div>
@@ -104,11 +104,11 @@ export default function About() {
         </Reveal>
 
         <Reveal delay={0.2}>
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] group">
-            <img 
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" 
-              alt="Team collaborating at RUD"
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          <div className="relative rounded-[36px] overflow-hidden shadow-2xl aspect-[4/3] group">
+            <img
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
+              alt="Team collaborating at ConvoSec AI"
+              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />
           </div>
@@ -130,14 +130,14 @@ export default function About() {
               <div className="relative group">
                 {/* Outer Glow */}
                 <div className="absolute inset-[-15px] bg-brandprimary/5 rounded-full blur-[50px] group-hover:bg-brandprimary/20 transition-all duration-1000" />
-                
+
                 <div className="relative w-80 h-80 xl:w-[400px] xl:h-[400px] rounded-full border-[10px] border-white shadow-2xl overflow-hidden ring-1 ring-slate-100/50">
-                  <video 
-                    src="/Brain.mp4" 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline 
+                  <video
+                    src="/Brain.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     className="w-full h-full object-cover scale-110 grayscale brightness-110 group-hover:grayscale-0 transition-all duration-1000"
                   />
                 </div>
@@ -156,20 +156,20 @@ export default function About() {
                   const isMain = offset === 1;
                   // Tighter semicircle offset
                   const xOffset = offset === 1 ? 64 : 36;
-                  
+
                   return (
                     <motion.div
                       key={`${idx}-${offset}`}
                       initial={{ opacity: 0, y: 50, x: 20 }}
-                      animate={{ 
-                        opacity: isMain ? 1 : 0.35, 
+                      animate={{
+                        opacity: isMain ? 1 : 0.35,
                         y: (offset - 1) * 110, // More open vertical spacing
                         x: xOffset,
                         scale: isMain ? 1.15 : 0.85,
                         filter: isMain ? "blur(0px)" : "blur(2px)"
                       }}
                       exit={{ opacity: 0, y: -50, x: 20 }}
-                      transition={{ 
+                      transition={{
                         duration: 1.2,
                         ease: [0.22, 1, 0.36, 1] // Custom 'Quint' ease for silky motion
                       }}
@@ -188,13 +188,13 @@ export default function About() {
             <div className="absolute bottom-0 left-10 flex items-center gap-4 text-slate-300">
               <div className="flex gap-2">
                 {infoPoints.map((_, i) => (
-                  <motion.div 
-                    key={i} 
-                    animate={{ 
+                  <motion.div
+                    key={i}
+                    animate={{
                       width: i === currentIndex ? 24 : 6,
                       backgroundColor: i === currentIndex ? "#4f46e5" : "#f1f5f9"
                     }}
-                    className="h-1.5 rounded-full" 
+                    className="h-1.5 rounded-full"
                   />
                 ))}
               </div>
@@ -234,32 +234,32 @@ export default function About() {
       </Reveal>
 
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        {team.map(({ name, role, image, bio, linkedin, twitter }, index) => (
+        {team.map(({ name, role, image, bio, linkedin, email }, index) => (
           <Reveal key={name} delay={index * 0.05}>
             <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-soft h-full flex flex-col items-center text-center group transition-all duration-300 hover:shadow-md hover:-translate-y-1">
               {/* Photo */}
-              <div className="w-24 h-24 rounded-full overflow-hidden mb-6 bg-slate-100 border-2 border-indigo-50 shadow-sm">
-                <img 
-                  src={image} 
-                  alt={name} 
+              <div className="w-40 h-40 rounded-full overflow-hidden mb-6 bg-slate-100 border-2 border-indigo-50 shadow-md">
+                <img
+                  src={image}
+                  alt={name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
 
               <h3 className="font-extrabold text-slate-900 text-lg">{name}</h3>
               <p className="text-brandprimary font-bold text-xs uppercase tracking-wider mt-1">{role}</p>
-              
+
               <p className="mt-4 text-slate-500 text-sm font-medium leading-relaxed mb-6">
                 {bio}
               </p>
 
               {/* Social Links */}
               <div className="flex gap-4 mt-auto">
-                <a href={linkedin} className="text-slate-400 hover:text-brandprimary transition-colors">
+                <a href={linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-brandprimary transition-colors">
                   <Linkedin size={18} />
                 </a>
-                <a href={twitter} className="text-slate-400 hover:text-cyan transition-colors">
-                  <Twitter size={18} />
+                <a href={`mailto:${email}`} className="text-slate-400 hover:text-brandprimary transition-colors">
+                  <Mail size={18} />
                 </a>
               </div>
             </div>

@@ -4,51 +4,12 @@ import Reveal from "../components/Reveal.jsx";
 const demoProjects = [
   {
     id: 1,
-    title: "AI-Powered Threat Detection",
-    description: "An advanced machine learning model trained to detect zero-day vulnerabilities and network anomalies in real-time.",
-    tech_stack: ["Python", "TensorFlow", "Scikit-Learn", "AWS"],
-    demo_link: "#",
-    image: "/program_cyber.png"
-  },
-  {
-    id: 2,
-    title: "Zero Trust Network Architecture",
-    description: "A secure access framework implementing identity-based authentication, microsegmentation, and continuous monitoring.",
-    tech_stack: ["Go", "Kubernetes", "Istio", "HashiCorp Vault"],
-    demo_link: "#",
-    image: "/program_cyber.png"
-  },
-  {
-    id: 3,
-    title: "RUD Autonomous Agent",
-    description: "An AI agent capable of writing, testing, and deploying secure code based on natural language requirements.",
-    tech_stack: ["React", "Node.js", "OpenAI API", "PostgreSQL"],
-    demo_link: "#",
-    image: "/program_genai.png"
-  },
-  {
-    id: 4,
-    title: "Financial Fraud Analytics Suite",
-    description: "Real-time transaction analysis pipeline that flags suspicious patterns and prevents fraudulent charges.",
-    tech_stack: ["Python", "Apache Spark", "Kafka", "MongoDB"],
-    demo_link: "#",
-    image: "/program_pmp.png"
-  },
-  {
-    id: 5,
-    title: "Next-Gen SIEM Dashboard",
-    description: "A centralized security operations center interface providing actionable insights from distributed logs.",
-    tech_stack: ["Vue.js", "Elasticsearch", "Logstash", "Kibana"],
-    demo_link: "#",
-    image: "/program_cyber.png"
-  },
-  {
-    id: 6,
-    title: "Predictive Health Analytics",
-    description: "Machine learning models predicting patient outcomes and optimizing resource allocation for hospitals.",
-    tech_stack: ["R", "Python", "Docker", "GCP"],
-    demo_link: "#",
-    image: "/program_genai.png"
+    title: "Financial Suggestions Application",
+    description: "A comprehensive AI-driven advisory platform providing personalized financial recommendations using Google Gemini and real-time market data across stocks, crypto, and more.",
+    tech_stack: ["Python", "Flask", "Google Gemini", "yfinance", "SQLite", "TailwindCSS"],
+    demo_link: "https://github.com/Nikky-05/Financial_Suggestions_Application_main",
+    image: "/financial_advisor_app.png",
+    author: "Nikky Bisen"
   }
 ];
 
@@ -58,7 +19,7 @@ export default function Projects() {
       <Reveal>
         <p className="eyebrow">Projects</p>
         <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl mt-3">
-          Real-world builds from the RUD studio.
+          Real-world builds from the ConvoSec AI studio.
         </h1>
         <p className="text-slate-500 mt-4 max-w-2xl font-medium">
           Every project here started as a course capstone and became a showcase of what AI and cybersecurity skills look like in practice.
@@ -95,21 +56,30 @@ export default function Projects() {
                   {project.tech_stack.map((tech) => (
                     <span
                       key={tech}
-                      className="text-xs font-bold px-2.5 py-1 bg-slate-50 border border-slate-100 text-slate-600 rounded-md"
+                      className="text-[10px] font-bold px-2.5 py-1 bg-slate-50 border border-slate-100 text-slate-600 rounded-md"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                {/* Demo Link */}
-                <a
-                  href={project.demo_link}
-                  className="inline-flex items-center gap-2 text-sm font-extrabold text-brandprimary group/link hover:text-indigo-700 transition-colors"
-                >
-                  View Live Demo 
-                  <ExternalLink size={16} className="transition-transform group-hover/link:translate-x-1" />
-                </a>
+                {/* Links & Attribution */}
+                <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-50">
+                  <a
+                    href={project.demo_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-extrabold text-brandprimary group/link hover:text-indigo-700 transition-colors"
+                  >
+                    GitHub 
+                    <ExternalLink size={16} className="transition-transform group-hover/link:translate-x-1" />
+                  </a>
+                  
+                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest text-right">
+                    Made by <br />
+                    <span className="text-slate-900">{project.author}</span>
+                  </p>
+                </div>
               </div>
             </div>
           </Reveal>

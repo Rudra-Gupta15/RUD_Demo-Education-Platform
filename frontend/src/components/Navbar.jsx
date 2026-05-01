@@ -60,7 +60,7 @@ export default function Navbar() {
             <ShieldCheck size={22} className="fill-white/10" />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-[900] text-black leading-none tracking-tight">RUD</span>
+            <span className="text-sm font-[900] text-black leading-none tracking-tight">ConvoSec AI</span>
             <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest mt-0.5">AI & CYBER</span>
           </div>
         </Link>
