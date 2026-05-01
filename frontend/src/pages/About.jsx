@@ -1,6 +1,15 @@
-import { motion } from "framer-motion";
-import { Brain, Compass, ShieldCheck, Users, Sparkles, Target, Linkedin, Twitter } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Brain, Compass, ShieldCheck, Users, Sparkles, Target, Linkedin, Twitter, ArrowRight } from "lucide-react";
 import Reveal from "../components/Reveal.jsx";
+
+const infoPoints = [
+  "RUD is an AI-first education platform focusing on frontier security.",
+  "Our curriculum is built by industry leaders from top tech firms.",
+  "We emphasize hands-on projects and real-world portfolio building.",
+  "Global community of 12,000+ active technical learners.",
+  "Specialized tracks in Generative AI and Cybersecurity audits."
+];
 
 const values = [
   {
@@ -62,6 +71,15 @@ const team = [
 ];
 
 export default function About() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % infoPoints.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="container-shell min-h-screen pt-32 pb-16">
       {/* Hero Section */}
@@ -95,6 +113,94 @@ export default function About() {
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />
           </div>
         </Reveal>
+      </div>
+
+      {/* Brain Video & Looping Points Section */}
+      <div className="mb-32 relative">
+        <Reveal>
+          <div className="mb-10 ml-4">
+            <p className="eyebrow">Company Pulse</p>
+            <h2 className="text-3xl font-extrabold text-slate-900 mt-2">About Company and Culture</h2>
+          </div>
+        </Reveal>
+
+        <div className="grid lg:grid-cols-[auto_1fr] gap-12 items-center min-h-[500px]">
+          <Reveal>
+            <div className="flex justify-start relative">
+              <div className="relative group">
+                {/* Outer Glow */}
+                <div className="absolute inset-[-15px] bg-brandprimary/5 rounded-full blur-[50px] group-hover:bg-brandprimary/20 transition-all duration-1000" />
+                
+                <div className="relative w-80 h-80 xl:w-[400px] xl:h-[400px] rounded-full border-[10px] border-white shadow-2xl overflow-hidden ring-1 ring-slate-100/50">
+                  <video 
+                    src="/Brain.mp4" 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline 
+                    className="w-full h-full object-cover scale-110 grayscale brightness-110 group-hover:grayscale-0 transition-all duration-1000"
+                  />
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="relative flex flex-col justify-center h-[400px] -ml-8">
+            {/* Vertical Anchor Line */}
+            <div className="absolute left-[38px] top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-slate-100 to-transparent" />
+
+            <div className="relative h-full flex items-center">
+              <AnimatePresence mode="popLayout">
+                {[0, 1, 2].map((offset) => {
+                  const idx = (currentIndex + offset) % infoPoints.length;
+                  const isMain = offset === 1;
+                  // Tighter semicircle offset
+                  const xOffset = offset === 1 ? 64 : 36;
+                  
+                  return (
+                    <motion.div
+                      key={`${idx}-${offset}`}
+                      initial={{ opacity: 0, y: 50, x: 20 }}
+                      animate={{ 
+                        opacity: isMain ? 1 : 0.35, 
+                        y: (offset - 1) * 110, // More open vertical spacing
+                        x: xOffset,
+                        scale: isMain ? 1.15 : 0.85,
+                        filter: isMain ? "blur(0px)" : "blur(2px)"
+                      }}
+                      exit={{ opacity: 0, y: -50, x: 20 }}
+                      transition={{ 
+                        duration: 1.2,
+                        ease: [0.22, 1, 0.36, 1] // Custom 'Quint' ease for silky motion
+                      }}
+                      className="absolute left-0 flex items-center gap-6 max-w-2xl group/item"
+                    >
+                      <div className={`w-3.5 h-3.5 rounded-full shrink-0 transition-all duration-700 relative z-10 ${isMain ? "bg-brandprimary shadow-[0_0_25px_rgba(79,70,229,0.5)] scale-125" : "bg-slate-200"}`} />
+                      <p className={`font-black tracking-tight leading-snug transition-all duration-700 ${isMain ? "text-slate-900 text-3xl" : "text-slate-300 text-lg"}`}>
+                        {infoPoints[idx]}
+                      </p>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </div>
+
+            <div className="absolute bottom-0 left-10 flex items-center gap-4 text-slate-300">
+              <div className="flex gap-2">
+                {infoPoints.map((_, i) => (
+                  <motion.div 
+                    key={i} 
+                    animate={{ 
+                      width: i === currentIndex ? 24 : 6,
+                      backgroundColor: i === currentIndex ? "#4f46e5" : "#f1f5f9"
+                    }}
+                    className="h-1.5 rounded-full" 
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Values */}
