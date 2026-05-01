@@ -1,398 +1,184 @@
-import { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { ChevronDown, Grid, Menu, Search, ShieldCheck, User, X, ShoppingCart } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import { ShieldCheck, Search, ShoppingCart, Grid, User, LogOut, X, Menu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../state/AuthContext.jsx";
 import { useCart } from "../state/CartContext.jsx";
 
-const popupCourses = {
-  "Generative AI": [
-    { title: "Microsoft Applied Agentic AI: Systems Design & Impact", partner: "Microsoft", duration: "10 Weeks", badge: "Trending Now", logo: "Ⓜ️" },
-    { title: "Microsoft Applied Generative AI Specialization", partner: "Microsoft", duration: "16 Weeks", badge: "Most Popular", logo: "Ⓜ️" },
-    { title: "Advanced Executive Program In Applied Generative AI", partner: "IIT Pravartak", duration: "4 Months", badge: "Most Popular", logo: "🎓" },
-    { title: "Michigan Engineering Applied Generative AI Specialization", partner: "Michigan Engineering", duration: "16 Weeks", badge: "New Launch", logo: "〽️" },
-    { title: "Michigan Engineering Generative AI Applications for Leaders", partner: "Michigan Engineering", duration: "12 Weeks", badge: "", logo: "〽️" },
-    { title: "Professional Certificate Course in Generative AI and Machine Learning", partner: "IIT Kanpur", duration: "11 Months", badge: "Trending Now", logo: "🎓" },
-    { title: "Oxford Programme in Organising for AI", partner: "Oxford University", duration: "12 Weeks", badge: "New Launch", logo: "🏰" }
-  ],
-  "AI & Machine Learning": [
-    { title: "Professional Certificate in Machine Learning and Deep Learning", partner: "IIT Kanpur", duration: "11 Months", badge: "Bestseller", logo: "🎓" },
-    { title: "Machine Learning Engineering for Production (MLOps)", partner: "Google AI", duration: "12 Weeks", badge: "Trending Now", logo: "🇬" },
-    { title: "Applied AI and Machine Learning Advanced Certificate", partner: "Michigan Engineering", duration: "6 Months", badge: "", logo: "〽️" },
-    { title: "AWS Certified Machine Learning - Specialty Prep", partner: "AWS", duration: "8 Weeks", badge: "Top Rated", logo: "🅰️" }
-  ],
-  "Data Science & Business Analytics": [
-    { title: "Data Science Professional Certificate", partner: "IBM", duration: "10 Months", badge: "Trending Now", logo: "ℹ️" },
-    { title: "Business Analytics and Predictive Modeling Specialization", partner: "Wharton", duration: "16 Weeks", badge: "Most Popular", logo: "🇼" },
-    { title: "Advanced Certificate in Data Analytics & Engineering", partner: "IIT Madras", duration: "8 Months", badge: "New", logo: "🎓" }
-  ],
-  "Project Management": [
-    { title: "PMP Certification Training Course", partner: "PMI", duration: "8 Weeks", badge: "Bestseller", logo: "📋" },
-    { title: "Agile and Scrum Master Specialization", partner: "Scrum.org", duration: "6 Weeks", badge: "Trending", logo: "🔄" },
-    { title: "Lean Six Sigma Green Belt Certification", partner: "ASQ", duration: "10 Weeks", badge: "", logo: "🟢" }
-  ],
-  "Cyber Security": [
-    { title: "Advanced Executive Program in Cybersecurity", partner: "IIT Bangalore", duration: "6 Months", badge: "Most Popular", logo: "🎓" },
-    { title: "CompTIA Security+ Complete Boot Camp", partner: "CompTIA", duration: "5 Weeks", badge: "Bestseller", logo: "🛡️" },
-    { title: "Certified Ethical Hacker (CEH) Masterclass", partner: "EC-Council", duration: "12 Weeks", badge: "Trending Now", logo: "💻" }
-  ],
-  "Cloud Computing & DevOps": [
-    { title: "Cloud Architect Certification Program", partner: "AWS & Azure", duration: "12 Months", badge: "Most Popular", logo: "☁️" },
-    { title: "Post Graduate Program in DevOps", partner: "Caltech", duration: "9 Months", badge: "Bestseller", logo: "🎓" },
-    { title: "Docker and Kubernetes Administrator Course", partner: "Mirantis", duration: "8 Weeks", badge: "Trending", logo: "🐳" }
-  ]
-};
-
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [isCoursesOpen, setIsCoursesOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("Generative AI");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [scrolled, setScrolled] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { user, logout } = useAuth();
   const { cartCount, cartItems } = useCart();
   const navigate = useNavigate();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/courses?search=${encodeURIComponent(searchQuery)}`);
-    }
-  };
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // If we are at the top, keep it visible
+      if (currentScrollY < 50) {
+        setIsVisible(true);
+      } else {
+        // Standard behavior:
+        // Scroll Down -> Hide (focus on content)
+        // Scroll Up -> Show (need navigation)
+        if (currentScrollY > lastScrollY.current) {
+          // Scrolling Down
+          setIsVisible(false);
+        } else if (currentScrollY < lastScrollY.current) {
+          // Scrolling Up
+          setIsVisible(true);
+        }
+      }
+      
+      lastScrollY.current = currentScrollY;
+      setScrolled(currentScrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-md">
-      <nav className="container-shell flex h-20 items-center justify-between gap-4">
-        
-        {/* Left Section: Logo & All Courses */}
-        <div className="flex items-center gap-6">
-          <Link to="/" className="flex items-center gap-2 shrink-0 font-black text-2xl tracking-tight text-slate-900">
-            <ShieldCheck className="text-brandprimary" size={28} />
-            <span>SynapseLearn</span>
-          </Link>
-          
-          {/* Popover All Courses */}
-          <div 
-            className="hidden sm:block relative" 
-            onMouseEnter={() => setIsCoursesOpen(true)} 
-            onMouseLeave={() => setIsCoursesOpen(false)}
-          >
-            <button 
-              className="flex items-center gap-2 rounded-lg bg-brandprimary px-4 py-2.5 text-sm font-bold text-white shadow-sm transition-all duration-200 hover:bg-indigo-600 active:scale-95"
-              onClick={() => setIsCoursesOpen(!isCoursesOpen)}
-            >
-              <Grid size={18} />
-              <span>All Courses</span>
-              <ChevronDown size={16} className={`transition-transform duration-200 ${isCoursesOpen ? "rotate-180" : ""}`} />
-            </button>
-
-            {/* Popup Modal */}
-            <AnimatePresence>
-              {isCoursesOpen && (
-                <div className="fixed inset-x-0 top-[5rem] flex justify-center z-[100]">
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className="w-[90vw] md:w-[70rem] max-h-[80vh] overflow-hidden bg-white border border-slate-100 shadow-2xl rounded-2xl flex"
-                  >
-                  {/* Left Sidebar for Categories */}
-                  <div className="w-1/3 bg-slate-50 border-r border-slate-100 overflow-y-auto overscroll-contain p-4 flex flex-col gap-1">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-3 py-2 mb-2">Categories</p>
-                    {Object.keys(popupCourses).map((category) => (
-                      <button
-                        key={category}
-                        className={`w-full text-left px-4 py-3 text-sm font-bold rounded-xl transition-all duration-200 flex items-center justify-between ${
-                          selectedCategory === category 
-                            ? "bg-white text-brandprimary shadow-sm border border-slate-100" 
-                            : "text-slate-600 hover:bg-white/60 hover:text-slate-900"
-                        }`}
-                        onMouseEnter={() => setSelectedCategory(category)}
-                        onClick={() => setSelectedCategory(category)}
-                      >
-                        <span>{category}</span>
-                        {selectedCategory === category && <div className="w-1.5 h-1.5 rounded-full bg-brandprimary" />}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Right Content Pane */}
-                  <div className="w-2/3 p-8 flex flex-col bg-white overflow-y-auto overscroll-contain">
-                    {/* Header */}
-                    <div className="mb-6">
-                      <h3 className="text-xs font-extrabold text-brandprimary uppercase tracking-widest">Career Aligned Learning Paths</h3>
-                      <p className="text-slate-400 text-xs font-bold mt-1">Master essential skills for your dream career</p>
-                    </div>
-
-                    {/* Grid of Courses */}
-                    <div className="grid gap-4 sm:grid-cols-2 flex-1">
-                      {popupCourses[selectedCategory].map((course, idx) => (
-                        <div 
-                          key={idx} 
-                          className="bg-white border border-slate-100 rounded-xl p-4 shadow-soft flex flex-col h-full group hover:shadow-md hover:border-slate-200 transition-all duration-300"
-                        >
-                          {/* Partner Logo */}
-                          <div className="flex items-center gap-2 mb-3">
-                            <span className="text-xl">{course.logo}</span>
-                            <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">{course.partner}</span>
-                          </div>
-
-                          {/* Title */}
-                          <h4 className="text-sm font-extrabold text-slate-800 leading-snug flex-1 group-hover:text-brandprimary transition-colors line-clamp-2">
-                            {course.title}
-                          </h4>
-
-                          {/* Bottom Duration & Badge */}
-                          <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-50">
-                            <span className="text-[10px] font-bold text-slate-400">{course.duration}</span>
-                            {course.badge && (
-                              <span className={`text-[9px] font-extrabold px-2 py-0.5 rounded ${
-                                course.badge === "Trending Now" ? "bg-emerald-50 text-emerald-700" :
-                                course.badge === "Most Popular" ? "bg-orange-50 text-orange-700" : "bg-indigo-50 text-indigo-700"
-                              }`}>
-                                {course.badge}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Bottom Action Bar */}
-                    <div className="mt-6 pt-4 border-t border-slate-100 flex justify-end">
-                      <Link 
-                        to="/learning" 
-                        onClick={() => setIsCoursesOpen(false)}
-                        className="inline-flex items-center justify-center rounded-xl border border-slate-200 hover:border-brandprimary px-5 py-2.5 text-xs font-extrabold text-brandprimary hover:bg-slate-50 transition-all duration-200"
-                      >
-                        Explore All Programs
-                      </Link>
-                    </div>
-                  </div>
-                  </motion.div>
-                </div>
-              )}
-            </AnimatePresence>
+    <div className="fixed top-6 left-0 right-0 z-[100] flex justify-center pointer-events-none px-4">
+      <motion.nav 
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="pointer-events-auto flex items-center bg-white/70 backdrop-blur-xl rounded-full p-2 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] border border-slate-200"
+      >
+        {/* Left: Brand Capsule */}
+        <Link 
+          to="/" 
+          className="flex items-center gap-3 bg-white rounded-full py-2 pl-2 pr-6 hover:scale-[1.01] active:scale-95 transition-all shadow-md shrink-0"
+        >
+          <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white shadow-inner">
+            <ShieldCheck size={22} className="fill-white/10" />
           </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-[900] text-black leading-none tracking-tight">RUD</span>
+            <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest mt-0.5">AI & CYBER</span>
+          </div>
+        </Link>
+
+        {/* Center: Navigation Links or Search Bar */}
+        <div className="flex items-center justify-center overflow-hidden transition-all duration-500">
+          <AnimatePresence mode="wait">
+            {!isSearchOpen ? (
+              <motion.div
+                key="links"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="hidden lg:flex items-center gap-2 px-4"
+              >
+                <NavLink
+                  to="/about"
+                  className={({ isActive }) => `px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${isActive ? "bg-black text-white shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)]" : "text-slate-500 hover:text-black hover:bg-slate-50"}`}
+                >
+                  About
+                </NavLink>
+                <NavLink
+                  to="/projects"
+                  className={({ isActive }) => `px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${isActive ? "bg-black text-white shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)]" : "text-slate-500 hover:text-black hover:bg-slate-50"}`}
+                >
+                  Projects
+                </NavLink>
+                <NavLink
+                  to="/learning"
+                  className={({ isActive }) => {
+                    const isActuallyActive = isActive || location.pathname.startsWith('/catalog');
+                    return `flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${isActuallyActive ? "bg-black text-white shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)]" : "text-slate-500 hover:text-black hover:bg-slate-50"}`;
+                  }}
+                >
+                  <Grid size={14} strokeWidth={3} />
+                  Learning
+                </NavLink>
+                <NavLink
+                  to="/blog"
+                  className={({ isActive }) => `px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${isActive ? "bg-black text-white shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)]" : "text-slate-500 hover:text-black hover:bg-slate-50"}`}
+                >
+                  Blog
+                </NavLink>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="search"
+                initial={{ opacity: 0, width: 0, scale: 0.9 }}
+                animate={{ opacity: 1, width: "320px", scale: 1 }}
+                exit={{ opacity: 0, width: 0, scale: 0.9 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="flex items-center px-4"
+              >
+                <div className="relative w-full group/search">
+                  <input
+                    autoFocus
+                    type="text"
+                    placeholder="Search courses, articles..."
+                    className="w-full bg-slate-100/80 border-none rounded-full py-2.5 pl-10 pr-4 text-[11px] font-black uppercase tracking-wider text-slate-800 focus:bg-white focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-400 placeholder:font-bold"
+                    onKeyDown={(e) => e.key === "Escape" && setIsSearchOpen(false)}
+                  />
+                  <Search size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within/search:text-blue-600 transition-colors" strokeWidth={3} />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
-        {/* Center Section: Search Bar */}
-        <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md relative items-center">
-          <Search className="absolute left-4 text-slate-400" size={20} />
-          <input
-            type="text"
-            placeholder="What do you want to learn?"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-2.5 rounded-lg border border-slate-200 bg-slate-50 text-sm placeholder-slate-400 focus:bg-white focus:border-brandprimary focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
-          />
-        </form>
-
-        {/* Right Section: Nav Links & Profile */}
-        <div className="hidden lg:flex items-center gap-2 shrink-0">
-          <NavLink 
-            to="/about" 
-            className={({ isActive }) => 
-              `text-sm font-bold px-4 py-2 rounded-full transition-all duration-200 ${
-                isActive ? "bg-indigo-50 text-brandprimary" : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-              }`
-            }
+        {/* Right Actions */}
+        <div className="flex items-center gap-6 px-4 mr-2 text-slate-500 shrink-0">
+          <button 
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            className={`transition-all duration-300 ${isSearchOpen ? "text-blue-600 rotate-90" : "hover:text-blue-600"}`}
           >
-            About
-          </NavLink>
-          <NavLink 
-            to="/projects" 
-            className={({ isActive }) => 
-              `text-sm font-bold px-4 py-2 rounded-full transition-all duration-200 ${
-                isActive ? "bg-indigo-50 text-brandprimary" : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-              }`
-            }
-          >
-            Projects
-          </NavLink>
-          <NavLink 
-            to="/learning" 
-            className={({ isActive }) => 
-              `text-sm font-bold px-4 py-2 rounded-full transition-all duration-200 ${
-                isActive ? "bg-indigo-50 text-brandprimary" : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-              }`
-            }
-          >
-            Learning
-          </NavLink>
-          <NavLink 
-            to="/blog" 
-            className={({ isActive }) => 
-              `text-sm font-bold px-4 py-2 rounded-full transition-all duration-200 ${
-                isActive ? "bg-indigo-50 text-brandprimary" : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-              }`
-            }
-          >
-            Blog
-          </NavLink>
-          <NavLink 
-            to="/contact" 
-            className={({ isActive }) => 
-              `text-sm font-bold px-4 py-2 rounded-full transition-all duration-200 ${
-                isActive ? "bg-indigo-50 text-brandprimary" : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-              }`
-            }
-          >
-            Contact
-          </NavLink>
-
-          {/* Cart Icon */}
-          <div 
-            className="relative"
-            onMouseEnter={() => setIsCartOpen(true)}
-            onMouseLeave={() => setIsCartOpen(false)}
-          >
-            <Link to="/cart" className="relative p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-full transition-all duration-200 block">
-              <ShoppingCart size={20} />
-              <span className="absolute top-1 right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white bg-brandprimary rounded-full transform translate-x-1/2 -translate-y-1/2">
+            {isSearchOpen ? <X size={22} strokeWidth={2.5} /> : <Search size={22} strokeWidth={2} />}
+          </button>
+          <Link to="/cart" className="relative hover:text-blue-600 transition-colors">
+            <ShoppingCart size={22} strokeWidth={2} />
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 w-[18px] h-[18px] bg-[#2563eb] text-white text-[9px] font-black rounded-full flex items-center justify-center border-2 border-white">
                 {cartCount}
               </span>
-            </Link>
+            )}
+          </Link>
+        </div>
 
-            {/* Cart Preview Popup */}
-            <AnimatePresence>
-              {isCartOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="absolute right-0 top-full mt-2 w-80 bg-white border border-slate-100 shadow-2xl rounded-2xl p-4 z-[100]"
-                >
-                  {cartItems.length === 0 ? (
-                    <p className="text-slate-500 text-sm text-center py-4">Your cart is empty.</p>
-                  ) : (
-                    <>
-                      <div className="max-h-60 overflow-y-auto space-y-3 pb-3 border-b border-slate-100">
-                        {cartItems.map((item) => (
-                          <div key={item.id} className="flex gap-3 items-center">
-                            <div className="w-16 h-12 rounded-lg bg-slate-100 flex-shrink-0 overflow-hidden border border-slate-100">
-                              <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <h4 className="text-xs font-bold text-slate-800 truncate">{item.title}</h4>
-                              <p className="text-[10px] text-slate-500 truncate">By {item.instructor}</p>
-                              <div className="flex items-center gap-2 mt-1">
-                                <span className="text-xs font-extrabold text-slate-900">{item.price}</span>
-                                {item.originalPrice && (
-                                  <span className="text-[10px] text-slate-400 line-through">{item.originalPrice}</span>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="pt-3">
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-bold text-slate-700">Total:</span>
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm font-black text-slate-900">
-                              ₹{cartItems.reduce((total, item) => total + parseFloat(item.price.replace(/[^\d.]/g, "")), 0).toFixed(2)}
-                            </span>
-                            {cartItems.some(item => item.originalPrice) && (
-                              <span className="text-xs text-slate-400 line-through">
-                                ₹{cartItems.reduce((total, item) => {
-                                  const orig = item.originalPrice ? parseFloat(item.originalPrice.replace(/[^\d.]/g, "")) : parseFloat(item.price.replace(/[^\d.]/g, ""));
-                                  return total + orig;
-                                }, 0).toFixed(2)}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        <Link 
-                          to="/cart" 
-                          onClick={() => setIsCartOpen(false)}
-                          className="w-full mt-3 bg-brandprimary hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-xl text-xs transition-all duration-200 flex items-center justify-center shadow-md shadow-indigo-100"
-                        >
-                          Go to cart
-                        </Link>
-                      </div>
-                    </>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
+        {/* Right: User Capsule */}
+        <div className="group relative flex items-center gap-4 bg-white rounded-full py-2 pl-6 pr-2 shadow-md cursor-pointer hover:bg-slate-50 transition-all shrink-0">
+          <div className="flex flex-col text-right">
+            <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest leading-none">Active User</span>
+            <span className="text-[11px] font-[900] text-black mt-0.5 leading-none">{user ? user.name : "Guest User"}</span>
+          </div>
+          <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white shadow-md">
+            <User size={20} strokeWidth={2.5} />
           </div>
 
-          {/* Profile/Auth */}
-          <div className="relative group">
+          {/* User Dropdown Content */}
+          <div className="absolute top-full right-0 mt-4 w-56 bg-white rounded-3xl shadow-2xl border border-slate-100 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-2 group-hover:translate-y-0 pointer-events-auto">
             {user ? (
-              <button className="flex items-center gap-2 rounded-full border border-slate-200 p-1 bg-slate-50 hover:bg-slate-100 transition">
-                <div className="grid h-8 w-8 place-items-center rounded-full bg-brandprimary text-white font-bold text-sm">
-                  {user.name.charAt(0)}
+              <>
+                <div className="px-4 py-3 border-b border-slate-50 mb-1">
+                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Logged in as</p>
+                  <p className="text-xs font-black text-slate-900 truncate mt-0.5">{user.email}</p>
                 </div>
-                <ChevronDown size={16} className="text-slate-500 mr-1" />
-              </button>
+                <Link to="/learning" className="block px-4 py-3 text-xs font-bold text-slate-700 hover:bg-slate-50 rounded-2xl transition-all">Dashboard</Link>
+                <button onClick={logout} className="w-full flex items-center gap-3 px-4 py-3 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-2xl transition-all mt-1">
+                  <LogOut size={16} /> Sign Out
+                </button>
+              </>
             ) : (
-              <Link to="/auth" className="flex items-center gap-2 rounded-full border border-slate-200 p-1.5 bg-slate-50 hover:bg-slate-100 transition">
-                <div className="grid h-8 w-8 place-items-center rounded-full bg-slate-200 text-slate-600">
-                  <User size={18} />
-                </div>
-                <ChevronDown size={16} className="text-slate-500 mr-1" />
+              <Link to="/auth" className="flex items-center gap-3 px-4 py-3 text-xs font-bold text-slate-700 hover:bg-slate-50 rounded-2xl transition-all">
+                <User size={16} /> Login or Sign Up
               </Link>
             )}
-
-            {/* Profile Dropdown */}
-            {user && (
-              <div className="absolute right-0 top-full mt-2 w-48 rounded-xl bg-white p-2 border border-slate-100 shadow-soft invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all">
-                <div className="px-4 py-2 border-b border-slate-100 mb-1">
-                  <p className="text-xs text-slate-400 font-semibold">Signed in as</p>
-                  <p className="text-sm font-bold text-slate-800 truncate">{user.email}</p>
-                </div>
-                <Link to="/learning" className="block rounded-lg px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Dashboard</Link>
-                <button onClick={logout} className="w-full text-left block rounded-lg px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50">
-                  Logout
-                </button>
-              </div>
-            )}
           </div>
         </div>
-
-        {/* Mobile Menu Button */}
-        <div className="flex items-center lg:hidden">
-          <Link to="/cart" className="relative p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-full transition-all duration-200 mr-2">
-            <ShoppingCart size={20} />
-            <span className="absolute top-1 right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white bg-brandprimary rounded-full transform translate-x-1/2 -translate-y-1/2">
-              {cartCount}
-            </span>
-          </Link>
-          <button className="grid h-10 w-10 place-items-center rounded-md border border-slate-200" onClick={() => setOpen(!open)}>
-            {open ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Menu Dropdown */}
-      {open && (
-        <div className="container-shell grid gap-2 pb-6 border-t border-slate-100 bg-white lg:hidden">
-          <Link to="/learning" onClick={() => setOpen(false)} className="flex items-center gap-2 rounded-lg bg-brandprimary px-4 py-3 mt-4 text-sm font-bold text-white">
-            <Grid size={18} />
-            <span>All Courses</span>
-          </Link>
-          <form onSubmit={handleSearch} className="flex relative items-center mt-2">
-            <Search className="absolute left-4 text-slate-400" size={20} />
-            <input
-              type="text"
-              placeholder="What do you want to learn?"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 bg-slate-50 text-sm focus:border-brandprimary outline-none"
-            />
-          </form>
-          <div className="grid mt-4 gap-1">
-            <Link to="/about" onClick={() => setOpen(false)} className="rounded-md px-3 py-3 text-sm font-bold text-slate-700 hover:bg-slate-100">About</Link>
-            <Link to="/projects" onClick={() => setOpen(false)} className="rounded-md px-3 py-3 text-sm font-bold text-slate-700 hover:bg-slate-100">Projects</Link>
-            <Link to="/learning" onClick={() => setOpen(false)} className="rounded-md px-3 py-3 text-sm font-bold text-slate-700 hover:bg-slate-100">Learning</Link>
-            <Link to="/blog" onClick={() => setOpen(false)} className="rounded-md px-3 py-3 text-sm font-bold text-slate-700 hover:bg-slate-100">Blog</Link>
-            <Link to="/contact" onClick={() => setOpen(false)} className="rounded-md px-3 py-3 text-sm font-bold text-slate-700 hover:bg-slate-100">Contact</Link>
-          </div>
-        </div>
-      )}
-    </header>
+      </motion.nav>
+    </div>
   );
 }

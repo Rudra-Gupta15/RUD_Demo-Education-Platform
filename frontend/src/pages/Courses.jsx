@@ -42,7 +42,7 @@ export default function Courses() {
     : allCourses.filter(c => c.category === category);
 
   return (
-    <section className="container-shell min-h-screen py-16">
+    <section className="container-shell min-h-screen pt-32 pb-16">
       <Reveal>
         <p className="eyebrow">Courses</p>
         <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl mt-3 leading-tight">

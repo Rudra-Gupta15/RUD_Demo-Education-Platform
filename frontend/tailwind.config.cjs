@@ -29,7 +29,7 @@ module.exports = {
       },
 
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"]
+        sans: ["Outfit", "Inter", "ui-sans-serif", "system-ui", "sans-serif"]
       },
 
       boxShadow: {

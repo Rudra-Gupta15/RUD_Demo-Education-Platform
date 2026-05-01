@@ -18,20 +18,20 @@ export default function CourseDetail() {
 
   if (loading)
     return (
-      <section className="container-shell min-h-screen py-16">
+      <section className="container-shell min-h-screen pt-32 pb-16">
         <Skeleton count={2} />
       </section>
     );
 
   if (error)
     return (
-      <section className="container-shell min-h-screen py-16">
+      <section className="container-shell min-h-screen pt-32 pb-16">
         <p className="rounded-md border border-red-400/30 bg-red-500/10 p-4 text-red-200">{error}</p>
       </section>
     );
 
   return (
-    <section className="container-shell min-h-screen py-16">
+    <section className="container-shell min-h-screen pt-32 pb-16">
       {/* Back */}
       <Link
         to="/courses"

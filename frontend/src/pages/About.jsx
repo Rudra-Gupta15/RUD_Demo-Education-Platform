@@ -63,16 +63,16 @@ const team = [
 
 export default function About() {
   return (
-    <section className="container-shell min-h-screen py-16">
+    <section className="container-shell min-h-screen pt-32 pb-16">
       {/* Hero Section */}
       <div className="grid gap-12 lg:grid-cols-2 items-center mb-20">
         <Reveal>
-          <p className="eyebrow">About SynapseLearn</p>
+          <p className="eyebrow">About RUD</p>
           <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl mt-3 leading-tight">
             Preparing technical learners for an AI-shaped, security-critical future.
           </h1>
           <p className="mt-5 text-lg leading-8 text-slate-600 font-medium">
-            SynapseLearn exists because AI and cybersecurity are no longer separate career lanes. We teach builders how to ship intelligent systems and teach defenders how to understand the automation changing their work.
+            RUD exists because AI and cybersecurity are no longer separate career lanes. We teach builders how to ship intelligent systems and teach defenders how to understand the automation changing their work.
           </p>
           
           <div className="mt-8 grid grid-cols-2 gap-4 max-w-sm">
@@ -89,7 +89,7 @@ export default function About() {
           <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] group">
             <img 
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" 
-              alt="Team collaborating at SynapseLearn"
+              alt="Team collaborating at RUD"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />

@@ -20,7 +20,7 @@ const demoProjects = [
   },
   {
     id: 3,
-    title: "SynapseLearn Autonomous Agent",
+    title: "RUD Autonomous Agent",
     description: "An AI agent capable of writing, testing, and deploying secure code based on natural language requirements.",
     tech_stack: ["React", "Node.js", "OpenAI API", "PostgreSQL"],
     demo_link: "#",
@@ -54,11 +54,11 @@ const demoProjects = [
 
 export default function Projects() {
   return (
-    <section className="container-shell min-h-screen py-16">
+    <section className="container-shell min-h-screen pt-32 pb-16">
       <Reveal>
         <p className="eyebrow">Projects</p>
         <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl mt-3">
-          Real-world builds from the SynapseLearn studio.
+          Real-world builds from the RUD studio.
         </h1>
         <p className="text-slate-500 mt-4 max-w-2xl font-medium">
           Every project here started as a course capstone and became a showcase of what AI and cybersecurity skills look like in practice.

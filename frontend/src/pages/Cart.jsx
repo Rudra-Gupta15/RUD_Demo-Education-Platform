@@ -35,7 +35,7 @@ export default function Cart() {
     : demoCourses.slice(0, 5);
 
   return (
-    <section className="container-shell min-h-screen pt-24 pb-16">
+    <section className="container-shell min-h-screen pt-32 pb-16">
       {cartCount === 0 ? (
         <>
           <Reveal>

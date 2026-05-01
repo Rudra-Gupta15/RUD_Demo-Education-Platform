@@ -38,7 +38,7 @@ export default function Contact() {
   }
 
   return (
-    <section className="container-shell min-h-screen py-16">
+    <section className="container-shell min-h-screen pt-32 pb-16">
       {/* Hero Header */}
       <Reveal>
         <div className="max-w-2xl mb-12">

@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound.jsx";
 import Projects from "./pages/Projects.jsx";
 import Cart from "./pages/Cart.jsx";
 import Checkout from "./pages/Checkout.jsx";
+import Catalog from "./pages/Catalog.jsx";
 
 export default function App() {
   const location = useLocation();
@@ -24,7 +25,7 @@ export default function App() {
   return (
     <>
       <CosmicBackground />
-      <Navbar />
+      {location.pathname !== "/auth" && <Navbar />}
       <AnimatePresence mode="wait">
         <motion.main
           key={location.pathname}
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="/courses" element={<Courses />} />
             <Route path="/courses/:slug" element={<CourseDetail />} />
             <Route path="/learning" element={<Learning />} />
+            <Route path="/catalog" element={<Catalog />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/blog" element={<Blog />} />
@@ -51,7 +53,7 @@ export default function App() {
         </motion.main>
       </AnimatePresence>
       <ChatWidget />
-      {location.pathname !== "/checkout" && <Footer />}
+      {location.pathname !== "/checkout" && location.pathname !== "/auth" && <Footer />}
     </>
   );
 }
