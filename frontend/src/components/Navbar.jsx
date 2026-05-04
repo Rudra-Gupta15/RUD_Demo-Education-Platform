@@ -10,6 +10,7 @@ export default function Navbar() {
   const { user, logout } = useAuth();
   const { cartCount, cartItems } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
@@ -82,7 +83,9 @@ export default function Navbar() {
             <NavLink
               to="/learning"
               className={({ isActive }) => {
-                const isActuallyActive = isActive || location.pathname.startsWith('/catalog');
+                const isActuallyActive = isActive || 
+                                       location.pathname.startsWith('/catalog') || 
+                                       location.pathname.startsWith('/courses');
                 return `flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${isActuallyActive ? "bg-black text-white shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)]" : "text-slate-500 hover:text-black hover:bg-slate-50"}`;
               }}
             >

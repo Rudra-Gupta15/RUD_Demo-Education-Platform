@@ -122,7 +122,7 @@ export default function Catalog() {
                       className="flex-shrink-0 w-[240px] flex flex-col group cursor-pointer snap-start relative"
                       onMouseEnter={(e) => handleMouseEnter(e, course)}
                       onMouseLeave={handleMouseLeave}
-                      onClick={() => setExpandedCourse(course)}
+                      onClick={() => navigate(`/courses/${course.slug || "python-ai-data-science"}`)}
                     >
                       {/* Thumbnail */}
                       <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-slate-200/60 bg-slate-100">

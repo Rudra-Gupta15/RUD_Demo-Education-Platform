@@ -11,7 +11,6 @@ import Auth from "./pages/Auth.jsx";
 import Blog from "./pages/Blog.jsx";
 import Contact from "./pages/Contact.jsx";
 import CourseDetail from "./pages/CourseDetail.jsx";
-import Courses from "./pages/Courses.jsx";
 import Home from "./pages/Home.jsx";
 import Learning from "./pages/Learning.jsx";
 import NotFound from "./pages/NotFound.jsx";
@@ -41,7 +40,7 @@ export default function App() {
         >
           <Routes location={location}>
             <Route path="/" element={<Home />} />
-            <Route path="/courses" element={<Courses />} />
+            <Route path="/courses" element={<Catalog />} />
             <Route path="/courses/:slug" element={<CourseDetail />} />
             <Route path="/learning" element={<Learning />} />
             <Route path="/catalog" element={<Catalog />} />

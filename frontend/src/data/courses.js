@@ -1,6 +1,7 @@
 export const demoCourses = [
   { 
     id: 1, 
+    slug: "python-ds-foundations",
     topic: "Data Scientist Roadmap", 
     title: "Phase 1: Python, NumPy, Pandas & Data Science Foundations", 
     instructor: "Nikky Bisen", 
@@ -13,6 +14,7 @@ export const demoCourses = [
   },
   { 
     id: 2, 
+    slug: "math-for-ai",
     topic: "Data Scientist Roadmap", 
     title: "Phase 1: Essential Mathematics for AI (Algebra & Statistics)", 
     instructor: "Nikky Bisen", 
@@ -25,6 +27,7 @@ export const demoCourses = [
   },
   { 
     id: 3, 
+    slug: "machine-learning-core",
     topic: "Data Scientist Roadmap", 
     title: "Phase 2: Machine Learning Core (Regression & Classification)", 
     instructor: "Nikky Bisen", 
@@ -37,6 +40,7 @@ export const demoCourses = [
   },
   { 
     id: 4, 
+    slug: "deep-learning-networks",
     topic: "Data Scientist Roadmap", 
     title: "Phase 3: Deep Learning (Neural Networks & Computer Vision)", 
     instructor: "Rudra Gupta", 
@@ -49,6 +53,7 @@ export const demoCourses = [
   },
   { 
     id: 5, 
+    slug: "generative-ai-rag",
     topic: "Data Scientist Roadmap", 
     title: "Phase 4: Generative AI (LLM Engineering & RAG Systems)", 
     instructor: "Rudra Gupta", 
@@ -61,6 +66,7 @@ export const demoCourses = [
   },
   { 
     id: 6, 
+    slug: "advanced-nlp-time-series",
     topic: "Data Scientist Roadmap", 
     title: "Phase 5: Specializations (Advanced NLP & Time Series)", 
     instructor: "Nikky Bisen", 
@@ -73,6 +79,7 @@ export const demoCourses = [
   },
   { 
     id: 7, 
+    slug: "ai-saas-dashboards",
     topic: "Data Scientist Roadmap", 
     title: "Phase 6: Real-World AI SaaS & Industry Dashboards", 
     instructor: "ConvoSec Team", 
@@ -85,6 +92,7 @@ export const demoCourses = [
   },
   { 
     id: 8, 
+    slug: "mlops-deployment",
     topic: "Data Scientist Roadmap", 
     title: "Phase 7: Deployment + MLOps (FastAPI & CI/CD)", 
     instructor: "Rudra.V Rajpure", 
@@ -97,6 +105,7 @@ export const demoCourses = [
   },
   { 
     id: 9, 
+    slug: "career-mastery-blueprint",
     topic: "Data Scientist Roadmap", 
     title: "Phase 8: Career Mastery & AI Startup Blueprint", 
     instructor: "ConvoSec Team", 
@@ -107,4 +116,5 @@ export const demoCourses = [
     image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80", 
     badges: ["Career Growth"] 
   }
+
 ];
