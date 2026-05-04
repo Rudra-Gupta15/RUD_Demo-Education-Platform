@@ -85,15 +85,19 @@ export default function Catalog() {
 
   return (
     <section className="container-shell min-h-screen pt-32 pb-16">
-      <div className="flex items-center justify-between mb-8">
-        <button 
-          onClick={() => navigate('/learning')}
-          className="flex items-center gap-2 px-6 py-2.5 bg-black text-white rounded-full text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl active:scale-95"
-        >
-          <ArrowLeft size={16} />
-          Back
-        </button>
-      </div>
+      {/* ── Fixed Floating Back Button ── */}
+      <motion.button 
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        onClick={() => navigate('/learning')}
+        className="fixed top-[34px] left-20 z-[110] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-[0_15px_30px_-5px_rgba(0,0,0,0.3)] hover:bg-slate-800 hover:scale-110 active:scale-95 transition-all group"
+        title="Go Back"
+      >
+        <ArrowLeft size={22} className="group-hover:-translate-x-1 transition-transform duration-300" />
+        <span className="absolute left-full ml-4 px-4 py-2 bg-black text-white text-[10px] font-black uppercase tracking-widest rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
+          Go Back
+        </span>
+      </motion.button>
 
       <Reveal>
         <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">

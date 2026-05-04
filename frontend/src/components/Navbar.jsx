@@ -1,13 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
-import { ShieldCheck, Search, ShoppingCart, Grid, User, LogOut, X, Menu } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Building2, ShoppingCart, Grid, User, LogOut } from "lucide-react";
+import { motion } from "framer-motion";
 import { useAuth } from "../state/AuthContext.jsx";
 import { useCart } from "../state/CartContext.jsx";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { user, logout } = useAuth();
   const { cartCount, cartItems } = useCart();
   const navigate = useNavigate();
@@ -65,79 +64,58 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Center: Navigation Links or Search Bar */}
+        {/* Center: Navigation Links */}
         <div className="flex items-center justify-center overflow-hidden transition-all duration-500">
-          <AnimatePresence mode="wait">
-            {!isSearchOpen ? (
-              <motion.div
-                key="links"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="hidden lg:flex items-center gap-2 px-4"
-              >
-                <NavLink
-                  to="/about"
-                  className={({ isActive }) => `px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${isActive ? "bg-black text-white shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)]" : "text-slate-500 hover:text-black hover:bg-slate-50"}`}
-                >
-                  About
-                </NavLink>
-                <NavLink
-                  to="/projects"
-                  className={({ isActive }) => `px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${isActive ? "bg-black text-white shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)]" : "text-slate-500 hover:text-black hover:bg-slate-50"}`}
-                >
-                  Projects
-                </NavLink>
-                <NavLink
-                  to="/learning"
-                  className={({ isActive }) => {
-                    const isActuallyActive = isActive || location.pathname.startsWith('/catalog');
-                    return `flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${isActuallyActive ? "bg-black text-white shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)]" : "text-slate-500 hover:text-black hover:bg-slate-50"}`;
-                  }}
-                >
-                  <Grid size={14} strokeWidth={3} />
-                  Learning
-                </NavLink>
-                <NavLink
-                  to="/blog"
-                  className={({ isActive }) => `px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${isActive ? "bg-black text-white shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)]" : "text-slate-500 hover:text-black hover:bg-slate-50"}`}
-                >
-                  Blog
-                </NavLink>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="search"
-                initial={{ opacity: 0, width: 0, scale: 0.9 }}
-                animate={{ opacity: 1, width: "320px", scale: 1 }}
-                exit={{ opacity: 0, width: 0, scale: 0.9 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="flex items-center px-4"
-              >
-                <div className="relative w-full group/search">
-                  <input
-                    autoFocus
-                    type="text"
-                    placeholder="Search courses, articles..."
-                    className="w-full bg-slate-100/80 border-none rounded-full py-2.5 pl-10 pr-4 text-[11px] font-black uppercase tracking-wider text-slate-800 focus:bg-white focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-400 placeholder:font-bold"
-                    onKeyDown={(e) => e.key === "Escape" && setIsSearchOpen(false)}
-                  />
-                  <Search size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within/search:text-blue-600 transition-colors" strokeWidth={3} />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div className="hidden lg:flex items-center gap-2 px-4">
+            <NavLink
+              to="/about"
+              className={({ isActive }) => `px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${isActive ? "bg-black text-white shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)]" : "text-slate-500 hover:text-black hover:bg-slate-50"}`}
+            >
+              About
+            </NavLink>
+            <NavLink
+              to="/projects"
+              className={({ isActive }) => `px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${isActive ? "bg-black text-white shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)]" : "text-slate-500 hover:text-black hover:bg-slate-50"}`}
+            >
+              Projects
+            </NavLink>
+            <NavLink
+              to="/learning"
+              className={({ isActive }) => {
+                const isActuallyActive = isActive || location.pathname.startsWith('/catalog');
+                return `flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${isActuallyActive ? "bg-black text-white shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)]" : "text-slate-500 hover:text-black hover:bg-slate-50"}`;
+              }}
+            >
+              <Grid size={14} strokeWidth={3} />
+              Learning
+            </NavLink>
+            <NavLink
+              to="/blog"
+              className={({ isActive }) => `px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${isActive ? "bg-black text-white shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)]" : "text-slate-500 hover:text-black hover:bg-slate-50"}`}
+            >
+              Blog
+            </NavLink>
+          </div>
         </div>
 
         {/* Right Actions */}
         <div className="flex items-center gap-6 px-4 mr-2 text-slate-500 shrink-0">
-          <button 
-            onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className={`transition-all duration-300 ${isSearchOpen ? "text-blue-600 rotate-90" : "hover:text-blue-600"}`}
-          >
-            {isSearchOpen ? <X size={22} strokeWidth={2.5} /> : <Search size={22} strokeWidth={2} />}
-          </button>
+          <div className="group relative">
+            <button className="hover:text-blue-600 transition-all duration-300 flex items-center gap-1">
+              <Building2 size={22} strokeWidth={2} />
+            </button>
+            
+            {/* Building Dropdown */}
+            <div className="absolute top-full right-0 mt-4 w-48 bg-white rounded-2xl shadow-2xl border border-slate-100 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-2 group-hover:translate-y-0 pointer-events-auto">
+              <Link to="/business" className="block px-4 py-3 text-[10px] font-black uppercase tracking-wider text-slate-700 hover:bg-slate-50 rounded-xl transition-all">
+                Business
+              </Link>
+              <Link to="/internships" className="block px-4 py-3 text-[10px] font-black uppercase tracking-wider text-slate-700 hover:bg-slate-50 rounded-xl transition-all">
+                Internship/Job
+              </Link>
+            </div>
+          </div>
+
           <Link to="/cart" className="relative hover:text-blue-600 transition-colors">
             <ShoppingCart size={22} strokeWidth={2} />
             {cartCount > 0 && (

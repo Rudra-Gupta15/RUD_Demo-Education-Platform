@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, BookOpen, BrainCircuit, CheckCircle2, RadioTower, Shield, Sparkles, Trophy, Grid } from "lucide-react";
+import { ArrowRight, ArrowLeft, BookOpen, BrainCircuit, CheckCircle2, RadioTower, Shield, Sparkles, Trophy, Grid } from "lucide-react";
 import Reveal from "../components/Reveal.jsx";
 
 /** Animated number counter that counts up from 0 to `target` when in view. */
@@ -135,7 +135,7 @@ export default function Learning() {
 
   const slides = [
     {
-      title: "Learn. Grow.\nGet Ahead with AI ✨",
+      title: "Learn. Grow.\nGet Ahead with AI",
       bulletPoints: [
         "15,000+ Careers advanced",
         "100+ Live classes every month",
@@ -148,7 +148,7 @@ export default function Learning() {
       image: "/hero1.png"
     },
     {
-      title: "Master Cyber Security.\nProtect the Future. 🛡️",
+      title: "Master Cyber Security.\nProtect the Future.",
       bulletPoints: [
         "10,000+ Certified learners",
         "Real SOC environments",
@@ -170,17 +170,20 @@ export default function Learning() {
   }, [slides.length]);
 
   return (
-    <div className="pt-16">
-      {/* ── Top Bar with "More Courses" Button ── */}
-      <div className="container-shell flex justify-end mb-4">
-        <button 
-          onClick={() => navigate('/catalog')}
-          className="flex items-center gap-2 px-6 py-2.5 bg-black text-white rounded-full text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl active:scale-95"
-        >
-          <Grid size={16} />
+    <div className="pt-24 pb-20">
+      {/* ── Fixed "More Courses" Circle Button ── */}
+      <motion.button 
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        onClick={() => navigate('/catalog')}
+        className="fixed top-[34px] right-20 z-[110] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-[0_15px_30px_-5px_rgba(0,0,0,0.3)] hover:bg-slate-800 hover:scale-110 active:scale-95 transition-all group"
+        title="More Courses"
+      >
+        <Grid size={22} className="group-hover:rotate-90 transition-transform duration-500" />
+        <span className="absolute right-full mr-4 px-4 py-2 bg-black text-white text-[10px] font-black uppercase tracking-widest rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
           More Courses
-        </button>
-      </div>
+        </span>
+      </motion.button>
 
       {/* ── Hero Carousel ── */}
       <section className="relative overflow-hidden bg-white py-12 sm:py-16 text-slate-900 border-b border-slate-100">
