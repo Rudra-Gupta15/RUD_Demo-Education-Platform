@@ -1,51 +1,77 @@
-// Using ok.surf API which is a free, keyless news aggregator
-const BASE_URL = "https://ok.surf/api/v1/cors/news-feed";
+const API_KEY = import.meta.env.VITE_NEWS_API_KEY?.trim() || "";
+const BASE_URL = "https://newsapi.org/v2/everything";
 
 export async function fetchNews() {
+  if (!API_KEY) {
+    console.warn("News API Key missing. Using fallback data.");
+    return getFallbackNews();
+  }
+
   try {
-    const response = await fetch(BASE_URL);
-    const data = await response.json();
+    const categories = [
+      { 
+        id: "AI", 
+        query: 'title:("Artificial Intelligence" OR "Generative AI" OR "LLM" OR "OpenAI" OR "Neural")', 
+        domains: "openai.com,anthropic.com,blog.google,huggingface.co,deepmind.google,ai.meta.com,techcrunch.com,wired.com",
+        count: 3 
+      },
+      { 
+        id: "Cybersecurity", 
+        query: 'title:("Cybersecurity" OR "Vulnerability" OR "Data Breach" OR "Exploit" OR "Malware")', 
+        domains: "krebsonsecurity.com,darkreading.com,bleepingcomputer.com,securityweek.com,thehackernews.com,wired.com",
+        count: 3 
+      },
+      { 
+        id: "Tech", 
+        query: '("Software Development" OR "Cloud Computing" OR "Hardware Engineering" OR "Architecture") -AI -LLM', 
+        domains: "arstechnica.com,zdnet.com,infoworld.com,techrepublic.com,computerworld.com,blog.google,techcrunch.com,venturebeat.com,thenextweb.com",
+        count: 3 
+      }
+    ];
 
-    if (!data || !data.Technology) {
-      throw new Error("Invalid response from News API");
-    }
+    const seenUrls = new Set();
 
-    const techNews = data.Technology || [];
+    const results = await Promise.all(
+      categories.map(async (cat) => {
+        try {
+          const response = await fetch(
+            `${BASE_URL}?q=${encodeURIComponent(cat.query)}&domains=${cat.domains}&pageSize=30&language=en&sortBy=publishedAt&apiKey=${API_KEY}`
+          );
+          const data = await response.json();
+          
+          if (data.status === "error") return [];
+
+          const uniqueArticles = [];
+          for (const article of (data.articles || [])) {
+            if (uniqueArticles.length >= cat.count) break;
+            if (!seenUrls.has(article.url)) {
+              seenUrls.add(article.url);
+              uniqueArticles.push({
+                id: `news-${article.url}`,
+                title: article.title,
+                excerpt: article.description || "No description available.",
+                category: cat.id,
+                read_time: "5 min",
+                author: article.author || article.source.name,
+                created_at: article.publishedAt,
+                image: article.urlToImage || "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80",
+                url: article.url
+              });
+            }
+          }
+          return uniqueArticles;
+        } catch (e) {
+          return [];
+        }
+      })
+    );
+
+    const allNews = results.flat();
     
-    // We will distribute the tech news into the 3 categories requested by the user
-    // AI: 4 items, Cybersecurity: 3 items, Tech: 3 items
-    
-    // Since this is a general tech feed, we'll pick items and assign them categories
-    // In a real app with a key, we'd query specifically, but here we'll map the feed
-    
-    const formattedNews = techNews.map((article, index) => {
-      let category = "Tech";
-      if (index < 4) category = "AI";
-      else if (index < 7) category = "Cybersecurity";
-      else if (index < 10) category = "Tech";
-      else return null; // We only need 10 items total
-
-      return {
-        id: `news-${index}`,
-        title: article.title,
-        excerpt: article.title, // ok.surf doesn't provide full description always, using title as fallback
-        category: category,
-        read_time: "5 min",
-        author: article.source,
-        created_at: new Date().toISOString(),
-        image: article.og || "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80",
-        url: article.link
-      };
-    }).filter(Boolean);
-
-    // If we have less than 10, fill with fallback
-    if (formattedNews.length < 10) {
-      return [...formattedNews, ...getFallbackNews().slice(formattedNews.length)];
-    }
-
-    return formattedNews.slice(0, 10);
+    if (allNews.length === 0) return getFallbackNews();
+    return allNews;
   } catch (error) {
-    console.error("Error fetching free news:", error);
+    console.error("Error fetching news:", error);
     return getFallbackNews();
   }
 }
@@ -62,7 +88,6 @@ function getFallbackNews() {
       author: "Tech Insider",
       created_at: "2026-05-01T10:00:00Z",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80",
-      content: "...",
       url: "#"
     },
     {
@@ -74,7 +99,6 @@ function getFallbackNews() {
       author: "Future Labs",
       created_at: "2026-04-10T12:00:00Z",
       image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&h=600&q=80",
-      content: "...",
       url: "#"
     },
     {
@@ -86,7 +110,6 @@ function getFallbackNews() {
       author: "Media Tech",
       created_at: "2026-04-28T09:30:00Z",
       image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?auto=format&fit=crop&q=80",
-      content: "...",
       url: "#"
     },
     {
@@ -98,7 +121,6 @@ function getFallbackNews() {
       author: "Silicon Valley",
       created_at: "2026-04-25T14:20:00Z",
       image: "https://images.unsplash.com/photo-1512428559083-a401c33c2b65?auto=format&fit=crop&q=80",
-      content: "...",
       url: "#"
     },
     // Cybersecurity - 3 Items (Bug focused)
@@ -111,7 +133,6 @@ function getFallbackNews() {
       author: "Security First",
       created_at: "2026-05-03T08:00:00Z",
       image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80",
-      content: "...",
       url: "#"
     },
     {
@@ -123,7 +144,6 @@ function getFallbackNews() {
       author: "Infosec Daily",
       created_at: "2026-04-15T12:00:00Z",
       image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&h=600&q=80",
-      content: "...",
       url: "#"
     },
     {
@@ -135,7 +155,6 @@ function getFallbackNews() {
       author: "Global Sec",
       created_at: "2026-04-20T11:15:00Z",
       image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80",
-      content: "...",
       url: "#"
     },
     // Tech Advancement - 3 Items
@@ -148,7 +167,6 @@ function getFallbackNews() {
       author: "Quantum Times",
       created_at: "2026-05-02T16:00:00Z",
       image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80",
-      content: "...",
       url: "#"
     },
     {
@@ -160,7 +178,6 @@ function getFallbackNews() {
       author: "DevOps World",
       created_at: "2026-04-05T12:00:00Z",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&h=600&q=80",
-      content: "...",
       url: "#"
     },
     {
@@ -172,7 +189,6 @@ function getFallbackNews() {
       author: "Energy Journal",
       created_at: "2026-04-12T13:45:00Z",
       image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80",
-      content: "...",
       url: "#"
     }
   ];

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Brain, ShieldCheck, Users, Target, Linkedin, Mail, ArrowUpRight, Sparkles, MoveRight } from "lucide-react";
+import { Brain, ShieldCheck, Users, Target, Linkedin, Github, Globe, Mail, ArrowUpRight, Sparkles, MoveRight } from "lucide-react";
 
 /* ─── ANIMATION HELPERS ─────────────────────────────────────────── */
 function useReveal(threshold = "-60px") {
@@ -109,9 +109,21 @@ const team = [
     image: "/Rudra.png",
     bio: "Frontend specialist and extension developer focused on building practical, user-facing AI tools. Published author of multiple production Chrome extensions.",
     linkedin: "https://www.linkedin.com/in/rudra-kumar-gupta/",
+    portfolio: "https://rudra-gupta.vercel.app/",
     email: "rudra.gupta@convosec.ai",
   },
+  {
+    name: "Samruddhi Khedkar",
+    initials: "SK",
+    role: "AI Engineer",
+    image: "/samruddhi.png",
+    bio: "AI Engineer specializing in Computer Vision, Deep Learning, and Prompt Engineering to build intelligent systems.",
+    linkedin: "https://linkedin.com/in/samruddhi-khedkar-670070239",
+    github: "https://github.com/samruddhikhedkar02",
+    email: "samruddhi@convosec.ai",
+  },
 ];
+
 
 const teamworkQuotes = [
   {
@@ -150,7 +162,7 @@ const stats = [
   { value: "50+", label: "Projects Built" },
   { value: "04", label: "Core Services" },
   { value: "100%", label: "AI-Powered" },
-  { value: "3", label: "Expert Team" },
+  { value: "4", label: "Expert Team" },
 ];
 
 /* ─── SERVICE ROW ───────────────────────────────────────────────── */
@@ -257,12 +269,12 @@ function TeamCard({ member, idx }) {
       initial={{ opacity: 0, y: 32 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative bg-white rounded-[2.5rem] p-8 border border-slate-100 hover:border-blue-100 hover:shadow-2xl transition-all duration-500 text-center"
+      className="group relative bg-white rounded-[2.5rem] p-8 border border-slate-100 hover:border-blue-100 hover:shadow-2xl transition-all duration-500 text-center flex flex-col h-full"
     >
       {/* Top accent bar */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-b-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-      <div className="relative w-48 h-48 mx-auto mb-8">
+      <div className="relative w-48 h-48 mx-auto mb-8 shrink-0">
         {/* Rotating border accent */}
         <motion.div
           animate={{ rotate: 360 }}
@@ -279,17 +291,19 @@ function TeamCard({ member, idx }) {
         </div>
       </div>
       
-      <h3 className="text-2xl font-black text-slate-900 mb-1">{member.name}</h3>
+      <h3 className="text-xl lg:text-2xl font-black text-slate-900 mb-1 whitespace-nowrap">{member.name}</h3>
       <p className="text-blue-600 font-bold text-sm uppercase tracking-widest mb-4">{member.role}</p>
-      <p className="text-slate-500 text-sm leading-relaxed mb-8 px-4">
+      <p className="text-slate-500 text-sm leading-relaxed mb-8 px-4 flex-1">
         {member.bio}
       </p>
 
-      <div className="flex items-center justify-center gap-4">
+      <div className="flex items-center justify-center gap-4 mt-auto">
         {[
           { href: member.linkedin, icon: Linkedin, label: "LinkedIn" },
+          member.github && { href: member.github, icon: Github, label: "GitHub" },
+          member.portfolio && { href: member.portfolio, icon: Globe, label: "Portfolio" },
           { href: `mailto:${member.email}`, icon: Mail, label: "Email" },
-        ].map(({ href, icon: Icon, label }) => (
+        ].filter(Boolean).map(({ href, icon: Icon, label }) => (
           <motion.a
             key={label}
             href={href}
@@ -676,7 +690,7 @@ export default function About() {
             </FadeReveal>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map((member, idx) => (
               <TeamCard key={member.name} member={member} idx={idx} />
             ))}

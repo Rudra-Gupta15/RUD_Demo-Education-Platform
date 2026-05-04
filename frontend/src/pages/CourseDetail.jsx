@@ -1,11 +1,12 @@
 import { useState, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  ArrowLeft, CheckCircle2, Clock, GraduationCap, 
-  Linkedin, Mail, Link as LinkIcon, Calendar, 
-  Check, ChevronDown, ChevronUp, BookOpen, 
-  Target, Award, Users, ShieldCheck, Zap
+import {
+  ArrowLeft, CheckCircle2, Clock, GraduationCap,
+  Linkedin, Mail, Link as LinkIcon, Calendar,
+  Check, ChevronDown, ChevronUp, BookOpen,
+  Target, Award, Users, ShieldCheck, Zap,
+  PlayCircle, Download, Share2, Star, Sparkles
 } from "lucide-react";
 import { useApi } from "../hooks/useApi.js";
 import { demoCourses } from "../data/courses.js";
@@ -21,27 +22,23 @@ const FAQ_ITEMS = [
 
 const ELIGIBILITY = [
   { label: "Graduating Year", value: "2024 Graduates", icon: Calendar },
-  { label: "Degree", value: "B.Tech / B.E / MCA / M.Tech", icon: GraduationCap },
-  { label: "Branch", value: "All Tech Branches", icon: Target },
-  { label: "Marks", value: "Min 60% in 10th, 12th & Graduation", icon: ShieldCheck }
+  { label: "Degree", value: "B.Tech / MCA / M.Tech", icon: GraduationCap },
+  { label: "Branch", value: "Computer Science / IT", icon: Target },
+  { label: "Marks", value: "Min 60% Overall", icon: ShieldCheck }
 ];
 
 const OVERVIEW_FEATURES = [
-  { title: "Language Support", desc: "Available in multiple languages for better understanding.", icon: Users },
-  { title: "Positive Attitude", desc: "Special sessions on mindset and professional ethics.", icon: Zap },
-  { title: "Industry Ready", desc: "Curriculum designed by top tech industry experts.", icon: Award },
-  { title: "Soft Skills", desc: "Communication and presentation skills training.", icon: Target },
-  { title: "Career Support", desc: "Resume building and LinkedIn optimization.", icon: Linkedin },
-  { title: "Mock Interviews", desc: "Unlimited mock sessions with real interviewers.", icon: Users }
+  { title: "Language Support", desc: "Available in multiple languages.", icon: Users },
+  { title: "Industry Ready", desc: "Curriculum designed by top experts.", icon: Award },
+  { title: "Career Support", desc: "Resume building and optimization.", icon: Linkedin }
 ];
 
 export default function CourseDetail() {
   const { slug } = useParams();
-  const { data, loading: apiLoading, error: apiError } = useApi(`/api/courses/${slug}`, [slug]);
+  const { data, loading: apiLoading } = useApi(`/api/courses/${slug}`, [slug]);
   const [activeTab, setActiveTab] = useState("curriculum");
   const [openFaq, setOpenFaq] = useState(null);
 
-  // Fallback to local data if API fails or is loading
   const course = useMemo(() => {
     if (data?.course) return data.course;
     return demoCourses.find(c => c.slug === slug);
@@ -61,345 +58,275 @@ export default function CourseDetail() {
       <section className="container-shell min-h-screen pt-32 pb-16">
         <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
           <h2 className="text-2xl font-bold text-red-800">Course Not Found</h2>
-          <p className="mt-2 text-red-600">We couldn't find the course you're looking for. Please check the URL or return to the catalog.</p>
-          <Link to="/courses" className="mt-6 btn-primary inline-flex">
-            Back to Catalog
-          </Link>
+          <p className="mt-2 text-red-600">We couldn't find the course you're looking for.</p>
+          <Link to="/courses" className="mt-6 btn-primary inline-flex">Back to Catalog</Link>
         </div>
       </section>
     );
 
-  // Ensure syllabus exists
   const syllabus = course.syllabus || [
-    "Introduction to the core concepts",
-    "Hands-on practical training with real-world tools",
-    "Advanced optimization and best practices",
-    "Capstone project and final assessment"
+    "Introduction to core concepts",
+    "Hands-on practical training",
+    "Advanced optimization",
+    "Capstone project assessment"
   ];
 
+  const layoutVariant = course.id % 3;
 
   return (
-    <div className="relative min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-slate-50 pt-32 pb-20">
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#4F46E5_1px,transparent_1px)] [background-size:20px_20px]" />
-        </div>
-        
-        <div className="container-shell relative">
+    <div className={`relative min-h-screen ${layoutVariant === 2 ? 'bg-slate-50' : 'bg-white'}`}>
+
+      {/* Header / Breadcrumbs */}
+      <div className={`pt-32 pb-8 ${layoutVariant === 2 ? 'bg-slate-900 text-white' : 'bg-white border-b border-slate-100'}`}>
+        <div className="container-shell flex items-center justify-between">
           <Reveal>
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
-              <div className="flex items-center gap-3">
-                <Link to="/courses" className="p-2 rounded-full bg-white border border-slate-200 hover:border-brandprimary/50 transition-colors shadow-sm">
-                  <ArrowLeft size={18} className="text-slate-600" />
-                </Link>
-                <nav className="text-sm text-slate-500">
-                  <span className="hover:text-brandprimary transition-colors cursor-pointer">Courses</span> / <span className="text-slate-900 font-medium">{course.title}</span>
-                </nav>
-              </div>
-              
-              <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-slate-400">Share:</span>
-                <div className="flex gap-2">
-                  {[Linkedin, Mail, LinkIcon].map((Icon, i) => (
-                    <button key={i} className="p-2 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-slate-600">
-                      <Icon size={18} />
-                    </button>
-                  ))}
-                </div>
-              </div>
+            <div className="flex items-center gap-3">
+              <Link to="/courses" className={`p-2 rounded-full border transition-colors ${layoutVariant === 2 ? 'border-white/10 hover:bg-white/10' : 'border-slate-200 hover:border-blue-600'}`}>
+                <ArrowLeft size={18} />
+              </Link>
+              <nav className="text-sm font-medium opacity-60">
+                Courses / {course.title}
+              </nav>
             </div>
           </Reveal>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <Reveal>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-tight">
-                {course.title} <br className="hidden md:block" />
-                <span className="text-brandprimary text-[0.8em] font-extrabold">- Exclusive for 2024 Graduates</span>
-              </h1>
-              <p className="mt-6 text-lg text-slate-600 leading-relaxed max-w-xl">
-                Master the essentials of {course.title.split(":")[1] || course.title} with {course.instructor || course.instructor_name}. This program is designed to bridge the gap between academic knowledge and industry requirements.
-              </p>
-              
-              <div className="mt-10 flex flex-wrap gap-4">
-                <button className="btn-primary px-8 py-4 text-lg">
-                  Register Now
-                </button>
-                <button className="btn-secondary px-8 py-4 text-lg">
-                  View Syllabus
-                </button>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.2}>
-              <div className="relative group max-w-lg mx-auto lg:ml-auto lg:mr-0">
-                <div className="absolute -inset-4 bg-gradient-to-tr from-brandprimary/20 to-brandsecondary/20 rounded-[2.5rem] blur-2xl group-hover:blur-3xl transition-all duration-500" />
-                <div className="relative glass border-slate-200/50 rounded-[2rem] overflow-hidden shadow-2xl">
-                  <img 
-                    src="/course_banner.png" 
-                    alt="Course Preview" 
-                    className="w-full h-auto object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent flex flex-col justify-end p-6 md:p-8">
-                    <ul className="space-y-3">
-                      {[
-                        "Resume Linked to Top Companies",
-                        "Industry-Led Training",
-                        "Exclusive for 2024 Graduates",
-                        "Job Placement Support"
-                      ].map((item, i) => (
-                        <li key={i} className="flex items-center gap-3 text-white font-medium">
-                          <div className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center">
-                            <Check size={12} className="text-white" strokeWidth={3} />
-                          </div>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Eligibility Section */}
-      <section className="py-24 bg-white">
-        <div className="container-shell">
-          <Reveal center>
-            <div className="text-center mb-16">
-              <span className="eyebrow">Requirement</span>
-              <h2 className="section-title">Eligibility Parameters</h2>
-              <p className="muted mt-4 max-w-2xl mx-auto">Make sure you meet these criteria before applying for the fast-track program.</p>
-            </div>
-          </Reveal>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {ELIGIBILITY.map((item, i) => (
-              <Reveal key={i} delay={i * 0.1}>
-                <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-brandprimary/30 hover:bg-indigo-50/50 transition-all group h-full flex flex-col">
-                  <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-brandprimary mb-6 group-hover:scale-110 transition-transform">
-                    <item.icon size={24} />
-                  </div>
-                  <h3 className="text-slate-500 text-sm font-bold uppercase tracking-wider mb-2">{item.label}</h3>
-                  <p className="text-slate-900 font-extrabold text-lg">{item.value}</p>
-                </div>
-              </Reveal>
+          <div className="flex gap-2">
+            {[Share2, LinkIcon].map((Icon, i) => (
+              <button key={i} className={`p-2 rounded-lg border transition-colors ${layoutVariant === 2 ? 'border-white/10 hover:bg-white/10' : 'border-slate-200 hover:bg-slate-50'}`}>
+                <Icon size={16} />
+              </button>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Course Overview */}
-      <section className="py-24 bg-slate-50">
-        <div className="container-shell">
-          <Reveal>
-            <h2 className="text-3xl font-black text-slate-900 mb-12">Course Overview</h2>
-            
-            <div className="p-8 rounded-3xl bg-[#FFF9F2] border border-[#FFE4C4] mb-16 flex items-start gap-6">
-              <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 flex-shrink-0">
-                <BookOpen size={24} />
-              </div>
-              <p className="text-slate-700 text-lg leading-relaxed italic">
-                "Our hiring program is designed to bridge the gap between academic knowledge and industry requirements. We ensure every student is job-ready from day one."
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {OVERVIEW_FEATURES.map((feat, i) => (
-                <Reveal key={i} delay={i * 0.1}>
-                  <div className="flex gap-5">
-                    <div className="w-14 h-14 rounded-2xl bg-brandprimary/10 flex items-center justify-center text-brandprimary flex-shrink-0">
-                      <feat.icon size={28} />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-bold text-slate-900 mb-1">{feat.title}</h4>
-                      <p className="text-slate-500 leading-relaxed">{feat.desc}</p>
+      {/* Hero Section Variants */}
+      {layoutVariant === 0 && (
+        <section className="relative pt-20 pb-32 overflow-hidden bg-slate-50">
+          <div className="container-shell relative">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <Reveal>
+                <div className="space-y-8">
+                  <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-[10px] font-black uppercase tracking-widest">Premium Program</span>
+                  <h1 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">{course.title}</h1>
+                  <p className="text-lg text-slate-500 leading-relaxed max-w-xl">Master the nuances of {course.topic} with {course.instructor}. A comprehensive track designed for career excellence.</p>
+                  <div className="flex flex-wrap gap-4 pt-4">
+                    <button className="btn-primary px-10 py-5">Register Now</button>
+                    <button className="btn-secondary px-10 py-5">Syllabus</button>
+                  </div>
+                </div>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <div className="relative">
+                  <div className="absolute -inset-4 bg-blue-600/10 rounded-[3rem] blur-2xl" />
+                  <div className="relative rounded-[2.5rem] overflow-hidden border-8 border-white shadow-2xl">
+                    <img src={course.image} alt={course.title} className="w-full aspect-square object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent flex flex-col justify-end p-8">
+                      <ul className="space-y-3">
+                        {["Resume Support", "Industry Training", "Placement Help"].map((item, i) => (
+                          <li key={i} className="flex items-center gap-3 text-white text-sm font-bold">
+                            <div className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center"><Check size={12} /></div>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
-                </Reveal>
-              ))}
+                </div>
+              </Reveal>
             </div>
-          </Reveal>
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
-      {/* Syllabus Section */}
-      <section className="py-24 bg-white">
+      {layoutVariant === 1 && (
+        <section className="relative pt-20 pb-32 overflow-hidden bg-white">
+          <div className="container-shell relative">
+            <div className="grid lg:grid-cols-2 gap-20 items-center">
+              <Reveal>
+                <div className="relative lg:order-last">
+                  <div className="space-y-8">
+                    <div className="inline-flex items-center gap-2 text-indigo-600 font-black text-xs uppercase tracking-widest">
+                      <Sparkles size={16} /> Elite Specialization
+                    </div>
+                    <h1 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">{course.title}</h1>
+                    <div className="p-8 rounded-3xl bg-indigo-50 border border-indigo-100">
+                      <p className="text-indigo-900 font-medium leading-relaxed italic">"Transforming potential into performance through industry-first curriculum led by {course.instructor}."</p>
+                    </div>
+                    <div className="pt-6">
+                      <button className="w-full sm:w-auto btn-primary px-12 py-6 text-xl shadow-lg shadow-blue-600/20">Secure Your Slot</button>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <div className="relative">
+                  <div className="absolute top-0 -left-12 w-64 h-64 bg-indigo-600/5 rounded-full blur-3xl" />
+                  <div className="relative rounded-[2rem] overflow-hidden shadow-2xl rotate-1">
+                    <img src={course.image} alt={course.title} className="w-full aspect-square object-cover" />
+                    <div className="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur rounded-full text-xs font-black text-slate-900 shadow-sm border border-slate-200">
+                      Top Rated Course
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {layoutVariant === 2 && (
+        <section className="relative pt-20 pb-32 bg-slate-900 overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:40px_40px]" />
+          </div>
+          <div className="container-shell relative z-10">
+            <Reveal center>
+              <div className="text-center max-w-4xl mx-auto space-y-10">
+                <div className="flex justify-center">
+                  <div className="px-4 py-1 rounded-full border border-white/20 bg-white/5 text-white text-[10px] font-black uppercase tracking-[0.2em]">Full Access Pass</div>
+                </div>
+                <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.1]">{course.title}</h1>
+                <p className="text-xl text-slate-400 leading-relaxed max-w-2xl mx-auto">Master the most in-demand skills in {course.topic} with {course.instructor}. Complete project-based learning.</p>
+                <div className="relative max-w-2xl mx-auto pt-8">
+                  <div className="absolute inset-0 bg-blue-600/30 blur-3xl rounded-full" />
+                  <div className="relative rounded-[2.5rem] overflow-hidden border-[12px] border-white/5 shadow-3xl aspect-square">
+                    <img src={course.image} alt={course.title} className="w-full h-full object-cover" />
+                  </div>
+                </div>
+                <div className="flex justify-center gap-6 pt-10">
+                  <button className="bg-white text-slate-900 px-12 py-5 rounded-2xl font-black text-lg hover:bg-blue-50 transition-all">Enroll Now</button>
+                  <button className="text-white border border-white/20 px-12 py-5 rounded-2xl font-black text-lg hover:bg-white/5 transition-all">Curriculum</button>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      {/* Main Content Sections */}
+      <section className={`py-32 ${layoutVariant === 2 ? 'bg-white' : 'bg-white border-t border-slate-50'}`}>
         <div className="container-shell">
-          <Reveal center>
-            <div className="text-center mb-16">
-              <h2 className="section-title">Course Syllabus</h2>
-            </div>
-          </Reveal>
+          <div className={`grid lg:grid-cols-${layoutVariant === 2 ? '1' : '2'} gap-20`}>
 
-          <div className="max-w-4xl mx-auto border border-slate-200 rounded-[2rem] overflow-hidden shadow-sm">
-            <div className="flex border-b border-slate-200 bg-slate-50">
-              {["overview", "curriculum"].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`flex-1 py-5 text-sm font-bold uppercase tracking-wider transition-colors ${
-                    activeTab === tab 
-                      ? "bg-white text-brandprimary border-b-2 border-brandprimary" 
-                      : "text-slate-400 hover:text-slate-600"
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
+            <div className="space-y-16">
+              <Reveal>
+                <h2 className="text-3xl font-black text-slate-900">Eligibility Criteria</h2>
+                <div className="grid sm:grid-cols-2 gap-6 mt-10">
+                  {ELIGIBILITY.map((item, i) => (
+                    <div key={i} className={`p-8 rounded-3xl border transition-all ${layoutVariant === 2 ? 'bg-slate-50 border-slate-100 hover:border-blue-600' : 'bg-white border-slate-100 hover:shadow-xl'}`}>
+                      <item.icon className="text-blue-600 mb-6" size={24} />
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{item.label}</p>
+                      <p className="text-lg font-black text-slate-900">{item.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+
+              <Reveal delay={0.2}>
+                <div className={`p-10 rounded-[2.5rem] ${layoutVariant === 1 ? 'bg-indigo-600 text-white' : 'bg-slate-900 text-white'}`}>
+                  <h3 className="text-2xl font-black mb-8">What you'll get</h3>
+                  <div className="space-y-6">
+                    {OVERVIEW_FEATURES.map((feat, i) => (
+                      <div key={i} className="flex gap-5">
+                        <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0"><feat.icon size={20} /></div>
+                        <div>
+                          <p className="font-bold text-lg">{feat.title}</p>
+                          <p className="opacity-60 text-sm">{feat.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
             </div>
 
-            <div className="p-8 md:p-12 bg-white min-h-[400px]">
+            <div className="space-y-12">
+              <Reveal>
+                <div className="flex border-b border-slate-100">
+                  {["curriculum", "faqs"].map(tab => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`px-8 py-4 text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab ? 'text-blue-600 border-b-2 border-blue-600' : 'text-slate-400'}`}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </div>
+              </Reveal>
+
               <AnimatePresence mode="wait">
                 {activeTab === "curriculum" ? (
                   <motion.div
                     key="curriculum"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    className="space-y-8"
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                    className="space-y-6"
                   >
-                    {syllabus.map((topic, i) => (
-                      <div key={i} className="group">
-                        <div className="flex items-center gap-4 mb-4">
-                          <div className="w-8 h-8 rounded-full bg-brandprimary text-white flex items-center justify-center text-xs font-bold">
-                            {i + 1}
-                          </div>
-                          <h3 className="text-xl font-bold text-slate-900">{topic}</h3>
-                        </div>
-                        <ul className="ml-12 space-y-3">
-                          <li className="flex items-center gap-3 text-slate-500">
-                            <div className="w-1.5 h-1.5 rounded-full bg-brandprimary/40" />
-                            Core concepts and foundational principles
-                          </li>
-                          <li className="flex items-center gap-3 text-slate-500">
-                            <div className="w-1.5 h-1.5 rounded-full bg-brandprimary/40" />
-                            Hands-on practical exercises and mini-projects
-                          </li>
-                          <li className="flex items-center gap-3 text-slate-500">
-                            <div className="w-1.5 h-1.5 rounded-full bg-brandprimary/40" />
-                            Industry best practices and optimization
-                          </li>
-                        </ul>
+                    {syllabus.map((item, i) => (
+                      <div key={i} className="p-6 rounded-2xl border border-slate-100 bg-slate-50/50 flex items-center gap-6 group hover:bg-white hover:shadow-lg transition-all">
+                        <span className="w-10 h-10 rounded-full bg-white flex items-center justify-center font-black text-blue-600 shadow-sm">{i + 1}</span>
+                        <p className="font-bold text-slate-800">{item}</p>
                       </div>
                     ))}
                   </motion.div>
                 ) : (
                   <motion.div
-                    key="overview"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    className="prose prose-slate max-w-none"
+                    key="faqs"
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                    className="space-y-4"
                   >
-                    <p className="text-slate-600 text-lg leading-relaxed">
-                      This program is meticulously crafted for the class of 2024. It covers everything from core technical skills to soft skills required for top-tier tech roles.
-                    </p>
-                    <ul className="mt-6 space-y-4 text-slate-600">
-                      <li className="flex gap-3">
-                        <CheckCircle2 className="text-brandprimary flex-shrink-0" size={20} />
-                        <span>Comprehensive coverage of {course.title}</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <CheckCircle2 className="text-brandprimary flex-shrink-0" size={20} />
-                        <span>Real-world projects inspired by industry needs</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <CheckCircle2 className="text-brandprimary flex-shrink-0" size={20} />
-                        <span>Personalized mentorship and doubt clearing sessions</span>
-                      </li>
-                    </ul>
+                    {FAQ_ITEMS.map((faq, i) => (
+                      <div key={i} className="rounded-2xl border border-slate-100 overflow-hidden">
+                        <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full p-6 text-left flex justify-between items-center font-bold text-slate-800">
+                          {faq.q} <ChevronDown size={18} className={`transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
+                        </button>
+                        {openFaq === i && <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed">{faq.a}</div>}
+                      </div>
+                    ))}
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Upcoming Batches */}
-      <section className="py-24 bg-slate-50">
-        <div className="container-shell">
-          <Reveal center>
-            <h2 className="section-title text-center mb-16">Upcoming Batches</h2>
-          </Reveal>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {[
-              { type: "Pre-recorded", date: "May 15th, 2024", time: "Self-paced", slots: "120 Left" },
-              { type: "Live Session", date: "June 1st, 2024", time: "7:00 PM IST", slots: "45 Left" }
-            ].map((batch, i) => (
-              <Reveal key={i} delay={i * 0.1}>
-                <div className="glass border-slate-200 rounded-[2rem] p-8 shadow-sm hover:shadow-md transition-all">
-                  <div className="flex justify-between items-start mb-6">
+              <Reveal delay={0.4}>
+                <div className="pt-10 border-t border-slate-100">
+                  <div className="flex items-center gap-6 p-8 rounded-3xl bg-slate-50">
+                    <img src={`https://i.pravatar.cc/100?u=${course.instructor}`} className="w-16 h-16 rounded-2xl object-cover" alt={course.instructor} />
                     <div>
-                      <span className="px-3 py-1 rounded-full bg-brandprimary/10 text-brandprimary text-xs font-bold uppercase">
-                        {batch.type}
-                      </span>
-                      <h3 className="text-2xl font-black text-slate-900 mt-3">{batch.date}</h3>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-slate-400 text-xs font-bold uppercase">Status</p>
-                      <p className="text-emerald-600 font-bold">{batch.slots}</p>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Instructor</p>
+                      <p className="text-xl font-black text-slate-900">{course.instructor}</p>
                     </div>
                   </div>
-                  
-                  <div className="flex items-center gap-4 text-slate-500 mb-8 pb-8 border-b border-slate-100">
-                    <Clock size={18} />
-                    <span>{batch.time}</span>
-                  </div>
-
-                  <button className={`w-full py-4 rounded-xl font-bold transition-all ${i === 0 ? "bg-brandprimary text-white" : "border-2 border-brandprimary text-brandprimary hover:bg-brandprimary hover:text-white"}`}>
-                    {i === 0 ? "Buy Now" : "Register Now"}
-                  </button>
                 </div>
               </Reveal>
-            ))}
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-24 bg-white">
-        <div className="container-shell">
+      {/* Cohorts Footer */}
+      <section className={`py-32 ${layoutVariant === 1 ? 'bg-slate-50' : 'bg-slate-900'}`}>
+        <div className="container-shell text-center">
           <Reveal center>
-            <h2 className="section-title text-center mb-16">Frequently Asked Questions</h2>
+            <h2 className={`text-4xl font-black mb-16 ${layoutVariant === 1 ? 'text-slate-900' : 'text-white'}`}>Upcoming Cohorts</h2>
           </Reveal>
-
-          <div className="max-w-3xl mx-auto space-y-4">
-            {FAQ_ITEMS.map((faq, i) => (
-              <Reveal key={i} delay={i * 0.05}>
-                <div className="border border-slate-200 rounded-2xl overflow-hidden">
-                  <button
-                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="w-full flex items-center justify-between p-6 bg-white hover:bg-slate-50 transition-colors text-left"
-                  >
-                    <span className="font-bold text-slate-900 pr-8">{faq.q}</span>
-                    {openFaq === i ? <ChevronUp size={20} className="text-brandprimary" /> : <ChevronDown size={20} className="text-slate-400" />}
-                  </button>
-                  <AnimatePresence>
-                    {openFaq === i && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <div className="px-6 pb-6 text-slate-500 leading-relaxed border-t border-slate-100 pt-4">
-                          {faq.a}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {[1, 2].map(i => (
+              <div key={i} className={`p-10 rounded-[2.5rem] text-left border ${layoutVariant === 1 ? 'bg-white border-slate-100 shadow-xl' : 'bg-white/5 border-white/10 text-white'}`}>
+                <div className="flex justify-between items-start mb-10">
+                  <span className="px-3 py-1 rounded-full bg-blue-600 text-white text-[10px] font-black uppercase">Cohort {i}</span>
+                  <div className="text-right">
+                    <p className="text-[10px] font-bold opacity-60 uppercase tracking-widest">Starts On</p>
+                    <p className="text-xl font-black">June {10 + i}, 2024</p>
+                  </div>
                 </div>
-              </Reveal>
+                <button className={`w-full py-5 rounded-2xl font-black text-lg transition-all ${layoutVariant === 1 ? 'bg-slate-900 text-white hover:bg-blue-600' : 'bg-blue-600 text-white hover:bg-blue-500 shadow-lg shadow-blue-600/20'}`}>Reserve My Spot</button>
+              </div>
             ))}
           </div>
         </div>
       </section>
+
     </div>
   );
 }
-
