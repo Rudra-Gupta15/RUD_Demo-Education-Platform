@@ -104,16 +104,23 @@ export default function Navbar() {
         {/* Right Actions */}
         <div className="flex items-center gap-6 px-4 mr-2 text-slate-500 shrink-0">
           <div className="group relative">
-            <button className="hover:text-blue-600 transition-all duration-300 flex items-center gap-1">
-              <Building2 size={22} strokeWidth={2} />
+            <button 
+              onClick={() => navigate("/contact/business")}
+              className={`transition-all duration-300 flex items-center gap-1 ${
+                location.pathname.startsWith("/contact/business") || location.pathname.startsWith("/contact/careers")
+                  ? "text-black scale-110" 
+                  : "hover:text-blue-600"
+              }`}
+            >
+              <Building2 size={22} strokeWidth={2.5} />
             </button>
             
             {/* Building Dropdown */}
             <div className="absolute top-full right-0 mt-4 w-48 bg-white rounded-2xl shadow-2xl border border-slate-100 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-2 group-hover:translate-y-0 pointer-events-auto">
-              <Link to="/business" className="block px-4 py-3 text-[10px] font-black uppercase tracking-wider text-slate-700 hover:bg-slate-50 rounded-xl transition-all">
+              <Link to="/contact/business" className="block px-4 py-3 text-[10px] font-black uppercase tracking-wider text-slate-700 hover:bg-slate-50 rounded-xl transition-all">
                 Business
               </Link>
-              <Link to="/internships" className="block px-4 py-3 text-[10px] font-black uppercase tracking-wider text-slate-700 hover:bg-slate-50 rounded-xl transition-all">
+              <Link to="/contact/careers" className="block px-4 py-3 text-[10px] font-black uppercase tracking-wider text-slate-700 hover:bg-slate-50 rounded-xl transition-all">
                 Internship/Job
               </Link>
             </div>

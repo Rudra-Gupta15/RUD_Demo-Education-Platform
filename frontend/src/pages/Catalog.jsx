@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Heart, ShieldCheck, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -65,6 +65,27 @@ export default function Catalog() {
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY < 50) {
+        setIsVisible(true);
+      } else {
+        if (currentScrollY > lastScrollY.current) {
+          setIsVisible(false);
+        } else {
+          setIsVisible(true);
+        }
+      }
+      lastScrollY.current = currentScrollY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const handleMouseEnter = (e, course) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setHoveredCourse({
@@ -87,10 +108,11 @@ export default function Catalog() {
     <section className="container-shell min-h-screen pt-32 pb-16">
       {/* ── Fixed Floating Back Button ── */}
       <motion.button 
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
         onClick={() => navigate('/learning')}
-        className="fixed top-[34px] left-20 z-[110] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-[0_15px_30px_-5px_rgba(0,0,0,0.3)] hover:bg-slate-800 hover:scale-110 active:scale-95 transition-all group"
+        className="fixed top-[34px] left-20 z-[110] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-[0_15px_30px_-5px_rgba(0,0,0,0.3)] hover:bg-slate-800 hover:scale-110 active:scale-95 group"
         title="Go Back"
       >
         <ArrowLeft size={22} className="group-hover:-translate-x-1 transition-transform duration-300" />

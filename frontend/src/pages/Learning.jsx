@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { ArrowRight, ArrowLeft, BookOpen, BrainCircuit, CheckCircle2, RadioTower, Shield, Sparkles, Trophy, Grid } from "lucide-react";
 import Reveal from "../components/Reveal.jsx";
 
@@ -133,6 +133,23 @@ export default function Learning() {
   const [activeCategory, setActiveCategory] = useState("Most Popular");
   const navigate = useNavigate();
 
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest < 50) {
+      setIsVisible(true);
+    } else {
+      if (latest > lastScrollY.current) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+    }
+    lastScrollY.current = latest;
+  });
+
   const slides = [
     {
       title: "Learn. Grow.\nGet Ahead with AI",
@@ -173,10 +190,11 @@ export default function Learning() {
     <div className="pt-24 pb-20">
       {/* ── Fixed "More Courses" Circle Button ── */}
       <motion.button 
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
         onClick={() => navigate('/catalog')}
-        className="fixed top-[34px] right-20 z-[110] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-[0_15px_30px_-5px_rgba(0,0,0,0.3)] hover:bg-slate-800 hover:scale-110 active:scale-95 transition-all group"
+        className="fixed top-[34px] right-20 z-[110] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-[0_15px_30px_-5px_rgba(0,0,0,0.3)] hover:bg-slate-800 hover:scale-110 active:scale-95 group"
         title="More Courses"
       >
         <Grid size={22} className="group-hover:rotate-90 transition-transform duration-500" />

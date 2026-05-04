@@ -9,15 +9,16 @@ import About from "./pages/About.jsx";
 import ArticleDetail from "./pages/ArticleDetail.jsx";
 import Auth from "./pages/Auth.jsx";
 import Blog from "./pages/Blog.jsx";
-import Contact from "./pages/Contact.jsx";
+import BusinessContact from "./pages/BusinessContact.jsx";
+import CareerContact from "./pages/CareerContact.jsx";
+import Catalog from "./pages/Catalog.jsx";
+import Checkout from "./pages/Checkout.jsx";
 import CourseDetail from "./pages/CourseDetail.jsx";
 import Home from "./pages/Home.jsx";
 import Learning from "./pages/Learning.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Projects from "./pages/Projects.jsx";
 import Cart from "./pages/Cart.jsx";
-import Checkout from "./pages/Checkout.jsx";
-import Catalog from "./pages/Catalog.jsx";
 
 export default function App() {
   const location = useLocation();
@@ -50,7 +51,8 @@ export default function App() {
             <Route path="/blog/:slug" element={<ArticleDetail />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/contact/business" element={<BusinessContact />} />
+            <Route path="/contact/careers" element={<CareerContact />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
