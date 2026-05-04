@@ -79,7 +79,7 @@ export default function ChatWidget() {
         messages: [
           {
             role: "system",
-            content: "You are SynapseLearn AI, a helpful tech assistant. Keep your responses extremely short, direct, and concise. Answer the user's query using short bullet points with asterisks (*). Put each point on a new line. Avoid paragraphs or long blocks of text."
+            content: "You are ConvoSec AI, a helpful tech assistant for the ConvoSec platform. Keep your responses extremely short, direct, and concise. Answer the user's query using short bullet points with asterisks (*). Put each point on a new line. Avoid paragraphs or long blocks of text."
           },
           ...messages.slice(1).map(m => ({ role: m.role, content: m.content })),
           { role: "user", content: input }

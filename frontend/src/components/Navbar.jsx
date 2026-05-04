@@ -54,10 +54,10 @@ export default function Navbar() {
         {/* Left: Brand Capsule */}
         <Link 
           to="/" 
-          className="flex items-center gap-3 bg-white rounded-full py-2 pl-2 pr-6 hover:scale-[1.01] active:scale-95 transition-all shadow-md shrink-0"
+          className="flex items-center gap-3 bg-white rounded-full py-1.5 pl-1.5 pr-6 hover:scale-[1.01] active:scale-95 transition-all shadow-md shrink-0"
         >
-          <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white shadow-inner">
-            <ShieldCheck size={22} className="fill-white/10" />
+          <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-100 shadow-sm bg-white p-1 flex items-center justify-center">
+            <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-[900] text-black leading-none tracking-tight">ConvoSec AI</span>

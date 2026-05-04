@@ -4,6 +4,7 @@ import { ArrowRight, ChevronLeft, ChevronRight, Play, CheckCircle2, Shield, Brai
 import Reveal from "../components/Reveal.jsx";
 import ModernHero from "../components/ModernHero.jsx";
 import SpecializedSolutions from "../components/SpecializedSolutions.jsx";
+import LoadingScreen from "../components/LoadingScreen.jsx";
 import { useState, useEffect } from "react";
 
 const INDUSTRIES_DATA = [
@@ -39,6 +40,15 @@ const INDUSTRIES_DATA = [
 
 export default function Home() {
   const [industries, setIndustries] = useState(INDUSTRIES_DATA);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Initial loading delay
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -51,6 +61,11 @@ export default function Home() {
 
   return (
     <div className="bg-white min-h-screen font-sans overflow-x-hidden selection:bg-blue-500 selection:text-white text-slate-900">
+      
+      {/* ── LOADING SCREEN ── */}
+      <AnimatePresence>
+        {loading && <LoadingScreen key="loading" />}
+      </AnimatePresence>
       
       {/* ── HERO SECTION ── */}
       <ModernHero />
