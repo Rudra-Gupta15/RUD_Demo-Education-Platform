@@ -58,14 +58,14 @@ export default function Navbar() {
           {/* Brand */}
           <Link
             to="/"
-            className="flex items-center gap-2 sm:gap-3 bg-white rounded-full py-1.5 pl-1.5 pr-3 sm:pr-6 hover:scale-[1.01] active:scale-95 transition-all shadow-md shrink-0"
+            className="flex items-center gap-2 sm:gap-3 bg-white rounded-full py-1.5 pl-1.5 pr-4 sm:pr-6 hover:scale-[1.01] active:scale-95 transition-all shadow-md shrink-0"
           >
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-slate-100 shadow-sm bg-white p-1 flex items-center justify-center">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border border-slate-100 shadow-sm bg-white p-1.5 flex items-center justify-center">
               <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xs sm:text-sm font-[900] text-black leading-none tracking-tight">ConvoSec AI</span>
-              <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest mt-0.5">AI & CYBER</span>
+              <span className="text-[13px] sm:text-sm font-[900] text-black leading-none tracking-tight">ConvoSec AI</span>
+              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest mt-0.5">AI & CYBER</span>
             </div>
           </Link>
 

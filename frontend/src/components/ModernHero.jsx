@@ -38,7 +38,7 @@ function Typewriter({ words }) {
 
 export default function ModernHero() {
   return (
-    <section className="relative min-h-screen bg-white text-[#0f172a] overflow-hidden font-['Outfit'] flex items-center pt-24 sm:pt-28">
+    <section className="relative min-h-screen bg-white text-[#0f172a] overflow-hidden font-['Outfit'] flex items-center pt-14 sm:pt-28">
       {/* Background Image with Neural Network */}
       <div
         className="absolute inset-0 z-0 opacity-40 bg-center bg-cover"
@@ -133,11 +133,11 @@ export default function ModernHero() {
           initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 1.2, ease: [0.43, 0.13, 0.23, 0.96], delay: 0.2 }}
-          className="relative flex justify-center items-center order-first lg:order-last"
+          className="relative flex justify-center items-center order-first lg:order-last -mt-20 lg:-mt-12"
         >
-          <motion.div
+          <motion.div 
             layoutId="hero-logo"
-            className="relative w-[220px] sm:w-[300px] md:w-[380px] lg:w-full lg:max-w-[500px] aspect-square rounded-full border-[8px] sm:border-[12px] border-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] overflow-hidden bg-white p-8 sm:p-12 flex items-center justify-center z-10"
+            className="relative w-[320px] sm:w-[380px] md:w-[420px] lg:w-full lg:max-w-[460px] aspect-square rounded-full border-[10px] sm:border-[16px] border-white shadow-[0_50px_120px_-30px_rgba(0,0,0,0.18)] overflow-hidden bg-white p-4 sm:p-10 flex items-center justify-center z-10"
           >
             {/* Main Logo Image fitted in circle */}
             <img
