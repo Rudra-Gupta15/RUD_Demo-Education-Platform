@@ -253,26 +253,31 @@ export default function CareerContact() {
       </div>
 
       {/* ── Internship Enrollment Process ── */}
-      <div className="mt-32 pt-24 border-t border-slate-100">
+      <div className="mt-20 pt-16 border-t border-slate-100">
         <div className="container-shell">
-          <div className="text-center max-w-3xl mx-auto mb-20">
+          <div className="text-center max-w-2xl mx-auto mb-14">
             <Reveal>
-              <p className="text-xs font-bold text-indigo-600 uppercase tracking-[0.3em] mb-4">The Pathway</p>
-              <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-                Internship <br/>
+              <p className="text-xs font-bold text-indigo-600 uppercase tracking-[0.3em] mb-3">The Pathway</p>
+              <h2 className="text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+                Internship{" "}
                 <span className="text-indigo-600">Enrollment Process</span>
               </h2>
+              <p className="text-slate-500 text-sm mt-3 font-medium">Six clear steps from application to certification.</p>
             </Reveal>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white p-10 md:p-16 rounded-[3rem] border border-slate-200 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full -mr-16 -mt-16" />
-              <h3 className="text-3xl font-black text-slate-900 mb-12 flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-sm">I</div>
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-white px-8 py-10 md:px-12 md:py-12 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden">
+              {/* Top accent bar */}
+              <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-indigo-500 to-blue-500 rounded-t-3xl" />
+              <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-50 rounded-full -mr-12 -mt-12 pointer-events-none" />
+
+              <h3 className="text-xl font-black text-slate-900 mb-8 flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm font-black">I</div>
                 How to Join Our Live Projects
               </h3>
-              <div className="grid md:grid-cols-2 gap-x-12 gap-y-10">
+
+              <div className="grid md:grid-cols-2 gap-x-10 gap-y-6">
                 {[
                   { s: "Student Registration", d: "Submit application via the internship registration portal." },
                   { s: "Verification", d: "Credentials and eligibility are verified by the HR/Operations team." },
@@ -281,16 +286,14 @@ export default function CareerContact() {
                   { s: "Mentorship & Monitoring", d: "Regular check-ins, task tracking, and performance evaluation." },
                   { s: "Completion", d: "Successful interns receive a Certificate of Completion and Letter of Recommendation." }
                 ].map((step, i) => (
-                  <Reveal key={i} delay={i * 0.05}>
-                    <div className="flex gap-6 group">
-                      <div className="flex flex-col items-center shrink-0">
-                        <div className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-sm font-black text-slate-400 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all">
-                          {i + 1}
-                        </div>
+                  <Reveal key={i} delay={i * 0.06}>
+                    <div className="flex gap-4 group">
+                      <div className="shrink-0 w-9 h-9 rounded-full border-2 border-slate-200 flex items-center justify-center text-xs font-black text-slate-400 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all duration-200">
+                        {i + 1}
                       </div>
-                      <div>
-                        <h4 className="text-base font-black text-slate-900 mb-1">{step.s}</h4>
-                        <p className="text-sm text-slate-500 font-medium leading-relaxed">{step.d}</p>
+                      <div className="pt-1">
+                        <h4 className="text-sm font-black text-slate-900 mb-0.5">{step.s}</h4>
+                        <p className="text-xs text-slate-500 font-medium leading-relaxed">{step.d}</p>
                       </div>
                     </div>
                   </Reveal>

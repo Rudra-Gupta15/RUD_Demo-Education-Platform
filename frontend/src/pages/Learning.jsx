@@ -204,11 +204,11 @@ export default function Learning() {
         animate={{ y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0 }}
         transition={{ duration: 0.3 }}
         onClick={() => navigate('/catalog')}
-        className="fixed top-[34px] right-20 z-[110] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-[0_15px_30px_-5px_rgba(0,0,0,0.3)] hover:bg-slate-800 group"
+        className="fixed top-[84px] sm:top-[34px] right-4 sm:right-20 z-[110] w-12 h-12 sm:w-14 sm:h-14 bg-black text-white rounded-full flex items-center justify-center shadow-[0_15px_30px_-5px_rgba(0,0,0,0.3)] hover:bg-slate-800 group"
         title="More Courses"
       >
-        <Grid size={22} className="transition-transform duration-500" />
-        <span className="absolute right-full mr-4 px-4 py-2 bg-black text-white text-[10px] font-black uppercase tracking-widest rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
+        <Grid size={20} className="transition-transform duration-500" />
+        <span className="absolute right-full mr-3 px-3 py-1.5 bg-black text-white text-[10px] font-black uppercase tracking-widest rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl hidden sm:block">
           More Courses
         </span>
       </motion.button>

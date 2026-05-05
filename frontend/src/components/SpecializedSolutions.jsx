@@ -85,19 +85,19 @@ export default function SpecializedSolutions() {
   };
 
   return (
-    <section className="py-32 bg-slate-50 overflow-hidden font-['Outfit']">
+    <section className="py-16 bg-slate-50 overflow-hidden font-['Outfit']">
       <div className="container-shell">
-        <div className="text-center mb-20">
-          <div className="w-16 h-1 bg-blue-600 rounded-full mx-auto mb-6"></div>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+        <div className="text-center mb-12">
+          <div className="w-12 h-1 bg-blue-600 rounded-full mx-auto mb-4" />
+          <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
             Our Specialized Solutions
           </h2>
-          <p className="text-slate-500 font-medium mt-4 max-w-2xl mx-auto">
+          <p className="text-slate-500 font-medium mt-3 max-w-2xl mx-auto text-sm">
             Deep technical expertise across the most critical domains of the modern digital landscape.
           </p>
         </div>
 
-        <div className="relative h-[600px] flex items-center justify-center">
+        <div className="relative h-[440px] flex items-center justify-center">
           {/* Navigation Buttons */}
           <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 lg:px-10 z-30 pointer-events-none">
             <button 
@@ -154,40 +154,40 @@ export default function SpecializedSolutions() {
                       opacity: { duration: 0.4 },
                       default: { duration: 0.7, ease: "easeInOut" }
                     }}
-                    className={`absolute w-full max-w-[850px] bg-white rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-100 overflow-hidden flex flex-col md:flex-row ${isCenter ? "z-20" : "z-10"}`}
+                    className={`absolute w-full max-w-[680px] bg-white rounded-[2rem] shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)] border border-slate-100 overflow-hidden flex flex-col md:flex-row ${isCenter ? "z-20" : "z-10"}`}
                   >
                     {/* Left: Image Section */}
-                    <div className="md:w-1/2 relative h-64 md:h-auto overflow-hidden bg-slate-100">
+                    <div className="md:w-[45%] relative h-48 md:h-auto overflow-hidden bg-slate-100">
                       <img 
                         src={spec.img} 
                         alt={spec.title} 
                         className="w-full h-full object-cover transition-transform duration-1000"
                       />
-                      <div className={`absolute inset-0 bg-gradient-to-tr from-slate-900/40 to-transparent`}></div>
+                      <div className="absolute inset-0 bg-gradient-to-tr from-slate-900/40 to-transparent" />
                     </div>
 
                     {/* Right: Info Section */}
-                    <div className="md:w-1/2 p-10 flex flex-col justify-between">
+                    <div className="md:w-[55%] p-7 flex flex-col justify-between">
                       <div>
-                        <div className={`w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 mb-6`}>
-                          <spec.icon size={28} />
+                        <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 mb-4">
+                          <spec.icon size={20} />
                         </div>
-                        <h3 className="text-3xl font-black text-slate-900 mb-6">{spec.title}</h3>
+                        <h3 className="text-2xl font-black text-slate-900 mb-4">{spec.title}</h3>
                         
-                        <div className="space-y-4">
+                        <div className="space-y-3">
                           {spec.points.map((point, idx) => (
-                            <div key={idx} className="flex items-center gap-3">
-                              <CheckCircle2 size={18} className={`text-blue-500 shrink-0`} />
-                              <span className="text-slate-600 font-bold text-sm">{point}</span>
+                            <div key={idx} className="flex items-center gap-2.5">
+                              <CheckCircle2 size={15} className="text-blue-500 shrink-0" />
+                              <span className="text-slate-600 font-semibold text-sm">{point}</span>
                             </div>
                           ))}
                         </div>
                       </div>
 
-                      <div className="mt-8 pt-6 border-t border-slate-50 flex justify-between items-center">
+                      <div className="mt-5 pt-4 border-t border-slate-50 flex justify-between items-center">
                         <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">Spec. Unit {spec.id}</span>
-                        <button className={`text-blue-600 font-black text-xs uppercase tracking-widest hover:underline flex items-center gap-2 group`}>
-                          Learn More <ChevronRight size={14} className="transition-transform group-hover:translate-x-1" />
+                        <button className="text-blue-600 font-black text-xs uppercase tracking-widest hover:underline flex items-center gap-1.5 group">
+                          Learn More <ChevronRight size={12} className="transition-transform group-hover:translate-x-1" />
                         </button>
                       </div>
                     </div>

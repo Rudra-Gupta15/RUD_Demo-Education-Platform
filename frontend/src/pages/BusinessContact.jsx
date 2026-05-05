@@ -307,19 +307,6 @@ export default function BusinessContact() {
                     className="w-full h-full object-cover transition-all duration-700 scale-105 group-hover:scale-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-transparent to-transparent opacity-60" />
-                  <div className="absolute bottom-8 left-8 right-8">
-                    <div className="backdrop-blur-md bg-white/70 border border-white p-6 rounded-2xl shadow-xl">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-xs font-black text-blue-600 uppercase tracking-widest mb-1">Upcoming Summit</p>
-                          <p className="text-xl font-black text-slate-900">AI Ethics & Global Security 2026</p>
-                        </div>
-                        <div className="px-4 py-2 rounded-lg bg-slate-900 text-white text-xs font-bold">
-                          Singapore · Oct 12
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </Reveal>

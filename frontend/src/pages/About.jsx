@@ -213,30 +213,30 @@ function ServiceRow({ service, idx }) {
       transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
     >
       <div
-        className="group border-t border-slate-100 cursor-pointer relative overflow-hidden transition-all duration-500 hover:bg-slate-50/50 px-6 -mx-6 rounded-2xl"
+        className="group border-t border-slate-100 cursor-pointer relative overflow-hidden transition-all duration-500 hover:bg-slate-50/50 px-3 sm:px-6 -mx-3 sm:-mx-6 rounded-2xl"
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
       >
         {/* Animated accent background */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-50/50 to-transparent translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700 ease-out" />
 
-        <div className="relative flex items-start gap-8 py-10 lg:py-14 z-10">
+        <div className="relative flex items-start gap-4 sm:gap-8 py-8 sm:py-10 lg:py-14 z-10">
           {/* Stylistic Number */}
-          <div className="shrink-0 w-16">
+          <div className="shrink-0 w-10 sm:w-16">
             <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] block mb-2 opacity-50 group-hover:opacity-100 transition-opacity">
               Phase
             </span>
-            <span className="text-4xl font-black text-slate-200 group-hover:text-blue-200 transition-colors duration-500 leading-none">
+            <span className="text-3xl sm:text-4xl font-black text-slate-200 group-hover:text-blue-200 transition-colors duration-500 leading-none">
               {service.num}
             </span>
           </div>
 
           {/* Main content */}
           <div className="flex-1 min-w-0">
-            <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-16">
+            <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-16">
               {/* Title block */}
               <div className="lg:w-80 shrink-0">
-                <h3 className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors duration-300 mb-3">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors duration-300 mb-2 sm:mb-3">
                   {service.title}
                 </h3>
                 <span className="inline-block text-[10px] font-bold uppercase tracking-[0.2em] text-white bg-slate-900 px-3 py-1.5 rounded-full">
@@ -246,7 +246,7 @@ function ServiceRow({ service, idx }) {
 
               {/* Description & Detail */}
               <div className="flex-1 min-w-0">
-                <p className="text-slate-500 leading-relaxed text-lg mb-6 group-hover:text-slate-700 transition-colors">
+                <p className="text-slate-500 leading-relaxed text-base sm:text-lg mb-4 sm:mb-6 group-hover:text-slate-700 transition-colors">
                   {service.desc}
                 </p>
 
@@ -254,7 +254,7 @@ function ServiceRow({ service, idx }) {
                   {service.points.map((p) => (
                     <span
                       key={p}
-                      className="text-[11px] font-bold text-slate-600 bg-white border border-slate-200 px-4 py-2 rounded-xl shadow-sm group-hover:border-blue-200 group-hover:bg-blue-50/50 transition-all"
+                      className="text-[11px] font-bold text-slate-600 bg-white border border-slate-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl shadow-sm group-hover:border-blue-200 group-hover:bg-blue-50/50 transition-all"
                     >
                       {p}
                     </span>
@@ -262,8 +262,8 @@ function ServiceRow({ service, idx }) {
                 </div>
               </div>
 
-              {/* Interaction Circle */}
-              <div className="shrink-0 relative">
+              {/* Interaction Circle — hidden on very small */}
+              <div className="shrink-0 relative hidden sm:block">
                 <motion.div
                   animate={{
                     scale: open ? 1.1 : 1,
@@ -276,7 +276,6 @@ function ServiceRow({ service, idx }) {
                     className={`${open ? "text-white" : "text-slate-400"} transition-colors`}
                   />
                 </motion.div>
-                {/* Decorative pulse */}
                 {open && (
                   <motion.div
                     initial={{ scale: 0.8, opacity: 0.5 }}
@@ -442,7 +441,7 @@ function AppliedAIStack() {
   const sideItems = items.slice(1);
 
   return (
-    <div className="grid lg:grid-cols-[1.4fr_0.6fr] gap-6 items-stretch">
+    <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_0.6fr] gap-6 items-stretch">
       {/* Left: Big Active Item */}
       <motion.div
         layout
@@ -581,7 +580,7 @@ export default function About() {
         <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-blue-50 rounded-full blur-[150px] -z-10 opacity-60" />
 
         <div className="container-shell">
-          <div className="grid lg:grid-cols-[1fr_480px] gap-16 xl:gap-24 items-center">
+          <div className="grid lg:grid-cols-[1fr_480px] gap-10 xl:gap-24 items-center">
 
             {/* LEFT: Editorial copy */}
             <motion.div style={{ opacity: heroOpacity }}>
@@ -595,10 +594,10 @@ export default function About() {
                 </div>
               </FadeReveal>
 
-              {/* Headline — Panoramic single line */}
-              <div className="mb-8">
+              {/* Headline */}
+              <div className="mb-6 sm:mb-8">
                 <LineReveal delay={0.2} className="py-2">
-                  <h1 className="text-[clamp(38px,5.5vw,76px)] font-black leading-[1.2] tracking-tight text-slate-900 whitespace-nowrap">
+                  <h1 className="text-[clamp(32px,6vw,76px)] font-black leading-[1.2] tracking-tight text-slate-900">
                     Beyond{" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">
                       Intelligence.
@@ -608,7 +607,7 @@ export default function About() {
               </div>
 
               <FadeReveal delay={0.5}>
-                <p className="text-slate-500 text-lg leading-relaxed max-w-2xl mb-8 font-light">
+                <p className="text-slate-500 text-base sm:text-lg leading-relaxed max-w-2xl mb-6 sm:mb-8 font-light">
                   A technology-driven venture operating at the intersection of technical education and real-world project execution.
                   We deliver two core functions under one unified platform — structured technical training and live
                   project-based work — both anchored in AI, Machine Learning, Deep Learning, and Cybersecurity (VAPT).
@@ -644,10 +643,10 @@ export default function About() {
 
               {/* Stats strip */}
               <FadeReveal delay={0.78}>
-                <div className="flex gap-10 mt-8 pt-8 border-t border-slate-200/80">
-                  {stats.map((s, i) => (
+                <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-6 sm:gap-10 mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-slate-200/80">
+                  {stats.map((s) => (
                     <div key={s.label}>
-                      <p className="text-3xl font-black text-slate-900 tracking-tight">{s.value}</p>
+                      <p className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{s.value}</p>
                       <p className="text-xs text-slate-400 font-medium mt-0.5 uppercase tracking-wider">{s.label}</p>
                     </div>
                   ))}
@@ -660,7 +659,7 @@ export default function About() {
               initial={{ opacity: 0, scale: 0.9, rotate: -3 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative flex justify-center items-center"
+              className="relative flex justify-center items-center order-first lg:order-last -mt-10 lg:-mt-24"
               style={{ y: videoY }}
             >
               {/* Rotating border accents */}
@@ -705,9 +704,9 @@ export default function About() {
 
 
       {/* ── VISUAL IDENTITY GRID — SEAMLESS & COMPACT ── */}
-      <section ref={missionRef} className="py-20 bg-white">
+      <section ref={missionRef} className="py-16 sm:py-20 bg-white">
         <div className="container-shell px-0 md:px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 h-[500px] md:h-[600px] overflow-hidden rounded-xl md:rounded-3xl border border-slate-100">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 auto-rows-[250px] sm:auto-rows-[300px] lg:h-[600px] overflow-hidden rounded-xl md:rounded-3xl border border-slate-100">
 
             {/* Vision Statement (Large) */}
             <FadeReveal className="lg:col-span-2 lg:row-span-2 h-full">
@@ -851,7 +850,7 @@ export default function About() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20">
             <FadeReveal>
               <p className="text-xs font-bold text-blue-600 uppercase tracking-[0.3em] mb-5">Capabilities</p>
-              <h2 className="text-4xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[0.95]">
+              <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[0.95]">
                 Comprehensive AI & <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">
                   Cyber Solutions
@@ -943,9 +942,9 @@ export default function About() {
       {/* ══════════════════════════════════════════════════════════
           PHILOSOPHY
       ══════════════════════════════════════════════════════════ */}
-      <section className="py-28 bg-white border-y border-slate-100">
+      <section className="py-24 bg-white border-y border-slate-100">
         <div className="container-shell">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
             <div>
               <FadeReveal className="mb-12">
@@ -1113,7 +1112,7 @@ export default function About() {
             </FadeReveal>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map((member, idx) => (
               <TeamCard key={member.name} member={member} idx={idx} />
             ))}
@@ -1139,17 +1138,17 @@ export default function About() {
               {/* Single bloom — not floating orb */}
               <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/15 rounded-full blur-[100px]" />
 
-              <div className="relative z-10 p-12 lg:p-20">
+              <div className="relative z-10 p-8 sm:p-12 lg:p-20">
                 <div className="max-w-3xl">
                   <p className="text-blue-400 text-xs font-bold uppercase tracking-[0.2em] mb-6">Join the movement</p>
 
                   <LineReveal>
-                    <h2 className="text-4xl lg:text-6xl font-black text-white tracking-tight leading-[0.95] mb-6">
+                    <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black text-white tracking-tight leading-[0.95] mb-4 sm:mb-6">
                       Build, Secure & Scale
                     </h2>
                   </LineReveal>
                   <LineReveal delay={0.12}>
-                    <h2 className="text-4xl lg:text-6xl font-black tracking-tight leading-[0.95] mb-10">
+                    <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black tracking-tight leading-[0.95] mb-8 sm:mb-10">
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
                         with ConvoSec AI
                       </span>
