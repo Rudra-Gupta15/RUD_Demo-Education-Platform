@@ -114,16 +114,16 @@ export default function ModernHero() {
             className="flex flex-wrap gap-3 sm:gap-5"
           >
             <Link
-              to="/contact"
+              to="/about"
               className="px-7 sm:px-10 py-3 sm:py-4 bg-[#004aad] text-white rounded-full font-black text-sm lg:text-base transition-all hover:bg-[#003a8a] hover:shadow-xl hover:shadow-blue-200 active:scale-95 uppercase tracking-wider"
             >
-              Get a Demo
+              About Us
             </Link>
             <Link
               to="/projects"
               className="px-7 sm:px-10 py-3 sm:py-4 bg-transparent border-2 border-[#00a8cc] text-[#00a8cc] rounded-full font-black text-sm lg:text-base hover:bg-[#00a8cc] hover:text-white transition-all active:scale-95 uppercase tracking-wider"
             >
-              Explore Solutions
+              Explore Innovation
             </Link>
           </motion.div>
         </motion.div>

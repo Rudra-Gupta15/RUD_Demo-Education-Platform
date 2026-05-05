@@ -12,28 +12,28 @@ const INDUSTRIES_DATA = [
     id: "education",
     name: "Coaching & Education",
     desc: "Structured courses in AI/ML, Cybersecurity (VAPT), and Business Analytics.",
-    img: "/program_cyber.png",
+    img: "/study.jpg",
     color: "from-indigo-600/90"
   },
   {
     id: "projects",
     name: "Project Development",
     desc: "Bespoke AI and Security solutions built for modern business demands.",
-    img: "/hero1.png",
+    img: "/pro.png",
     color: "from-blue-600/90"
   },
   {
     id: "corporate",
     name: "Corporate Collaboration",
     desc: "Partnering with companies for specialized R&D and consultancy.",
-    img: "/hero2.png",
+    img: "/col.png",
     color: "from-slate-900/90"
   },
   {
     id: "internships",
     name: "Internships & Placement",
     desc: "Industry-aligned programs to prepare talent for real-world roles.",
-    img: "/program_genai.png",
+    img: "/intern.png",
     color: "from-blue-900/90"
   }
 ];
@@ -76,7 +76,7 @@ export default function Home() {
                   }}
                 >
                   <img
-                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80"
+                    src="22.jpg"
                     alt="Pioneering AI & Cybersecurity Team"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                   />
@@ -203,7 +203,7 @@ export default function Home() {
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="text-slate-600 mb-8 sm:mb-10 leading-relaxed text-base sm:text-lg font-medium">
+              <p className="text-slate-500 mb-6 sm:mb-8 leading-relaxed text-[15px] sm:text-[16px] font-medium max-w-lg">
                 We operate as a technology-first company focused on AI-powered cybersecurity solutions,
                 not just a service provider. We address the modern business need where data intelligence
                 and security must work together, not separately.
@@ -211,18 +211,18 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={0.2}>
-              <div className="space-y-4 sm:space-y-6">
+              <div className="space-y-1 sm:space-y-2">
                 {[
                   { icon: BrainCircuit, text: "Integrating AI/ML with security to build intelligent, adaptive systems." },
                   { icon: Shield, text: "Solutions designed to be predictive, scalable, and industry-aligned." },
                   { icon: Target, text: "Positioned as a long-term innovation partner for future growth." },
                   { icon: Lock, text: "Unifying data intelligence and security into a single ecosystem." }
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl hover:bg-blue-50 transition-colors group">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                      <item.icon size={18} />
+                  <div key={i} className="flex items-center gap-3 p-2 sm:p-2.5 rounded-xl hover:bg-blue-50 transition-colors group">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                      <item.icon size={16} />
                     </div>
-                    <p className="text-slate-600 font-medium pt-1.5 text-sm sm:text-base">{item.text}</p>
+                    <p className="text-slate-600 font-semibold text-[13px] sm:text-[14px] leading-snug">{item.text}</p>
                   </div>
                 ))}
               </div>
@@ -237,7 +237,7 @@ export default function Home() {
             <Reveal delay={0.3}>
               <div className="relative w-[260px] h-[500px] lg:w-[280px] lg:h-[550px] rounded-[10rem] overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.2)] border-[12px] border-white z-10 bg-slate-900">
                 <img
-                  src="/program_cyber.png"
+                  src="/tech_office_collaboration_premium_1777889270846.png"
                   className="w-full h-full object-cover opacity-80"
                   alt="Tech Innovation"
                 />

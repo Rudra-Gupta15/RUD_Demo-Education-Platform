@@ -164,31 +164,31 @@ const teamworkQuotes = [
   {
     author: "Steve Jobs",
     role: "Co-Founder, Apple",
-    image: "https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&q=80&w=800",
+    image: "Steve_Jobs.jpg",
     slogan: "Great things in business are never done by one person. They're done by a team of people.",
   },
   {
     author: "Henry Ford",
     role: "Founder, Ford Motor",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800",
+    image: "Henry_Ford.png",
     slogan: "Coming together is a beginning. Keeping together is progress. Working together is success.",
   },
   {
     author: "Helen Keller",
     role: "Author & Activist",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
+    image: "Helen_Keller.jpg",
     slogan: "Alone we can do so little; together we can do so much.",
   },
   {
     author: "Vince Lombardi",
     role: "Legendary Coach",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800",
+    image: "Vince_Lombardi.jpg",
     slogan: "Individual commitment to a group effort—that is what makes a team work.",
   },
   {
     author: "Margaret Mead",
     role: "Anthropologist",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=800",
+    image: "Margaret_Mead.jpg",
     slogan: "Never doubt that a small group of thoughtful, committed citizens can change the world.",
   },
 ];
@@ -597,7 +597,7 @@ export default function About() {
               {/* Headline */}
               <div className="mb-6 sm:mb-8">
                 <LineReveal delay={0.2} className="py-2">
-                  <h1 className="text-[clamp(32px,6vw,76px)] font-black leading-[1.2] tracking-tight text-slate-900">
+                  <h1 className="text-[clamp(32px,6vw,76px)] font-black leading-[1.2] tracking-tight text-slate-900 whitespace-nowrap">
                     Beyond{" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">
                       Intelligence.
@@ -659,7 +659,7 @@ export default function About() {
               initial={{ opacity: 0, scale: 0.9, rotate: -3 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative flex justify-center items-center order-first lg:order-last -mt-10 lg:-mt-24"
+              className="relative flex justify-center items-center order-first lg:order-last -mt-4 lg:-mt-12"
               style={{ y: videoY }}
             >
               {/* Rotating border accents */}
@@ -742,7 +742,7 @@ export default function About() {
             <FadeReveal delay={0.1} className="h-full">
               <div className="relative h-full w-full overflow-hidden group cursor-default border-l border-white/10">
                 <img
-                  src="/about_grid_insight.png"
+                  src="/mission.png"
                   alt="Mission"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
@@ -767,7 +767,7 @@ export default function About() {
             <FadeReveal delay={0.2} className="h-full">
               <div className="relative h-full w-full overflow-hidden group cursor-default border-l border-white/10">
                 <img
-                  src="/about_grid_innovate.png"
+                  src="/emp.jpg"
                   alt="Empowerment"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
@@ -792,7 +792,7 @@ export default function About() {
             <FadeReveal delay={0.3} className="h-full">
               <div className="relative h-full w-full overflow-hidden group cursor-default border-t border-l border-white/10">
                 <img
-                  src="/about_grid_accelerate.png"
+                  src="/leader.png"
                   alt="Leadership"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
@@ -817,7 +817,7 @@ export default function About() {
             <FadeReveal delay={0.4} className="h-full">
               <div className="relative h-full w-full overflow-hidden group cursor-default border-t border-l border-white/10">
                 <img
-                  src="/about_grid_assure.png"
+                  src="/ethic.jpg"
                   alt="Ethics"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
