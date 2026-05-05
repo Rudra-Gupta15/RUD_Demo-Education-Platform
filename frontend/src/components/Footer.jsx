@@ -7,25 +7,33 @@ const footerData = {
     { icon: MapPin, text: "Remote-first, Worldwide" },
     { icon: MapPin, text: "AI & Cybersecurity Hub" },
   ],
-  services: [
-    "AI Project Development", "Cybersecurity Audits", "Cloud Infrastructure", 
-    "Web Application Security", "Deep Learning Models", "Threat Intelligence", 
-    "Risk Assessment", "Network Defense"
+  programs: [
+    { name: "AI & Machine Learning", href: "/catalog" },
+    { name: "Cybersecurity / VAPT", href: "/catalog" },
+    { name: "Deep Learning", href: "/catalog" },
+    { name: "Generative AI", href: "/catalog" },
+    { name: "Data & Business Analytics", href: "/catalog" }
   ],
-  industries: [
-    "Finance & Banking", "Healthcare Tech", "Government Systems", "Education", 
-    "E-commerce", "SaaS Enterprises", "Critical Infrastructure"
+  resources: [
+    { name: "Course Catalog", href: "/learning" },
+    { name: "Research Projects", href: "/projects" },
+    { name: "Industry Blog", href: "/blog" },
+    { name: "Learning Roadmap", href: "/learning" },
+    { name: "Student Portal", href: "/learning" }
   ],
-  products: [
-    "ConvoSec Learning Lab", "Cyber Shield Pro", "AI Agent Suite", 
-    "Security Sandbox", "Zero-Trust Mesh", "Threat Detector"
+  company: [
+    { name: "About ConvoSec", href: "/about" },
+    { name: "Join the Team", href: "/contact/careers" },
+    { name: "Business Solutions", href: "/contact/business" },
+    { name: "Terms of Service", href: "#" },
+    { name: "Privacy Policy", href: "#" }
   ]
 };
 
 const socials = [
-  { icon: Linkedin, href: "#" },
-  { icon: Instagram, href: "#" },
-  { icon: Twitter, href: "#" }
+  { icon: Linkedin, href: "https://linkedin.com/company/rudraconvosec" },
+  { icon: Instagram, href: "https://instagram.com/rudraconvosec" },
+  { icon: Twitter, href: "https://twitter.com/rudraconvosec" }
 ];
 
 export default function Footer() {
@@ -58,57 +66,57 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Programs (was Services) */}
           <div>
             <div className="mb-8">
-              <h3 className="text-xl font-bold mb-3">Services</h3>
+              <h3 className="text-xl font-bold mb-3">Programs</h3>
               <div className="w-20 h-0.5 bg-white/20 relative">
                 <div className="absolute left-0 top-0 w-8 h-full bg-white"></div>
               </div>
             </div>
             <ul className="divide-y divide-white/10">
-              {footerData.services.map((item) => (
-                <li key={item} className="py-3">
-                  <Link to="#" className="text-sm text-white/70 hover:text-white transition-colors block">
-                    {item}
+              {footerData.programs.map((item) => (
+                <li key={item.name} className="py-3">
+                  <Link to={item.href} className="text-sm text-white/70 hover:text-white transition-colors block">
+                    {item.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Industries */}
+          {/* Resources (was Industries) */}
           <div>
             <div className="mb-8">
-              <h3 className="text-xl font-bold mb-3">Industries</h3>
+              <h3 className="text-xl font-bold mb-3">Resources</h3>
               <div className="w-20 h-0.5 bg-white/20 relative">
                 <div className="absolute left-0 top-0 w-8 h-full bg-white"></div>
               </div>
             </div>
             <ul className="divide-y divide-white/10">
-              {footerData.industries.map((item) => (
-                <li key={item} className="py-3">
-                  <Link to="#" className="text-sm text-white/70 hover:text-white transition-colors block">
-                    {item}
+              {footerData.resources.map((item) => (
+                <li key={item.name} className="py-3">
+                  <Link to={item.href} className="text-sm text-white/70 hover:text-white transition-colors block">
+                    {item.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Products */}
+          {/* Company (was Products) */}
           <div>
             <div className="mb-8">
-              <h3 className="text-xl font-bold mb-3">Products</h3>
+              <h3 className="text-xl font-bold mb-3">Company</h3>
               <div className="w-20 h-0.5 bg-white/20 relative">
                 <div className="absolute left-0 top-0 w-8 h-full bg-white"></div>
               </div>
             </div>
             <ul className="divide-y divide-white/10">
-              {footerData.products.map((item) => (
-                <li key={item} className="py-3">
-                  <Link to="#" className="text-sm text-white/70 hover:text-white transition-colors block">
-                    {item}
+              {footerData.company.map((item) => (
+                <li key={item.name} className="py-3">
+                  <Link to={item.href} className="text-sm text-white/70 hover:text-white transition-colors block">
+                    {item.name}
                   </Link>
                 </li>
               ))}

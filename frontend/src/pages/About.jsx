@@ -44,43 +44,78 @@ const services = [
   {
     icon: Brain,
     num: "01",
-    title: "Coaching & Education",
-    tag: "Learning",
-    desc: "AI/ML fundamentals and integrated Cybersecurity curriculum designed for the next generation of digital defenders — from theory to deployment.",
-    points: ["Python & Algorithms", "Ethical Hacking", "LLM Security", "Live Mentorship"],
+    title: "AI & Machine Learning Courses",
+    tag: "Education",
+    desc: "Structured training programs covering Python fundamentals, Artificial Intelligence, Machine Learning, and Deep Learning — with hands-on project work throughout.",
+    points: ["Python Foundations", "ML Algorithms", "Deep Learning", "Project Work"],
   },
   {
     icon: ShieldCheck,
     num: "02",
-    title: "Project Development",
-    tag: "Solutions",
-    desc: "Real-world AI and Cyber solutions engineered for modern business demands — from intelligent threat detection to full automation pipelines.",
-    points: ["Intelligent Chatbots", "SIEM Dashboards", "Vulnerability Scanners", "Automation Tools"],
+    title: "Cybersecurity Training (VAPT)",
+    tag: "Security",
+    desc: "Courses under the Vulnerable Accessible Penetration Techniques (VAPT) framework covering Networking, Digital Forensics, and Compliance.",
+    points: ["Networking", "Digital Forensics", "Compliance", "VAPT Framework"],
   },
   {
     icon: Users,
     num: "03",
-    title: "Corporate Collaboration",
-    tag: "Enterprise",
-    desc: "Outsourced R&D and specialized consultancy for organizations integrating AI safely into security infrastructure at scale.",
-    points: ["Cybersecurity Audits", "AI Strategy", "Staff Upskilling", "Joint R&D"],
+    title: "Project-Based Internships (Free)",
+    tag: "Internships",
+    desc: "Real-time internship placements on live company projects, managed by domain experts with continuous mentorship, evaluation, and certification.",
+    points: ["Live Projects", "Expert Mentorship", "Performance Evaluation", "Zero Cost"],
   },
   {
     icon: Target,
     num: "04",
-    title: "Internships & Placement",
-    tag: "Careers",
-    desc: "Industry-aligned programs bridging academic talent to real hiring partners — with project exposure that hiring managers actually value.",
-    points: ["Resume Building", "Interview Prep", "Direct Placement", "Real Experience"],
+    title: "Mentorship & Evaluation",
+    tag: "Expertise",
+    desc: "Each student or intern is assigned to a domain-specific expert who oversees their progress, provides technical guidance, and evaluates performance.",
+    points: ["1-on-1 Guidance", "Technical Support", "Progress Tracking", "Milestone Checks"],
+  },
+  {
+    icon: Sparkles,
+    num: "05",
+    title: "Certification & LOA",
+    tag: "Recognition",
+    desc: "All course completers receive Completion Certificates and source code. Interns receive Letters of Recommendation based on performance.",
+    points: ["Completion Certificates", "Project Source Code", "Letters of Recommendation", "Performance Badges"],
   },
 ];
 
 const philosophyPoints = [
-  "Bridging academic learning and industry demands.",
-  "AI-powered defense against modern cyber threats.",
-  "Hands-on education through impactful projects.",
-  "Partnerships building cutting-edge AI solutions.",
-  "Building the future of digital security.",
+  {
+    title: "Organisational Credibility & Legitimacy",
+    desc: "The company operates with full legal standing — valid company registration, government-authorized credentials, formal MoUs with partner organisations, and professionally certified documentation. Every client and partner organisation engaging with the company deals with a fully legitimate, accountable entity — not a casual setup."
+  },
+  {
+    title: "Project Integrity",
+    desc: "The company maintains its own registered, ongoing projects at all times. This is non-negotiable. No client engagement or partnership is built on hollow promises — the company backs every collaboration with real, active project infrastructure and a team that is operationally ready to deliver."
+  },
+  {
+    title: "Domain Expertise",
+    desc: "The company specialises in two high-demand, high-precision technical domains — Artificial Intelligence / Machine Learning and Cybersecurity (VAPT). Clients and partner organisations engage with a company that has dedicated domain experts, not generalists. Every project and every partnership is handled by the right specialist."
+  },
+  {
+    title: "Institutional Trust Through MoUs",
+    desc: "The company actively pursues and maintains formal Memorandums of Understanding (MoUs) with reputed organisations. This is a deliberate strategy to build a verifiable network of trust — giving clients and partners the assurance that the company operates within structured, mutually agreed frameworks rather than informal arrangements."
+  },
+  {
+    title: "Disciplined Operations & Governance",
+    desc: "Internal discipline is treated as a company-wide standard. Employees hold valid offer letters, experience letters, and receive regular compensation. All operational processes — onboarding, verification, project allocation, performance evaluation — follow defined workflows. Clients engaging with the company can expect organised, process-driven execution, not ad-hoc responses."
+  },
+  {
+    title: "Accountability at Every Level",
+    desc: "Each domain has a designated responsible employee who owns delivery within that domain. There is no ambiguity in ownership. When a client or partner organisation is involved, there is always a clear point of accountability — a specific person responsible for outcomes, not a diffused team with no defined responsibility."
+  },
+  {
+    title: "Technology-Forward Positioning",
+    desc: "The company does not operate on outdated technology stacks. It actively monitors and adapts to the latest industry trends, ensuring that its technical capabilities — and by extension the value it brings to clients and partners — remain current, competitive, and relevant in a rapidly evolving technology landscape."
+  },
+  {
+    title: "Zero Compromise on Standards",
+    desc: "Any violation of organisational terms — internally or externally — is treated as an actionable offence. The company holds a firm line on professional conduct, delivery standards, and ethical operations. Clients and partner organisations can trust that the company will not compromise on the quality or integrity of what it commits to deliver"
+  }
 ];
 
 const team = [
@@ -89,7 +124,7 @@ const team = [
     initials: "RR",
     role: "Founder & CEO",
     image: "/rudra_ceo.png",
-    bio: "Visionary leader driving the mission to bridge AI innovation with battle-tested cybersecurity practice. Founder of ConvoSec AI's core philosophy and product direction.",
+    bio: "Visionary leader driving the mission to bridge AI innovation, Cybersecurity, and Business Analytics with industry-ready practices. Founder of ConvoSec AI's core philosophy.",
     linkedin: "https://www.linkedin.com/in/rudra-rajgure-/",
     email: "rudraconvosecai@gmail.com",
   },
@@ -160,7 +195,7 @@ const teamworkQuotes = [
 
 const stats = [
   { value: "50+", label: "Projects Built" },
-  { value: "04", label: "Core Services" },
+  { value: "05", label: "Core Services" },
   { value: "100%", label: "AI-Powered" },
   { value: "4", label: "Expert Team" },
 ];
@@ -230,15 +265,15 @@ function ServiceRow({ service, idx }) {
               {/* Interaction Circle */}
               <div className="shrink-0 relative">
                 <motion.div
-                  animate={{ 
+                  animate={{
                     scale: open ? 1.1 : 1,
                     backgroundColor: open ? "#2563eb" : "transparent"
                   }}
                   className="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center transition-all duration-300"
                 >
-                  <ArrowUpRight 
-                    size={20} 
-                    className={`${open ? "text-white" : "text-slate-400"} transition-colors`} 
+                  <ArrowUpRight
+                    size={20}
+                    className={`${open ? "text-white" : "text-slate-400"} transition-colors`}
                   />
                 </motion.div>
                 {/* Decorative pulse */}
@@ -262,7 +297,7 @@ function ServiceRow({ service, idx }) {
 /* ─── TEAM CARD ─────────────────────────────────────────────────── */
 function TeamCard({ member, idx }) {
   const [ref, inView] = useReveal();
-  
+
   return (
     <motion.div
       ref={ref}
@@ -283,14 +318,14 @@ function TeamCard({ member, idx }) {
         />
         <div className="absolute inset-0 bg-blue-600/10 rounded-[2rem] rotate-6 group-hover:rotate-12 transition-transform duration-500" />
         <div className="relative w-full h-full rounded-[2rem] overflow-hidden border-4 border-white shadow-xl bg-slate-50">
-          <img 
-            src={member.image} 
-            alt={member.name} 
+          <img
+            src={member.image}
+            alt={member.name}
             className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
           />
         </div>
       </div>
-      
+
       <h3 className="text-xl lg:text-2xl font-black text-slate-900 mb-1 whitespace-nowrap">{member.name}</h3>
       <p className="text-blue-600 font-bold text-sm uppercase tracking-widest mb-4">{member.role}</p>
       <p className="text-slate-500 text-sm leading-relaxed mb-8 px-4 flex-1">
@@ -323,18 +358,23 @@ function TeamCard({ member, idx }) {
 
 /* ─── MARQUEE ───────────────────────────────────────────────────── */
 function Marquee() {
-  const items = ["AI Security", "Machine Learning", "Ethical Hacking", "LLM Defense", "Cyber Intelligence", "Neural Systems"];
+  const items = ["AI Security", "Machine Learning", "Ethical Hacking", "LLM Defense", "Cyber Intelligence", "Neural Systems", "Cloud Security", "Data Privacy"];
   const doubled = [...items, ...items];
+
   return (
-    <div className="overflow-hidden border-y border-slate-100 py-5 bg-white">
+    <div className="overflow-hidden border-y border-slate-100 py-6 bg-white relative">
       <motion.div
-        animate={{ x: [0, -50 * items.length + "%"] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="flex gap-12 whitespace-nowrap w-max"
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{
+          duration: 25,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+        className="flex items-center gap-16 whitespace-nowrap w-max"
       >
         {doubled.map((item, i) => (
-          <span key={i} className="flex items-center gap-3 text-sm font-bold text-slate-400 uppercase tracking-widest">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 inline-block" />
+          <span key={i} className="flex items-center gap-4 text-xs font-black text-slate-400 uppercase tracking-[0.2em]">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
             {item}
           </span>
         ))}
@@ -343,10 +383,173 @@ function Marquee() {
   );
 }
 
+/* ─── STACK COMPONENT ─────────────────────────────────────────── */
+const stackItems = [
+  {
+    id: "01",
+    title: "Python: The Core Foundation",
+    desc: "Python is our primary programming language for all AI work, used across language fundamentals, scripting, automation, and model development.",
+    details: ["Core Syntax & OOP", "Data Handling Automation", "AI/ML Base Environment"],
+    color: "from-blue-600 to-indigo-600"
+  },
+  {
+    id: "02",
+    title: "Artificial Intelligence (AI)",
+    desc: "Core methodologies for problem-solving and intelligent system design, applied directly within our live project development modules.",
+    details: ["Intelligent System Design", "Applied Problem Solving", "Real-world Logic Frameworks"],
+    color: "from-indigo-600 to-purple-600"
+  },
+  {
+    id: "03",
+    title: "Machine Learning (ML)",
+    desc: "The operational core of our work, covering Supervised/Unsupervised learning and the end-to-end pipeline from data to deployment.",
+    details: ["Predictive Modelling", "Pattern Recognition", "Pipeline Optimization"],
+    color: "from-purple-600 to-pink-600"
+  },
+  {
+    id: "04",
+    title: "Deep Learning",
+    desc: "Our most advanced layer, focusing on Neural Network architectures and training models at scale for CV and NLP demands.",
+    details: ["Neural Architectures", "Large-scale Training", "Computer Vision & NLP"],
+    color: "from-pink-600 to-rose-600"
+  }
+];
+
+function AppliedAIStack() {
+  const [items, setItems] = useState(stackItems);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setItems((prev) => {
+        const [first, ...rest] = prev;
+        return [...rest, first];
+      });
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleItemClick = (clickedItem) => {
+    setItems((prev) => {
+      const index = prev.findIndex(item => item.id === clickedItem.id);
+      if (index === 0) return prev;
+      const part1 = prev.slice(index);
+      const part2 = prev.slice(0, index);
+      return [...part1, ...part2];
+    });
+  };
+
+  const activeItem = items[0];
+  const sideItems = items.slice(1);
+
+  return (
+    <div className="grid lg:grid-cols-[1.4fr_0.6fr] gap-6 items-stretch">
+      {/* Left: Big Active Item */}
+      <motion.div
+        layout
+        key={activeItem.id}
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="relative min-h-[440px] rounded-[2rem] p-8 lg:p-12 bg-white border border-slate-100 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col justify-center group"
+      >
+        {/* Animated Background Decor */}
+        <div className={`absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br ${activeItem.color} opacity-[0.03] rounded-full -mr-64 -mt-64 blur-3xl`} />
+
+        <div className="relative z-10">
+          <motion.span
+            layoutId={`id-${activeItem.id}`}
+            className={`inline-block px-5 py-2 rounded-full bg-gradient-to-r ${activeItem.color} text-white text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-lg shadow-blue-500/20`}
+          >
+            Phase {activeItem.id}
+          </motion.span>
+
+          <motion.h3
+            layoutId={`title-${activeItem.id}`}
+            className="text-3xl lg:text-4xl font-black text-slate-900 mb-5 tracking-tight leading-[1.1]"
+          >
+            {activeItem.title}
+          </motion.h3>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-slate-500 text-lg lg:text-xl leading-relaxed mb-8 font-medium max-w-xl"
+          >
+            {activeItem.desc}
+          </motion.p>
+
+          <div className="flex flex-wrap gap-4">
+            {activeItem.details.map((detail, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 + i * 0.1 }}
+                className="px-6 py-3 bg-slate-50 text-slate-700 text-sm font-bold rounded-2xl border border-slate-100 shadow-sm"
+              >
+                {detail}
+              </motion.span>
+            ))}
+          </div>
+        </div>
+
+        {/* Decorative corner icon */}
+        <div className="absolute bottom-10 right-10 opacity-5 group-hover:opacity-10 transition-opacity">
+          <Brain size={100} />
+        </div>
+      </motion.div>
+
+      {/* Right: Small Side Items */}
+      <div className="flex flex-col gap-6 justify-center">
+        <AnimatePresence mode="popLayout">
+          {sideItems.map((item) => (
+            <motion.div
+              layout
+              key={item.id}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              onClick={() => handleItemClick(item)}
+              className="cursor-pointer group relative p-6 rounded-[1.5rem] bg-white border border-slate-100 hover:border-blue-200 transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1"
+            >
+              <div className="flex items-center gap-6">
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white font-black text-xl shadow-lg shadow-blue-500/10`}>
+                  {item.id}
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-slate-900 font-black text-lg group-hover:text-blue-600 transition-colors">
+                    {item.title.split(":")[0]}
+                  </h4>
+                  <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-1">
+                    Click to Expand
+                  </p>
+                </div>
+                <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                  <ArrowUpRight size={18} />
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+
+        {/* Static Note */}
+        <div className="mt-4 p-6 rounded-[1.5rem] bg-slate-900 text-white relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          <p className="text-sm font-bold leading-relaxed relative z-10">
+            "Our AI framework is built on a philosophy of continuous adaptation—integrating emerging tools as they redefine the global landscape."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ─── MAIN ──────────────────────────────────────────────────────── */
 export default function About() {
   const [activePhil, setActivePhil] = useState(0);
   const heroRef = useRef(null);
+  const missionRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
@@ -387,7 +590,7 @@ export default function About() {
                 <div className="flex items-center gap-3 mb-10">
                   <div className="w-8 h-px bg-blue-600" />
                   <span className="text-xs font-bold text-blue-600 uppercase tracking-[0.2em]">
-                    ConvoSec AI — Defense Reimagined
+                    ConvoSec AI — Empowering Minds, Engineering Futures
                   </span>
                 </div>
               </FadeReveal>
@@ -405,9 +608,10 @@ export default function About() {
               </div>
 
               <FadeReveal delay={0.5}>
-                <p className="text-slate-500 text-lg leading-relaxed max-w-lg mb-12 font-light">
-                  ConvoSec AI bridges frontier AI research with battle-hardened cybersecurity —
-                  delivering education, solutions, and consultancy that builds a more resilient digital world.
+                <p className="text-slate-500 text-lg leading-relaxed max-w-2xl mb-8 font-light">
+                  A technology-driven venture operating at the intersection of technical education and real-world project execution.
+                  We deliver two core functions under one unified platform — structured technical training and live
+                  project-based work — both anchored in AI, Machine Learning, Deep Learning, and Cybersecurity (VAPT).
                 </p>
               </FadeReveal>
 
@@ -429,6 +633,7 @@ export default function About() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    onClick={() => missionRef.current?.scrollIntoView({ behavior: 'smooth' })}
                     className="flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors"
                   >
                     Our Mission
@@ -439,7 +644,7 @@ export default function About() {
 
               {/* Stats strip */}
               <FadeReveal delay={0.78}>
-                <div className="flex gap-10 mt-16 pt-10 border-t border-slate-200/80">
+                <div className="flex gap-10 mt-8 pt-8 border-t border-slate-200/80">
                   {stats.map((s, i) => (
                     <div key={s.label}>
                       <p className="text-3xl font-black text-slate-900 tracking-tight">{s.value}</p>
@@ -497,6 +702,147 @@ export default function About() {
       {/* ── MARQUEE ── */}
       <Marquee />
 
+
+
+      {/* ── VISUAL IDENTITY GRID — SEAMLESS & COMPACT ── */}
+      <section ref={missionRef} className="py-20 bg-white">
+        <div className="container-shell px-0 md:px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 h-[500px] md:h-[600px] overflow-hidden rounded-xl md:rounded-3xl border border-slate-100">
+
+            {/* Vision Statement (Large) */}
+            <FadeReveal className="lg:col-span-2 lg:row-span-2 h-full">
+              <div className="relative h-full w-full overflow-hidden group cursor-default">
+                <img
+                  src="/about_grid_experience.png"
+                  alt="Vision"
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+                {/* Initial Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-0" />
+                {/* Hover Overlay */}
+                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="absolute inset-0 p-10 lg:p-14 flex flex-col justify-end group-hover:justify-center transition-all duration-500">
+                  <h3 className="text-3xl lg:text-4xl font-black text-white tracking-tight mb-4 group-hover:mb-6">Vision Statement</h3>
+                  <div className="max-h-0 opacity-0 group-hover:max-h-[400px] group-hover:opacity-100 overflow-hidden transition-all duration-700 ease-in-out">
+                    <p className="text-white text-lg lg:text-2xl font-black mb-6 leading-tight">
+                      "To be a globally recognized learning ecosystem transforming aspiring individuals into industry-ready professionals."
+                    </p>
+                    <div className="pt-6 border-t border-white/20">
+                      <p className="text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mb-3">The Outcome</p>
+                      <p className="text-white/80 text-sm lg:text-base font-light leading-relaxed">
+                        Turning technical potential into professional leadership through structured, real-world project excellence.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </FadeReveal>
+
+            {/* Mission Statement */}
+            <FadeReveal delay={0.1} className="h-full">
+              <div className="relative h-full w-full overflow-hidden group cursor-default border-l border-white/10">
+                <img
+                  src="/about_grid_insight.png"
+                  alt="Mission"
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-0" />
+                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="absolute inset-0 p-8 flex flex-col justify-end group-hover:justify-center transition-all duration-500">
+                  <h3 className="text-xl lg:text-2xl font-black text-white tracking-tight mb-2 group-hover:mb-4">Mission Statement</h3>
+                  <div className="max-h-0 opacity-0 group-hover:max-h-48 group-hover:opacity-100 overflow-hidden transition-all duration-700 ease-in-out">
+                    <p className="text-white text-sm lg:text-lg font-black mb-3 leading-tight">
+                      Empowering learners to lead confidently through industry-aligned education.
+                    </p>
+                    <p className="text-white/80 text-xs lg:text-sm font-light leading-relaxed">
+                      "To deliver high-quality internship experiences in AI/ML, Cybersecurity, and Business Analytics."
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </FadeReveal>
+
+            {/* Empowerment */}
+            <FadeReveal delay={0.2} className="h-full">
+              <div className="relative h-full w-full overflow-hidden group cursor-default border-l border-white/10">
+                <img
+                  src="/about_grid_innovate.png"
+                  alt="Empowerment"
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-0" />
+                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="absolute inset-0 p-8 flex flex-col justify-end group-hover:justify-center transition-all duration-500">
+                  <h3 className="text-xl lg:text-2xl font-black text-white tracking-tight mb-2 group-hover:mb-4">Empowerment</h3>
+                  <div className="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 overflow-hidden transition-all duration-700 ease-in-out">
+                    <p className="text-white text-sm lg:text-lg font-black mb-3 leading-tight">
+                      Architecting technical confidence.
+                    </p>
+                    <p className="text-white/80 text-xs lg:text-sm font-light leading-relaxed uppercase tracking-wider">
+                      Technical depth and scalable engineering mastery at the core.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </FadeReveal>
+
+            {/* Leadership */}
+            <FadeReveal delay={0.3} className="h-full">
+              <div className="relative h-full w-full overflow-hidden group cursor-default border-t border-l border-white/10">
+                <img
+                  src="/about_grid_accelerate.png"
+                  alt="Leadership"
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-0" />
+                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="absolute inset-0 p-8 flex flex-col justify-end group-hover:justify-center transition-all duration-500">
+                  <h3 className="text-xl lg:text-2xl font-black text-white tracking-tight mb-2 group-hover:mb-4">Leadership</h3>
+                  <div className="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 overflow-hidden transition-all duration-700 ease-in-out">
+                    <p className="text-white text-sm lg:text-lg font-black mb-3 leading-tight">
+                      Cultivating industrial pioneers.
+                    </p>
+                    <p className="text-white/80 text-xs lg:text-sm font-light leading-relaxed uppercase tracking-wider">
+                      Developing the next generation of AI and Cybersecurity leaders.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </FadeReveal>
+
+            {/* Ethics */}
+            <FadeReveal delay={0.4} className="h-full">
+              <div className="relative h-full w-full overflow-hidden group cursor-default border-t border-l border-white/10">
+                <img
+                  src="/about_grid_assure.png"
+                  alt="Ethics"
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-0" />
+                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="absolute inset-0 p-8 flex flex-col justify-end group-hover:justify-center transition-all duration-500">
+                  <h3 className="text-xl lg:text-2xl font-black text-white tracking-tight mb-2 group-hover:mb-4">Ethics</h3>
+                  <div className="max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 overflow-hidden transition-all duration-700 ease-in-out">
+                    <p className="text-white text-sm lg:text-lg font-black mb-3 leading-tight">
+                      Unwavering integrity.
+                    </p>
+                    <p className="text-white/80 text-xs lg:text-sm font-light leading-relaxed uppercase tracking-wider">
+                      Absolute commitment to professional standards and integrity.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </FadeReveal>
+
+          </div>
+        </div>
+      </section>
+
       {/* ══════════════════════════════════════════════════════════
           SERVICES
       ══════════════════════════════════════════════════════════ */}
@@ -506,7 +852,7 @@ export default function About() {
             <FadeReveal>
               <p className="text-xs font-bold text-blue-600 uppercase tracking-[0.3em] mb-5">Capabilities</p>
               <h2 className="text-4xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[0.95]">
-                Comprehensive AI & <br/>
+                Comprehensive AI & <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">
                   Cyber Solutions
                 </span>
@@ -530,6 +876,70 @@ export default function About() {
         </div>
       </section>
 
+
+      {/* ══════════════════════════════════════════════════════════
+          THE GOAL / FOUNDATION
+      ══════════════════════════════════════════════════════════ */}
+      <section className="py-24 bg-[#f8fafc]">
+        <div className="container-shell">
+          <div className="max-w-6xl">
+            <FadeReveal>
+              <p className="text-xs font-bold text-blue-600 uppercase tracking-[0.3em] mb-6">Our Foundation</p>
+              <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-10">
+                Why ConvoSec AI Was <span className="text-blue-600">Established</span>
+              </h2>
+            </FadeReveal>
+
+            <div className="grid md:grid-cols-1 gap-12">
+              <FadeReveal delay={0.1}>
+                <div className="relative">
+                  <div className="absolute -left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-600 to-transparent opacity-20" />
+                  <p className="text-xl lg:text-2xl text-slate-700 leading-relaxed font-light italic">
+                    "We were established to address the growing convergence of Artificial Intelligence, Cybersecurity, Business Intelligence, and Data Analytics — building a new generation of professionals who can architect, secure, analyze, and intelligently drive the digital ecosystems of tomorrow."
+                  </p>
+                </div>
+              </FadeReveal>
+
+              <FadeReveal delay={0.2}>
+                <div className="space-y-8 text-slate-500 text-lg leading-relaxed font-medium">
+                  <p>
+                    We recognized that the modern industry does not need just coders or analysts in isolation —
+                    it needs versatile, cross-domain professionals who can seamlessly operate at the intersection
+                    of technology, security, and business intelligence.
+                  </p>
+                  <p>
+                    Our foundation was laid with the belief that practical, hands-on, and industry-integrated
+                    education is the only true pathway to producing professionals who are not just employable,
+                    but exceptionally impactful. Every course we design, every internship we offer, and every
+                    skill we impart is driven by one singular purpose — to equip our learners with the
+                    technical depth, analytical mindset, and security awareness needed to thrive and lead
+                    in an AI-powered, data-driven, and cyber-resilient world.
+                  </p>
+                </div>
+              </FadeReveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          AI TECHNOLOGY FRAMEWORK
+      ══════════════════════════════════════════════════════════ */}
+      <section className="py-24 bg-[#f8fafc]">
+        <div className="container-shell">
+          <div className="mb-12">
+            <FadeReveal>
+              <p className="text-xs font-bold text-blue-600 uppercase tracking-[0.3em] mb-4">The Stack</p>
+              <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                Our Applied <span className="text-blue-600">AI Framework</span>
+              </h2>
+            </FadeReveal>
+          </div>
+
+          <AppliedAIStack />
+        </div>
+      </section>
+
       {/* ══════════════════════════════════════════════════════════
           PHILOSOPHY
       ══════════════════════════════════════════════════════════ */}
@@ -537,7 +947,6 @@ export default function About() {
         <div className="container-shell">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
 
-            {/* Left: content */}
             <div>
               <FadeReveal className="mb-12">
                 <p className="text-xs font-bold text-blue-600 uppercase tracking-[0.2em] mb-4">Our Core DNA</p>
@@ -546,9 +955,7 @@ export default function About() {
                 </h2>
               </FadeReveal>
 
-              {/* Animated philosophy carousel */}
               <div className="relative">
-                {/* Progress dots */}
                 <div className="flex gap-1.5 mb-8">
                   {philosophyPoints.map((_, i) => (
                     <motion.div
@@ -564,8 +971,7 @@ export default function About() {
                   ))}
                 </div>
 
-                {/* Point display */}
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative min-h-[320px] overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activePhil}
@@ -580,8 +986,11 @@ export default function About() {
                           {String(activePhil + 1).padStart(2, "0")}
                         </span>
                         <div className="pt-4">
-                          <p className="text-2xl lg:text-3xl font-black text-slate-900 leading-tight tracking-tight">
-                            {philosophyPoints[activePhil]}
+                          <h3 className="text-2xl lg:text-3xl font-black text-slate-900 leading-tight tracking-tight mb-4">
+                            {philosophyPoints[activePhil].title}
+                          </h3>
+                          <p className="text-slate-500 text-sm lg:text-base leading-relaxed mb-4">
+                            {philosophyPoints[activePhil].desc}
                           </p>
                           <div className="flex items-center gap-2 mt-4">
                             <div className="w-5 h-px bg-blue-500" />
@@ -592,30 +1001,9 @@ export default function About() {
                     </motion.div>
                   </AnimatePresence>
                 </div>
-
-                {/* All points list */}
-                <div className="mt-8 space-y-3">
-                  {philosophyPoints.map((pt, i) => (
-                    <motion.div
-                      key={i}
-                      onClick={() => setActivePhil(i)}
-                      animate={{ opacity: i === activePhil ? 1 : 0.35 }}
-                      className="flex items-center gap-3 cursor-pointer group/pt"
-                    >
-                      <motion.div
-                        animate={{ width: i === activePhil ? "1.5rem" : "0.75rem" }}
-                        className="h-px bg-blue-500 transition-all"
-                      />
-                      <span className={`text-sm font-medium transition-colors ${i === activePhil ? "text-slate-900" : "text-slate-400 group-hover/pt:text-slate-600"}`}>
-                        {pt}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
               </div>
             </div>
 
-            {/* Right: Sliding Quote Tile */}
             <FadeReveal delay={0.15} className="relative">
               <div className="absolute -top-4 -right-4 w-24 h-24 border-t-2 border-r-2 border-blue-200 rounded-tr-2xl" />
               <div className="absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-slate-200 rounded-bl-2xl" />
@@ -630,16 +1018,15 @@ export default function About() {
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                     className="absolute inset-0"
                   >
-                    <img 
-                      src={teamworkQuotes[activePhil % teamworkQuotes.length].image} 
-                      alt="Teamwork Quote" 
+                    <img
+                      src={teamworkQuotes[activePhil % teamworkQuotes.length].image}
+                      alt="Teamwork Quote"
                       className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/30 to-transparent" />
                   </motion.div>
                 </AnimatePresence>
 
-                {/* Quote Overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-8 text-left">
                   <motion.div
                     key={activePhil}
@@ -666,6 +1053,42 @@ export default function About() {
                 </div>
               </div>
             </FadeReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FUTURE GOALS & OBJECTIVES ── */}
+      <section className="py-24 bg-white">
+        <div className="container-shell">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <FadeReveal>
+              <p className="text-xs font-bold text-blue-600 uppercase tracking-[0.3em] mb-4">The Horizon</p>
+              <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-8">
+                Future Goals & <br />
+                <span className="text-blue-600">Objectives</span>
+              </h2>
+              <p className="text-slate-500 text-lg leading-relaxed font-medium max-w-xl">
+                We are building towards a future where intelligence and security are inseparable
+                components of every digital ecosystem.
+              </p>
+            </FadeReveal>
+
+            <div className="space-y-4">
+              {[
+                "Build a unified intelligence platform where AI/ML, Cybersecurity, and Business Analytics work together as one ecosystem",
+                "Develop automation-driven security systems powered by predictive analytics and machine learning insights",
+                "Transform data into real-time security intelligence, enabling proactive and decision-driven protection",
+                "Create self-learning, analytics-driven cybersecurity frameworks that continuously evolve with threats",
+                "Enable organizations to make secure, data-driven business decisions through intelligent, integrated technology systems"
+              ].map((goal, i) => (
+                <FadeReveal key={i} delay={i * 0.1}>
+                  <div className="flex gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 transition-all duration-300 group">
+                    <div className="mt-1 w-2 h-2 rounded-full bg-blue-600 shrink-0 group-hover:scale-150 transition-transform" />
+                    <p className="text-slate-700 font-medium leading-relaxed">{goal}</p>
+                  </div>
+                </FadeReveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -722,21 +1145,21 @@ export default function About() {
 
                   <LineReveal>
                     <h2 className="text-4xl lg:text-6xl font-black text-white tracking-tight leading-[0.95] mb-6">
-                      Ready to build a
+                      Build, Secure & Scale
                     </h2>
                   </LineReveal>
                   <LineReveal delay={0.12}>
                     <h2 className="text-4xl lg:text-6xl font-black tracking-tight leading-[0.95] mb-10">
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-                        more secure future?
+                        with ConvoSec AI
                       </span>
                     </h2>
                   </LineReveal>
 
                   <FadeReveal delay={0.3}>
                     <p className="text-slate-400 text-lg font-light leading-relaxed mb-12 max-w-xl">
-                      Explore our courses, projects, and consultancy services.
-                      Let's build resilient digital systems together.
+                      Request a Custom Analytics & Cybersecurity Solution or
+                      Book Your Free Strategy Consultation today.
                     </p>
                   </FadeReveal>
 

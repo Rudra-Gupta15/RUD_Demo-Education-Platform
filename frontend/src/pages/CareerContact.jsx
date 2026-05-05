@@ -252,6 +252,55 @@ export default function CareerContact() {
         </div>
       </div>
 
+      {/* ── Internship Enrollment Process ── */}
+      <div className="mt-32 pt-24 border-t border-slate-100">
+        <div className="container-shell">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <Reveal>
+              <p className="text-xs font-bold text-indigo-600 uppercase tracking-[0.3em] mb-4">The Pathway</p>
+              <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                Internship <br/>
+                <span className="text-indigo-600">Enrollment Process</span>
+              </h2>
+            </Reveal>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white p-10 md:p-16 rounded-[3rem] border border-slate-200 shadow-sm relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full -mr-16 -mt-16" />
+              <h3 className="text-3xl font-black text-slate-900 mb-12 flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-sm">I</div>
+                How to Join Our Live Projects
+              </h3>
+              <div className="grid md:grid-cols-2 gap-x-12 gap-y-10">
+                {[
+                  { s: "Student Registration", d: "Submit application via the internship registration portal." },
+                  { s: "Verification", d: "Credentials and eligibility are verified by the HR/Operations team." },
+                  { s: "Domain Selection", d: "Student selects preferred domain (AI/ML or Cybersecurity)." },
+                  { s: "Project Assignment", d: "Student is assigned to a real company project with a domain mentor." },
+                  { s: "Mentorship & Monitoring", d: "Regular check-ins, task tracking, and performance evaluation." },
+                  { s: "Completion", d: "Successful interns receive a Certificate of Completion and Letter of Recommendation." }
+                ].map((step, i) => (
+                  <Reveal key={i} delay={i * 0.05}>
+                    <div className="flex gap-6 group">
+                      <div className="flex flex-col items-center shrink-0">
+                        <div className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-sm font-black text-slate-400 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all">
+                          {i + 1}
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="text-base font-black text-slate-900 mb-1">{step.s}</h4>
+                        <p className="text-sm text-slate-500 font-medium leading-relaxed">{step.d}</p>
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Visual Asset Section */}
       <div className="mt-32 border-y border-slate-100 bg-white">
         <div className="container-shell py-24">

@@ -10,22 +10,22 @@ export async function fetchNews() {
   try {
     const categories = [
       { 
-        id: "AI", 
+        id: "Artificial Intelligence", 
         query: 'title:("Artificial Intelligence" OR "Generative AI" OR "LLM" OR "OpenAI" OR "Neural")', 
         domains: "openai.com,anthropic.com,blog.google,huggingface.co,deepmind.google,ai.meta.com,techcrunch.com,wired.com",
-        count: 3 
+        count: 4 
       },
       { 
-        id: "Cybersecurity", 
+        id: "Cybersecurity / VAPT", 
         query: 'title:("Cybersecurity" OR "Vulnerability" OR "Data Breach" OR "Exploit" OR "Malware")', 
         domains: "krebsonsecurity.com,darkreading.com,bleepingcomputer.com,securityweek.com,thehackernews.com,wired.com",
-        count: 3 
+        count: 4 
       },
       { 
-        id: "Tech", 
-        query: '("Software Development" OR "Cloud Computing" OR "Hardware Engineering" OR "Architecture") -AI -LLM', 
+        id: "Machine Learning", 
+        query: '("Machine Learning" OR "Deep Learning" OR "Neural Networks" OR "Data Science") -AI', 
         domains: "arstechnica.com,zdnet.com,infoworld.com,techrepublic.com,computerworld.com,blog.google,techcrunch.com,venturebeat.com,thenextweb.com",
-        count: 3 
+        count: 4 
       }
     ];
 
@@ -78,12 +78,12 @@ export async function fetchNews() {
 
 function getFallbackNews() {
   return [
-    // AI - 4 Items
+    // Artificial Intelligence - 4 Items
     {
       id: "ai-1",
       title: "GPT-5 Rumors: What to Expect from the Next Frontier",
       excerpt: "Deep dive into the leaked capabilities of the next major LLM release and how it might redefine general intelligence.",
-      category: "AI",
+      category: "Artificial Intelligence",
       read_time: "6 min",
       author: "Tech Insider",
       created_at: "2026-05-01T10:00:00Z",
@@ -94,7 +94,7 @@ function getFallbackNews() {
       id: "ai-2",
       title: "The Rise of Autonomous AI Agents in Software Engineering",
       excerpt: "Exploring the capabilities and limits of tools like Devin and open-source alternatives for everyday coding tasks.",
-      category: "AI",
+      category: "Artificial Intelligence",
       read_time: "8 min",
       author: "Future Labs",
       created_at: "2026-04-10T12:00:00Z",
@@ -105,7 +105,7 @@ function getFallbackNews() {
       id: "ai-3",
       title: "Generative Video: The New Frontier of Content Creation",
       excerpt: "How Sora and its competitors are transforming Hollywood and social media with text-to-video technology.",
-      category: "AI",
+      category: "Artificial Intelligence",
       read_time: "5 min",
       author: "Media Tech",
       created_at: "2026-04-28T09:30:00Z",
@@ -116,19 +116,19 @@ function getFallbackNews() {
       id: "ai-4",
       title: "On-Device AI: Running LLMs on your Smartphone",
       excerpt: "The shift towards local inference is prioritizing privacy and reducing latency for mobile AI applications.",
-      category: "AI",
+      category: "Artificial Intelligence",
       read_time: "7 min",
       author: "Silicon Valley",
       created_at: "2026-04-25T14:20:00Z",
       image: "https://images.unsplash.com/photo-1512428559083-a401c33c2b65?auto=format&fit=crop&q=80",
       url: "#"
     },
-    // Cybersecurity - 3 Items (Bug focused)
+    // Cybersecurity / VAPT - 3 Items
     {
       id: "cyber-1",
       title: "Critical Zero-Day Vulnerability Found in Linux Kernel",
       excerpt: "A newly discovered exploit allows for unauthenticated remote code execution. Patch your systems immediately.",
-      category: "Cybersecurity",
+      category: "Cybersecurity / VAPT",
       read_time: "4 min",
       author: "Security First",
       created_at: "2026-05-03T08:00:00Z",
@@ -139,7 +139,7 @@ function getFallbackNews() {
       id: "cyber-2",
       title: "Understanding Prompt Injection: The New Security Threat",
       excerpt: "How attackers are manipulating LLMs through prompt engineering to bypass safety filters and leak data.",
-      category: "Cybersecurity",
+      category: "Cybersecurity / VAPT",
       read_time: "5 min",
       author: "Infosec Daily",
       created_at: "2026-04-15T12:00:00Z",
@@ -150,45 +150,34 @@ function getFallbackNews() {
       id: "cyber-3",
       title: "Log4j Style Bug Discovered in Popular NPM Package",
       excerpt: "Security researchers have identified a critical bug that could affect millions of JavaScript applications worldwide.",
-      category: "Cybersecurity",
+      category: "Cybersecurity / VAPT",
       read_time: "10 min",
       author: "Global Sec",
       created_at: "2026-04-20T11:15:00Z",
       image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80",
       url: "#"
     },
-    // Tech Advancement - 3 Items
+    // Machine Learning - 3 Items
     {
-      id: "tech-1",
-      title: "Quantum Computing: Reaching the 1000-Qubit Milestone",
-      excerpt: "A breakthrough in error correction brings us one step closer to practical quantum advantage for chemistry.",
-      category: "Tech",
+      id: "ml-1",
+      title: "Advanced Neural Architecture Search for Edge Devices",
+      excerpt: "New methods for optimizing machine learning models to run on low-power hardware without sacrificing accuracy.",
+      category: "Machine Learning",
       read_time: "12 min",
-      author: "Quantum Times",
+      author: "ML Daily",
       created_at: "2026-05-02T16:00:00Z",
       image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80",
       url: "#"
     },
     {
-      id: "tech-2",
+      id: "ml-2",
       title: "Essential MLOps Tools for Data Teams in 2026",
       excerpt: "A comprehensive review of the best tools for versioning models and automating large-scale deployments.",
-      category: "Tech",
+      category: "Machine Learning",
       read_time: "6 min",
       author: "DevOps World",
       created_at: "2026-04-05T12:00:00Z",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&h=600&q=80",
-      url: "#"
-    },
-    {
-      id: "tech-3",
-      title: "Solid-State Batteries: The End of Range Anxiety?",
-      excerpt: "New battery technology promises double the energy density and 10-minute charging for future EVs.",
-      category: "Tech",
-      read_time: "9 min",
-      author: "Energy Journal",
-      created_at: "2026-04-12T13:45:00Z",
-      image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80",
       url: "#"
     }
   ];

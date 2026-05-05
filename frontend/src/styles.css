@@ -74,11 +74,11 @@ select {
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brandprimary px-5 py-3 text-sm font-bold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-indigo-600 active:scale-95;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brandprimary px-5 py-3 text-sm font-bold text-white shadow-soft transition hover:bg-indigo-600 active:scale-95;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition hover:-translate-y-0.5 hover:border-brandprimary/60 hover:bg-indigo-50 active:scale-95;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition hover:border-brandprimary/60 hover:bg-indigo-50 active:scale-95;
   }
 
   .eyebrow {

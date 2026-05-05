@@ -4,57 +4,57 @@ import { Heart, ShieldCheck, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../state/CartContext.jsx";
 import Reveal from "../components/Reveal.jsx";
-import { demoCourses } from "../data/courses.js";
+import { demoCourses, dataScienceRoadmap } from "../data/courses.js";
 
 const getCourseDescription = (course) => {
-  if (course.topic === "AI Fundamentals") {
-    return "Master the core pillars of artificial intelligence, from high-level Python automation to deep neural network orchestration and LLM engineering.";
-  }
-  if (course.topic === "Cybersecurity") {
-    return "Develop elite defense skills including ethical hacking, network security auditing, and professional SOC analysis to protect digital infrastructure.";
-  }
-  if (course.topic === "Integrated AI-Security") {
-    return "Explore the frontier where AI meets security. Learn to build AI-driven defense systems and defend against automated, AI-powered cyber threats.";
-  }
-  if (course.topic === "Professional Tracks") {
-    return "Accelerated career-ready programs designed to transform you into a certified expert with project-based internships and industry placement support.";
-  }
-  return "Comprehensive guide to mastering the core concepts and practical applications in this specialized technical field.";
+  const descriptions = {
+    "AI & Machine Learning": "Master the core pillars of artificial intelligence, from Python automation to core ML algorithms and real-world implementation.",
+    "Deep Learning": "An advanced program building on ML fundamentals, covering neural networks, deep learning architectures, and production deployment.",
+    "Generative AI": "Master the art of deploying Generative AI models, focusing on LLM fine-tuning, RAG systems, and AI agent orchestration.",
+    "Cybersecurity / VAPT": "Specialized cybersecurity training under the VAPT framework, covering Networking, Forensics, and Compliance.",
+    "Cybersecurity": "Develop elite defense skills including ethical hacking, network auditing, and professional SOC analysis.",
+    "Data & Business Analytics": "Transform raw data into actionable insights using advanced visualization and AI-driven business intelligence techniques."
+  };
+  return descriptions[course.topic] || "Comprehensive guide to mastering the core concepts and practical applications in this specialized technical field.";
 };
 
 const getCourseBullets = (course) => {
-  if (course.topic === "AI Fundamentals") {
-    return [
-      "Master Python for automation and data orchestration",
-      "Build and fine-tune Large Language Models (LLMs)",
-      "Design complex neural network architectures"
-    ];
-  }
-  if (course.topic === "Cybersecurity") {
-    return [
-      "Perform professional-grade penetration testing",
-      "Master network defense and SOC incident response",
-      "Conduct comprehensive cybersecurity audits"
-    ];
-  }
-  if (course.topic === "Integrated AI-Security") {
-    return [
-      "Build AI-based anomaly detection systems",
-      "Defend against deepfakes and AI-powered exploits",
-      "Automate threat intelligence pipelines using ML"
-    ];
-  }
-  if (course.topic === "Professional Tracks") {
-    return [
-      "Gain real project exposure through structured internships",
-      "Prepare for high-end industry placements with mentorship",
-      "Build a professional portfolio with verifiable case studies"
-    ];
-  }
-  return [
+  const bullets = {
+    "AI & Machine Learning": [
+      "Master Python for data science and automation",
+      "Implement supervised and unsupervised learning",
+      "Solve real-world problems with ML models"
+    ],
+    "Deep Learning": [
+      "Build and optimize complex neural networks",
+      "Deploy AI systems at enterprise scale",
+      "Master Computer Vision and NLP frameworks"
+    ],
+    "Generative AI": [
+      "Deploy production-grade AI agents",
+      "Optimize LLM costs and latency",
+      "Build scalable RAG and vector search systems"
+    ],
+    "Cybersecurity / VAPT": [
+      "Operate within the VAPT professional framework",
+      "Investigate and resolve security incidents",
+      "Conduct professional-grade security audits"
+    ],
+    "Cybersecurity": [
+      "Perform advanced penetration testing",
+      "Master network defense and SOC operations",
+      "Identify and exploit system vulnerabilities"
+    ],
+    "Data & Business Analytics": [
+      "Transform raw data into actionable insights",
+      "Drive data-backed business decisions",
+      "Master industry-standard visualization tools"
+    ]
+  };
+  return bullets[course.topic] || [
     "Master core concepts and advanced techniques",
-    "Gain hands-on experience through practical projects",
-    "Prepare for industry-recognized certifications"
+    "Gain hands-on experience through projects",
+    "Prepare for industry certifications"
   ];
 };
 
@@ -105,14 +105,14 @@ export default function Catalog() {
   };
 
   return (
-    <section className="container-shell min-h-screen pt-32 pb-16">
+    <section className="min-h-screen pt-32 pb-16">
       {/* ── Fixed Floating Back Button ── */}
-      <motion.button 
+      <motion.button
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0 }}
         transition={{ duration: 0.3 }}
         onClick={() => navigate('/learning')}
-        className="fixed top-[34px] left-20 z-[110] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-[0_15px_30px_-5px_rgba(0,0,0,0.3)] hover:bg-slate-800 hover:scale-110 active:scale-95 group"
+        className="fixed top-[34px] left-20 z-[110] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-[0_15px_30px_-5px_rgba(0,0,0,0.3)] hover:bg-slate-800 active:scale-95 group"
         title="Go Back"
       >
         <ArrowLeft size={22} className="group-hover:-translate-x-1 transition-transform duration-300" />
@@ -121,81 +121,186 @@ export default function Catalog() {
         </span>
       </motion.button>
 
-      <Reveal>
-        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-          What to learn next
-        </h1>
-      </Reveal>
+      {/* ── Main Page Header ── */}
+      <div className="container-shell mb-16">
+        <Reveal y={0}>
+          <div className="max-w-4xl">
+            <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
+              What to <span className="text-blue-600">learn next</span>
+            </h1>
+            <p className="text-sm font-bold text-slate-400">Based on your interests in AI & Data Science</p>
+          </div>
+        </Reveal>
+      </div>
 
-      <div className="mt-12 space-y-12">
-        {topics.map((topic) => (
-          <div key={topic} className="space-y-4">
-            <h2 className="text-xl font-bold text-slate-900">
-              {topic}
+      {/* ── Strategic Roadmap Subheader ── */}
+      <div className="container-shell mb-10">
+        <Reveal y={0}>
+          <div className="max-w-4xl">
+            <p className="text-xs font-black text-blue-600 uppercase tracking-[0.3em] mb-4">Strategic Learning Path</p>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+              Data Science & <span className="text-blue-600">AI Roadmap</span>
             </h2>
-            
+          </div>
+        </Reveal>
+      </div>
+
+      {/* ── 8-Phase Roadmap: Horizontal Scroll ── */}
+      <div className="container-shell mb-24">
+        <div className="relative group">
+          <div className="flex overflow-x-auto gap-8 pb-12 scrollbar-none snap-x snap-mandatory">
+            {dataScienceRoadmap.map((phase, i) => {
+              const phaseImages = [
+                "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=800&q=80", // 1
+                "https://images.unsplash.com/photo-1518186239751-2477cf795151?auto=format&fit=crop&w=800&q=80", // 2
+                "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80", // 3
+                "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80", // 4
+                "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=800&q=80", // 5
+                "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80", // 6
+                "https://images.unsplash.com/photo-1605752683031-c4e1a6c5085a?auto=format&fit=crop&w=800&q=80", // 7
+                "https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&w=800&q=80", // 8
+              ];
+
+              return (
+                <div
+                  key={phase.phase}
+                  onClick={() => navigate(`/courses/${phase.slug}`)}
+                  className="flex-shrink-0 w-[300px] group flex flex-col bg-white border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer snap-start overflow-hidden rounded-xl active:scale-[0.98]"
+                >
+                  {/* Thumbnail Image */}
+                  <div className="relative aspect-video overflow-hidden">
+                    <img
+                      src={phaseImages[i]}
+                      alt={phase.title}
+                      onError={(e) => {
+                        e.target.src = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80";
+                      }}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-white/90 backdrop-blur-sm flex items-center justify-center font-black text-xs text-blue-600 shadow-sm border border-white/20">
+                      {phase.phase}
+                    </div>
+                    {phase.isHot && (
+                      <div className="absolute top-3 left-3 bg-amber-400 text-black px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-tight shadow-sm">
+                        Bestseller
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Content Area */}
+                  <div className="p-3.5 flex-1 flex flex-col">
+                    <h3 className="text-[15px] font-bold text-slate-900 leading-tight mb-1 line-clamp-1">
+                      {phase.title}
+                    </h3>
+                    <p className="text-[10px] text-slate-500 font-medium mb-2">
+                      RUD-Demo Engineering
+                    </p>
+
+                    {/* Rating Mockup */}
+                    <div className="flex items-center gap-1 mb-3">
+                      <span className="text-[11px] font-bold text-amber-700">4.9</span>
+                      <div className="flex items-center text-amber-500 text-[8px]">
+                        {"★".repeat(5)}
+                      </div>
+                      <span className="text-[9px] text-slate-400">(2.4k)</span>
+                    </div>
+
+                    {/* Topics List (Compact) */}
+                    <div className="space-y-1.5 mb-4 flex-1">
+                      {phase.topics.map((topic, idx) => (
+                        <div key={idx} className="flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-blue-500/50 flex-shrink-0" />
+                          <p className="text-[10px] font-bold text-slate-700 line-clamp-1">{topic.name}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-auto pt-3 border-t border-slate-50 flex items-center justify-between">
+                      <div className="flex flex-row items-center gap-2">
+                        <span className="text-base font-black text-slate-900">₹{499 + (i * 100)}</span>
+                        <span className="text-[9px] text-slate-400 line-through font-bold">₹{1299}</span>
+                      </div>
+                      <span className="text-[8px] font-black text-blue-600 uppercase tracking-widest px-2 py-1 rounded-md bg-blue-50 border border-blue-100">
+                        P{phase.phase}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+
+      {/* ── Course Inventory: Horizontal Scroll ── */}
+      <div className="container-shell space-y-24">
+        {topics.map((topic) => (
+          <div key={topic} className="space-y-8">
+            <Reveal y={0}>
+              <div className="flex items-center gap-4">
+                <h3 className="text-xl font-black text-slate-900">{topic} Roadmap</h3>
+                <div className="h-px flex-1 bg-slate-100" />
+                <button className="text-xs font-black text-blue-600 uppercase tracking-widest hover:underline">View All</button>
+              </div>
+            </Reveal>
+
             <div className="relative group">
-              <div className="flex overflow-x-auto gap-5 pb-6 scrollbar-none snap-x snap-mandatory">
+              <div className="flex overflow-x-auto gap-8 pb-12 scrollbar-none snap-x snap-mandatory">
                 {demoCourses
                   .filter((c) => c.topic === topic)
                   .map((course) => (
-                    <div 
-                      key={course.id} 
-                      className="flex-shrink-0 w-[240px] flex flex-col group cursor-pointer snap-start relative"
+                    <div
+                      key={course.id}
+                      className="flex-shrink-0 w-[280px] group flex flex-col bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer snap-start overflow-hidden"
                       onMouseEnter={(e) => handleMouseEnter(e, course)}
                       onMouseLeave={handleMouseLeave}
                       onClick={() => navigate(`/courses/${course.slug || "python-ai-data-science"}`)}
                     >
                       {/* Thumbnail */}
-                      <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-slate-200/60 bg-slate-100">
+                      <div className="relative aspect-video overflow-hidden">
                         <img
                           src={course.image}
                           alt={course.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          onError={(e) => {
+                            e.target.src = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80";
+                          }}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
+                        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-[10px] font-black text-slate-900 uppercase tracking-widest shadow-sm">
+                          {course.level || "Expert"}
+                        </div>
+                        {course.rating > 4.8 && (
+                          <div className="absolute top-4 left-4 bg-amber-400 text-black px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-tight shadow-sm">
+                            Bestseller
+                          </div>
+                        )}
                       </div>
 
                       {/* Content */}
-                      <div className="mt-2 flex flex-col flex-1">
-                        <h3 className="text-sm font-bold text-slate-900 line-clamp-2 leading-tight group-hover:text-brandprimary transition-colors min-h-[36px]">
+                      <div className="p-4 flex flex-col flex-1">
+                        <h4 className="text-sm font-bold text-slate-900 leading-tight mb-1 line-clamp-1">
                           {course.title}
-                        </h3>
-                        <p className="text-xs text-slate-500 mt-1 truncate">
+                        </h4>
+                        <p className="text-[10px] text-slate-500 font-medium mb-2">
                           {course.instructor}
                         </p>
 
-                        {/* Rating */}
-                        <div className="flex items-center gap-1 mt-1">
-                          <span className="text-xs font-bold text-amber-700">{course.rating}</span>
-                          <div className="flex items-center text-amber-500 text-xs">
-                            {"★".repeat(Math.round(course.rating))}
-                            <span className="text-slate-200">
-                              {"★".repeat(5 - Math.round(course.rating))}
-                            </span>
+                        <div className="mt-auto">
+                          <div className="flex items-center gap-1.5 mb-3">
+                            <span className="text-[11px] font-bold text-amber-700">{course.rating}</span>
+                            <div className="flex items-center text-amber-500 text-[8px]">
+                              {"★".repeat(Math.floor(course.rating))}
+                            </div>
+                            <span className="text-[9px] text-slate-400">({course.reviews})</span>
                           </div>
-                          <span className="text-[10px] text-slate-400">({course.reviews.toLocaleString()})</span>
-                        </div>
 
-                        {/* Price */}
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className="text-sm font-extrabold text-slate-900">{course.price}</span>
-                          <span className="text-xs text-slate-400 line-through">{course.originalPrice}</span>
-                        </div>
-
-                        {/* Badges */}
-                        <div className="flex flex-wrap gap-1 mt-2">
-                          {course.badges.map((badge) => (
-                            <span
-                              key={badge}
-                              className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                                badge === "Premium"
-                                  ? "bg-indigo-100 text-indigo-700"
-                                  : "bg-teal-100 text-teal-700"
-                              }`}
-                            >
-                              {badge}
-                            </span>
-                          ))}
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-baseline gap-2">
+                              <span className="text-base font-black text-slate-900">{course.price === "TBC" ? "₹849" : course.price}</span>
+                              <span className="text-[10px] text-slate-300 line-through font-bold">₹{course.originalPrice === "TBC" ? "3,499" : course.originalPrice}</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -217,20 +322,19 @@ export default function Catalog() {
             className="fixed z-50 bg-white rounded-2xl shadow-2xl p-6 border border-slate-200 max-w-sm pointer-events-auto"
             style={{
               top: Math.max(16, Math.min(window.innerHeight - 450, hoveredCourse.rect.top)),
-              left: hoveredCourse.rect.right + 16 > window.innerWidth - 400 
-                ? hoveredCourse.rect.left - 400 
+              left: hoveredCourse.rect.right + 16 > window.innerWidth - 400
+                ? hoveredCourse.rect.left - 400
                 : hoveredCourse.rect.right + 16,
             }}
             onMouseEnter={() => setHoveredCourse(hoveredCourse)}
             onMouseLeave={handleMouseLeave}
           >
             {/* Arrow */}
-            <div 
-              className={`absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white border-l border-b border-slate-200 rotate-45 ${
-                hoveredCourse.rect.right + 16 > window.innerWidth - 400 
-                  ? "right-[-6px] rotate-[225deg] border-l-0 border-b-0 border-r border-t" 
-                  : "left-[-6px]"
-              }`} 
+            <div
+              className={`absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white border-l border-b border-slate-200 rotate-45 ${hoveredCourse.rect.right + 16 > window.innerWidth - 400
+                ? "right-[-6px] rotate-[225deg] border-l-0 border-b-0 border-r border-t"
+                : "left-[-6px]"
+                }`}
             />
 
             {/* Title */}
@@ -276,7 +380,7 @@ export default function Catalog() {
 
             {/* Action Buttons */}
             <div className="mt-6 flex items-center gap-3">
-              <button 
+              <button
                 onClick={() => {
                   addToCart(hoveredCourse);
                 }}
@@ -296,14 +400,14 @@ export default function Catalog() {
       <AnimatePresence>
         {expandedCourse && (
           <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[999] flex items-center justify-center p-4 md:p-12 overflow-y-auto animate-fade-in">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               className="bg-white w-full max-w-5xl rounded-3xl shadow-2xl overflow-hidden relative flex flex-col md:flex-row max-h-[90vh]"
             >
               {/* Close Button */}
-              <button 
+              <button
                 onClick={() => setExpandedCourse(null)}
                 className="absolute top-5 right-5 z-20 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center font-bold text-lg transition"
               >
@@ -344,11 +448,10 @@ export default function Catalog() {
                   {expandedCourse.badges.map((badge) => (
                     <span
                       key={badge}
-                      className={`text-[11px] font-bold px-2.5 py-1 rounded-md ${
-                        badge === "Premium"
-                          ? "bg-black text-white"
-                          : "bg-teal-100 text-teal-700"
-                      }`}
+                      className={`text-[11px] font-bold px-2.5 py-1 rounded-md ${badge === "Premium"
+                        ? "bg-black text-white"
+                        : "bg-teal-100 text-teal-700"
+                        }`}
                     >
                       {badge}
                     </span>
@@ -383,7 +486,7 @@ export default function Catalog() {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-black/10 flex items-center justify-center">
-                      <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-lg cursor-pointer hover:scale-105 transition duration-200">
+                      <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-lg cursor-pointer transition duration-200">
                         <svg className="w-6 h-6 text-slate-800 ml-1" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M8 5v14l11-7z" />
                         </svg>
@@ -395,14 +498,14 @@ export default function Catalog() {
                     <span className="text-3xl font-black text-slate-900">{expandedCourse.price}</span>
                     <span className="text-sm text-slate-400 line-through font-medium">{expandedCourse.originalPrice}</span>
                   </div>
-                  
+
                   <p className="text-black text-xs font-bold mb-6">
                     Special introductory price!
                   </p>
                 </div>
 
                 <div className="space-y-3 mt-auto">
-                  <button 
+                  <button
                     onClick={() => {
                       addToCart(expandedCourse);
                       setExpandedCourse(null);
@@ -411,7 +514,7 @@ export default function Catalog() {
                   >
                     Add to cart
                   </button>
-                  <button 
+                  <button
                     onClick={() => {
                       addToCart(expandedCourse);
                       setExpandedCourse(null);

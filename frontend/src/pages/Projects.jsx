@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { ExternalLink, X, ArrowRight, Circle } from "lucide-react";
+import { ExternalLink, X, ArrowRight, Circle, Network, Search, Target, Zap, ShieldCheck, FileText } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import Reveal from "../components/Reveal.jsx";
 
@@ -131,8 +131,8 @@ export default function Projects() {
               </h1>
               
               <p className="text-slate-600 text-xl max-w-2xl leading-relaxed font-light">
-                Delivering enterprise-scale solutions across AI, computer vision, and intelligent 
-                automation — built for real-world impact.
+                Delivering enterprise-scale solutions across AI, Cybersecurity, and Business Analytics 
+                — built for real-world impact.
               </p>
               
               <div className="flex items-center gap-8 mt-12">
@@ -150,8 +150,9 @@ export default function Projects() {
         </motion.div>
       </section>
 
+
       {/* ── PROJECTS BENTO GRID ── */}
-      <section className="pb-32 relative z-10">
+      <section className="pb-12 relative z-10">
         <div className="container-shell">
           {/* Uniform grid for smaller tiles */}
           <div className="grid md:grid-cols-12 gap-6 auto-rows-[320px]">
@@ -415,6 +416,140 @@ export default function Projects() {
         </AnimatePresence>,
         document.body
       )}
+      {/* ── PROJECT PHILOSOPHY ── */}
+      <section className="pb-32">
+        <div className="container-shell">
+          <Reveal>
+            <div className="p-12 lg:p-20 bg-[#f4f1ea] border border-slate-200 rounded-[3rem] shadow-sm relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-80 h-80 bg-blue-50 rounded-full blur-3xl -mr-40 -mt-40" />
+              <div className="relative z-10 grid lg:grid-cols-[1fr_2fr] gap-16 items-center">
+                <div>
+                  <p className="text-xs font-['Space_Mono'] tracking-[0.3em] text-blue-600 uppercase mb-4">Our Approach</p>
+                  <h2 className="text-4xl lg:text-5xl font-light text-slate-900 tracking-tight leading-[1.1]">
+                    Bridging Research <br/>
+                    & <span className="font-serif italic text-blue-600">Utility</span>
+                  </h2>
+                </div>
+                <div className="space-y-8 text-slate-600 text-xl font-light leading-relaxed">
+                  <p>
+                    Our projects are not mere demonstrations — they are high-fidelity, production-grade 
+                    ecosystems architected to solve critical challenges in AI, Cybersecurity, and Business Intelligence. 
+                    We prioritize operational readiness over abstract theory.
+                  </p>
+                  <div className="grid sm:grid-cols-2 gap-10 pt-10 border-t border-slate-100">
+                    <div>
+                      <h4 className="text-slate-900 font-bold text-lg mb-3">Architectural Integrity</h4>
+                      <p className="text-base text-slate-500">
+                        From multi-pass OCR pipelines to complex RAG systems, we implement deep-tech 
+                        solutions that handle non-trivial data complexities.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-slate-900 font-bold text-lg mb-3">Enterprise Scalability</h4>
+                      <p className="text-base text-slate-500">
+                        Built on robust backends like FastAPI, Celery, and Redis, ensuring every 
+                        innovation is ready for deployment at scale.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="py-12 bg-[#fafaf9] border-t border-slate-100 overflow-hidden relative">
+        {/* Abstract Background Decoration */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-blue-500 rounded-full blur-[160px]" />
+        </div>
+
+        <div className="container-shell relative z-10">
+          <div className="max-w-4xl mb-24">
+            <Reveal>
+              <div className="flex items-center gap-6 mb-8 text-blue-600">
+                <div className="w-12 h-[1px] bg-current" />
+                <span className="text-xs font-['Space_Mono'] tracking-[0.3em] uppercase">
+                  Operating Standard
+                </span>
+              </div>
+              <h2 className="text-4xl lg:text-6xl font-light tracking-tight mb-8 text-slate-900">
+                The <span className="font-serif italic text-blue-600">VAPT</span> Framework
+              </h2>
+              <p className="text-slate-500 text-xl leading-relaxed font-light">
+                Vulnerable Accessible Penetration Techniques (VAPT) is our core organizational standard. 
+                Everything we do in cybersecurity — from training to live enterprise services — 
+                flows through this unified framework.
+              </p>
+            </Reveal>
+          </div>
+
+          {/* 6 Services Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Networking",
+                icon: Network,
+                desc: "Foundational security layer covering architecture, protocols, and structural vulnerability assessment.",
+                points: ["Network Protocols", "Structural Vulnerability", "Traffic Analysis"]
+              },
+              {
+                title: "Digital Forensics",
+                icon: Search,
+                desc: "Investigative discipline for evidence preservation, incident recovery, and post-event accountability.",
+                points: ["Evidence Integrity", "Incident Reconstruction", "Legal Reporting"]
+              },
+              {
+                title: "Compliance",
+                icon: FileText,
+                desc: "Governance layer ensuring regulatory alignment, risk management, and formal security audits.",
+                points: ["Regulatory Standards", "Risk Governance", "Audit Readiness"]
+              },
+              {
+                title: "Penetration Testing",
+                icon: Target,
+                desc: "Ethical exploitation of systems to expose vulnerabilities before malicious actors can find them.",
+                points: ["Exploit Validation", "Red Teaming", "Actionable Remediation"]
+              },
+              {
+                title: "Threat Analysis",
+                icon: Zap,
+                desc: "Intelligence-driven identification and prioritization of emerging threats before they materialize.",
+                points: ["Attack Vector Mapping", "Predictive Defense", "Threat Intelligence"]
+              },
+              {
+                title: "Security Audits",
+                icon: ShieldCheck,
+                desc: "Formal governance-level evaluation of entire organizational security postures against global standards.",
+                points: ["Control Implementation", "Policy Review", "Gap Analysis"]
+              }
+            ].map((service, idx) => (
+              <Reveal key={service.title} delay={idx * 0.05}>
+                <div className="p-7 bg-[#f4f1ea] border border-slate-200/60 rounded-3xl hover:border-blue-300 transition-all duration-500 group h-full flex flex-col shadow-sm hover:shadow-xl">
+                  <div className="w-11 h-11 rounded-2xl bg-blue-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-xl shadow-blue-500/20">
+                    <service.icon size={18} className="text-white" />
+                  </div>
+                  <h3 className="text-xl font-black mb-3 text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight">
+                    {service.title}
+                  </h3>
+                  <p className="font-sans text-slate-600 text-[14px] leading-relaxed mb-6 flex-1">
+                    {service.desc}
+                  </p>
+                  <div className="flex flex-wrap gap-2 pt-5 border-t border-slate-200/40">
+                    {service.points.map(p => (
+                      <span key={p} className="px-3 py-1 rounded-full bg-white/40 border border-slate-200/50 text-[10px] font-['Space_Mono'] font-bold uppercase tracking-widest text-slate-500 group-hover:text-blue-600 transition-colors">
+                        {p}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+        </div>
+      </section>
     </div>
   );
 }

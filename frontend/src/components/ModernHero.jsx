@@ -102,7 +102,7 @@ export default function ModernHero() {
               </p>
             </div>
             <p className="text-lg lg:text-xl text-slate-500 font-medium italic pl-11">
-              "Pioneering the future of digital defense through intelligent synergy."
+              "Empowering Minds, Engineering Futures."
             </p>
           </motion.div>
 

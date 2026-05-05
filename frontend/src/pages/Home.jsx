@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ChevronLeft, ChevronRight, Play, CheckCircle2, Shield, BrainCircuit, Cloud, Lock, Terminal } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Play, CheckCircle2, Shield, BrainCircuit, Cloud, Lock, Terminal, Target } from "lucide-react";
 import Reveal from "../components/Reveal.jsx";
 import ModernHero from "../components/ModernHero.jsx";
 import SpecializedSolutions from "../components/SpecializedSolutions.jsx";
@@ -8,30 +8,30 @@ import LoadingScreen from "../components/LoadingScreen.jsx";
 import { useState, useEffect } from "react";
 
 const INDUSTRIES_DATA = [
-  { 
+  {
     id: "education",
-    name: "Coaching & Education", 
-    desc: "Structured courses in AI/ML fundamentals and frontier Cybersecurity.",
+    name: "Coaching & Education",
+    desc: "Structured courses in AI/ML, Cybersecurity (VAPT), and Business Analytics.",
     img: "/program_cyber.png",
     color: "from-indigo-600/90"
   },
-  { 
+  {
     id: "projects",
-    name: "Project Development", 
+    name: "Project Development",
     desc: "Bespoke AI and Security solutions built for modern business demands.",
     img: "/hero1.png",
     color: "from-blue-600/90"
   },
-  { 
+  {
     id: "corporate",
-    name: "Corporate Collaboration", 
+    name: "Corporate Collaboration",
     desc: "Partnering with companies for specialized R&D and consultancy.",
     img: "/hero2.png",
     color: "from-slate-900/90"
   },
-  { 
+  {
     id: "internships",
-    name: "Internships & Placement", 
+    name: "Internships & Placement",
     desc: "Industry-aligned programs to prepare talent for real-world roles.",
     img: "/program_genai.png",
     color: "from-blue-900/90"
@@ -61,53 +61,53 @@ export default function Home() {
 
   return (
     <div className="bg-white min-h-screen font-sans overflow-x-hidden selection:bg-blue-500 selection:text-white text-slate-900">
-      
+
       {/* ── LOADING SCREEN ── */}
       <AnimatePresence>
         {loading && <LoadingScreen key="loading" />}
       </AnimatePresence>
-      
+
       {/* ── HERO SECTION ── */}
       <ModernHero />
 
       {/* ── INNOVATIVE SOLUTIONS SECTION ── */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="container-shell flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
-          
+
           {/* Left: Clipped Image with Floating Badge */}
           <div className="flex-1 relative">
             <Reveal>
               <div className="relative group">
                 {/* Main Image with Diagonal Clip Path */}
-                <div 
+                <div
                   className="w-full aspect-[4/3] bg-slate-100 overflow-hidden shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]"
-                  style={{ 
-                    clipPath: "polygon(15% 0%, 100% 0%, 100% 85%, 85% 100%, 0% 100%, 0% 15%)" 
+                  style={{
+                    clipPath: "polygon(15% 0%, 100% 0%, 100% 85%, 85% 100%, 0% 100%, 0% 15%)"
                   }}
                 >
-                  <img 
-                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" 
-                    alt="Pioneering AI & Cybersecurity Team" 
+                  <img
+                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80"
+                    alt="Pioneering AI & Cybersecurity Team"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                   />
                 </div>
 
                 {/* Floating Industry Badge */}
-                <motion.div 
+                <motion.div
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
                   className="absolute -bottom-10 right-[15%] w-40 h-40 rounded-full bg-[#0a3d62] border-[6px] border-white shadow-2xl flex flex-col items-center justify-center text-white text-center z-20"
                 >
                   <span className="text-3xl font-black leading-none">NEXT</span>
-                  <span className="text-[10px] font-bold uppercase tracking-widest mt-1">GEN<br/>STARTUP</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest mt-1">GEN<br />STARTUP</span>
                 </motion.div>
 
                 {/* Background decorative frame */}
-                <div 
+                <div
                   className="absolute -inset-4 -z-10 bg-slate-50 opacity-50"
-                  style={{ 
-                    clipPath: "polygon(15% 0%, 100% 0%, 100% 85%, 85% 100%, 0% 100%, 0% 15%)" 
+                  style={{
+                    clipPath: "polygon(15% 0%, 100% 0%, 100% 85%, 85% 100%, 0% 100%, 0% 15%)"
                   }}
                 ></div>
               </div>
@@ -120,25 +120,26 @@ export default function Home() {
               <div className="space-y-6">
                 <div className="w-16 h-1 bg-[#2563eb] rounded-full"></div>
                 <h2 className="text-3xl md:text-[2.75rem] font-black text-slate-900 leading-[1.1] tracking-tight">
-                  Pioneering AI & <br/>
+                  Pioneering AI & <br />
                   <span className="text-blue-600">Cybersecurity Excellence</span>
                 </h2>
                 <div className="space-y-4 text-slate-500 text-base md:text-lg leading-relaxed font-medium">
                   <p>
-                    We are a tech-forward startup at the intersection of Artificial Intelligence 
-                    and Cybersecurity. Our mission is to bridge the gap between academic learning 
-                    and real-world industry demands.
+                    We are a globally recognized learning ecosystem dedicated to transforming
+                    aspiring individuals into industry-ready professionals. By bridging the gap
+                    between education and real-world technology demands, we empower the next generation
+                    of leaders in AI/ML, Cybersecurity, and Business Analytics.
                   </p>
                   <p>
-                    From hands-on education to bespoke project development and corporate consultancy, 
-                    we deliver cutting-edge solutions. We believe the future of digital security 
+                    From hands-on education to bespoke project development and corporate consultancy,
+                    we deliver cutting-edge solutions. We believe the future of digital security
                     lies in intelligent systems — and we're here to build and teach exactly that.
                   </p>
                 </div>
-                
+
                 <div className="pt-4">
-                  <Link 
-                    to="/about" 
+                  <Link
+                    to="/about"
                     className="inline-block bg-[#0a3d62] text-white px-10 py-4 rounded-full font-bold text-base hover:bg-[#082d49] transition-all shadow-xl shadow-blue-100 active:scale-95"
                   >
                     More About Us
@@ -162,7 +163,7 @@ export default function Home() {
               <div className="w-12 h-1.5 bg-blue-600 rounded-full mx-auto mb-4"></div>
               <h2 className="text-4xl md:text-5xl font-black text-slate-900">Our Industries</h2>
               <p className="text-slate-500 font-medium max-w-2xl mx-auto text-base">
-                We deliver specialized AI and Cybersecurity solutions across diverse sectors, 
+                We deliver specialized AI and Cybersecurity solutions across diverse sectors,
                 driving innovation and securing digital infrastructure globally.
               </p>
             </Reveal>
@@ -171,23 +172,23 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <AnimatePresence mode="popLayout">
               {industries.map((pillar) => (
-                <motion.div 
+                <motion.div
                   layout
                   key={pillar.id}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ 
+                  transition={{
                     layout: { duration: 0.8, ease: "easeInOut" },
                     opacity: { duration: 0.4 }
                   }}
                   whileHover={{ y: -8, scale: 1.01 }}
                   className="group relative h-[320px] rounded-[2.5rem] overflow-hidden shadow-xl shadow-slate-200 border-4 border-white"
                 >
-                  <img 
-                    src={pillar.img} 
-                    alt={pillar.name} 
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
+                  <img
+                    src={pillar.img}
+                    alt={pillar.name}
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
                   <div className={`absolute inset-0 bg-gradient-to-t ${pillar.color} via-black/20 to-transparent opacity-80 transition-opacity group-hover:opacity-95`}></div>
                   <div className="absolute inset-0 p-8 flex flex-col justify-end">
@@ -210,7 +211,7 @@ export default function Home() {
       {/* ── DETAILED FEATURE SECTION (PILL IMAGE) ── */}
       <section className="py-32 bg-white overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center gap-16 md:gap-24">
-          
+
           {/* Left Text */}
           <div className="flex-1 z-10">
             <Reveal>
@@ -220,33 +221,27 @@ export default function Home() {
             </Reveal>
             <Reveal delay={0.1}>
               <p className="text-slate-600 mb-10 leading-relaxed text-lg font-medium">
-                Modern cyber threats are no longer just human-driven — they are AI-powered. 
-                We uniquely combine both domains because defense must be as intelligent 
-                as the attack. We focus on practical, project-based learning to prepare 
-                you for the real world.
+                We operate as a technology-first company focused on AI-powered cybersecurity solutions,
+                not just a service provider. We address the modern business need where data intelligence
+                and security must work together, not separately.
               </p>
             </Reveal>
-            
+
             <Reveal delay={0.2}>
-              <div className="space-y-8">
-                <div className="flex items-start gap-5">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#0052cc] flex items-center justify-center shrink-0 border border-blue-100 shadow-sm">
-                    <BrainCircuit size={24} />
+              <div className="space-y-6">
+                {[
+                  { icon: BrainCircuit, text: "Integrating AI/ML with security to build intelligent, adaptive systems." },
+                  { icon: Shield, text: "Solutions designed to be predictive, scalable, and industry-aligned." },
+                  { icon: Target, text: "Positioned as a long-term innovation partner for future growth." },
+                  { icon: Lock, text: "Unifying data intelligence and security into a single ecosystem." }
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4 p-4 rounded-2xl hover:bg-blue-50 transition-colors group">
+                    <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                      <item.icon size={20} />
+                    </div>
+                    <p className="text-slate-600 font-medium pt-2">{item.text}</p>
                   </div>
-                  <div>
-                    <h4 className="font-bold text-[#0a192f] text-lg">Practical-First Learning</h4>
-                    <p className="text-slate-500 mt-1 font-medium">No fluff, just real project-based learning guided by experts with hands-on industry experience.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-5">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#0052cc] flex items-center justify-center shrink-0 border border-blue-100 shadow-sm">
-                    <Shield size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-[#0a192f] text-lg">Unified Expertise</h4>
-                    <p className="text-slate-500 mt-1 font-medium">Both AI and Cybersecurity under one roof, providing a seamless synergy that is underserved in the market.</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </Reveal>
           </div>
@@ -255,17 +250,17 @@ export default function Home() {
           <div className="flex-1 relative w-full flex justify-center py-10">
             {/* Background Grid Lines */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_2px,transparent_2px),linear-gradient(to_bottom,#f1f5f9_2px,transparent_2px)] bg-[size:60px_60px] opacity-80 z-0"></div>
-            
+
             <Reveal delay={0.3}>
               <div className="relative w-[280px] h-[550px] rounded-[10rem] overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.2)] border-[12px] border-white z-10 bg-slate-900">
-                <img 
-                  src="/program_cyber.png" 
-                  className="w-full h-full object-cover opacity-80" 
+                <img
+                  src="/program_cyber.png"
+                  className="w-full h-full object-cover opacity-80"
                   alt="Tech Innovation"
                 />
               </div>
             </Reveal>
-            
+
             {/* Floating Badges */}
             <Reveal delay={0.5}>
               <div className="absolute top-1/4 -left-6 bg-white rounded-full p-4 shadow-2xl border border-slate-50 flex flex-col items-center justify-center w-32 h-32 z-20 hover:-translate-y-2 transition-transform cursor-default">
@@ -287,7 +282,7 @@ export default function Home() {
       <section className="py-32 bg-slate-50 relative overflow-hidden flex justify-center items-center border-t border-slate-200">
         {/* Hexagon/Geometric Background Pattern */}
         <div className="absolute inset-0 opacity-40 bg-[radial-gradient(#94a3b8_2px,transparent_2px)] [background-size:30px_30px]"></div>
-        
+
         {/* Abstract Light Shapes */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl opacity-60"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl opacity-60"></div>
