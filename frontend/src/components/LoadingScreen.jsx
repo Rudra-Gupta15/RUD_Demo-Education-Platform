@@ -16,12 +16,12 @@ export default function LoadingScreen() {
             duration: 1.2, 
             ease: [0.43, 0.13, 0.23, 0.96] 
           }}
-          className="w-64 h-64 md:w-96 md:h-96 rounded-full border-[12px] border-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] overflow-hidden bg-white p-12 flex items-center justify-center z-10"
+          className="w-64 h-64 md:w-96 md:h-96 rounded-full border-[12px] border-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.2)] overflow-hidden bg-[#0a0a0a] p-0 flex items-center justify-center z-10"
         >
           <img 
             src="/logo.png" 
             alt="ConvoSec AI Logo" 
-            className="w-full h-full object-contain"
+            className="w-full h-full object-contain scale-[0.85]"
           />
         </motion.div>
 
@@ -32,7 +32,7 @@ export default function LoadingScreen() {
           transition={{ delay: 0.5 }}
           className="mt-8 text-center"
         >
-          <h2 className="text-3xl font-black text-[#0f172a] tracking-tight">ConvoSec Ai</h2>
+          <h2 className="text-3xl font-black text-[#0f172a] tracking-tight">ConvoSec AI</h2>
           <div className="mt-4 flex gap-1 justify-center">
             {[0, 1, 2].map((i) => (
               <motion.div

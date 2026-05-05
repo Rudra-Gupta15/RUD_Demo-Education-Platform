@@ -60,8 +60,8 @@ export default function Navbar() {
             to="/"
             className="flex items-center gap-2 sm:gap-3 bg-white rounded-full py-1.5 pl-1.5 pr-4 sm:pr-6 hover:scale-[1.01] active:scale-95 transition-all shadow-md shrink-0"
           >
-            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border border-slate-100 shadow-sm bg-white p-1.5 flex items-center justify-center">
-              <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border border-slate-100 shadow-sm bg-black p-0 flex items-center justify-center">
+              <img src="/logo.png" alt="Logo" className="w-full h-full object-contain scale-[0.85]" />
             </div>
             <div className="flex flex-col">
               <span className="text-[13px] sm:text-sm font-[900] text-black leading-none tracking-tight">ConvoSec AI</span>

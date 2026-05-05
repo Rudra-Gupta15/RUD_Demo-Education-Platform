@@ -38,7 +38,7 @@ function Typewriter({ words }) {
 
 export default function ModernHero() {
   return (
-    <section className="relative min-h-screen bg-white text-[#0f172a] overflow-hidden font-['Outfit'] flex items-center pt-14 sm:pt-28">
+    <section className="relative min-h-screen bg-white text-[#0f172a] overflow-hidden font-['Outfit'] flex items-center pt-28 sm:pt-32">
       {/* Background Image with Neural Network */}
       <div
         className="absolute inset-0 z-0 opacity-40 bg-center bg-cover"
@@ -62,9 +62,9 @@ export default function ModernHero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-2xl sm:text-3xl lg:text-5xl font-black text-[#0f172a] mb-2 tracking-tight"
+            className="text-2xl sm:text-3xl lg:text-5xl font-black text-[#0f172a] mb-2 tracking-tighter"
           >
-            ConvoSec Ai
+            ConvoSec AI
           </motion.h2>
 
           {/* Main Headline */}
@@ -77,13 +77,13 @@ export default function ModernHero() {
             <div className="whitespace-nowrap" style={{ fontSize: "clamp(1.25rem, 3.8vw, 4rem)" }}>
               <span>Unifying </span>
               <span className="text-[#00a8cc]">
-                <Typewriter words={["Intelligence", "Systems", "Strategies"]} />
+                <Typewriter words={["Intelligence", "Neural Networks", "Data Streams"]} />
               </span>
             </div>
             <div className="whitespace-nowrap" style={{ fontSize: "clamp(1.25rem, 3.8vw, 4rem)" }}>
               <span>Securing </span>
               <span className="text-[#004aad]">
-                <Typewriter words={["Operations", "Networks", "Businesses"]} />
+                <Typewriter words={["Every Signal", "Global Networks", "Future Systems"]} />
               </span>
             </div>
           </motion.h1>
@@ -98,11 +98,11 @@ export default function ModernHero() {
             <div className="flex items-center gap-3 mb-2">
               <div className="w-8 h-[2px] bg-[#00a8cc] shrink-0" />
               <p className="text-base sm:text-lg lg:text-2xl text-slate-700 font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em]">
-                Integrating AI & CYBERSECURITY
+                Convolutional Intelligence
               </p>
             </div>
             <p className="text-sm sm:text-lg lg:text-xl text-slate-500 font-medium italic pl-11">
-              "Empowering Minds, Engineering Futures."
+              "Secure Every Signal."
             </p>
           </motion.div>
 
@@ -133,21 +133,21 @@ export default function ModernHero() {
           initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 1.2, ease: [0.43, 0.13, 0.23, 0.96], delay: 0.2 }}
-          className="relative flex justify-center items-center order-first lg:order-last -mt-20 lg:-mt-12"
+          className="relative flex justify-center items-center order-first lg:order-last -mt-6 lg:-mt-12 mb-8 lg:mb-0"
         >
           <motion.div 
             layoutId="hero-logo"
-            className="relative w-[320px] sm:w-[380px] md:w-[420px] lg:w-full lg:max-w-[460px] aspect-square rounded-full border-[10px] sm:border-[16px] border-white shadow-[0_50px_120px_-30px_rgba(0,0,0,0.18)] overflow-hidden bg-white p-4 sm:p-10 flex items-center justify-center z-10"
+            className="relative w-[320px] sm:w-[380px] md:w-[420px] lg:w-full lg:max-w-[480px] aspect-square rounded-full border-[10px] sm:border-[16px] border-white shadow-[0_50px_120px_-30px_rgba(0,0,0,0.25)] overflow-hidden bg-[#0a0a0a] p-0 flex items-center justify-center z-10"
           >
             {/* Main Logo Image fitted in circle */}
             <img
               src="/logo.png"
               alt="ConvoSec AI Hero"
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain scale-[0.85]"
             />
 
             {/* Subtle internal glow */}
-            <div className="absolute inset-0 rounded-full shadow-[inset_0_0_60px_rgba(0,0,0,0.05)] pointer-events-none" />
+            <div className="absolute inset-0 rounded-full shadow-[inset_0_0_80px_rgba(0,0,0,0.4)] pointer-events-none" />
           </motion.div>
 
           {/* Animated Glow effect behind logo */}
