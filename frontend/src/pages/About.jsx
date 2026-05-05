@@ -712,7 +712,7 @@ export default function About() {
             <FadeReveal className="lg:col-span-2 lg:row-span-2 h-full">
               <div className="relative h-full w-full overflow-hidden group cursor-default">
                 <img
-                  src="/about_grid_experience.png"
+                  src="/vision.png"
                   alt="Vision"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
