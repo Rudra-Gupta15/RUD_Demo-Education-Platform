@@ -218,9 +218,22 @@ export default function Checkout() {
                   </div>
 
                   <button 
-                    onClick={() => {
-                      alert("Transaction initialization successful.");
-                      navigate("/learning");
+                    onClick={async () => {
+                      try {
+                        for (const item of cartItems) {
+                          await fetch(`/api/courses/${item.id}/enroll`, {
+                            method: "POST",
+                            headers: {
+                              "Authorization": `Bearer ${localStorage.getItem("token")}`
+                            }
+                          });
+                        }
+                        alert("Enrollment successful! Redirecting to your dashboard.");
+                        navigate("/dashboard");
+                      } catch (err) {
+                        console.error("Enrollment failed", err);
+                        alert("Transaction processing issue. Please contact support.");
+                      }
                     }}
                     className="w-full relative group bg-slate-900 text-white rounded-none px-8 py-5 text-sm font-black uppercase tracking-[0.2em] transition-all hover:bg-brandprimary overflow-hidden shadow-2xl shadow-slate-200"
                   >

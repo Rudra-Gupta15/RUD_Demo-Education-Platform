@@ -11,312 +11,356 @@ import {
   Download, Bell, X, Save, Sun, Moon, ExternalLink,
   Activity, Globe, Cpu, Zap, Upload
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // ── Styles ────────────────────────────────────────────────────────────────────
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
   .qr-dash *, .qr-dash *::before, .qr-dash *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   .qr-dash {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
     display: flex;
     min-height: 100vh;
-    background: #f5f5f4;
-    color: #1a1a1a;
+    background: #f8fafc;
+    color: #0f172a;
+    transition: background 0.3s, color 0.3s;
   }
   .qr-dash.dark {
-    background: #0d0d0d;
-    color: #f0f0f0;
+    background: #020617;
+    color: #f1f5f9;
   }
 
   /* ── Sidebar ── */
   .qr-sidebar {
-    width: 224px;
+    width: 260px;
     flex-shrink: 0;
     background: #ffffff;
-    border-right: 1px solid #e5e5e5;
+    border-right: 1px solid #e2e8f0;
     display: flex;
     flex-direction: column;
     position: fixed;
     top: 0; left: 0; bottom: 0;
     z-index: 40;
+    box-shadow: 10px 0 30px -15px rgba(0,0,0,0.03);
   }
-  .qr-dash.dark .qr-sidebar { background: #111111; border-right-color: #222; }
+  .qr-dash.dark .qr-sidebar { background: #0f172a; border-right-color: #1e293b; }
 
   .qr-logo {
-    padding: 20px 18px 16px;
-    border-bottom: 1px solid #e5e5e5;
+    padding: 32px 24px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    text-decoration: none;
+    transition: opacity 0.2s;
   }
-  .qr-dash.dark .qr-logo { border-bottom-color: #222; }
+  .qr-logo:hover { opacity: 0.8; }
   .qr-logo-icon {
-    width: 30px; height: 30px;
-    background: #1a1a2e;
-    border-radius: 7px;
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    overflow: hidden;
     display: flex; align-items: center; justify-content: center;
+    background: #fff;
+    border: 1px solid #e2e8f0;
   }
-  .qr-logo-icon svg { color: #fff; width: 15px; height: 15px; }
-  .qr-logo-name { font-size: 13px; font-weight: 600; letter-spacing: 0.02em; }
-  .qr-logo-sub { font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 1px; }
+  .qr-logo-icon svg { color: #fff; width: 20px; height: 20px; }
+  .qr-logo-name { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; color: #0f172a; }
+  .qr-dash.dark .qr-logo-name { color: #f1f5f9; }
+  .qr-logo-sub { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-top: 2px; }
 
-  .qr-nav { flex: 1; padding: 10px 10px; overflow-y: auto; }
+  .qr-nav { flex: 1; padding: 0 16px; overflow-y: auto; }
   .qr-nav-section {
-    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: #aaa; padding: 10px 8px 4px; font-weight: 500;
+    font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase;
+    color: #94a3b8; padding: 24px 12px 8px; font-weight: 700;
   }
   .qr-nav-item {
-    display: flex; align-items: center; gap: 9px;
-    padding: 8px 10px; border-radius: 7px;
-    cursor: pointer; transition: background 0.12s;
-    margin-bottom: 1px; border: none; width: 100%;
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px; border-radius: 12px;
+    cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 4px; border: none; width: 100%;
     background: transparent; text-align: left;
-    font-family: 'DM Sans', sans-serif;
-    color: #666; font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    color: #64748b; font-size: 14px; font-weight: 500;
   }
-  .qr-dash.dark .qr-nav-item { color: #888; }
-  .qr-nav-item:hover { background: #f0f0f0; color: #1a1a1a; }
-  .qr-dash.dark .qr-nav-item:hover { background: #1e1e1e; color: #f0f0f0; }
+  .qr-dash.dark .qr-nav-item { color: #94a3b8; }
+  .qr-nav-item:hover { background: #f1f5f9; color: #2563eb; }
+  .qr-dash.dark .qr-nav-item:hover { background: #1e293b; color: #3b82f6; }
   .qr-nav-item.active {
-    background: #f0f0f0;
-    color: #1a1a1a;
-    border-left: 2px solid #1a1a2e;
-    padding-left: 8px;
-    font-weight: 500;
+    background: #eff6ff;
+    color: #2563eb;
+    font-weight: 600;
   }
-  .qr-dash.dark .qr-nav-item.active { background: #1e1e1e; color: #f0f0f0; }
-  .qr-nav-item svg { width: 15px; height: 15px; flex-shrink: 0; }
+  .qr-dash.dark .qr-nav-item.active { background: #1e293b; color: #3b82f6; }
+  .qr-nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
   .qr-nav-badge {
-    margin-left: auto; font-size: 9px; font-weight: 600;
-    background: #e0e7ff; color: #4338ca;
-    padding: 1px 6px; border-radius: 10px;
+    margin-left: auto; font-size: 11px; font-weight: 700;
+    background: #2563eb; color: #fff;
+    padding: 2px 8px; border-radius: 99px;
   }
 
   .qr-user {
-    padding: 12px 14px;
-    border-top: 1px solid #e5e5e5;
-    display: flex; align-items: center; gap: 9px;
+    margin: 16px;
+    padding: 16px;
+    background: #f8fafc;
+    border-radius: 16px;
+    display: flex; align-items: center; gap: 12px;
   }
-  .qr-dash.dark .qr-user { border-top-color: #222; }
+  .qr-dash.dark .qr-user { background: #1e293b; }
   .qr-user-avatar {
-    width: 30px; height: 30px; border-radius: 50%;
-    background: #1a1a2e; color: #fff;
+    width: 40px; height: 40px; border-radius: 12px;
+    background: #2563eb; color: #fff;
     display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 600; flex-shrink: 0;
+    font-size: 14px; font-weight: 700; flex-shrink: 0;
   }
-  .qr-user-name { font-size: 12px; font-weight: 500; }
-  .qr-user-role { font-size: 10px; color: #888; }
+  .qr-user-name { font-size: 14px; font-weight: 600; color: #0f172a; }
+  .qr-dash.dark .qr-user-name { color: #f1f5f9; }
+  .qr-user-role { font-size: 11px; color: #64748b; font-weight: 500; }
   .qr-logout {
-    margin-left: auto; background: none; border: none;
-    cursor: pointer; color: #aaa; padding: 4px;
-    border-radius: 4px; transition: color 0.12s, background 0.12s;
-    display: flex;
+    margin-left: auto; background: #fff; border: 1px solid #e2e8f0;
+    cursor: pointer; color: #64748b; width: 32px; height: 32px;
+    border-radius: 8px; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
   }
-  .qr-logout:hover { color: #ef4444; background: #fef2f2; }
-  .qr-logout svg { width: 15px; height: 15px; }
+  .qr-dash.dark .qr-logout { background: #0f172a; border-color: #334155; }
+  .qr-logout:hover { color: #ef4444; border-color: #fca5a5; background: #fef2f2; }
+  .qr-logout svg { width: 16px; height: 16px; }
 
   /* ── Main ── */
-  .qr-main { flex: 1; margin-left: 224px; display: flex; flex-direction: column; min-height: 100vh; }
+  .qr-main { flex: 1; margin-left: 260px; display: flex; flex-direction: column; min-height: 100vh; }
 
   .qr-topbar {
-    padding: 13px 24px;
-    background: #ffffff;
-    border-bottom: 1px solid #e5e5e5;
+    padding: 20px 32px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
     display: flex; align-items: center; justify-content: space-between;
     position: sticky; top: 0; z-index: 30;
   }
-  .qr-dash.dark .qr-topbar { background: #111; border-bottom-color: #222; }
-  .qr-topbar-title { font-size: 15px; font-weight: 600; }
-  .qr-topbar-sub { font-size: 11px; color: #888; margin-top: 1px; }
-  .qr-topbar-actions { display: flex; align-items: center; gap: 8px; }
+  .qr-dash.dark .qr-topbar { background: rgba(15, 23, 42, 0.8); border-bottom-color: #1e293b; }
+  .qr-topbar-title { font-size: 20px; font-weight: 700; color: #0f172a; letter-spacing: -0.02em; }
+  .qr-dash.dark .qr-topbar-title { color: #f1f5f9; }
+  .qr-topbar-sub { font-size: 13px; color: #64748b; margin-top: 2px; font-weight: 500; }
+  .qr-topbar-actions { display: flex; align-items: center; gap: 12px; }
   .qr-live {
-    display: flex; align-items: center; gap: 5px;
-    font-size: 10px; font-weight: 500;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 600;
     background: #f0fdf4; color: #16a34a;
-    padding: 4px 10px; border-radius: 20px;
+    padding: 6px 14px; border-radius: 99px;
+    border: 1px solid #dcfce7;
   }
-  .qr-live-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
+  .qr-live-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1); animation: pulse 2s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0px rgba(34, 197, 94, 0.4); } 70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); } 100% { box-shadow: 0 0 0 0px rgba(34, 197, 94, 0); } }
+  
   .qr-btn {
-    display: flex; align-items: center; gap: 5px;
-    padding: 6px 12px; border-radius: 6px;
-    border: 1px solid #e5e5e5;
-    font-size: 11.5px; font-weight: 500;
-    cursor: pointer; background: transparent;
-    color: #555; font-family: 'DM Sans', sans-serif;
-    transition: background 0.1s;
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer; background: #fff;
+    color: #475569; font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
   }
-  .qr-dash.dark .qr-btn { border-color: #333; color: #aaa; }
-  .qr-btn:hover { background: #f5f5f5; }
-  .qr-dash.dark .qr-btn:hover { background: #1e1e1e; }
-  .qr-btn svg { width: 13px; height: 13px; }
+  .qr-dash.dark .qr-btn { border-color: #334155; color: #94a3b8; background: #0f172a; }
+  .qr-btn:hover { background: #f8fafc; border-color: #cbd5e1; }
+  .qr-dash.dark .qr-btn:hover { background: #1e293b; }
+  .qr-btn svg { width: 16px; height: 16px; }
   .qr-btn-primary {
-    background: #1a1a2e !important;
+    background: #2563eb !important;
     color: #fff !important;
-    border-color: #1a1a2e !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
   }
-  .qr-btn-primary:hover { background: #2a2a4e !important; }
+  .qr-btn-primary:hover { background: #1d4ed8 !important; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3); }
 
   /* ── Content ── */
-  .qr-content { padding: 20px 24px; flex: 1; }
+  .qr-content { padding: 32px; flex: 1; }
 
   /* ── Metrics ── */
-  .qr-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .qr-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }
   .qr-metric {
-    background: #fff; border: 1px solid #e5e5e5;
-    border-radius: 10px; padding: 16px;
+    background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 20px; padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -1px rgba(0,0,0,0.01);
+    transition: transform 0.2s;
   }
-  .qr-dash.dark .qr-metric { background: #111; border-color: #222; }
-  .qr-metric-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-  .qr-metric-icon { width: 32px; height: 32px; border-radius: 7px; display: flex; align-items: center; justify-content: center; }
-  .qr-metric-icon svg { width: 16px; height: 16px; }
-  .qr-delta { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 10px; }
+  .qr-metric:hover { transform: translateY(-4px); }
+  .qr-dash.dark .qr-metric { background: #0f172a; border-color: #1e293b; }
+  .qr-metric-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .qr-metric-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+  .qr-metric-icon svg { width: 22px; height: 22px; }
+  .qr-delta { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 99px; }
   .qr-delta-up { background: #f0fdf4; color: #16a34a; }
-  .qr-delta-neutral { background: #f5f5f5; color: #888; }
-  .qr-dash.dark .qr-delta-neutral { background: #1e1e1e; }
-  .qr-metric-value { font-size: 24px; font-weight: 600; line-height: 1; margin-bottom: 3px; }
-  .qr-metric-label { font-size: 11px; color: #888; }
+  .qr-delta-neutral { background: #f1f5f9; color: #64748b; }
+  .qr-dash.dark .qr-delta-neutral { background: #1e293b; }
+  .qr-metric-value { font-size: 28px; font-weight: 700; line-height: 1.2; margin-bottom: 4px; color: #0f172a; }
+  .qr-dash.dark .qr-metric-value { color: #f1f5f9; }
+  .qr-metric-label { font-size: 13px; color: #64748b; font-weight: 500; }
 
   /* ── Panels ── */
-  .qr-two-col { display: grid; grid-template-columns: 1fr 320px; gap: 12px; margin-bottom: 16px; }
-  .qr-panel { background: #fff; border: 1px solid #e5e5e5; border-radius: 10px; overflow: hidden; }
-  .qr-dash.dark .qr-panel { background: #111; border-color: #222; }
+  .qr-two-col { display: grid; grid-template-columns: 1fr 340px; gap: 24px; margin-bottom: 24px; }
+  .qr-panel {
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+  }
+  .qr-dash.dark .qr-panel { background: #0f172a; border-color: #1e293b; }
   .qr-panel-header {
-    padding: 13px 16px; border-bottom: 1px solid #e5e5e5;
+    padding: 20px 24px; border-bottom: 1px solid #e2e8f0;
     display: flex; align-items: center; justify-content: space-between;
   }
-  .qr-dash.dark .qr-panel-header { border-bottom-color: #222; }
-  .qr-panel-title { font-size: 13px; font-weight: 500; }
-  .qr-panel-action { font-size: 11px; color: #888; cursor: pointer; display: flex; align-items: center; gap: 3px; }
-  .qr-panel-action svg { width: 12px; height: 12px; }
+  .qr-dash.dark .qr-panel-header { border-bottom-color: #1e293b; }
+  .qr-panel-title { font-size: 17px; font-weight: 700; color: #0f172a; letter-spacing: -0.01em; }
+  .qr-dash.dark .qr-panel-title { color: #f1f5f9; }
+  .qr-panel-action { font-size: 13px; color: #2563eb; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 600; }
+  .qr-panel-action svg { width: 14px; height: 14px; }
 
   /* ── Table ── */
   .qr-table-wrap { overflow-x: auto; }
   table.qr-table { width: 100%; border-collapse: collapse; }
   table.qr-table th {
-    font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.08em;
-    color: #aaa; font-weight: 500; padding: 8px 12px; text-align: left;
-    border-bottom: 1px solid #e5e5e5;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+    color: #64748b; font-weight: 700; padding: 12px 24px; text-align: left;
+    background: #f8fafc; border-bottom: 1px solid #e2e8f0;
   }
-  .qr-dash.dark table.qr-table th { border-bottom-color: #222; }
-  table.qr-table td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; font-size: 12.5px; }
-  .qr-dash.dark table.qr-table td { border-bottom-color: #1a1a1a; }
+  .qr-dash.dark table.qr-table th { background: #1e293b; border-bottom-color: #334155; color: #94a3b8; }
+  table.qr-table td { padding: 16px 24px; border-bottom: 1px solid #f1f5f9; font-size: 14px; color: #334155; }
+  .qr-dash.dark table.qr-table td { border-bottom-color: #1e293b; color: #cbd5e1; }
   table.qr-table tr:last-child td { border-bottom: none; }
-  table.qr-table tbody tr:hover td { background: #fafafa; }
-  .qr-dash.dark table.qr-table tbody tr:hover td { background: #151515; }
+  table.qr-table tbody tr { transition: background 0.2s; }
+  table.qr-table tbody tr:hover td { background: #f8fafc; }
+  .qr-dash.dark table.qr-table tbody tr:hover td { background: #1e293b; }
+  
   .qr-row-avatar {
-    width: 26px; height: 26px; border-radius: 50%;
+    width: 32px; height: 32px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 10px; font-weight: 600; color: #fff;
+    font-size: 12px; font-weight: 700; color: #fff;
   }
-  .qr-row-name { font-size: 12.5px; font-weight: 500; }
-  .qr-row-sub { font-size: 10.5px; color: #888; }
-  .qr-mono { font-family: 'DM Mono', monospace; font-size: 11px; color: #888; }
+  .qr-row-name { font-size: 14px; font-weight: 600; color: #0f172a; }
+  .qr-dash.dark .qr-row-name { color: #f1f5f9; }
+  .qr-row-sub { font-size: 12px; color: #64748b; margin-top: 1px; }
+  .qr-mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
+  .qr-dash.dark .qr-mono { background: #1e293b; color: #94a3b8; }
 
-  .qr-badge { font-size: 9.5px; font-weight: 500; padding: 2px 8px; border-radius: 10px; display: inline-block; }
-  .qr-badge-success { background: #f0fdf4; color: #16a34a; }
-  .qr-badge-info { background: #eff6ff; color: #2563eb; }
-  .qr-badge-danger { background: #fef2f2; color: #dc2626; }
-  .qr-badge-warn { background: #fffbeb; color: #d97706; }
-  .qr-badge-danger { background: #fef2f2; color: #dc2626; }
+  .qr-badge { 
+    font-size: 11px; font-weight: 700; padding: 6px 14px; border-radius: 99px; 
+    display: inline-flex; align-items: center; gap: 6px; 
+    letter-spacing: 0.02em; text-transform: uppercase;
+  }
+  .qr-badge-success { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; }
+  .qr-badge-info { background: #eff6ff; color: #2563eb; border: 1px solid #dbeafe; }
+  .qr-badge-danger { background: #fef2f2; color: #dc2626; border: 1px solid #fee2e2; }
+  .qr-badge-warn { background: #fffbeb; color: #d97706; border: 1px solid #fef3c7; }
 
   .qr-action-btn {
-    width: 26px; height: 26px; border-radius: 5px; border: none;
-    background: transparent; cursor: pointer; display: inline-flex;
-    align-items: center; justify-content: center; color: #888;
-    transition: background 0.1s, color 0.1s;
+    width: 32px; height: 32px; border-radius: 8px; border: 1px solid #e2e8f0;
+    background: #fff; cursor: pointer; display: inline-flex;
+    align-items: center; justify-content: center; color: #64748b;
+    transition: all 0.2s; margin-left: 4px;
   }
-  .qr-action-btn:hover { background: #f0f0f0; color: #1a1a1a; }
-  .qr-action-btn.danger:hover { background: #fef2f2; color: #dc2626; }
-  .qr-action-btn svg { width: 13px; height: 13px; }
+  .qr-dash.dark .qr-action-btn { background: #0f172a; border-color: #334155; }
+  .qr-action-btn:hover { background: #f1f5f9; color: #2563eb; border-color: #cbd5e1; }
+  .qr-action-btn.danger:hover { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .qr-action-btn svg { width: 14px; height: 14px; }
 
   /* ── Activity ── */
-  .qr-activity { padding: 6px 14px; }
-  .qr-act-item { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f0f0f0; }
-  .qr-dash.dark .qr-act-item { border-bottom-color: #1a1a1a; }
+  .qr-activity { padding: 8px 24px 24px; }
+  .qr-act-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #f1f5f9; position: relative; }
+  .qr-dash.dark .qr-act-item { border-bottom-color: #1e293b; }
   .qr-act-item:last-child { border-bottom: none; }
-  .qr-act-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
-  .qr-act-text { font-size: 12px; line-height: 1.4; }
-  .qr-act-time { font-size: 10px; color: #aaa; margin-top: 2px; }
+  .qr-act-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; z-index: 2; border: 2px solid #fff; box-shadow: 0 0 0 4px rgba(0,0,0,0.03); }
+  .qr-dash.dark .qr-act-dot { border-color: #0f172a; }
+  .qr-act-item::before { content: ''; position: absolute; left: 4px; top: 24px; bottom: -8px; width: 2px; background: #f1f5f9; }
+  .qr-dash.dark .qr-act-item::before { background: #1e293b; }
+  .qr-act-item:last-child::before { display: none; }
+  .qr-act-text { font-size: 13px; line-height: 1.5; color: #334155; font-weight: 500; }
+  .qr-dash.dark .qr-act-text { color: #cbd5e1; }
+  .qr-act-time { font-size: 11px; color: #94a3b8; margin-top: 4px; font-weight: 600; }
 
   /* ── Bottom row ── */
-  .qr-bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .qr-course-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid #f0f0f0; }
-  .qr-dash.dark .qr-course-item { border-bottom-color: #1a1a1a; }
+  .qr-bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .qr-course-item { display: flex; align-items: center; gap: 16px; padding: 16px 24px; border-bottom: 1px solid #f1f5f9; }
+  .qr-dash.dark .qr-course-item { border-bottom-color: #1e293b; }
   .qr-course-item:last-child { border-bottom: none; }
-  .qr-course-num { font-size: 10px; font-family: 'DM Mono', monospace; color: #aaa; width: 20px; flex-shrink: 0; }
-  .qr-course-name { font-size: 12.5px; font-weight: 500; flex: 1; }
-  .qr-course-meta { font-size: 10.5px; color: #aaa; white-space: nowrap; }
-  .qr-progress { width: 56px; height: 4px; background: #e5e5e5; border-radius: 2px; overflow: hidden; flex-shrink: 0; }
-  .qr-dash.dark .qr-progress { background: #2a2a2a; }
-  .qr-progress-fill { height: 100%; background: #1a1a2e; border-radius: 2px; }
+  .qr-course-num { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: #94a3b8; width: 24px; flex-shrink: 0; font-weight: 700; }
+  .qr-course-name { font-size: 14px; font-weight: 600; flex: 1; color: #0f172a; }
+  .qr-dash.dark .qr-course-name { color: #f1f5f9; }
+  .qr-course-meta { font-size: 12px; color: #64748b; white-space: nowrap; font-weight: 500; }
+  .qr-progress { width: 80px; height: 6px; background: #f1f5f9; border-radius: 99px; overflow: hidden; flex-shrink: 0; }
+  .qr-dash.dark .qr-progress { background: #1e293b; }
+  .qr-progress-fill { height: 100%; background: linear-gradient(90deg, #2563eb, #3b82f6); border-radius: 99px; }
 
-  .qr-api-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid #f0f0f0; }
-  .qr-dash.dark .qr-api-item { border-bottom-color: #1a1a1a; }
+  .qr-api-item { display: flex; align-items: center; gap: 16px; padding: 16px 24px; border-bottom: 1px solid #f1f5f9; }
+  .qr-dash.dark .qr-api-item { border-bottom-color: #1e293b; }
   .qr-api-item:last-child { border-bottom: none; }
   .qr-method {
-    font-size: 9.5px; font-weight: 600; padding: 2px 7px;
-    border-radius: 4px; font-family: 'DM Mono', monospace;
-    flex-shrink: 0; width: 40px; text-align: center;
+    font-size: 10px; font-weight: 800; padding: 4px 8px;
+    border-radius: 6px; font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0; width: 50px; text-align: center;
   }
   .qr-method-get { background: #eff6ff; color: #2563eb; }
   .qr-method-post { background: #f0fdf4; color: #16a34a; }
   .qr-method-del { background: #fef2f2; color: #dc2626; }
-  .qr-api-path { font-size: 11.5px; font-family: 'DM Mono', monospace; flex: 1; }
-  .qr-api-desc { font-size: 10.5px; color: #aaa; }
+  .qr-api-path { font-size: 13px; font-family: 'JetBrains Mono', monospace; flex: 1; color: #334155; font-weight: 500; }
+  .qr-dash.dark .qr-api-path { color: #cbd5e1; }
+  .qr-api-desc { font-size: 12px; color: #64748b; font-weight: 500; }
 
   /* ── Settings ── */
-  .qr-settings { max-width: 600px; }
+  .qr-settings { max-width: 800px; }
   .qr-setting-row {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 16px; border-bottom: 1px solid #f0f0f0;
+    padding: 24px 32px; border-bottom: 1px solid #f1f5f9;
+    gap: 32px;
+    transition: background 0.2s;
   }
-  .qr-dash.dark .qr-setting-row { border-bottom-color: #1a1a1a; }
-  .qr-setting-label { font-size: 13px; font-weight: 500; }
-  .qr-setting-sub { font-size: 11px; color: #888; margin-top: 2px; }
-  .qr-theme-btns { display: flex; gap: 8px; }
+  .qr-setting-row:hover { background: #fafafa; }
+  .qr-dash.dark .qr-setting-row:hover { background: #1e293b; }
+  .qr-setting-row:last-child { border-bottom: none; }
+  .qr-dash.dark .qr-setting-row { border-bottom-color: #1e293b; }
+  .qr-setting-label { font-size: 15px; font-weight: 600; color: #0f172a; }
+  .qr-dash.dark .qr-setting-label { color: #f1f5f9; }
+  .qr-setting-sub { font-size: 13px; color: #64748b; margin-top: 4px; }
+  .qr-theme-btns { display: flex; gap: 12px; }
   .qr-theme-btn {
-    display: flex; align-items: center; gap: 6px;
-    padding: 7px 14px; border-radius: 7px; border: 1px solid #e5e5e5;
-    font-size: 12px; font-weight: 500; cursor: pointer;
-    background: transparent; font-family: 'DM Sans', sans-serif;
-    transition: all 0.12s; color: #555;
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border-radius: 12px; border: 1px solid #e2e8f0;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    background: #fff; font-family: 'Inter', sans-serif;
+    transition: all 0.2s; color: #64748b;
   }
-  .qr-theme-btn svg { width: 13px; height: 13px; }
-  .qr-theme-btn.active { background: #1a1a2e; color: #fff; border-color: #1a1a2e; }
-
-  /* ── Dev access ── */
-  .qr-dev-header { display: flex; align-items: center; justify-content: space-between; padding: 13px 16px; border-bottom: 1px solid #e5e5e5; }
-  .qr-dash.dark .qr-dev-header { border-bottom-color: #222; }
+  .qr-dash.dark .qr-theme-btn { background: #0f172a; border-color: #334155; }
+  .qr-theme-btn svg { width: 16px; height: 16px; }
+  .qr-theme-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
 
   /* ── Modal ── */
   .qr-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
-    z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px;
+    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 100; display: flex; align-items: center; justify-content: center; padding: 24px;
   }
-  .qr-modal { position: relative; width: 95%; max-width: 480px; background: #fff; border-radius: 20px; padding: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); transform: translateY(0); transition: all 0.3s; }
-  .qr-modal.wide { max-width: 800px; }
-  .qr-dash.dark .qr-modal { background: #111; border: 1px solid #222; }
-  .qr-modal-title { font-size: 16px; font-weight: 600; margin-bottom: 20px; }
+  .qr-modal { position: relative; width: 100%; max-width: 520px; background: #fff; border-radius: 24px; padding: 40px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+  .qr-modal.wide { max-width: 850px; }
+  .qr-dash.dark .qr-modal { background: #0f172a; border: 1px solid #1e293b; }
+  .qr-modal-title { font-size: 20px; font-weight: 700; margin-bottom: 24px; color: #0f172a; letter-spacing: -0.02em; }
+  .qr-dash.dark .qr-modal-title { color: #f1f5f9; }
   .qr-modal-close {
-    position: absolute; top: 16px; right: 16px;
-    background: none; border: none; cursor: pointer; color: #888; padding: 4px; border-radius: 4px;
+    position: absolute; top: 24px; right: 24px;
+    background: transparent; border: none; color: #64748b;
+    cursor: pointer; padding: 4px; border-radius: 8px;
+    transition: all 0.2s; display: flex; align-items: center; justify-content: center;
   }
-  .qr-modal-close:hover { background: #f0f0f0; }
-  .qr-modal-close svg { width: 16px; height: 16px; }
-  .qr-field { margin-bottom: 14px; }
-  .qr-field label { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 5px; }
-  .qr-field input {
-    width: 100%; padding: 9px 12px; border-radius: 7px;
-    border: 1px solid #e5e5e5; font-size: 13px;
-    font-family: 'DM Sans', sans-serif; background: #fafafa;
-    outline: none; color: #1a1a1a; transition: border-color 0.12s;
-  }
-  .qr-dash.dark .qr-field input { background: #0d0d0d; border-color: #333; color: #f0f0f0; }
-  .qr-field input:focus { border-color: #1a1a2e; }
-  .qr-modal-actions { display: flex; gap: 8px; margin-top: 20px; }
-  .qr-modal-actions .qr-btn { flex: 1; justify-content: center; }
+  .qr-modal-close:hover { background: #f1f5f9; color: #0f172a; }
+  .qr-dash.dark .qr-modal-close:hover { background: #1e293b; color: #f1f5f9; }
+  .qr-modal-close svg { width: 20px; height: 20px; }
+
+  .qr-modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 32px; padding-top: 24px; border-top: 1px solid #f1f5f9; }
+  .qr-dash.dark .qr-modal-actions { border-top-color: #1e293b; }
+
+  .qr-field { margin-bottom: 20px; }
+  .qr-field label { display: block; font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.02em; }
+  .qr-dash.dark .qr-field label { color: #94a3b8; }
+  .qr-field input { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 14px; background: #fff; outline: none; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+  .qr-dash.dark .qr-field input { background: #0f172a; border-color: #334155; color: #fff; }
+  .qr-field input:focus { border-color: #2563eb; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
 
   /* ── Loading ── */
   .qr-loading { display: flex; align-items: center; justify-content: center; padding: 40px; color: #aaa; font-size: 13px; }
@@ -376,7 +420,7 @@ export default function AdminDashboard() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("overview");
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
 
@@ -481,13 +525,15 @@ export default function AdminDashboard() {
       <div className={`qr-dash${isDark ? " dark" : ""}`}>
         {/* ── Sidebar ── */}
         <aside className="qr-sidebar">
-          <div className="qr-logo">
-            <div className="qr-logo-icon"><Cpu /></div>
-            <div>
-              <div className="qr-logo-name">Quorion</div>
-              <div className="qr-logo-sub">Control Plane</div>
+          <Link to="/" className="qr-logo">
+            <div className="qr-logo-icon">
+              <img src="/logo.png" alt="ConvoSec" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }} />
             </div>
-          </div>
+            <div>
+              <div className="qr-logo-name">ConvoSec AI</div>
+              <div className="qr-logo-sub">Administration</div>
+            </div>
+          </Link>
 
           <nav className="qr-nav">
             {NAV.map((item, i) => {
@@ -622,6 +668,11 @@ function OverviewTab({ stats, data, isLoading, onDelete }) {
 
   return (
     <div>
+      <div style={{ marginBottom: '24px' }}>
+        <h2 style={{ fontSize: '14px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Operational Metrics</h2>
+        <p style={{ fontSize: '13px', color: '#94a3b8', fontWeight: '500' }}>Real-time snapshot of the platform's vital signs and growth indicators.</p>
+      </div>
+
       {/* Metrics */}
       <div className="qr-metrics">
         {metrics.map((m, i) => (
@@ -687,11 +738,11 @@ function OverviewTab({ stats, data, isLoading, onDelete }) {
           </div>
           <div className="qr-activity">
             {[
-              { color: "#22c55e", text: "New user registered — Sarah Chen",              time: "2 hours ago" },
-              { color: "#3b82f6", text: "Course 'Intro to Systems' published",           time: "5 hours ago" },
-              { color: "#f59e0b", text: "API rate limit warning — endpoint /auth",       time: "Yesterday" },
-              { color: "#ef4444", text: "Developer access revoked — user #0019",         time: "Yesterday" },
-              { color: "#22c55e", text: "System audit completed — no issues found",      time: "May 4, 2026" },
+              { color: "#22c55e", text: "New security researcher registered — Sarah Chen", time: "2 hours ago" },
+              { color: "#3b82f6", text: "Course 'Advanced VAPT' published successfully",  time: "5 hours ago" },
+              { color: "#f59e0b", text: "Anomalous login attempt detected from IP 192.168.1.1", time: "Yesterday" },
+              { color: "#ef4444", text: "Developer seat revoked — Operator #0019",          time: "Yesterday" },
+              { color: "#22c55e", text: "Core security audit completed — No vulnerabilities", time: "May 4, 2026" },
             ].map((a, i) => (
               <div key={i} className="qr-act-item">
                 <div className="qr-act-dot" style={{ background: a.color }} />
@@ -703,6 +754,11 @@ function OverviewTab({ stats, data, isLoading, onDelete }) {
             ))}
           </div>
         </div>
+      </div>
+
+      <div style={{ marginBottom: '24px' }}>
+        <h2 style={{ fontSize: '14px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Infrastructure Status</h2>
+        <p style={{ fontSize: '13px', color: '#94a3b8', fontWeight: '500' }}>Monitor curriculum distribution and system integration endpoints.</p>
       </div>
 
       {/* Courses + API */}
@@ -741,71 +797,77 @@ function OverviewTab({ stats, data, isLoading, onDelete }) {
 
 // ── Resource Tab (Users / Courses) ────────────────────────────────────────────
 function ResourceTab({ type, data, isLoading, onDelete, onEdit }) {
-  const title = type === "users" ? "User directory" : "Curriculum engine";
+  const title = type === "users" ? "User Directory" : "Curriculum Engine";
   return (
-    <div className="qr-panel">
-      <div className="qr-panel-header">
-        <span className="qr-panel-title">{title}</span>
-        <span className="qr-panel-action">{data.length} records</span>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ marginBottom: '8px' }}>
+        <h2 style={{ fontSize: '14px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>{type === 'users' ? 'Member Directory' : 'Course Management'}</h2>
+        <p style={{ fontSize: '13px', color: '#94a3b8', fontWeight: '500' }}>{type === 'users' ? 'Oversee all registered students and platform members.' : 'Curate and manage the academic syllabus and learning paths.'}</p>
       </div>
-      {isLoading ? <div className="qr-loading">Loading…</div> : (
-        <div className="qr-table-wrap">
-          <table className="qr-table">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name / Identifier</th>
-                <th>{type === "users" ? "Detail" : "Price"}</th>
-                <th>Status</th>
-                <th style={{ textAlign: "right" }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.isArray(data) && data.map((item, i) => (
-                <tr key={i}>
-                  <td>
-                    {type === "courses" ? (
-                      <div className="qr-row-thumb">
-                        <img src={item.image} alt="" onError={e => e.target.src = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=100&q=80"} />
-                      </div>
-                    ) : (
-                      <div className="qr-row-avatar" style={{ background: avatarColor(item.name || item.title) }}>
-                        {initials(item.name || item.title)}
-                      </div>
-                    )}
-                  </td>
-                  <td>
-                    <div className="qr-row-name">{item.title || item.name}</div>
-                    <div className="qr-row-sub">{item.email || item.slug || ""}</div>
-                  </td>
-                  <td>
-                    <span className="qr-mono">
-                      {type === "users" 
-                        ? (item.id ? `#${String(item.id).padStart(4,"0")}` : "—")
-                        : `₹${item.price}`
-                      }
-                    </span>
-                  </td>
-                  <td>
-                    <span className={`qr-badge ${
-                      item.status === "Inactive" ? "qr-badge-info" : 
-                      item.status === "Suspended" ? "qr-badge-danger" : 
-                      "qr-badge-success"
-                    }`}>
-                      {item.status || "Active"}
-                    </span>
-                  </td>
-                  <td style={{ textAlign: "right" }}>
-                    <button className="qr-action-btn" title="Edit" onClick={() => onEdit(item)}><Edit size={13} /></button>
-                    <button className="qr-action-btn danger" title="Delete" onClick={() => onDelete(type, item.id)}><Trash2 size={13} /></button>
-                  </td>
-                </tr>
-              ))}
-              {data.length === 0 && <tr><td colSpan={5} className="qr-empty">No records found</td></tr>}
-            </tbody>
-          </table>
+      <div className="qr-panel">
+        <div className="qr-panel-header">
+          <span className="qr-panel-title">{title}</span>
+          <span className="qr-panel-action">{data.length} records</span>
         </div>
-      )}
+        {isLoading ? <div className="qr-loading">Loading…</div> : (
+          <div className="qr-table-wrap">
+            <table className="qr-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name / Identifier</th>
+                  <th>{type === "users" ? "Detail" : "Price"}</th>
+                  <th>Status</th>
+                  <th style={{ textAlign: "right" }}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.isArray(data) && data.map((item, i) => (
+                  <tr key={i}>
+                    <td>
+                      {type === "courses" ? (
+                        <div className="qr-row-thumb">
+                          <img src={item.image} alt="" onError={e => e.target.src = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=100&q=80"} />
+                        </div>
+                      ) : (
+                        <div className="qr-row-avatar" style={{ background: avatarColor(item.name || item.title) }}>
+                          {initials(item.name || item.title)}
+                        </div>
+                      )}
+                    </td>
+                    <td>
+                      <div className="qr-row-name">{item.title || item.name}</div>
+                      <div className="qr-row-sub">{item.email || item.slug || ""}</div>
+                    </td>
+                    <td>
+                      <span className="qr-mono">
+                        {type === "users" 
+                          ? (item.id ? `#${String(item.id).padStart(4,"0")}` : "—")
+                          : `₹${item.price}`
+                        }
+                      </span>
+                    </td>
+                    <td>
+                      <span className={`qr-badge ${
+                        item.status === "Inactive" ? "qr-badge-info" : 
+                        item.status === "Suspended" ? "qr-badge-danger" : 
+                        "qr-badge-success"
+                      }`}>
+                        {item.status || "Active"}
+                      </span>
+                    </td>
+                    <td style={{ textAlign: "right" }}>
+                      <button className="qr-action-btn" title="Edit" onClick={() => onEdit(item)}><Edit size={13} /></button>
+                      <button className="qr-action-btn danger" title="Delete" onClick={() => onDelete(type, item.id)}><Trash2 size={13} /></button>
+                    </td>
+                  </tr>
+                ))}
+                {data.length === 0 && <tr><td colSpan={5} className="qr-empty">No records found</td></tr>}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -895,9 +957,16 @@ function DevAccessTab({ data, isLoading, onDelete, onEdit }) {
 function SettingsTab({ isDark, setIsDark }) {
   return (
     <div className="qr-settings">
+      <div style={{ marginBottom: '24px' }}>
+        <h2 style={{ fontSize: '14px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Global Configurations</h2>
+        <p style={{ fontSize: '13px', color: '#94a3b8', fontWeight: '500' }}>Manage system-wide preferences, environment variables, and interface themes.</p>
+      </div>
       <div className="qr-panel">
         <div className="qr-panel-header">
-          <span className="qr-panel-title">Interface preferences</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <Settings size={18} style={{ color: '#64748b' }} />
+            <span className="qr-panel-title">Interface preferences</span>
+          </div>
         </div>
         <div className="qr-setting-row">
           <div>
@@ -950,7 +1019,7 @@ function DeveloperForm({ initialData, onSubmit, onCancel }) {
       </div>
       <div className="qr-field">
         <label>Email address</label>
-        <input required type="email" value={form.email} onChange={e => set("email", e.target.value)} placeholder="developer@quorion.io" />
+        <input required type="email" value={form.email} onChange={e => set("email", e.target.value)} placeholder="operator@convosecai.com" />
       </div>
       <div className="qr-field">
         <label>Security PIN</label>
@@ -1105,60 +1174,67 @@ function CourseForm({ initialData, onSubmit, onCancel }) {
 
 // ── Messages Tab ──────────────────────────────────────────────────────────────
 function MessagesTab({ data, isLoading, onDelete }) {
+  const contacts = Array.isArray(data) ? data : [];
   return (
-    <div className="qr-messages-list">
-      {isLoading ? (
-        <div className="qr-loading">Loading inquiries...</div>
-      ) : (Array.isArray(data) ? data : []).length === 0 ? (
-        <div className="qr-empty">No messages or inquiries found.</div>
-      ) : (
-        (Array.isArray(data) ? data : []).map((msg) => (
-          <div key={msg.id} className="qr-msg-card">
-            <div className="qr-msg-header">
-              <div className="qr-msg-sender">
-                <div className="qr-row-avatar" style={{ background: avatarColor(msg.name), width: 40, height: 40, fontSize: 14 }}>
-                  {initials(msg.name)}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ marginBottom: '8px' }}>
+        <h2 style={{ fontSize: '14px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Communications Hub</h2>
+        <p style={{ fontSize: '13px', color: '#94a3b8', fontWeight: '500' }}>Review and respond to corporate inquiries and student messages.</p>
+      </div>
+      <div className="qr-messages-list">
+        {isLoading ? (
+          <div className="qr-loading">Loading inquiries...</div>
+        ) : contacts.length === 0 ? (
+          <div className="qr-empty">No messages or inquiries found.</div>
+        ) : (
+          contacts.map((msg) => (
+            <div key={msg.id} className="qr-msg-card">
+              <div className="qr-msg-header">
+                <div className="qr-msg-sender">
+                  <div className="qr-row-avatar" style={{ background: avatarColor(msg.name), width: 40, height: 40, fontSize: 14 }}>
+                    {initials(msg.name)}
+                  </div>
+                  <div>
+                    <div className="qr-msg-name">{msg.name}</div>
+                    <div className="qr-msg-email">{msg.email}</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="qr-msg-name">{msg.name}</div>
-                  <div className="qr-msg-email">{msg.email}</div>
+                <div className="qr-msg-meta">
+                  <span className="qr-msg-time">
+                    {msg.created_at ? new Date(msg.created_at).toLocaleDateString("en-GB", { 
+                      day: "numeric", 
+                      month: "short", 
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit"
+                    }) : "—"}
+                  </span>
+                  <button 
+                    className="qr-action-btn danger" 
+                    title="Archive/Delete"
+                    onClick={() => onDelete("contacts", msg.id)}
+                  >
+                    <Trash2 size={14} />
+                  </button>
                 </div>
               </div>
-              <div className="qr-msg-meta">
-                <span className="qr-msg-time">
-                  {new Date(msg.created_at).toLocaleDateString("en-GB", { 
-                    day: "numeric", 
-                    month: "short", 
-                    year: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit"
-                  })}
-                </span>
-                <button 
-                  className="qr-action-btn danger" 
-                  title="Archive/Delete"
-                  onClick={() => onDelete("contacts", msg.id)}
-                >
-                  <Trash2 size={14} />
-                </button>
+              
+              {(msg.organization || msg.sector || msg.subject) && (
+                <div className="qr-msg-org">
+                  {msg.organization && <strong>{msg.organization}</strong>}
+                  {msg.organization && msg.sector && " • "}
+                  {msg.sector && <span>{msg.sector}</span>}
+                  {msg.subject && <div style={{ marginTop: 4, opacity: 0.8 }}>Subject: {msg.subject}</div>}
+                </div>
+              )}
+              
+              <div className="qr-msg-body">
+                {msg.message}
               </div>
             </div>
-            
-            {(msg.organization || msg.sector) && (
-              <div className="qr-msg-org">
-                {msg.organization && <strong>{msg.organization}</strong>}
-                {msg.organization && msg.sector && " • "}
-                {msg.sector && <span>{msg.sector}</span>}
-                {msg.subject && <div style={{ marginTop: 4, opacity: 0.8 }}>Subject: {msg.subject}</div>}
-              </div>
-            )}
-            
-            <div className="qr-msg-body">
-              {msg.message}
-            </div>
-          </div>
-        ))
-      )}
+          ))
+        )}
+      </div>
     </div>
   );
 }

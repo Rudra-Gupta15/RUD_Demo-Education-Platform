@@ -32,7 +32,10 @@ export default function App() {
   return (
     <>
       <CosmicBackground />
-      {location.pathname !== "/auth" && location.pathname !== "/dev-dashboard" && location.pathname !== "/checkout" && <Navbar />}
+      {location.pathname !== "/auth" && 
+       location.pathname !== "/dev-dashboard" && 
+       location.pathname !== "/dashboard" && 
+       location.pathname !== "/checkout" && <Navbar />}
       <AnimatePresence mode="wait">
         <motion.main
           key={location.pathname}
@@ -62,8 +65,11 @@ export default function App() {
           </Routes>
         </motion.main>
       </AnimatePresence>
-      {location.pathname !== "/dev-dashboard" && <ChatWidget />}
-      {location.pathname !== "/checkout" && location.pathname !== "/auth" && location.pathname !== "/dev-dashboard" && <Footer />}
+      {location.pathname !== "/dev-dashboard" && location.pathname !== "/dashboard" && <ChatWidget />}
+      {location.pathname !== "/checkout" && 
+       location.pathname !== "/auth" && 
+       location.pathname !== "/dev-dashboard" && 
+       location.pathname !== "/dashboard" && <Footer />}
     </>
   );
 }

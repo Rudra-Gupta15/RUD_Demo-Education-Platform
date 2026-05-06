@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { z } from "zod";
 import { getDb } from "../db/database.js";
-import { requireAdmin } from "../middleware/auth.js";
+import { requireAuth, requireAdmin } from "../middleware/auth.js";
 import { parseCourse } from "../utils/rows.js";
 
 const router = Router();
@@ -60,6 +60,38 @@ router.get("/:slug", async (req, res, next) => {
     const row = await db.get("SELECT * FROM courses WHERE slug = ?", req.params.slug);
     if (!row) return res.status(404).json({ message: "Course not found" });
     return res.json({ course: parseCourse(row) });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Enrolled courses for current user
+router.get("/user/enrolled", requireAuth, async (req, res, next) => {
+  try {
+    const db = await getDb();
+    const rows = await db.all(
+      `SELECT c.* FROM courses c
+       JOIN enrollments e ON c.id = e.course_id
+       WHERE e.user_id = ?
+       ORDER BY e.enrolled_at DESC`,
+      req.user.id
+    );
+    res.json({ courses: rows.map(parseCourse) });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Enroll in a course
+router.post("/:id/enroll", requireAuth, async (req, res, next) => {
+  try {
+    const db = await getDb();
+    await db.run(
+      "INSERT OR IGNORE INTO enrollments (user_id, course_id) VALUES (?, ?)",
+      req.user.id,
+      req.params.id
+    );
+    res.status(201).json({ message: "Enrolled successfully" });
   } catch (error) {
     next(error);
   }
