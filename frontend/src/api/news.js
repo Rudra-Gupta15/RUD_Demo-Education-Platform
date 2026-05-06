@@ -1,5 +1,5 @@
 const API_KEY = import.meta.env.VITE_NEWS_API_KEY?.trim() || "";
-const BASE_URL = "https://newsapi.org/v2/everything";
+const BASE_URL = "https://newsdata.io/api/1/news";
 
 export async function fetchNews() {
   if (!API_KEY) {
@@ -8,77 +8,105 @@ export async function fetchNews() {
   }
 
   try {
-    const categories = [
-      { 
-        id: "Artificial Intelligence", 
-        query: 'title:("Artificial Intelligence" OR "Generative AI" OR "LLM" OR "OpenAI" OR "Neural")', 
-        domains: "openai.com,anthropic.com,blog.google,huggingface.co,deepmind.google,ai.meta.com,techcrunch.com,wired.com",
-        count: 4 
-      },
-      { 
-        id: "Cybersecurity / VAPT", 
-        query: 'title:("Cybersecurity" OR "Vulnerability" OR "Data Breach" OR "Exploit" OR "Malware")', 
-        domains: "krebsonsecurity.com,darkreading.com,bleepingcomputer.com,securityweek.com,thehackernews.com,wired.com",
-        count: 4 
-      },
-      { 
-        id: "Machine Learning", 
-        query: '("Machine Learning" OR "Deep Learning" OR "Neural Networks" OR "Data Science") -AI', 
-        domains: "arstechnica.com,zdnet.com,infoworld.com,techrepublic.com,computerworld.com,blog.google,techcrunch.com,venturebeat.com,thenextweb.com",
-        count: 4 
-      }
-    ];
+    const query = "artificial intelligence OR cybersecurity OR machine learning OR deep learning OR LLM OR data science";
+    const baseUrl = `${BASE_URL}?apikey=${API_KEY}&q=${encodeURIComponent(query)}&language=en&category=technology&size=10`;
 
-    const seenUrls = new Set();
+    let response = await fetch(baseUrl);
+    let data = await response.json();
 
-    const results = await Promise.all(
-      categories.map(async (cat) => {
-        try {
-          const response = await fetch(
-            `${BASE_URL}?q=${encodeURIComponent(cat.query)}&domains=${cat.domains}&pageSize=30&language=en&sortBy=publishedAt&apiKey=${API_KEY}`
-          );
-          const data = await response.json();
-          
-          if (data.status === "error") return [];
+    if (data.status !== "success" || !data.results) {
+      console.error("NewsData API Error:", data.message || "Unknown error");
+      return getFallbackNews();
+    }
 
-          const uniqueArticles = [];
-          for (const article of (data.articles || [])) {
-            if (uniqueArticles.length >= cat.count) break;
-            if (!seenUrls.has(article.url)) {
-              seenUrls.add(article.url);
-              uniqueArticles.push({
-                id: `news-${article.url}`,
-                title: article.title,
-                excerpt: article.description || "No description available.",
-                category: cat.id,
-                read_time: "5 min",
-                author: article.author || article.source.name,
-                created_at: article.publishedAt,
-                image: article.urlToImage || "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80",
-                url: article.url
-              });
-            }
-          }
-          return uniqueArticles;
-        } catch (e) {
-          return [];
+    let allResults = [...data.results];
+
+    if (data.nextPage) {
+      try {
+        const secondResponse = await fetch(`${baseUrl}&page=${data.nextPage}`);
+        const secondData = await secondResponse.json();
+        if (secondData.status === "success" && secondData.results) {
+          allResults = [...allResults, ...secondData.results];
         }
-      })
-    );
+      } catch (err) {
+        console.warn("Could not fetch second page:", err);
+      }
+    }
 
-    const allNews = results.flat();
-    
+    const allNews = allResults
+      .filter((article) => article.title && article.link)
+      .map((article, idx) => {
+        const titleLower = article.title.toLowerCase();
+        const descLower = (article.description || "").toLowerCase();
+
+        let displayCategory = "Artificial Intelligence";
+
+        if (
+          titleLower.includes("cyber") ||
+          titleLower.includes("security") ||
+          titleLower.includes("hack") ||
+          titleLower.includes("malware") ||
+          titleLower.includes("ransomware") ||
+          titleLower.includes("vulnerability") ||
+          titleLower.includes("breach") ||
+          descLower.includes("vapt") ||
+          descLower.includes("penetration")
+        ) {
+          displayCategory = "Cybersecurity / VAPT";
+        } else if (
+          titleLower.includes("machine learning") ||
+          titleLower.includes("neural network") ||
+          titleLower.includes("deep learning") ||
+          titleLower.includes("mlops") ||
+          titleLower.includes("pytorch") ||
+          titleLower.includes("tensorflow")
+        ) {
+          displayCategory = "Machine Learning";
+        } else if (
+          titleLower.includes("data") ||
+          titleLower.includes("analytics") ||
+          titleLower.includes("big data") ||
+          titleLower.includes("business intelligence")
+        ) {
+          displayCategory = "Data & Business Analytics";
+        } else if (
+          titleLower.includes("ai") ||
+          titleLower.includes("artificial intelligence") ||
+          titleLower.includes("llm") ||
+          titleLower.includes("gpt") ||
+          titleLower.includes("chatbot") ||
+          titleLower.includes("generative") ||
+          titleLower.includes("openai") ||
+          titleLower.includes("anthropic") ||
+          titleLower.includes("gemini")
+        ) {
+          displayCategory = "Artificial Intelligence";
+        }
+
+        return {
+          id: `news-${article.article_id || idx}`,
+          title: article.title,
+          excerpt: article.description || "Explore the latest developments in AI and Cybersecurity.",
+          category: displayCategory,
+          read_time: "5 min",
+          author: (article.creator && article.creator[0]) || article.source_id || "Industry Expert",
+          created_at: article.pubDate || new Date().toISOString(),
+          image: article.image_url || "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80",
+          url: article.link,
+        };
+      });
+
     if (allNews.length === 0) return getFallbackNews();
     return allNews;
+
   } catch (error) {
-    console.error("Error fetching news:", error);
+    console.error("Critical News Fetch Error:", error);
     return getFallbackNews();
   }
 }
 
 function getFallbackNews() {
   return [
-    // Artificial Intelligence - 4 Items
     {
       id: "ai-1",
       title: "GPT-5 Rumors: What to Expect from the Next Frontier",
@@ -88,7 +116,7 @@ function getFallbackNews() {
       author: "Tech Insider",
       created_at: "2026-05-01T10:00:00Z",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80",
-      url: "#"
+      url: "#",
     },
     {
       id: "ai-2",
@@ -99,7 +127,7 @@ function getFallbackNews() {
       author: "Future Labs",
       created_at: "2026-04-10T12:00:00Z",
       image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&h=600&q=80",
-      url: "#"
+      url: "#",
     },
     {
       id: "ai-3",
@@ -110,7 +138,7 @@ function getFallbackNews() {
       author: "Media Tech",
       created_at: "2026-04-28T09:30:00Z",
       image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?auto=format&fit=crop&q=80",
-      url: "#"
+      url: "#",
     },
     {
       id: "ai-4",
@@ -121,9 +149,8 @@ function getFallbackNews() {
       author: "Silicon Valley",
       created_at: "2026-04-25T14:20:00Z",
       image: "https://images.unsplash.com/photo-1512428559083-a401c33c2b65?auto=format&fit=crop&q=80",
-      url: "#"
+      url: "#",
     },
-    // Cybersecurity / VAPT - 3 Items
     {
       id: "cyber-1",
       title: "Critical Zero-Day Vulnerability Found in Linux Kernel",
@@ -133,7 +160,7 @@ function getFallbackNews() {
       author: "Security First",
       created_at: "2026-05-03T08:00:00Z",
       image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80",
-      url: "#"
+      url: "#",
     },
     {
       id: "cyber-2",
@@ -144,7 +171,7 @@ function getFallbackNews() {
       author: "Infosec Daily",
       created_at: "2026-04-15T12:00:00Z",
       image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&h=600&q=80",
-      url: "#"
+      url: "#",
     },
     {
       id: "cyber-3",
@@ -155,9 +182,19 @@ function getFallbackNews() {
       author: "Global Sec",
       created_at: "2026-04-20T11:15:00Z",
       image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80",
-      url: "#"
+      url: "#",
     },
-    // Machine Learning - 3 Items
+    {
+      id: "cyber-4",
+      title: "Ransomware-as-a-Service: The Evolution of Digital Extortion",
+      excerpt: "How organized groups are scaling their operations with affiliate models and sophisticated encryption tools.",
+      category: "Cybersecurity / VAPT",
+      read_time: "8 min",
+      author: "Sec Intel",
+      created_at: "2026-04-22T10:00:00Z",
+      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80",
+      url: "#",
+    },
     {
       id: "ml-1",
       title: "Advanced Neural Architecture Search for Edge Devices",
@@ -167,7 +204,7 @@ function getFallbackNews() {
       author: "ML Daily",
       created_at: "2026-05-02T16:00:00Z",
       image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80",
-      url: "#"
+      url: "#",
     },
     {
       id: "ml-2",
@@ -178,7 +215,29 @@ function getFallbackNews() {
       author: "DevOps World",
       created_at: "2026-04-05T12:00:00Z",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&h=600&q=80",
-      url: "#"
-    }
+      url: "#",
+    },
+    {
+      id: "ml-3",
+      title: "Synthetic Data: Solving the Data Scarcity Problem",
+      excerpt: "How companies are using generative models to create high-quality training data for specialized ML tasks.",
+      category: "Machine Learning",
+      read_time: "9 min",
+      author: "Data Craft",
+      created_at: "2026-04-18T11:00:00Z",
+      image: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&q=80",
+      url: "#",
+    },
+    {
+      id: "ml-4",
+      title: "The Impact of Quantum Computing on Modern Cryptography",
+      excerpt: "Analyzing the timeline for Shor's algorithm and the urgent need for post-quantum cryptographic standards.",
+      category: "Machine Learning",
+      read_time: "15 min",
+      author: "Quantum Lab",
+      created_at: "2026-04-12T14:00:00Z",
+      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80",
+      url: "#",
+    },
   ];
 }
