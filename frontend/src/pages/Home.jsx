@@ -5,6 +5,7 @@ import Reveal from "../components/Reveal.jsx";
 import ModernHero from "../components/ModernHero.jsx";
 import SpecializedSolutions from "../components/SpecializedSolutions.jsx";
 import LoadingScreen from "../components/LoadingScreen.jsx";
+import SEO from "../components/SEO.jsx";
 import { useState, useEffect } from "react";
 
 const INDUSTRIES_DATA = [
@@ -51,6 +52,11 @@ export default function Home() {
 
   return (
     <div className="bg-white min-h-screen font-sans overflow-x-hidden selection:bg-blue-500 selection:text-white text-slate-900">
+      <SEO 
+        title="Home | Empowering Minds, Engineering Futures" 
+        description="ConvoSec AI is a premium AI and cybersecurity education platform offering live cohorts, recorded labs, and real-world projects."
+        keywords="AI education, cybersecurity courses, ethical hacking, SOC analyst, LLM"
+      />
 
       {/* ── LOADING SCREEN ── */}
       <AnimatePresence>

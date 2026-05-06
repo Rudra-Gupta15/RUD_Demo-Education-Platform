@@ -2,6 +2,7 @@ import { useCart } from "../state/CartContext.jsx";
 import { Link } from "react-router-dom";
 import { Trash2, ShoppingBag, ArrowRight, Star, Heart, Bookmark, Tag } from "lucide-react";
 import Reveal from "../components/Reveal.jsx";
+import SEO from "../components/SEO.jsx";
 import { demoCourses } from "../data/courses.js";
 
 export default function Cart() {
@@ -36,6 +37,10 @@ export default function Cart() {
 
   return (
     <section className="container-shell min-h-screen pt-32 pb-16">
+      <SEO 
+        title="Shopping Cart | Review Your Courses" 
+        description="Review the AI and cybersecurity courses in your cart. You're just one step away from advancing your technical career."
+      />
       {cartCount === 0 ? (
         <>
           <Reveal>

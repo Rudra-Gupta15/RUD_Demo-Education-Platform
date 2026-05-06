@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "../state/AuthContext";
 import { api } from "../api/client";
+import SEO from "../components/SEO.jsx";
 
 // ── Styles ────────────────────────────────────────────────────────────────────
 const css = `
@@ -238,6 +239,10 @@ export default function UserDashboard() {
 
   return (
     <>
+      <SEO 
+        title="Scholar Dashboard | My Learning Console" 
+        description="Manage your enrolled courses, track your progress, and access your certifications on the ConvoSec AI scholar dashboard."
+      />
       <style>{css}</style>
       
       {/* Mobile Overlay */}

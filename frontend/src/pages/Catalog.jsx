@@ -4,6 +4,7 @@ import { Heart, ShieldCheck, ArrowLeft, Clock, BarChart2, Subtitles } from "luci
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../state/CartContext.jsx";
 import Reveal from "../components/Reveal.jsx";
+import SEO from "../components/SEO.jsx";
 import { demoCourses, dataScienceRoadmap } from "../data/courses.js";
 
 const getCourseDescription = (course) => {
@@ -134,6 +135,11 @@ export default function Catalog() {
 
   return (
     <section className="min-h-screen bg-slate-50 pt-28 pb-20">
+      <SEO 
+        title="Course Catalog | Master AI & Cybersecurity" 
+        description="Explore our curated catalog of AI, Machine Learning, and Cybersecurity courses. Start your journey from beginner to expert with our strategic roadmap."
+        keywords="course catalog, AI courses, cybersecurity training, machine learning roadmap, VAPT certification"
+      />
 
       {/* ── Floating Back Button ── */}
       <motion.button

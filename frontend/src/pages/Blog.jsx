@@ -3,6 +3,7 @@ import { ArrowRight, Loader2, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Reveal from "../components/Reveal.jsx";
+import SEO from "../components/SEO.jsx";
 import { fetchNews } from "../api/news.js";
 
 const categories = [
@@ -47,6 +48,11 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-[#f8fafc] overflow-hidden">
+      <SEO 
+        title="Industry News & Blogs | Tech Intelligence" 
+        description="Stay updated with the latest trends in AI, Machine Learning, and Cybersecurity. Read articles from industry experts and stay ahead in the tech world."
+        keywords="tech blog, AI news, cybersecurity articles, machine learning updates, technical intelligence"
+      />
       {/* Header Section */}
       <section className="relative pt-32 pb-12 overflow-hidden">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-50/50 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4"></div>

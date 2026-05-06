@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ShieldCheck, ArrowRight, CheckCircle2, Shield, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../state/AuthContext.jsx";
+import SEO from "../components/SEO.jsx";
 import { api } from "../api/client.js";
 import Reveal from "../components/Reveal.jsx";
 
@@ -65,6 +66,10 @@ export default function Auth() {
 
   return (
     <section className="flex h-screen w-full overflow-hidden bg-white">
+      <SEO 
+        title={mode === "login" ? "Login | Secure Access" : "Sign Up | Join the Platform"} 
+        description="Access your ConvoSec AI dashboard to manage your learning journey, projects, and certifications."
+      />
       {/* Left Side: Form */}
       <div className="flex w-full flex-col px-8 lg:w-1/2 lg:px-16 xl:px-24 relative bg-white overflow-y-auto py-12">
         {/* Architectural Background Detail */}

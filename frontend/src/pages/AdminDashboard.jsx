@@ -3,6 +3,7 @@ import { useAuth } from "../state/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api/client";
 import { demoCourses } from "../data/courses";
+import SEO from "../components/SEO.jsx";
 
 // ── Icons (lucide-react) ──────────────────────────────────────────────────────
 import {
@@ -521,6 +522,10 @@ export default function AdminDashboard() {
 
   return (
     <>
+      <SEO 
+        title="Admin Dashboard | Control Plane" 
+        description="Secure administrative interface for managing the ConvoSec AI education platform infrastructure and user metrics."
+      />
       <style>{css}</style>
       <div className={`qr-dash${isDark ? " dark" : ""}`}>
         {/* ── Sidebar ── */}

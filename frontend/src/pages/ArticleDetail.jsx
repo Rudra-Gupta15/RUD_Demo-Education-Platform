@@ -1,5 +1,5 @@
-import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Clock, User } from "lucide-react";
+import SEO from "../components/SEO.jsx";
 
 const demoBlogs = [
   {
@@ -96,6 +96,11 @@ export default function ArticleDetail() {
 
   return (
     <article className="container-shell min-h-screen max-w-4xl py-16">
+      <SEO 
+        title={`${blog.title} | ${blog.category}`} 
+        description={blog.excerpt}
+        keywords={`${blog.title}, ${blog.category}, ${blog.author}, technical article`}
+      />
       {/* Back */}
       <Link
         to="/blog"

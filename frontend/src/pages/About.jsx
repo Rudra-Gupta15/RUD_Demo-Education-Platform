@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Brain, ShieldCheck, Users, Target, Linkedin, Github, Globe, Mail, ArrowUpRight, Sparkles, MoveRight } from "lucide-react";
+import SEO from "../components/SEO.jsx";
 
 /* ─── ANIMATION HELPERS ─────────────────────────────────────────── */
 function useReveal(threshold = "-60px") {
@@ -560,6 +561,11 @@ export default function About() {
 
   return (
     <div className="bg-[#f8fafc] min-h-screen font-['Outfit'] overflow-x-hidden">
+      <SEO 
+        title="About Us | Our Vision & Expert Team" 
+        description="Learn about ConvoSec AI's mission to bridge the gap between technical education and real-world project execution in AI, ML, and Cybersecurity."
+        keywords="about ConvoSec AI, AI education mission, cybersecurity training team, Rudra Rajpure, Nikky Bisen"
+      />
 
       {/* ══════════════════════════════════════════════════════════
           HERO

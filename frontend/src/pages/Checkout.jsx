@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../state/CartContext.jsx";
 import { Lock, CreditCard, Smartphone, ShieldCheck, Check, ArrowRight, Shield, Award, ChevronLeft } from "lucide-react";
 import Reveal from "../components/Reveal.jsx";
+import SEO from "../components/SEO.jsx";
 
 export default function Checkout() {
   const { cartItems, cartCount } = useCart();
@@ -55,6 +56,10 @@ export default function Checkout() {
 
   return (
     <div className="bg-white min-h-screen text-slate-900 relative">
+      <SEO 
+        title="Secure Checkout | Finalize Your Enrollment" 
+        description="Complete your enrollment in ConvoSec AI's specialized technical programs. Secure your seat in the upcoming cohort today."
+      />
       {/* Structural Background */}
       <div className="absolute inset-0 bg-subtle-grid pointer-events-none opacity-40" />
 

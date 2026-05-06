@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Home, Search } from "lucide-react";
+import SEO from "../components/SEO.jsx";
 
 const glitchVariants = {
   animate: {
@@ -13,6 +14,10 @@ const glitchVariants = {
 export default function NotFound() {
   return (
     <section className="container-shell grid min-h-screen place-items-center py-16 text-center">
+      <SEO 
+        title="404 - Page Not Found | ConvoSec AI" 
+        description="The page you're looking for doesn't exist or was moved. Navigate back to our home or courses to find what you need."
+      />
       <div className="relative">
         {/* Glow orbs */}
         <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">

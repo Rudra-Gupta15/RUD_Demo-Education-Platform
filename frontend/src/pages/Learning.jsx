@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { ArrowRight, ArrowLeft, BookOpen, BrainCircuit, CheckCircle2, RadioTower, Shield, Sparkles, Trophy, Grid } from "lucide-react";
 import Reveal from "../components/Reveal.jsx";
+import SEO from "../components/SEO.jsx";
 
 /** Animated number counter that counts up from 0 to `target` when in view. */
 function CountUp({ target, suffix = "" }) {
@@ -198,6 +199,11 @@ export default function Learning() {
 
   return (
     <div className="pt-24 pb-20">
+      <SEO 
+        title="Learning Academy | Master AI & Cybersecurity Skills" 
+        description="Join ConvoSec Academy to master AI, Machine Learning, and Cybersecurity through project-based learning and industry-aligned cohorts."
+        keywords="AI academy, cybersecurity certification, technical skills, machine learning learning path, career growth tech"
+      />
       {/* ── Fixed "More Courses" Circle Button ── */}
       <motion.button
         initial={{ y: -100, opacity: 0 }}

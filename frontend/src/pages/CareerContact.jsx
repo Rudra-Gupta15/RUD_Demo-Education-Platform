@@ -3,6 +3,7 @@ import { CheckCircle2, Mail, Send, GraduationCap, Briefcase, FileText, UserCheck
 import { motion, AnimatePresence } from "framer-motion";
 import { api } from "../api/client.js";
 import Reveal from "../components/Reveal.jsx";
+import SEO from "../components/SEO.jsx";
 
 const careerBenefits = [
   {
@@ -84,6 +85,11 @@ export default function CareerContact() {
 
   return (
     <section className="relative min-h-screen bg-white text-slate-900 pt-32 pb-24 overflow-hidden">
+      <SEO 
+        title="Careers | Join the Vanguard of AI & Security" 
+        description="Explore career opportunities and internships at ConvoSec AI. Work on production-grade AI agents and autonomous cybersecurity defense systems."
+        keywords="careers AI, tech jobs, cybersecurity internships, AI research jobs, engineering careers"
+      />
       {/* Structural Background */}
       <div className="absolute inset-0 bg-subtle-grid pointer-events-none opacity-40" />
 

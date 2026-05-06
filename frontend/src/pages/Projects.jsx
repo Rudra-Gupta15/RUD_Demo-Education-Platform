@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { ExternalLink, X, ArrowRight, Circle, Network, Search, Target, Zap, ShieldCheck, FileText } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import Reveal from "../components/Reveal.jsx";
+import SEO from "../components/SEO.jsx";
 
 const demoProjects = [
   {
@@ -97,6 +98,11 @@ export default function Projects() {
       className="bg-[#fafaf9] min-h-screen font-['Cormorant_Garamond'] overflow-x-hidden selection:bg-slate-900 selection:text-white relative" 
       ref={containerRef}
     >
+      <SEO 
+        title="Our Projects | Production-Grade AI & Security" 
+        description="Explore our portfolio of production-ready projects in AI, Machine Learning, and Cybersecurity. From RAG systems to VAPT frameworks, we build for real-world impact."
+        keywords="AI projects, cybersecurity solutions, VAPT framework, RAG systems, FinTech AI, NLP research"
+      />
       {/* Grain texture overlay */}
       <div className="fixed inset-0 opacity-[0.015] pointer-events-none z-50 mix-blend-overlay"
         style={{

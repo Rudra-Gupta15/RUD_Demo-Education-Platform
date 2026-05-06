@@ -3,6 +3,7 @@ import { CheckCircle2, Mail, MapPin, MessageSquare, Send, Building2, Briefcase, 
 import { motion, AnimatePresence } from "framer-motion";
 import { api } from "../api/client.js";
 import Reveal from "../components/Reveal.jsx";
+import SEO from "../components/SEO.jsx";
 
 const contactInfo = [
   { 
@@ -69,6 +70,11 @@ export default function BusinessContact() {
 
   return (
     <section className="relative min-h-screen bg-white text-slate-900 pt-32 pb-24 overflow-hidden">
+      <SEO 
+        title="Business Partnerships | Enterprise AI & Security Solutions" 
+        description="Partner with ConvoSec AI to scale your enterprise IQ through tailored AI roadmaps and a vetted talent pipeline in cybersecurity."
+        keywords="enterprise AI, business partnerships, corporate training, AI consulting, cybersecurity for business"
+      />
       {/* Structural Background */}
       <div className="absolute inset-0 bg-subtle-grid pointer-events-none opacity-40" />
       
