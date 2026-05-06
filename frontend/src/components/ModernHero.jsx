@@ -62,7 +62,7 @@ export default function ModernHero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-2xl sm:text-3xl lg:text-5xl font-black text-[#0f172a] mb-2 tracking-tighter"
+            className="text-6xl lg:text-8xl font-black text-[#0f172a] mb-4 tracking-tighter drop-shadow-[6px_6px_0px_rgba(15,23,42,0.08)]"
           >
             ConvoSec AI
           </motion.h2>
@@ -72,15 +72,15 @@ export default function ModernHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="font-black leading-[1.2] tracking-tight mb-6 sm:mb-8 text-[#0f172a]"
+            className="font-black leading-[1.1] tracking-tight mb-6 sm:mb-8 text-[#0f172a]"
           >
-            <div className="whitespace-nowrap" style={{ fontSize: "clamp(1.25rem, 3.8vw, 4rem)" }}>
+            <div className="text-[2.25rem] lg:text-5xl md:whitespace-nowrap">
               <span>Unifying </span>
               <span className="text-[#00a8cc]">
                 <Typewriter words={["Intelligence", "Neural Networks", "Data Streams"]} />
               </span>
             </div>
-            <div className="whitespace-nowrap" style={{ fontSize: "clamp(1.25rem, 3.8vw, 4rem)" }}>
+            <div className="text-[2.25rem] lg:text-5xl md:whitespace-nowrap">
               <span>Securing </span>
               <span className="text-[#004aad]">
                 <Typewriter words={["Every Signal", "Global Networks", "Future Systems"]} />

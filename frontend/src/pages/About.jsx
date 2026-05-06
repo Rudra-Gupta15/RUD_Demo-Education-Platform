@@ -220,13 +220,13 @@ function ServiceRow({ service, idx }) {
         {/* Animated accent background */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-50/50 to-transparent translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700 ease-out" />
 
-        <div className="relative flex items-start gap-4 sm:gap-8 py-8 sm:py-10 lg:py-14 z-10">
+        <div className="relative flex items-start gap-4 sm:gap-8 py-6 sm:py-8 lg:py-10 z-10">
           {/* Stylistic Number */}
           <div className="shrink-0 w-10 sm:w-16">
             <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] block mb-2 opacity-50 group-hover:opacity-100 transition-opacity">
               Phase
             </span>
-            <span className="text-3xl sm:text-4xl font-black text-slate-200 group-hover:text-blue-200 transition-colors duration-500 leading-none">
+            <span className="text-2xl sm:text-3xl font-black text-slate-200 group-hover:text-blue-200 transition-colors duration-500 leading-none">
               {service.num}
             </span>
           </div>
@@ -236,7 +236,7 @@ function ServiceRow({ service, idx }) {
             <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-16">
               {/* Title block */}
               <div className="lg:w-80 shrink-0">
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors duration-300 mb-2 sm:mb-3">
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors duration-300 mb-2 sm:mb-3">
                   {service.title}
                 </h3>
                 <span className="inline-block text-[10px] font-bold uppercase tracking-[0.2em] text-white bg-slate-900 px-3 py-1.5 rounded-full">
@@ -246,7 +246,7 @@ function ServiceRow({ service, idx }) {
 
               {/* Description & Detail */}
               <div className="flex-1 min-w-0">
-                <p className="text-slate-500 leading-relaxed text-base sm:text-lg mb-4 sm:mb-6 group-hover:text-slate-700 transition-colors">
+                <p className="text-slate-500 leading-relaxed text-sm sm:text-base mb-4 sm:mb-6 group-hover:text-slate-700 transition-colors">
                   {service.desc}
                 </p>
 
@@ -269,7 +269,7 @@ function ServiceRow({ service, idx }) {
                     scale: open ? 1.1 : 1,
                     backgroundColor: open ? "#2563eb" : "transparent"
                   }}
-                  className="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center transition-all duration-300"
+                  className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center transition-all duration-300"
                 >
                   <ArrowUpRight
                     size={20}
@@ -320,7 +320,7 @@ function TeamCard({ member, idx }) {
           <img
             src={member.image}
             alt={member.name}
-            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+            className="w-full h-full object-cover transition-all duration-700 scale-105 group-hover:scale-100"
           />
         </div>
       </div>
@@ -1020,7 +1020,7 @@ export default function About() {
                     <img
                       src={teamworkQuotes[activePhil % teamworkQuotes.length].image}
                       alt="Teamwork Quote"
-                      className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                      className="w-full h-full object-cover transition-all duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/30 to-transparent" />
                   </motion.div>
@@ -1081,9 +1081,20 @@ export default function About() {
                 "Enable organizations to make secure, data-driven business decisions through intelligent, integrated technology systems"
               ].map((goal, i) => (
                 <FadeReveal key={i} delay={i * 0.1}>
-                  <div className="flex gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 transition-all duration-300 group">
-                    <div className="mt-1 w-2 h-2 rounded-full bg-blue-600 shrink-0 group-hover:scale-150 transition-transform" />
-                    <p className="text-slate-700 font-medium leading-relaxed">{goal}</p>
+                  <div className="flex gap-8 p-8 bg-white border border-slate-100 group hover:border-slate-900 transition-all duration-500 relative overflow-hidden rounded-none">
+                    {/* Index Indicator */}
+                    <div className="shrink-0 flex flex-col items-center gap-4">
+                      <span className="text-[10px] font-black text-slate-300 group-hover:text-slate-900 transition-colors tracking-widest uppercase">
+                        {(i + 1).toString().padStart(2, '0')}
+                      </span>
+                      <div className="w-px h-full bg-slate-100 group-hover:bg-slate-900 transition-colors" />
+                    </div>
+                    {/* Goal Content */}
+                    <p className="text-slate-600 font-bold leading-relaxed text-[15px] group-hover:text-slate-900 transition-colors">
+                      {goal}
+                    </p>
+                    {/* Industrial Accent Bar */}
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-slate-900 scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-500" />
                   </div>
                 </FadeReveal>
               ))}

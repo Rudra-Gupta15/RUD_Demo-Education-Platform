@@ -24,3 +24,12 @@ export function requireAuth(req, res, next) {
     return res.status(401).json({ message: "Invalid or expired token" });
   }
 }
+
+export function requireAdmin(req, res, next) {
+  requireAuth(req, res, () => {
+    if (req.user.email !== "lucifer@convosecai.com") {
+      return res.status(403).json({ message: "Access denied: Admin only" });
+    }
+    next();
+  });
+}

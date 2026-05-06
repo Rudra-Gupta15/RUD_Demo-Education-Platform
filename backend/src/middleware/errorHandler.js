@@ -3,6 +3,7 @@ export function notFound(req, res) {
 }
 
 export function errorHandler(error, req, res, next) {
+  console.error("API Error:", error);
   const status = error.status || 500;
   const payload = {
     message: status === 500 ? "Something went wrong" : error.message

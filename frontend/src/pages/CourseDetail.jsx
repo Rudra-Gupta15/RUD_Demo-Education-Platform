@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   ArrowLeft, CheckCircle2, Clock, GraduationCap, 
@@ -7,9 +7,11 @@ import {
   Check, ChevronDown, ChevronUp, BookOpen, 
   Target, Award, Users, ShieldCheck, Zap,
   PlayCircle, Download, Share2, Star, Sparkles,
-  Search, Shield, Video, UserCheck, Briefcase, Rocket
+  Search, Shield, Video, UserCheck, Briefcase, Rocket,
+  ShoppingCart, ArrowRight
 } from "lucide-react";
 import { useApi } from "../hooks/useApi.js";
+import { useCart } from "../state/CartContext.jsx";
 import { demoCourses } from "../data/courses.js";
 import Skeleton from "../components/Skeleton.jsx";
 import Reveal from "../components/Reveal.jsx";
@@ -33,10 +35,13 @@ const PROGRAM_FEATURES = [
 ];
 
 export default function CourseDetail() {
+  const navigate = useNavigate();
   const { slug } = useParams();
   const { data, loading: apiLoading } = useApi(`/api/courses/${slug}`, [slug]);
+  const { addToCart, cartItems } = useCart();
   const [activeTab, setActiveTab] = useState("curriculum");
   const [openFaq, setOpenFaq] = useState(null);
+  const [added, setAdded] = useState(false);
 
   const course = useMemo(() => {
     if (data?.course) return data.course;
@@ -118,14 +123,35 @@ export default function CourseDetail() {
                 </div>
               </div>
 
-              <div className="pt-4 flex flex-wrap gap-4">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-lg font-bold text-lg transition-all">
-                  Register Now
-                </button>
-                <button className="bg-white border border-slate-300 hover:border-slate-400 text-slate-700 px-10 py-4 rounded-lg font-bold text-lg transition-all">
-                  Download Syllabus
-                </button>
-              </div>
+              {(() => {
+                const isInCart = cartItems.some(item => item.slug === course.slug || item.id === course.id);
+
+                return (
+                  <div className="pt-4 flex flex-wrap gap-4">
+                  <button 
+                    onClick={() => {
+                      if (isInCart) {
+                        navigate("/cart");
+                      } else {
+                        addToCart(course);
+                        setAdded(true);
+                        setTimeout(() => setAdded(false), 2000);
+                      }
+                    }}
+                    className={`${isInCart ? "bg-emerald-600 hover:bg-emerald-700" : "bg-blue-600 hover:bg-blue-700"} text-white px-10 py-4 rounded-lg font-bold text-lg transition-all flex items-center gap-3`}
+                  >
+                    {isInCart ? (
+                      <>Go to Cart <ArrowLeft className="rotate-180" size={20} /></>
+                    ) : (
+                      <>{added ? "Added!" : "Add to Cart"} <ShoppingCart size={20} /></>
+                    )}
+                  </button>
+                  <button className="bg-white border border-slate-300 hover:border-slate-400 text-slate-700 px-10 py-4 rounded-lg font-bold text-lg transition-all">
+                    Download Syllabus
+                  </button>
+                </div>
+              );
+            })()}
             </div>
 
             <div className="space-y-8 pt-12">
@@ -392,9 +418,26 @@ export default function CourseDetail() {
           <p className="text-slate-400 max-w-2xl mx-auto mb-10 font-medium">
             Join the upcoming cohort starting June 1st, 2024. Limited seats available for direct placement support.
           </p>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-5 rounded-lg font-black text-xl transition-all shadow-xl shadow-blue-600/20">
-            Secure My Spot
-          </button>
+          {(() => {
+            const isInCart = cartItems.some(item => item.slug === course.slug || item.id === course.id);
+            return (
+              <button 
+                onClick={() => {
+                  if (isInCart) {
+                    navigate("/cart");
+                  } else {
+                    addToCart(course);
+                    setAdded(true);
+                    setTimeout(() => setAdded(false), 2000);
+                  }
+                }}
+                className={`${isInCart ? "bg-emerald-600 hover:bg-emerald-700" : "bg-blue-600 hover:bg-blue-700"} text-white px-12 py-5 rounded-lg font-black text-xl transition-all shadow-xl flex items-center gap-3 mx-auto`}
+              >
+                {isInCart ? "Go to My Cart" : (added ? "Successfully Added" : "Add to My Cart")}
+                <ArrowRight className={isInCart ? "" : "hidden"} size={20} />
+              </button>
+            );
+          })()}
         </div>
       </section>
 

@@ -78,7 +78,7 @@ export default function Home() {
                   <img
                     src="22.jpg"
                     alt="Pioneering AI & Cybersecurity Team"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full object-cover transition-all duration-700"
                   />
                 </div>
 

@@ -59,11 +59,34 @@ const getCourseBullets = (course) => {
 };
 
 export default function Catalog() {
+  const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [hoveredCourse, setHoveredCourse] = useState(null);
   const [expandedCourse, setExpandedCourse] = useState(null);
-  const topics = [...new Set(demoCourses.map(c => c.topic))];
+  
   const { addToCart } = useCart();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await fetch("/api/courses");
+        const data = await res.json();
+        if (data.courses?.length > 0) {
+          setCourses(data.courses);
+        } else {
+          setCourses(demoCourses);
+        }
+      } catch (err) {
+        setCourses(demoCourses);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchCourses();
+  }, []);
+
+  const topics = [...new Set(courses.map(c => c.topic || c.category))];
 
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
@@ -122,7 +145,7 @@ export default function Catalog() {
       </motion.button>
 
       {/* ── Main Page Header ── */}
-      <div className="container-shell mb-16">
+      <div className="container-shell mb-8">
         <Reveal y={0}>
           <div className="max-w-4xl">
             <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
@@ -134,7 +157,7 @@ export default function Catalog() {
       </div>
 
       {/* ── Strategic Roadmap Subheader ── */}
-      <div className="container-shell mb-10">
+      <div className="container-shell mb-4">
         <Reveal y={0}>
           <div className="max-w-4xl">
             <p className="text-xs font-black text-blue-600 uppercase tracking-[0.3em] mb-4">Strategic Learning Path</p>
@@ -146,7 +169,7 @@ export default function Catalog() {
       </div>
 
       {/* ── 8-Phase Roadmap: Horizontal Scroll ── */}
-      <div className="container-shell mb-24">
+      <div className="container-shell mb-12">
         <div className="relative group">
           <div className="flex overflow-x-auto gap-8 pb-12 scrollbar-none snap-x snap-mandatory">
             {dataScienceRoadmap.map((phase, i) => {
@@ -234,7 +257,7 @@ export default function Catalog() {
 
 
       {/* ── Course Inventory: Horizontal Scroll ── */}
-      <div className="container-shell space-y-24">
+      <div className="container-shell space-y-12">
         {topics.map((topic) => (
           <div key={topic} className="space-y-8">
             <Reveal y={0}>
@@ -247,8 +270,8 @@ export default function Catalog() {
 
             <div className="relative group">
               <div className="flex overflow-x-auto gap-8 pb-12 scrollbar-none snap-x snap-mandatory">
-                {demoCourses
-                  .filter((c) => c.topic === topic)
+                {courses
+                  .filter((c) => (c.topic || c.category) === topic)
                   .map((course) => (
                     <div
                       key={course.id}

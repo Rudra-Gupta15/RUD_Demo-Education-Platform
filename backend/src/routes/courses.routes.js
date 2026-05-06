@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { z } from "zod";
 import { getDb } from "../db/database.js";
-import { requireAuth } from "../middleware/auth.js";
+import { requireAdmin } from "../middleware/auth.js";
 import { parseCourse } from "../utils/rows.js";
 
 const router = Router();
@@ -9,14 +9,21 @@ const router = Router();
 const courseSchema = z.object({
   slug: z.string().min(3).max(120).regex(/^[a-z0-9-]+$/),
   title: z.string().min(3).max(160),
-  category: z.enum(["AI", "Cybersecurity"]),
-  difficulty: z.enum(["Beginner", "Intermediate", "Advanced"]),
-  price: z.number().int().min(0).max(10000),
+  category: z.string().min(2).max(100),
+  difficulty: z.string().min(2).max(100),
+  price: z.number().int().min(0),
+  original_price: z.number().int().min(0).optional(),
+  image: z.string().url().optional().or(z.literal("")),
+  video_url: z.string().optional().or(z.literal("")),
   duration: z.string().min(2).max(80),
-  description: z.string().min(20),
-  syllabus: z.array(z.string().min(3)).min(3),
+  description: z.string().min(10),
+  syllabus: z.array(z.string()).optional().default([]),
   instructor_name: z.string().min(2).max(120),
-  instructor_bio: z.string().min(10),
+  instructor_bio: z.string().optional().default(""),
+  rating: z.number().min(0).max(5).optional().default(4.5),
+  reviews: z.number().int().min(0).optional().default(0),
+  badges: z.array(z.string()).optional().default([]),
+  outcomes: z.array(z.string()).optional().default([]),
   featured: z.boolean().optional().default(false)
 });
 
@@ -58,24 +65,31 @@ router.get("/:slug", async (req, res, next) => {
   }
 });
 
-router.post("/", requireAuth, async (req, res, next) => {
+router.post("/", requireAdmin, async (req, res, next) => {
   try {
     const body = courseSchema.parse(req.body);
     const db = await getDb();
     const result = await db.run(
       `INSERT INTO courses
-      (slug, title, category, difficulty, price, duration, description, syllabus, instructor_name, instructor_bio, featured)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      (slug, title, category, difficulty, price, original_price, image, video_url, duration, description, syllabus, instructor_name, instructor_bio, rating, reviews, badges, outcomes, featured)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       body.slug,
       body.title,
       body.category,
       body.difficulty,
       body.price,
+      body.original_price || null,
+      body.image || null,
+      body.video_url || null,
       body.duration,
       body.description,
       JSON.stringify(body.syllabus),
       body.instructor_name,
       body.instructor_bio,
+      body.rating,
+      body.reviews,
+      JSON.stringify(body.badges),
+      JSON.stringify(body.outcomes),
       body.featured ? 1 : 0
     );
     const row = await db.get("SELECT * FROM courses WHERE id = ?", result.lastID);
@@ -86,23 +100,30 @@ router.post("/", requireAuth, async (req, res, next) => {
   }
 });
 
-router.put("/:id", requireAuth, async (req, res, next) => {
+router.put("/:id", requireAdmin, async (req, res, next) => {
   try {
     const body = courseSchema.parse(req.body);
     const db = await getDb();
     await db.run(
-      `UPDATE courses SET slug = ?, title = ?, category = ?, difficulty = ?, price = ?, duration = ?,
-      description = ?, syllabus = ?, instructor_name = ?, instructor_bio = ?, featured = ? WHERE id = ?`,
+      `UPDATE courses SET slug = ?, title = ?, category = ?, difficulty = ?, price = ?, original_price = ?, image = ?, video_url = ?, duration = ?,
+      description = ?, syllabus = ?, instructor_name = ?, instructor_bio = ?, rating = ?, reviews = ?, badges = ?, outcomes = ?, featured = ? WHERE id = ?`,
       body.slug,
       body.title,
       body.category,
       body.difficulty,
       body.price,
+      body.original_price || null,
+      body.image || null,
+      body.video_url || null,
       body.duration,
       body.description,
       JSON.stringify(body.syllabus),
       body.instructor_name,
       body.instructor_bio,
+      body.rating,
+      body.reviews,
+      JSON.stringify(body.badges),
+      JSON.stringify(body.outcomes),
       body.featured ? 1 : 0,
       req.params.id
     );
@@ -115,7 +136,7 @@ router.put("/:id", requireAuth, async (req, res, next) => {
   }
 });
 
-router.delete("/:id", requireAuth, async (req, res, next) => {
+router.delete("/:id", requireAdmin, async (req, res, next) => {
   try {
     const db = await getDb();
     const result = await db.run("DELETE FROM courses WHERE id = ?", req.params.id);

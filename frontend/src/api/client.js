@@ -5,7 +5,7 @@ export async function api(path, options = {}) {
   const response = await fetch(`${API_URL}${path}`, {
     ...options,
     headers: {
-      "Content-Type": "application/json",
+      ...(options.body instanceof FormData ? {} : { "Content-Type": "application/json" }),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...options.headers
     }
@@ -13,7 +13,7 @@ export async function api(path, options = {}) {
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({ message: "Request failed" }));
-    throw new Error(error.message || "Request failed");
+    throw new Error(error.details || error.message || "Request failed");
   }
 
   if (response.status === 204) return null;

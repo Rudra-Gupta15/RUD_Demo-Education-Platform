@@ -179,7 +179,7 @@ export default function Projects() {
                         alt={project.title}
                         className="w-full h-full object-cover"
                         style={{
-                          filter: hoveredId === project.id ? 'grayscale(0%)' : 'grayscale(100%)',
+                          filter: 'grayscale(0%)',
                           transition: 'filter 0.7s ease'
                         }}
                       />
@@ -319,7 +319,7 @@ export default function Projects() {
                 <div className="lg:w-2/5 relative overflow-hidden bg-slate-900">
                   <img 
                     src={selectedProject.image} 
-                    className="w-full h-full object-cover opacity-40 grayscale" 
+                    className="w-full h-full object-cover opacity-40" 
                     alt={selectedProject.title} 
                   />
                   <div 
@@ -474,10 +474,10 @@ export default function Projects() {
                   Operating Standard
                 </span>
               </div>
-              <h2 className="text-4xl lg:text-6xl font-light tracking-tight mb-8 text-slate-900">
-                The <span className="font-serif italic text-blue-600">VAPT</span> Framework
+              <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black tracking-tighter mb-8 text-slate-900 leading-tight whitespace-nowrap">
+                The <span className="text-[#004aad] drop-shadow-sm">VAPT</span> Framework
               </h2>
-              <p className="text-slate-500 text-xl leading-relaxed font-light">
+              <p className="text-slate-600 text-lg lg:text-xl leading-relaxed font-medium max-w-3xl border-l-4 border-blue-600 pl-8">
                 Vulnerable Accessible Penetration Techniques (VAPT) is our core organizational standard. 
                 Everything we do in cybersecurity — from training to live enterprise services — 
                 flows through this unified framework.
@@ -526,21 +526,33 @@ export default function Projects() {
               }
             ].map((service, idx) => (
               <Reveal key={service.title} delay={idx * 0.05}>
-                <div className="p-7 bg-[#f4f1ea] border border-slate-200/60 rounded-3xl hover:border-blue-300 transition-all duration-500 group h-full flex flex-col shadow-sm hover:shadow-xl">
-                  <div className="w-11 h-11 rounded-2xl bg-blue-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-xl shadow-blue-500/20">
-                    <service.icon size={18} className="text-white" />
+                <div className="p-10 bg-white border border-slate-100 group hover:border-slate-900 transition-all duration-500 h-full flex flex-col relative overflow-hidden rounded-none shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
+                  {/* Industrial Top Accent */}
+                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-slate-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
+                  
+                  {/* Sharp Icon Container */}
+                  <div className="w-12 h-12 border border-slate-200 flex items-center justify-center mb-8 group-hover:bg-slate-900 group-hover:text-white group-hover:border-slate-900 transition-all duration-300 rounded-none">
+                    <service.icon size={20} />
                   </div>
-                  <h3 className="text-xl font-black mb-3 text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight">
+                  
+                  {/* Classic Typography */}
+                  <h3 className="text-2xl font-black mb-4 text-slate-900 tracking-tighter uppercase leading-none">
                     {service.title}
                   </h3>
-                  <p className="font-sans text-slate-600 text-[14px] leading-relaxed mb-6 flex-1">
+                  
+                  <p className="font-sans text-slate-500 text-[14px] leading-relaxed mb-8 flex-1 font-medium italic border-l-2 border-slate-100 pl-4 group-hover:border-slate-900 transition-colors">
                     {service.desc}
                   </p>
-                  <div className="flex flex-wrap gap-2 pt-5 border-t border-slate-200/40">
+                  
+                  {/* Manifest-Style Points */}
+                  <div className="flex flex-col gap-3 pt-6 border-t border-slate-50">
                     {service.points.map(p => (
-                      <span key={p} className="px-3 py-1 rounded-full bg-white/40 border border-slate-200/50 text-[10px] font-['Space_Mono'] font-bold uppercase tracking-widest text-slate-500 group-hover:text-blue-600 transition-colors">
-                        {p}
-                      </span>
+                      <div key={p} className="flex items-center gap-3">
+                        <div className="w-1.5 h-1.5 bg-slate-200 group-hover:bg-slate-900 transition-colors" />
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 group-hover:text-slate-900 transition-colors">
+                          {p}
+                        </span>
+                      </div>
                     ))}
                   </div>
                 </div>

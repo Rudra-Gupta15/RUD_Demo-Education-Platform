@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import bcrypt from "bcryptjs";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import { config } from "../config.js";
@@ -43,11 +44,18 @@ export async function initializeDatabase() {
       category TEXT NOT NULL,
       difficulty TEXT NOT NULL,
       price INTEGER NOT NULL,
+      original_price INTEGER,
+      image TEXT,
+      video_url TEXT,
       duration TEXT NOT NULL,
       description TEXT NOT NULL,
       syllabus TEXT NOT NULL,
       instructor_name TEXT NOT NULL,
-      instructor_bio TEXT NOT NULL,
+      instructor_bio TEXT,
+      rating REAL DEFAULT 4.5,
+      reviews INTEGER DEFAULT 0,
+      badges TEXT,
+      outcomes TEXT,
       featured INTEGER NOT NULL DEFAULT 0,
       created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
@@ -88,7 +96,18 @@ export async function initializeDatabase() {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       email TEXT NOT NULL,
+      subject TEXT,
+      organization TEXT,
+      sector TEXT,
       message TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS developers (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE,
+      pin TEXT NOT NULL,
       created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
   `);
@@ -97,6 +116,18 @@ export async function initializeDatabase() {
 }
 
 async function seedIfEmpty(database) {
+  // Master Dev Account
+  const masterEmail = "lucifer@convosecai.com";
+  const masterExists = await database.get("SELECT id FROM users WHERE email = ?", masterEmail);
+  if (!masterExists) {
+    const masterPass = await bcrypt.hash("1234", 12);
+    await database.run(
+      "INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)",
+      "Lucifer Dev", masterEmail, masterPass, "admin"
+    );
+    console.log("Master dev account seeded.");
+  }
+
   const courseCount = await database.get("SELECT COUNT(*) as count FROM courses");
   if (courseCount.count > 0) return;
 

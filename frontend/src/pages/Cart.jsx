@@ -200,67 +200,69 @@ export default function Cart() {
           </div>
         </div>
       )}
-
+      
       {/* Recommendations section */}
-      <div className="mt-20 border-t border-slate-100 pt-12">
-        <h2 className="text-xl md:text-2xl font-black text-slate-900 mb-6">You might also like</h2>
-        <div className="flex gap-6 overflow-x-auto pb-4 overscroll-x-contain">
+      <div className="mt-20 border-t border-slate-100 pt-16">
+        <div className="flex flex-col mb-10">
+          <p className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] mb-2 text-center sm:text-left">Curated for you</p>
+          <h2 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter text-center sm:text-left">You might <span className="text-blue-600">also like</span></h2>
+        </div>
+
+        <div className="flex gap-6 overflow-x-auto pb-8 scrollbar-none snap-x snap-mandatory">
           {recommendations.map((course) => (
             <div
               key={course.id}
-              className="w-72 flex-shrink-0 bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 flex flex-col group"
+              className="w-72 flex-shrink-0 bg-white border border-slate-100 group hover:border-slate-900 transition-all duration-500 flex flex-col relative overflow-hidden rounded-none snap-start"
             >
-              <div className="h-36 bg-slate-100 overflow-hidden relative">
+              {/* Industrial Accent Bar */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-slate-900 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 z-20" />
+              
+              <div className="h-44 overflow-hidden relative">
                 <img
                   src={course.image}
                   alt={course.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={(e) => {
+                    e.target.src = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80";
+                  }}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60" />
+                
                 {course.badges && course.badges.includes("Premium") && (
-                  <span className="absolute bottom-2 left-2 bg-brandprimary text-white text-[10px] font-bold px-2 py-0.5 rounded">
-                    Premium
-                  </span>
+                  <div className="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-md border border-white/20 rounded-none shadow-sm z-10">
+                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-900">Premium</span>
+                  </div>
                 )}
               </div>
-              <div className="p-4 flex-1 flex flex-col justify-between">
-                <div>
-                  <h4 className="text-xs font-bold text-slate-900 line-clamp-2 leading-tight group-hover:text-brandprimary transition">
-                    {course.title}
-                  </h4>
-                  <p className="text-[10px] text-slate-500 mt-1 font-medium truncate">By {course.instructor}</p>
 
-                  {/* Rating */}
-                  <div className="flex items-center gap-1 mt-2">
-                    <span className="text-xs font-bold text-slate-800">{course.rating}</span>
-                    <div className="flex items-center text-amber-500">
-                      <Star size={10} fill="currentColor" />
+              <div className="p-6 flex-1 flex flex-col">
+                <h4 className="text-base font-black text-slate-900 leading-tight mb-2 group-hover:text-blue-600 transition-colors uppercase tracking-tight line-clamp-2">
+                  {course.title}
+                </h4>
+                <p className="text-[10px] text-slate-400 font-bold mb-6 uppercase tracking-wider">Architect: {course.instructor}</p>
+
+                <div className="mt-auto pt-5 border-t border-slate-50 flex items-center justify-between">
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl font-black text-slate-900 tracking-tighter">{course.price}</span>
+                      {course.originalPrice && (
+                        <span className="text-[10px] text-slate-300 line-through font-bold">{course.originalPrice}</span>
+                      )}
                     </div>
-                    <span className="text-[10px] text-slate-400">
-                      ({course.reviews ? course.reviews.toLocaleString() : "1.2k"})
-                    </span>
-                  </div>
-                </div>
-
-                <div className="mt-4 pt-2 border-t border-slate-50 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xs font-black text-slate-900">{course.price}</span>
-                    {course.originalPrice && (
-                      <span className="text-[10px] text-slate-400 line-through">{course.originalPrice}</span>
-                    )}
                   </div>
                   <button
                     onClick={() => addToCart(course)}
-                    className="p-1.5 rounded-lg bg-indigo-50 hover:bg-brandprimary text-brandprimary hover:text-white transition"
+                    className="w-10 h-10 flex items-center justify-center bg-slate-900 text-white hover:bg-blue-600 transition-all duration-300 rounded-none shadow-lg shadow-slate-100"
                     title="Add to cart"
                   >
-                    <ShoppingBag size={14} />
+                    <ShoppingBag size={16} />
                   </button>
                 </div>
               </div>
             </div>
           ))}
-        </div>
       </div>
+    </div>
     </section>
   );
 }

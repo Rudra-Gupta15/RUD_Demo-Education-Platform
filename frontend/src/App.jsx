@@ -19,6 +19,8 @@ import Learning from "./pages/Learning.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Projects from "./pages/Projects.jsx";
 import Cart from "./pages/Cart.jsx";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
+import UserDashboard from "./pages/UserDashboard.jsx";
 
 export default function App() {
   const location = useLocation();
@@ -30,7 +32,7 @@ export default function App() {
   return (
     <>
       <CosmicBackground />
-      {location.pathname !== "/auth" && <Navbar />}
+      {location.pathname !== "/auth" && location.pathname !== "/dev-dashboard" && location.pathname !== "/checkout" && <Navbar />}
       <AnimatePresence mode="wait">
         <motion.main
           key={location.pathname}
@@ -54,12 +56,14 @@ export default function App() {
             <Route path="/contact/business" element={<BusinessContact />} />
             <Route path="/contact/careers" element={<CareerContact />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/dashboard" element={<UserDashboard />} />
+            <Route path="/dev-dashboard" element={<AdminDashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </motion.main>
       </AnimatePresence>
-      <ChatWidget />
-      {location.pathname !== "/checkout" && location.pathname !== "/auth" && <Footer />}
+      {location.pathname !== "/dev-dashboard" && <ChatWidget />}
+      {location.pathname !== "/checkout" && location.pathname !== "/auth" && location.pathname !== "/dev-dashboard" && <Footer />}
     </>
   );
 }

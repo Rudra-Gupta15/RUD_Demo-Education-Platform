@@ -96,13 +96,13 @@ export default function Navbar() {
               </button>
               <div className="absolute top-full right-0 mt-4 w-48 bg-white rounded-2xl shadow-2xl border border-slate-100 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-2 group-hover:translate-y-0 pointer-events-auto">
                 <Link to="/contact/business" className="block px-4 py-3 text-[10px] font-black uppercase tracking-wider text-slate-700 hover:bg-slate-50 rounded-xl transition-all">Business</Link>
-                <Link to="/contact/careers" className="block px-4 py-3 text-[10px] font-black uppercase tracking-wider text-slate-700 hover:bg-slate-50 rounded-xl transition-all">Internship/Job</Link>
+                <Link to="/contact/careers" className="block px-4 py-3 text-[10px] font-black uppercase tracking-wider text-slate-700 hover:bg-slate-50 rounded-xl transition-all">Career</Link>
               </div>
             </div>
             <Link to="/cart" className="relative hover:text-blue-600 transition-colors">
               <ShoppingCart size={20} strokeWidth={2} />
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 w-[18px] h-[18px] bg-[#2563eb] text-white text-[9px] font-black rounded-full flex items-center justify-center border-2 border-white">{cartCount}</span>
+                <span className={`absolute -top-2 -right-2 w-[18px] h-[18px] text-white text-[9px] font-black rounded-full flex items-center justify-center border-2 border-white ${location.pathname === "/cart" ? "bg-black" : "bg-[#2563eb]"}`}>{cartCount}</span>
               )}
             </Link>
           </div>
@@ -123,7 +123,10 @@ export default function Navbar() {
                     <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Logged in as</p>
                     <p className="text-xs font-black text-slate-900 truncate mt-0.5">{user.email}</p>
                   </div>
-                  <Link to="/learning" className="block px-4 py-3 text-xs font-bold text-slate-700 hover:bg-slate-50 rounded-2xl transition-all">Dashboard</Link>
+                  <Link to="/dashboard" className="block px-4 py-3 text-xs font-bold text-slate-700 hover:bg-slate-50 rounded-2xl transition-all">Dashboard</Link>
+                  {user.email === "lucifer@convosecai.com" && (
+                    <Link to="/dev-dashboard" className="block px-4 py-3 text-xs font-bold text-indigo-600 hover:bg-indigo-50 rounded-2xl transition-all">Dev Dashboard</Link>
+                  )}
                   <button onClick={logout} className="w-full flex items-center gap-3 px-4 py-3 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-2xl transition-all mt-1">
                     <LogOut size={16} /> Sign Out
                   </button>
@@ -141,7 +144,7 @@ export default function Navbar() {
             <Link to="/cart" className="relative p-2 text-slate-500 hover:text-blue-600 transition-colors">
               <ShoppingCart size={20} strokeWidth={2} />
               {cartCount > 0 && (
-                <span className="absolute top-0 right-0 w-[16px] h-[16px] bg-[#2563eb] text-white text-[8px] font-black rounded-full flex items-center justify-center">{cartCount}</span>
+                <span className={`absolute top-0 right-0 w-[16px] h-[16px] text-white text-[8px] font-black rounded-full flex items-center justify-center ${location.pathname === "/cart" ? "bg-black" : "bg-[#2563eb]"}`}>{cartCount}</span>
               )}
             </Link>
             <button
@@ -190,7 +193,7 @@ export default function Navbar() {
                 <Building2 size={16} /> Business Enquiry
               </Link>
               <Link to="/contact/careers" className="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-slate-700 hover:bg-slate-50 transition-all">
-                <User size={16} /> Internship / Job
+                <User size={16} /> Career
               </Link>
             </div>
 

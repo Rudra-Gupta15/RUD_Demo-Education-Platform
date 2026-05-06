@@ -105,7 +105,7 @@ export default function ServicesCarousel() {
                     scale: position === "center" ? 1.1 : 0.9,
                     x: position === "center" ? 0 : position === "side-left" ? -350 : 350,
                     zIndex: position === "center" ? 30 : 10,
-                    filter: position === "center" ? "grayscale(0%)" : "grayscale(100%)",
+                    filter: "grayscale(0%)",
                   }}
                   transition={{ 
                     layout: { duration: 0.8, ease: "easeInOut" },
