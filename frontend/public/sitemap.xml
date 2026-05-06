@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://rud-demo.edu/</loc>
+    <loc>https://convosecai.com/</loc>
     <lastmod>2026-05-06</lastmod>
     <priority>1.00</priority>
   </url>
   <url>
-    <loc>https://rud-demo.edu/catalog</loc>
+    <loc>https://convosecai.com/catalog</loc>
     <lastmod>2026-05-06</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://rud-demo.edu/learning</loc>
+    <loc>https://convosecai.com/learning</loc>
     <lastmod>2026-05-06</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://rud-demo.edu/projects</loc>
+    <loc>https://convosecai.com/projects</loc>
     <lastmod>2026-05-06</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://rud-demo.edu/blog</loc>
+    <loc>https://convosecai.com/blog</loc>
     <lastmod>2026-05-06</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://rud-demo.edu/about</loc>
+    <loc>https://convosecai.com/about</loc>
     <lastmod>2026-05-06</lastmod>
     <priority>0.60</priority>
   </url>
   <url>
-    <loc>https://rud-demo.edu/auth</loc>
+    <loc>https://convosecai.com/auth</loc>
     <lastmod>2026-05-06</lastmod>
     <priority>0.50</priority>
   </url>

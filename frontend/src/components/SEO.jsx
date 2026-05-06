@@ -21,8 +21,12 @@ const SEO = ({
       {/* Standard metadata tags */}
       <title>{fullTitle}</title>
       <meta name='description' content={finalDescription} />
-      {keywords && <meta name='keywords' content={keywords} />}
+      <meta name='keywords' content={`convosecai, ${keywords || 'AI, Cybersecurity, Education'}`} />
       {canonical && <link rel="canonical" href={canonical} />}
+
+      {/* Brand Identity / Search Authority */}
+      <meta name="application-name" content="convosecai" />
+      <meta name="apple-mobile-web-app-title" content="convosecai" />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={ogType} />
@@ -34,6 +38,22 @@ const SEO = ({
       <meta name="twitter:card" content={twitterCard} />
       <meta name="twitter:title" content={ogTitle || fullTitle} />
       <meta name="twitter:description" content={ogDescription || finalDescription} />
+
+      {/* Structured Data (Schema.org) for Brand Authority */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "ConvoSec AI",
+          "alternateName": "convosecai",
+          "url": "https://convosecai.com",
+          "logo": "https://convosecai.com/logo.png",
+          "sameAs": [
+            "https://twitter.com/convosecai",
+            "https://linkedin.com/company/convosecai"
+          ]
+        })}
+      </script>
     </Helmet>
   );
 };

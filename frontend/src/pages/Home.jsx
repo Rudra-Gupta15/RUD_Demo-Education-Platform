@@ -54,8 +54,8 @@ export default function Home() {
     <div className="bg-white min-h-screen font-sans overflow-x-hidden selection:bg-blue-500 selection:text-white text-slate-900">
       <SEO 
         title="Home | Empowering Minds, Engineering Futures" 
-        description="ConvoSec AI is a premium AI and cybersecurity education platform offering live cohorts, recorded labs, and real-world projects."
-        keywords="AI education, cybersecurity courses, ethical hacking, SOC analyst, LLM"
+        description="ConvoSec AI (convosecai) is a premium AI and cybersecurity education platform offering live cohorts, recorded labs, and real-world projects."
+        keywords="convosecai, ConvoSec AI, AI education, cybersecurity courses, ethical hacking, SOC analyst, LLM"
       />
 
       {/* ── LOADING SCREEN ── */}
