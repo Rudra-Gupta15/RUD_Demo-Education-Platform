@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  BookOpen,
-  Clock,
-  Trophy,
-  Zap,
-  Play,
-  Settings,
-  LogOut,
+import { 
+  BookOpen, 
+  Clock, 
+  Trophy, 
+  Zap, 
+  Play, 
+  Settings, 
+  LogOut, 
   LayoutDashboard,
   ShieldCheck,
   ChevronRight,
@@ -17,7 +17,9 @@ import {
   ArrowRight,
   Target,
   Cpu,
-  Globe
+  Globe,
+  Menu,
+  X
 } from "lucide-react";
 import { useAuth } from "../state/AuthContext";
 import { api } from "../api/client";
@@ -36,7 +38,7 @@ const css = `
     color: #0f172a;
   }
 
-  /* ── Sidebar: Modern Outlined ── */
+  /* ── Sidebar ── */
   .ud-sidebar {
     width: 260px;
     flex-shrink: 0;
@@ -46,8 +48,9 @@ const css = `
     flex-direction: column;
     position: fixed;
     top: 0; left: 0; bottom: 0;
-    z-index: 40;
+    z-index: 50;
     box-shadow: 10px 0 30px -15px rgba(0,0,0,0.03);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .ud-logo {
@@ -58,7 +61,6 @@ const css = `
     text-decoration: none;
     transition: opacity 0.2s;
   }
-  .ud-logo:hover { opacity: 0.8; }
   .ud-logo-icon {
     width: 38px; height: 38px;
     border-radius: 8px;
@@ -67,8 +69,7 @@ const css = `
     background: #fff;
     border: 1px solid #e2e8f0;
   }
-  .ud-logo-name { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; color: #0f172a; }
-  .ud-logo-sub { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-top: 2px; }
+  .ud-logo-name { font-size: 18px; font-weight: 700; color: #0f172a; }
 
   .ud-nav { flex: 1; padding: 0 16px; overflow-y: auto; }
   .ud-nav-section {
@@ -78,163 +79,108 @@ const css = `
   .ud-nav-item {
     display: flex; align-items: center; gap: 12px;
     padding: 10px 12px; border-radius: 10px;
-    cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer; transition: all 0.2s;
     margin-bottom: 4px; border: 1px solid transparent; width: 100%;
     background: transparent; text-align: left;
     font-family: 'Inter', sans-serif;
     color: #64748b; font-size: 14px; font-weight: 500;
   }
-  .ud-nav-item:hover { background: #f1f5f9; color: #2563eb; border-color: #e2e8f0; }
-  .ud-nav-item.active {
-    background: #eff6ff;
-    color: #2563eb;
-    font-weight: 600;
-    border-color: #dbeafe;
-  }
-  .ud-nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .ud-nav-item.active { background: #eff6ff; color: #2563eb; font-weight: 600; border-color: #dbeafe; }
 
   .ud-user {
-    margin: 16px;
-    padding: 16px;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
+    margin: 16px; padding: 16px;
+    background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px;
     display: flex; align-items: center; gap: 12px;
   }
   .ud-user-avatar {
     width: 36px; height: 36px; border-radius: 10px;
     background: #2563eb; color: #fff;
     display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 700; flex-shrink: 0;
+    font-size: 13px; font-weight: 700;
   }
-  .ud-user-name { font-size: 13px; font-weight: 600; color: #0f172a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .ud-user-role { font-size: 10px; color: #64748b; font-weight: 600; text-transform: uppercase; }
-  .ud-logout {
-    margin-left: auto; background: #fff; border: 1px solid #e2e8f0;
-    cursor: pointer; color: #64748b; width: 30px; height: 30px;
-    border-radius: 8px; transition: all 0.2s;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .ud-logout:hover { color: #ef4444; border-color: #fca5a5; background: #fef2f2; }
 
   /* ── Main ── */
-  .ud-main { flex: 1; margin-left: 260px; display: flex; flex-direction: column; min-height: 100vh; }
+  .ud-main { flex: 1; margin-left: 260px; display: flex; flex-direction: column; min-height: 100vh; transition: margin-left 0.3s; }
 
   .ud-topbar {
-    padding: 20px 32px;
+    padding: 16px 24px;
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid #e2e8f0;
     display: flex; align-items: center; justify-content: space-between;
-    position: sticky; top: 0; z-index: 30;
+    position: sticky; top: 0; z-index: 40;
   }
-  .ud-topbar-title { font-size: 20px; font-weight: 700; color: #0f172a; letter-spacing: -0.02em; }
-  .ud-topbar-actions { display: flex; align-items: center; gap: 16px; }
   
-  .ud-live {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 12px; font-weight: 600;
-    background: #f0fdf4; color: #16a34a;
-    padding: 8px 16px; border-radius: 10px;
-    border: 1px solid #dcfce7;
+  .ud-menu-toggle {
+    display: none; width: 40px; height: 40px;
+    align-items: center; justify-content: center;
+    background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 10px; color: #0f172a; cursor: pointer;
   }
-  .ud-live-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1); animation: pulse 2s infinite; }
-  @keyframes pulse { 0% { box-shadow: 0 0 0 0px rgba(34, 197, 94, 0.4); } 70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); } 100% { box-shadow: 0 0 0 0px rgba(34, 197, 94, 0); } }
 
-  .ud-content { padding: 32px; flex: 1; max-width: 1300px; }
+  .ud-content { padding: 24px; flex: 1; max-width: 1300px; margin: 0 auto; width: 100%; }
+
+  /* ── Responsive Grids ── */
+  .ud-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px; }
+  .ud-course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .ud-two-col { display: grid; grid-template-columns: 1fr 360px; gap: 24px; margin-top: 48px; }
 
   /* ── Hero ── */
   .ud-hero {
-    background: #0f172a;
-    background-image: radial-gradient(circle at top right, #2563eb22, transparent), 
-                      url('https://www.transparenttextures.com/patterns/cubes.png');
-    border-radius: 20px;
-    padding: 48px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 32px;
-    box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.3);
-    border: 1px solid rgba(255,255,255,0.05);
+    background: #0f172a; border-radius: 20px; padding: 48px; color: #fff;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 32px; box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.3);
+    position: relative; overflow: hidden;
   }
-  .ud-hero-content { max-width: 500px; }
-  .ud-hero-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: rgba(37, 99, 235, 0.2); color: #60a5fa;
-    padding: 6px 12px; border-radius: 8px;
-    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
-    margin-bottom: 20px; border: 1px solid rgba(37, 99, 235, 0.3);
-  }
-  .ud-hero-title { font-size: 36px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.02em; }
-  .ud-hero-para { color: #94a3b8; font-size: 16px; font-weight: 500; line-height: 1.6; }
-  .ud-hero-btn {
-    margin-top: 24px;
-    background: #fff; color: #0f172a;
-    padding: 14px 28px; border-radius: 10px;
-    font-weight: 700; font-size: 15px; border: none; cursor: pointer;
-    display: flex; align-items: center; gap: 10px;
-    transition: all 0.2s;
-  }
-  .ud-hero-btn:hover { background: #f8fafc; transform: translateY(-2px); }
+  .ud-hero-content { max-width: 500px; position: relative; z-index: 2; }
+  .ud-hero-gfx { position: relative; z-index: 1; }
 
-  /* ── Metrics ── */
-  .ud-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px; }
-  .ud-metric {
-    background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px;
-    display: flex; align-items: center; gap: 20px;
-    transition: all 0.2s;
+  /* ── Overlay ── */
+  .ud-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
+    z-index: 45; display: none;
   }
-  .ud-metric:hover { transform: translateY(-4px); box-shadow: 0 10px 20px -10px rgba(0,0,0,0.05); border-color: #cbd5e1; }
-  .ud-metric-icon { 
-    width: 52px; height: 52px; border-radius: 12px; 
-    display: flex; align-items: center; justify-content: center;
-    background: #f1f5f9; color: #475569;
-  }
-  .ud-metric-val { font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.01em; }
-  .ud-metric-lbl { font-size: 13px; color: #64748b; font-weight: 600; margin-top: 2px; }
 
-  /* ── Course Grid ── */
-  .ud-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
-  .ud-section-title { font-size: 20px; font-weight: 700; color: #0f172a; letter-spacing: -0.01em; }
-  .ud-section-link { font-size: 14px; color: #2563eb; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 4px; border: none; background: none; cursor: pointer; }
+  /* ── Mobile Logic ── */
+  @media (max-width: 1024px) {
+    .ud-sidebar { transform: translateX(-100%); }
+    .ud-sidebar.open { transform: translateX(0); }
+    .ud-main { margin-left: 0; }
+    .ud-menu-toggle { display: flex; }
+    .ud-overlay.open { display: block; }
+    .ud-metrics { grid-template-columns: repeat(2, 1fr); }
+    .ud-two-col { grid-template-columns: 1fr; }
+    .ud-hero-gfx { display: none; }
+  }
 
-  .ud-course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .ud-course-card {
-    background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden;
-    transition: all 0.2s; cursor: pointer;
+  @media (max-width: 768px) {
+    .ud-metrics { grid-template-columns: 1fr; }
+    .ud-course-grid { grid-template-columns: 1fr; }
+    .ud-hero { padding: 32px; }
+    .ud-hero-title { font-size: 28px; }
+    .ud-topbar-title { font-size: 16px; }
+    .ud-live { display: none; }
   }
-  .ud-course-card:hover { transform: translateY(-6px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05); border-color: #cbd5e1; }
-  .ud-course-thumb { position: relative; aspect-ratio: 16/9; overflow: hidden; border-bottom: 1px solid #f1f5f9; }
-  .ud-course-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-  .ud-course-card:hover .ud-course-thumb img { transform: scale(1.05); }
-  .ud-course-badge {
-    position: absolute; top: 12px; left: 12px;
-    background: rgba(255,255,255,0.95); backdrop-filter: blur(4px);
-    padding: 6px 12px; border-radius: 8px; font-size: 10px; font-weight: 800; color: #0f172a;
-    border: 1px solid #f1f5f9; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-  }
+
+  /* ... rest of existing card/metric styles ... */
+  .ud-metric { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; display: flex; align-items: center; gap: 20px; }
+  .ud-metric-icon { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+  .ud-metric-val { font-size: 26px; font-weight: 800; color: #0f172a; }
+  .ud-metric-lbl { font-size: 13px; color: #64748b; font-weight: 600; }
+
+  .ud-course-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; }
+  .ud-course-thumb { aspect-ratio: 16/9; overflow: hidden; border-bottom: 1px solid #f1f5f9; }
+  .ud-course-thumb img { width: 100%; height: 100%; object-fit: cover; }
   .ud-course-body { padding: 20px; }
-  .ud-course-title { font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; line-height: 1.4; }
-  
-  .ud-progress-wrap { margin-top: 16px; }
-  .ud-progress-bar { height: 6px; background: #f1f5f9; border-radius: 99px; overflow: hidden; margin-bottom: 8px; border: 1px solid #f1f5f9; }
-  .ud-progress-fill { height: 100%; background: #2563eb; border-radius: 99px; }
-  .ud-progress-meta { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; }
+  .ud-course-title { font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; }
+  .ud-progress-bar { height: 6px; background: #f1f5f9; border-radius: 99px; overflow: hidden; margin-bottom: 8px; }
+  .ud-progress-fill { height: 100%; background: #2563eb; }
+  .ud-progress-meta { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #64748b; }
 
-  /* ── Panels & Feed ── */
-  .ud-two-col { display: grid; grid-template-columns: 1fr 360px; gap: 24px; margin-top: 48px; }
   .ud-panel { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; }
-  .ud-panel-title { font-size: 16px; font-weight: 700; margin-bottom: 20px; color: #0f172a; border-bottom: 1px solid #f8fafc; padding-bottom: 12px; }
-  
-  .ud-feed { display: flex; flex-direction: column; gap: 16px; }
-  .ud-feed-item { display: flex; gap: 16px; align-items: flex-start; padding: 12px; border-radius: 12px; border: 1px solid transparent; transition: all 0.2s; }
-  .ud-feed-item:hover { background: #f8fafc; border-color: #f1f5f9; }
-  .ud-feed-icon { width: 36px; height: 36px; border-radius: 10px; background: #eff6ff; color: #2563eb; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid #dbeafe; }
-  .ud-feed-text { font-size: 13px; font-weight: 500; color: #334155; line-height: 1.5; }
-  .ud-feed-time { font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase; margin-top: 4px; }
-
-  .qr-loading { display: flex; align-items: center; justify-content: center; min-height: 100vh; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+  .ud-feed-item { display: flex; gap: 16px; align-items: flex-start; padding: 12px; }
+  .ud-feed-icon { width: 36px; height: 36px; border-radius: 10px; background: #eff6ff; color: #2563eb; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 `;
 
 export default function UserDashboard() {
@@ -243,6 +189,7 @@ export default function UserDashboard() {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("overview");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -266,6 +213,12 @@ export default function UserDashboard() {
     if (user) fetchCourses();
   }, [user]);
 
+  // Close sidebar on tab change (mobile)
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setIsSidebarOpen(false);
+  };
+
   if (loading || !user) return <div className="qr-loading">Initializing Secure Environment…</div>;
 
   const initials = user.name?.split(" ").map(n => n[0]).join("") || "U";
@@ -286,40 +239,49 @@ export default function UserDashboard() {
   return (
     <>
       <style>{css}</style>
+      
+      {/* Mobile Overlay */}
+      <div className={`ud-overlay ${isSidebarOpen ? 'open' : ''}`} onClick={() => setIsSidebarOpen(false)} />
+
       <div className="ud-dash">
         {/* ── Sidebar ── */}
-        <aside className="ud-sidebar">
+        <aside className={`ud-sidebar ${isSidebarOpen ? 'open' : ''}`}>
+          <div style={{ position: 'absolute', top: 20, right: 20, display: window.innerWidth <= 1024 ? 'block' : 'none' }}>
+             <button onClick={() => setIsSidebarOpen(false)} style={{ background: 'none', border: 'none', color: '#64748b' }}>
+                <X size={24} />
+             </button>
+          </div>
+
           <Link to="/" className="ud-logo">
             <div className="ud-logo-icon">
               <img src="/logo.png" alt="ConvoSec" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div>
               <div className="ud-logo-name">ConvoSec AI</div>
-              <div className="ud-logo-sub">Academy Console</div>
             </div>
           </Link>
 
           <nav className="ud-nav">
             <div className="ud-nav-section">Main Console</div>
-            <button className={`ud-nav-item ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab("overview")}>
+            <button className={`ud-nav-item ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => handleTabChange("overview")}>
               <LayoutDashboard /> Overview
             </button>
-            <button className={`ud-nav-item ${activeTab === 'courses' ? 'active' : ''}`} onClick={() => setActiveTab("courses")}>
+            <button className={`ud-nav-item ${activeTab === 'courses' ? 'active' : ''}`} onClick={() => handleTabChange("courses")}>
               <BookOpen /> My Courses
             </button>
-            <button className={`ud-nav-item ${activeTab === 'roadmap' ? 'active' : ''}`} onClick={() => setActiveTab("roadmap")}>
+            <button className={`ud-nav-item ${activeTab === 'roadmap' ? 'active' : ''}`} onClick={() => handleTabChange("roadmap")}>
               <Target /> Learning Path
             </button>
-            <button className={`ud-nav-item ${activeTab === 'certs' ? 'active' : ''}`} onClick={() => setActiveTab("certs")}>
+            <button className={`ud-nav-item ${activeTab === 'certs' ? 'active' : ''}`} onClick={() => handleTabChange("certs")}>
               <Trophy /> Certifications
             </button>
 
             <div className="ud-nav-section">Network</div>
-            <button className={`ud-nav-item ${activeTab === 'performance' ? 'active' : ''}`} onClick={() => setActiveTab("performance")}>
+            <button className={`ud-nav-item ${activeTab === 'performance' ? 'active' : ''}`} onClick={() => handleTabChange("performance")}>
               <Activity /> Performance
             </button>
             <button className="ud-nav-item"><Globe /> Community</button>
-            <button className={`ud-nav-item ${activeTab === 'settings' ? 'active' : ''}`} onClick={() => setActiveTab("settings")}>
+            <button className={`ud-nav-item ${activeTab === 'settings' ? 'active' : ''}`} onClick={() => handleTabChange("settings")}>
               <Settings /> Preferences
             </button>
           </nav>
@@ -339,11 +301,14 @@ export default function UserDashboard() {
         {/* ── Main Content ── */}
         <main className="ud-main">
           <header className="ud-topbar">
-            <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              <button className="ud-menu-toggle" onClick={() => setIsSidebarOpen(true)}>
+                <Menu size={20} />
+              </button>
               <div className="ud-topbar-title" style={{ textTransform: 'capitalize' }}>{activeTab.replace("-", " ")} Dashboard</div>
             </div>
             <div className="ud-topbar-actions">
-              <span className="ud-live"><span className="ud-live-dot" />Secure Connection Active</span>
+              <span className="ud-live"><span className="ud-live-dot" />Secure</span>
               <button style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer' }}><Bell size={18} /></button>
             </div>
           </header>

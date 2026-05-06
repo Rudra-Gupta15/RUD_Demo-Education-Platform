@@ -49,13 +49,18 @@ app.use("/api/admin", adminRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-initializeDatabase()
-  .then(() => {
-    app.listen(config.port, () => {
-      console.log(`Quorion API running on http://localhost:${config.port}`);
+// Only listen if not running as a Vercel serverless function
+if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
+  initializeDatabase()
+    .then(() => {
+      app.listen(config.port, () => {
+        console.log(`Quorion API running on http://localhost:${config.port}`);
+      });
+    })
+    .catch((error) => {
+      console.error("Failed to initialize database", error);
+      process.exit(1);
     });
-  })
-  .catch((error) => {
-    console.error("Failed to initialize database", error);
-    process.exit(1);
-  });
+}
+
+export default app;

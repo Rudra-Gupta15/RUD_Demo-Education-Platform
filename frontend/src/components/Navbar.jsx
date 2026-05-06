@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
-import { Building2, ShoppingCart, Grid, User, LogOut, Menu, X } from "lucide-react";
+import { Building2, ShoppingCart, Grid, User, LogOut, Menu, X, LayoutDashboard, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../state/AuthContext.jsx";
 import { useCart } from "../state/CartContext.jsx";
@@ -169,50 +169,84 @@ export default function Navbar() {
             className="fixed top-[72px] sm:top-[80px] left-3 right-3 z-[99] bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl border border-slate-100 p-5 lg:hidden"
           >
             {/* Nav Links */}
-            <nav className="flex flex-col gap-1 mb-4">
+            <nav className="flex flex-col gap-1.5">
               {navLinks.map(({ to, label, icon }) => (
                 <NavLink
                   key={to}
                   to={to}
                   className={({ isActive }) => {
                     const active = to === "/learning" ? isLearningActive(location.pathname) : isActive;
-                    return `flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold transition-all ${active ? "bg-black text-white" : "text-slate-700 hover:bg-slate-50"}`;
+                    return `group flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all duration-300 ${active ? "bg-black text-white shadow-xl shadow-black/10 scale-[1.02]" : "text-slate-600 hover:bg-slate-50 hover:pl-5"}`;
                   }}
                 >
-                  {icon && <span>{icon}</span>}{label}
+                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-colors ${location.pathname === to ? "bg-white/10" : "bg-slate-100 group-hover:bg-white"}`}>
+                    {icon || <Grid size={16} />}
+                  </div>
+                  <span className="text-[11px] font-black uppercase tracking-[0.1em]">{label}</span>
                 </NavLink>
               ))}
             </nav>
 
+            {/* User Specific — Dashboard */}
+            {user && (
+              <>
+                <div className="h-px bg-slate-100/80 my-4 mx-2" />
+                <div className="flex flex-col gap-1.5">
+                  <Link 
+                    to="/dashboard" 
+                    className={`group flex items-center gap-3 px-4 py-4 rounded-2xl transition-all duration-300 ${location.pathname === "/dashboard" ? "bg-indigo-600 text-white shadow-xl shadow-indigo-100" : "bg-indigo-50/50 text-indigo-600 hover:bg-indigo-50 hover:pl-5"}`}
+                  >
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center shadow-sm ${location.pathname === "/dashboard" ? "bg-white/20" : "bg-white"}`}>
+                      <LayoutDashboard size={18} strokeWidth={2.5} />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-[11px] font-black uppercase tracking-[0.1em]">Academy Dashboard</span>
+                      <span className={`text-[9px] font-bold uppercase tracking-widest opacity-60 ${location.pathname === "/dashboard" ? "text-white" : "text-indigo-400"}`}>Control Plane</span>
+                    </div>
+                  </Link>
+                  {user.email === "lucifer@convosecai.com" && (
+                    <Link to="/dev-dashboard" className="flex items-center gap-3 px-4 py-3 rounded-2xl text-[11px] font-black uppercase tracking-wider text-slate-500 bg-slate-50/50 hover:bg-slate-100 transition-all">
+                      <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm"><ShieldCheck size={16} className="text-indigo-500" /></div>
+                      Developer Panel
+                    </Link>
+                  )}
+                </div>
+              </>
+            )}
+
             {/* Divider */}
-            <div className="h-px bg-slate-100 my-3" />
+            <div className="h-px bg-slate-100/80 my-4 mx-2" />
 
             {/* Contact Links */}
-            <div className="flex flex-col gap-1 mb-4">
-              <Link to="/contact/business" className="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-slate-700 hover:bg-slate-50 transition-all">
-                <Building2 size={16} /> Business Enquiry
+            <div className="grid grid-cols-2 gap-2">
+              <Link to="/contact/business" className="flex flex-col gap-2 p-4 rounded-2xl bg-slate-50/50 hover:bg-slate-100 transition-all group">
+                <Building2 size={18} className="text-slate-400 group-hover:text-black transition-colors" />
+                <span className="text-[9px] font-black uppercase tracking-wider text-slate-600">Business</span>
               </Link>
-              <Link to="/contact/careers" className="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-slate-700 hover:bg-slate-50 transition-all">
-                <User size={16} /> Career
+              <Link to="/contact/careers" className="flex flex-col gap-2 p-4 rounded-2xl bg-slate-50/50 hover:bg-slate-100 transition-all group">
+                <User size={18} className="text-slate-400 group-hover:text-black transition-colors" />
+                <span className="text-[9px] font-black uppercase tracking-wider text-slate-600">Careers</span>
               </Link>
             </div>
 
-            {/* Divider */}
-            <div className="h-px bg-slate-100 my-3" />
-
-            {/* User */}
-            <div className="px-4 py-3 flex items-center justify-between">
-              <div>
-                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Active User</p>
-                <p className="text-sm font-black text-slate-900 mt-0.5">{user ? user.name : "Guest User"}</p>
+            {/* Footer Section - Profile Card */}
+            <div className="mt-6 p-4 rounded-3xl bg-slate-50 border border-slate-100 flex items-center justify-between shadow-inner">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-2xl bg-black flex items-center justify-center text-white text-base font-black shadow-lg">
+                  {user ? user.name[0] : <User size={18} />}
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[8px] font-black text-slate-400 uppercase tracking-[0.15em] leading-none">Scholar</span>
+                  <span className="text-[14px] font-[900] text-slate-900 mt-1 leading-none truncate max-w-[100px]">{user ? user.name : "Guest"}</span>
+                </div>
               </div>
               {user ? (
-                <button onClick={logout} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-50 text-rose-600 text-xs font-bold">
-                  <LogOut size={14} /> Sign Out
+                <button onClick={logout} className="p-3 rounded-xl bg-white text-rose-600 shadow-sm hover:text-rose-700 active:scale-95 transition-all border border-slate-100">
+                  <LogOut size={18} strokeWidth={3} />
                 </button>
               ) : (
-                <Link to="/auth" className="flex items-center gap-2 px-4 py-2 rounded-xl bg-black text-white text-xs font-bold">
-                  <User size={14} /> Login
+                <Link to="/auth" className="px-4 py-2.5 rounded-xl bg-black text-white text-[10px] font-black uppercase tracking-widest active:scale-95 transition-all">
+                  Login
                 </Link>
               )}
             </div>
