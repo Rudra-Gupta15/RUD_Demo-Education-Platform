@@ -53,9 +53,9 @@ export default function Home() {
   return (
     <div className="bg-white min-h-screen font-sans overflow-x-hidden selection:bg-blue-500 selection:text-white text-slate-900">
       <SEO 
-        title="Home | Empowering Minds, Engineering Futures" 
-        description="ConvoSec AI (convosecai) is a premium AI and cybersecurity education platform offering live cohorts, recorded labs, and real-world projects."
-        keywords="convosecai, ConvoSec AI, AI education, cybersecurity courses, ethical hacking, SOC analyst, LLM"
+        title="ConvoSec | Empowering Minds, Engineering Futures" 
+        description="ConvoSec AI (convosecai) is a premium AI and cybersecurity education platform. ConvoSec offers live cohorts, recorded labs, and real-world projects."
+        keywords="convosec, convosecai, ConvoSec AI, convo sec, AI education, cybersecurity courses, ethical hacking, SOC analyst, LLM"
       />
 
       {/* ── LOADING SCREEN ── */}
@@ -205,7 +205,7 @@ export default function Home() {
           <div className="flex-1 z-10">
             <Reveal>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 mb-4 sm:mb-6 tracking-tight">
-                Why Choose <span className="text-blue-600">ConvoSec AI?</span>
+                Why Choose <span className="text-blue-600">ConvoSec?</span>
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
