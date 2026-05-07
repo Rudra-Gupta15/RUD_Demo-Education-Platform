@@ -56,8 +56,8 @@ export default function Checkout() {
 
   return (
     <div className="bg-white min-h-screen text-slate-900 relative">
-      <SEO 
-        title="Secure Checkout | Finalize Your Enrollment" 
+      <SEO
+        title="Secure Checkout | Finalize Your Enrollment"
         description="Complete your enrollment in ConvoSec AI's specialized technical programs. Secure your seat in the upcoming cohort today."
       />
       {/* Structural Background */}
@@ -65,11 +65,14 @@ export default function Checkout() {
 
       {/* Checkout Header: Ultra Minimal */}
       <header className="relative z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 py-6 px-6 md:px-12 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white">
-            <ShieldCheck size={20} />
+        <Link to="/" className="flex items-center gap-4 group">
+          <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white shadow-2xl shadow-slate-200 transition-transform group-hover:scale-105 active:scale-95 overflow-hidden p-1.5">
+            <img src="/logo.png" alt="ConvoSec" className="w-full h-full object-contain" />
           </div>
-          <span className="text-xl font-black tracking-tighter text-slate-900">ConvoSec <span className="text-slate-400 font-medium italic">Checkout</span></span>
+          <div className="flex flex-col">
+            <span className="text-xl font-black tracking-tighter text-slate-900 leading-none">ConvoSec</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mt-1 italic">Checkout</span>
+          </div>
         </Link>
         <Link to="/cart" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition">
           <ChevronLeft size={14} /> Back to Cart
@@ -78,7 +81,7 @@ export default function Checkout() {
 
       <main className="container-shell relative z-10 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-start">
-          
+
           {/* Left Column: Transaction Details */}
           <div className="lg:col-span-7 space-y-16">
             <Reveal>
@@ -106,7 +109,7 @@ export default function Checkout() {
                     { id: "cards", name: "Credit/Debit Cards", desc: "Visa, Mastercard, or RuPay.", icon: CreditCard },
                     { id: "netbanking", name: "Institutional Banking", desc: "Direct secure bank transfer.", icon: Lock },
                   ].map((method) => (
-                    <div 
+                    <div
                       key={method.id}
                       onClick={() => setPaymentMethod(method.id)}
                       className={`group cursor-pointer p-6 rounded-2xl border transition-all duration-300 ${paymentMethod === method.id ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-slate-100 hover:border-slate-300'}`}
@@ -127,7 +130,7 @@ export default function Checkout() {
                       </div>
 
                       {paymentMethod === "upi" && method.id === "upi" && (
-                        <motion.div 
+                        <motion.div
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: "auto" }}
                           className="mt-6 pt-6 border-t border-white/10 space-y-4"
@@ -222,7 +225,7 @@ export default function Checkout() {
                     <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest border border-slate-100 px-3 py-1 rounded-full">{cartCount} ITEM{cartCount > 1 ? 'S' : ''}</span>
                   </div>
 
-                  <button 
+                  <button
                     onClick={async () => {
                       try {
                         for (const item of cartItems) {

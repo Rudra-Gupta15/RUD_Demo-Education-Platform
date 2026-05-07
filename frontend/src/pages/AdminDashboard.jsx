@@ -398,20 +398,20 @@ const css = `
 
 // ── Nav config ────────────────────────────────────────────────────────────────
 const NAV = [
-  { id: "overview",   label: "Overview",        icon: LayoutDashboard, section: "Main" },
-  { id: "users",      label: "Users",           icon: Users,           badge: null,    section: null },
-  { id: "courses",    label: "Courses",         icon: BookOpen,                        section: null },
-  { id: "api",        label: "API Reference",   icon: Terminal,        section: "System" },
-  { id: "dev_access", label: "Access Control",  icon: ShieldCheck,                     section: null },
-  { id: "messages",   label: "Messages",        icon: Mail,            badge: "contacts_count", section: null },
-  { id: "settings",   label: "Settings",        icon: Settings,                        section: null },
+  { id: "overview", label: "Overview", icon: LayoutDashboard, section: "Main" },
+  { id: "users", label: "Users", icon: Users, badge: null, section: null },
+  { id: "courses", label: "Courses", icon: BookOpen, section: null },
+  { id: "api", label: "API Reference", icon: Terminal, section: "System" },
+  { id: "dev_access", label: "Access Control", icon: ShieldCheck, section: null },
+  { id: "messages", label: "Messages", icon: Mail, badge: "contacts_count", section: null },
+  { id: "settings", label: "Settings", icon: Settings, section: null },
 ];
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
-const AVATARS = ["#4f46e5","#0284c7","#16a34a","#d97706","#dc2626","#7c3aed","#0891b2"];
+const AVATARS = ["#4f46e5", "#0284c7", "#16a34a", "#d97706", "#dc2626", "#7c3aed", "#0891b2"];
 const avatarColor = (str) => AVATARS[(str?.charCodeAt(0) || 0) % AVATARS.length];
-const initials = (name) => name?.split(" ").map(w => w[0]).join("").slice(0,2).toUpperCase() || "?";
-const today = new Date().toLocaleDateString("en-GB", { weekday:"long", day:"numeric", month:"long", year:"numeric" });
+const initials = (name) => name?.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase() || "?";
+const today = new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 
 // ── Main Component ────────────────────────────────────────────────────────────
 export default function AdminDashboard() {
@@ -522,8 +522,8 @@ export default function AdminDashboard() {
 
   return (
     <>
-      <SEO 
-        title="Admin Dashboard | Control Plane" 
+      <SEO
+        title="Admin Dashboard | Control Plane"
         description="Secure administrative interface for managing the ConvoSec AI education platform infrastructure and user metrics."
       />
       <style>{css}</style>
@@ -665,10 +665,10 @@ export default function AdminDashboard() {
 function OverviewTab({ stats, data, isLoading, onDelete }) {
   const users = data?.users || [];
   const metrics = [
-    { label: "Total users",   value: stats?.users ?? "—",   delta: "+12.4%", up: true,  iconStyle: { background: "#eef2ff" }, iconColor: "#4f46e5", Icon: Users },
-    { label: "Active courses", value: stats?.courses ?? "—", delta: "+3 this week", up: true,  iconStyle: { background: "#f0fdf4" }, iconColor: "#16a34a", Icon: BookOpen },
-    { label: "Inquiries",     value: stats?.contacts ?? "—", delta: "Pending", up: false, iconStyle: { background: "#fffbeb" }, iconColor: "#d97706", Icon: Mail },
-    { label: "API uptime",    value: "99.98%",               delta: "Stable",  up: true,  iconStyle: { background: "#f0f9ff" }, iconColor: "#0284c7", Icon: Activity },
+    { label: "Total users", value: stats?.users ?? "—", delta: "+12.4%", up: true, iconStyle: { background: "#eef2ff" }, iconColor: "#4f46e5", Icon: Users },
+    { label: "Active courses", value: stats?.courses ?? "—", delta: "+3 this week", up: true, iconStyle: { background: "#f0fdf4" }, iconColor: "#16a34a", Icon: BookOpen },
+    { label: "Inquiries", value: stats?.contacts ?? "—", delta: "Pending", up: false, iconStyle: { background: "#fffbeb" }, iconColor: "#d97706", Icon: Mail },
+    { label: "API uptime", value: "99.98%", delta: "Stable", up: true, iconStyle: { background: "#f0f9ff" }, iconColor: "#0284c7", Icon: Activity },
   ];
 
   return (
@@ -721,7 +721,7 @@ function OverviewTab({ stats, data, isLoading, onDelete }) {
                         <div className="qr-row-name">{u.name}</div>
                         <div className="qr-row-sub">{u.email}</div>
                       </td>
-                      <td><span className="qr-mono">{u.created_at ? new Date(u.created_at).toLocaleDateString("en-GB", { day:"numeric", month:"short" }) : "—"}</span></td>
+                      <td><span className="qr-mono">{u.created_at ? new Date(u.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "—"}</span></td>
                       <td><span className="qr-badge qr-badge-success">Active</span></td>
                       <td>
                         <button className="qr-action-btn" title="Edit"><Edit size={13} /></button>
@@ -744,9 +744,9 @@ function OverviewTab({ stats, data, isLoading, onDelete }) {
           <div className="qr-activity">
             {[
               { color: "#22c55e", text: "New security researcher registered — Sarah Chen", time: "2 hours ago" },
-              { color: "#3b82f6", text: "Course 'Advanced VAPT' published successfully",  time: "5 hours ago" },
+              { color: "#3b82f6", text: "Course 'Advanced VAPT' published successfully", time: "5 hours ago" },
               { color: "#f59e0b", text: "Anomalous login attempt detected from IP 192.168.1.1", time: "Yesterday" },
-              { color: "#ef4444", text: "Developer seat revoked — Operator #0019",          time: "Yesterday" },
+              { color: "#ef4444", text: "Developer seat revoked — Operator #0019", time: "Yesterday" },
               { color: "#22c55e", text: "Core security audit completed — No vulnerabilities", time: "May 4, 2026" },
             ].map((a, i) => (
               <div key={i} className="qr-act-item">
@@ -775,7 +775,7 @@ function OverviewTab({ stats, data, isLoading, onDelete }) {
           </div>
           {[
             { num: "01", name: "Systems Architecture Fundamentals", enrolled: "312 enrolled", pct: 78 },
-            { num: "02", name: "API Design & Integration Patterns",  enrolled: "218 enrolled", pct: 55 },
+            { num: "02", name: "API Design & Integration Patterns", enrolled: "218 enrolled", pct: 55 },
             { num: "03", name: "Infrastructure Security Essentials", enrolled: "174 enrolled", pct: 40 },
             { num: "04", name: "Data Engineering with Cloud Platforms", enrolled: "97 enrolled", pct: 22 },
           ].map((c, i) => (
@@ -846,18 +846,17 @@ function ResourceTab({ type, data, isLoading, onDelete, onEdit }) {
                     </td>
                     <td>
                       <span className="qr-mono">
-                        {type === "users" 
-                          ? (item.id ? `#${String(item.id).padStart(4,"0")}` : "—")
+                        {type === "users"
+                          ? (item.id ? `#${String(item.id).padStart(4, "0")}` : "—")
                           : `₹${item.price}`
                         }
                       </span>
                     </td>
                     <td>
-                      <span className={`qr-badge ${
-                        item.status === "Inactive" ? "qr-badge-info" : 
-                        item.status === "Suspended" ? "qr-badge-danger" : 
-                        "qr-badge-success"
-                      }`}>
+                      <span className={`qr-badge ${item.status === "Inactive" ? "qr-badge-info" :
+                          item.status === "Suspended" ? "qr-badge-danger" :
+                            "qr-badge-success"
+                        }`}>
                         {item.status || "Active"}
                       </span>
                     </td>
@@ -892,11 +891,11 @@ function ApiTab() {
 
 function ApiEndpoints() {
   const endpoints = [
-    { method: "POST", cls: "qr-method-post", path: "/api/auth/signup",            desc: "User provisioning" },
-    { method: "GET",  cls: "qr-method-get",  path: "/api/courses",                desc: "Fetch curriculum" },
-    { method: "GET",  cls: "qr-method-get",  path: "/api/admin/stats",            desc: "System metrics" },
-    { method: "POST", cls: "qr-method-post", path: "/api/admin/developers",       desc: "Provision access" },
-    { method: "DEL",  cls: "qr-method-del",  path: "/api/admin/developers/:id",   desc: "Revoke seat" },
+    { method: "POST", cls: "qr-method-post", path: "/api/auth/signup", desc: "User provisioning" },
+    { method: "GET", cls: "qr-method-get", path: "/api/courses", desc: "Fetch curriculum" },
+    { method: "GET", cls: "qr-method-get", path: "/api/admin/stats", desc: "System metrics" },
+    { method: "POST", cls: "qr-method-post", path: "/api/admin/developers", desc: "Provision access" },
+    { method: "DEL", cls: "qr-method-del", path: "/api/admin/developers/:id", desc: "Revoke seat" },
   ];
   return (
     <>
@@ -1009,9 +1008,9 @@ function SettingsTab({ isDark, setIsDark }) {
 // ── Developer Form ────────────────────────────────────────────────────────────
 function DeveloperForm({ initialData, onSubmit, onCancel }) {
   const [form, setForm] = useState({
-    name:  initialData?.name  || "",
+    name: initialData?.name || "",
     email: initialData?.email || "",
-    pin:   initialData?.pin   || "",
+    pin: initialData?.pin || "",
   });
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
@@ -1041,16 +1040,16 @@ function DeveloperForm({ initialData, onSubmit, onCancel }) {
 // ── Course Form ───────────────────────────────────────────────────────────────
 function CourseForm({ initialData, onSubmit, onCancel }) {
   const [form, setForm] = useState({
-    slug:            initialData?.slug            || "",
-    title:           initialData?.title           || "",
-    category:        initialData?.category        || "AI",
-    difficulty:      initialData?.difficulty      || "Beginner",
-    price:           initialData?.price           || 849,
-    original_price:  initialData?.original_price  || 3499,
-    image:           initialData?.image           || "",
-    video_url:       initialData?.video_url       || "",
-    duration:        initialData?.duration        || "8 weeks",
-    description:     initialData?.description     || "",
+    slug: initialData?.slug || "",
+    title: initialData?.title || "",
+    category: initialData?.category || "AI",
+    difficulty: initialData?.difficulty || "Beginner",
+    price: initialData?.price || 849,
+    original_price: initialData?.original_price || 3499,
+    image: initialData?.image || "",
+    video_url: initialData?.video_url || "",
+    duration: initialData?.duration || "8 weeks",
+    description: initialData?.description || "",
     instructor_name: initialData?.instructor_name || "Nikky Bisen",
   });
   const [uploading, setUploading] = useState(false);
@@ -1206,16 +1205,16 @@ function MessagesTab({ data, isLoading, onDelete }) {
                 </div>
                 <div className="qr-msg-meta">
                   <span className="qr-msg-time">
-                    {msg.created_at ? new Date(msg.created_at).toLocaleDateString("en-GB", { 
-                      day: "numeric", 
-                      month: "short", 
+                    {msg.created_at ? new Date(msg.created_at).toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "short",
                       year: "numeric",
                       hour: "2-digit",
                       minute: "2-digit"
                     }) : "—"}
                   </span>
-                  <button 
-                    className="qr-action-btn danger" 
+                  <button
+                    className="qr-action-btn danger"
                     title="Archive/Delete"
                     onClick={() => onDelete("contacts", msg.id)}
                   >
@@ -1223,7 +1222,7 @@ function MessagesTab({ data, isLoading, onDelete }) {
                   </button>
                 </div>
               </div>
-              
+
               {(msg.organization || msg.sector || msg.subject) && (
                 <div className="qr-msg-org">
                   {msg.organization && <strong>{msg.organization}</strong>}
@@ -1232,7 +1231,7 @@ function MessagesTab({ data, isLoading, onDelete }) {
                   {msg.subject && <div style={{ marginTop: 4, opacity: 0.8 }}>Subject: {msg.subject}</div>}
                 </div>
               )}
-              
+
               <div className="qr-msg-body">
                 {msg.message}
               </div>

@@ -21,12 +21,12 @@ const SEO = ({
       {/* Standard metadata tags */}
       <title>{fullTitle}</title>
       <meta name='description' content={finalDescription} />
-      <meta name='keywords' content={`convosecai, ${keywords || 'AI, Cybersecurity, Education'}`} />
+      <meta name='keywords' content={`convosec, convo sec, convo, convosecai, convo ai, ${keywords || 'AI, Cybersecurity, Education, Industrial Intelligence'}`} />
       {canonical && <link rel="canonical" href={canonical} />}
 
       {/* Brand Identity / Search Authority */}
-      <meta name="application-name" content="convosecai" />
-      <meta name="apple-mobile-web-app-title" content="convosecai" />
+      <meta name="application-name" content="ConvoSec AI" />
+      <meta name="apple-mobile-web-app-title" content="ConvoSec AI" />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={ogType} />
@@ -45,7 +45,7 @@ const SEO = ({
           "@context": "https://schema.org",
           "@type": "Organization",
           "name": "ConvoSec AI",
-          "alternateName": "convosecai",
+          "alternateName": ["convosec", "convo sec", "convosecai", "convo", "convo ai"],
           "url": "https://convosecai.com",
           "logo": "https://convosecai.com/logo.png",
           "sameAs": [

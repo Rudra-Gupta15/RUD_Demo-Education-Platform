@@ -192,8 +192,8 @@ export default function Navbar() {
               <>
                 <div className="h-px bg-slate-100/80 my-4 mx-2" />
                 <div className="flex flex-col gap-1.5">
-                  <Link 
-                    to="/dashboard" 
+                  <Link
+                    to="/dashboard"
                     className={`group flex items-center gap-3 px-4 py-4 rounded-2xl transition-all duration-300 ${location.pathname === "/dashboard" ? "bg-indigo-600 text-white shadow-xl shadow-indigo-100" : "bg-indigo-50/50 text-indigo-600 hover:bg-indigo-50 hover:pl-5"}`}
                   >
                     <div className={`w-9 h-9 rounded-xl flex items-center justify-center shadow-sm ${location.pathname === "/dashboard" ? "bg-white/20" : "bg-white"}`}>
