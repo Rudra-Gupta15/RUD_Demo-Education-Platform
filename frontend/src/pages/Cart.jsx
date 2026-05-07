@@ -31,9 +31,11 @@ export default function Cart() {
   const firstItem = cartItems[0];
   const recommendations = firstItem
     ? demoCourses
-      .filter((c) => c.topic === firstItem.topic && !cartItems.some((cart) => cart.id === c.id))
-      .slice(0, 5)
-    : demoCourses.slice(0, 5);
+      .filter((c) => !cartItems.some((cart) => cart.id === c.id))
+      .sort(() => Math.random() - 0.5) // Randomize for variety
+      .sort((a, b) => (a.topic === firstItem.topic ? -1 : 1)) // But prioritize same topic
+      .slice(0, 10)
+    : demoCourses.slice(0, 10);
 
   return (
     <section className="container-shell min-h-screen pt-32 pb-16">

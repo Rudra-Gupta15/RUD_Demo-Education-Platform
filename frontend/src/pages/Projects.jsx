@@ -88,7 +88,13 @@ const demoProjects = [
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [hoveredId, setHoveredId] = useState(null);
+  const [mounted, setMounted] = useState(false);
   const containerRef = useRef(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -50]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
@@ -183,6 +189,7 @@ export default function Projects() {
                       <motion.img
                         src={project.image}
                         alt={project.title}
+                        loading="lazy"
                         className="w-full h-full object-cover"
                         style={{
                           filter: 'grayscale(0%)',
@@ -219,8 +226,8 @@ export default function Projects() {
                           {String(idx + 1).padStart(2, '0')}
                         </motion.span>
                         
-                        <div className="px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
-                          <span className="text-[10px] font-['Space_Mono'] tracking-widest text-white/90 uppercase">
+                        <div className="h-8 px-4 flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
+                          <span className="text-[10px] font-['Space_Mono'] tracking-widest text-white/90 uppercase leading-none">
                             {project.tag}
                           </span>
                         </div>
@@ -252,7 +259,7 @@ export default function Projects() {
                             {project.tech_stack.slice(0, 3).map((tech, i) => (
                               <motion.div 
                                 key={tech}
-                                className="px-3 py-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full"
+                                className="h-6 px-3 flex items-center justify-center bg-white/5 backdrop-blur-sm border border-white/10 rounded-full"
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ 
                                   opacity: hoveredId === project.id ? 1 : 0,
@@ -260,7 +267,7 @@ export default function Projects() {
                                 }}
                                 transition={{ delay: i * 0.1, duration: 0.3 }}
                               >
-                                <span className="text-[10px] font-['Space_Mono'] text-white/80">
+                                <span className="text-[10px] font-['Space_Mono'] text-white/80 leading-none">
                                   {tech}
                                 </span>
                               </motion.div>
@@ -298,7 +305,7 @@ export default function Projects() {
       </section>
 
       {/* ── MODAL ── */}
-      {typeof document !== 'undefined' && createPortal(
+      {mounted && typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
           {selectedProject && (
             <motion.div 
@@ -355,8 +362,8 @@ export default function Projects() {
                     </h2>
                     <div className="flex gap-2 flex-wrap">
                       {selectedProject.tech_stack.map(tech => (
-                        <div key={tech} className="px-3 py-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
-                          <span className="text-[10px] font-['Space_Mono'] text-white/80">{tech}</span>
+                        <div key={tech} className="h-6 px-3 flex items-center justify-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
+                          <span className="text-[10px] font-['Space_Mono'] text-white/80 leading-none">{tech}</span>
                         </div>
                       ))}
                     </div>
@@ -484,7 +491,7 @@ export default function Projects() {
                 The <span className="text-[#004aad] drop-shadow-sm">VAPT</span> Framework
               </h2>
               <p className="text-slate-600 text-lg lg:text-xl leading-relaxed font-medium max-w-3xl border-l-4 border-blue-600 pl-8">
-                Vulnerable Accessible Penetration Techniques (VAPT) is our core organizational standard. 
+                Vulnerability Assessment and Penetration Testing (VAPT) is our core organizational standard. 
                 Everything we do in cybersecurity — from training to live enterprise services — 
                 flows through this unified framework.
               </p>

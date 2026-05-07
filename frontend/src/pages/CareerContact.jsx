@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckCircle2, Mail, Send, GraduationCap, Briefcase, FileText, UserCheck, Sparkles, Rocket, Users, ShieldAlert, Code2, ArrowRight, Shield, Award, MapPin } from "lucide-react";
+import { CheckCircle2, Mail, Send, GraduationCap, Briefcase, FileText, UserCheck, Sparkles, Rocket, Users, ShieldAlert, Code2, ArrowRight, Shield, Award, MapPin, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { api } from "../api/client.js";
 import Reveal from "../components/Reveal.jsx";
@@ -7,18 +7,18 @@ import SEO from "../components/SEO.jsx";
 
 const careerBenefits = [
   {
-    title: "Frontier Innovation",
-    desc: "Work on production-grade AI agents and autonomous cybersecurity defense systems that solve real-world vulnerabilities.",
+    title: "Pioneer Frontier AI",
+    desc: "Architect production-grade neural agents and autonomous defense systems that navigate the edge of modern digital vulnerabilities.",
     icon: Sparkles
   },
   {
-    title: "Radical Growth",
-    desc: "Direct mentorship from industry veterans and the freedom to own complex engineering pipelines from day one.",
+    title: "Exponential Trajectory",
+    desc: "Experience radical professional evolution through direct collaboration with industry veterans and complete ownership of end-to-end engineering pipelines.",
     icon: Rocket
   },
   {
-    title: "Global Impact",
-    desc: "Your research and code will empower thousands of developers and security professionals across the globe.",
+    title: "Global Network Sovereignty",
+    desc: "Your contributions will secure the digital assets of thousands, defining the security standards for a globally connected ecosystem.",
     icon: Users
   }
 ];
@@ -43,6 +43,18 @@ export default function CareerContact() {
   });
   const [status, setStatus] = useState({ type: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [otherRole, setOtherRole] = useState("");
+  const roles = [
+    "Internship (3-6 mo)",
+    "Full-time Engineering",
+    "Project-based Contractor",
+    "AI Research Fellowship",
+    "Technical Content Writer",
+    "Security Researcher (Bug Bounty)",
+    "Campus Ambassador",
+    "Others"
+  ];
 
   function update(field) {
     return (e) => setForm({ ...form, [field]: e.target.value });
@@ -62,13 +74,15 @@ export default function CareerContact() {
     setSubmitting(true);
     setStatus({ type: "" });
     try {
+      const roleValue = form.role === "Others" ? `Other: ${otherRole}` : form.role;
       // In a real app, you'd use FormData for file uploads
       await api("/api/contact", { 
         method: "POST", 
         body: JSON.stringify({ 
           ...form, 
+          role: roleValue,
           resume: form.resume ? form.resume.name : "No file attached",
-          subject: `Career Application: ${form.role}` 
+          subject: `Career Application: ${roleValue}` 
         }) 
       });
       setStatus({
@@ -112,16 +126,16 @@ export default function CareerContact() {
           
           {/* Left Column: Benefits & Values */}
           <div className="lg:col-span-5 space-y-12">
-            <div className="space-y-8">
+            <div className="space-y-10">
               {careerBenefits.map((benefit, i) => (
                 <Reveal key={benefit.title} delay={0.1 + i * 0.1}>
-                  <div className="group flex gap-6 pb-8 border-b border-slate-100 last:border-0">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-900 group-hover:bg-brandprimary group-hover:text-white group-hover:border-brandprimary transition-all">
-                      <benefit.icon size={20} />
+                  <div className="group flex gap-8">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:border-slate-900 group-hover:text-slate-900 transition-all duration-300 shadow-sm">
+                      <benefit.icon size={22} strokeWidth={1.5} />
                     </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-slate-900 mb-2">{benefit.title}</h3>
-                      <p className="text-sm text-slate-500 leading-relaxed font-medium">{benefit.desc}</p>
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-bold text-slate-900 tracking-tight">{benefit.title}</h3>
+                      <p className="text-sm text-slate-500 leading-relaxed font-medium max-w-sm">{benefit.desc}</p>
                     </div>
                   </div>
                 </Reveal>
@@ -129,15 +143,16 @@ export default function CareerContact() {
             </div>
 
             <Reveal delay={0.4}>
-              <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6">Our DNA</h3>
-                <div className="grid grid-cols-2 gap-4">
+              <div className="mt-12 p-10 rounded-[2rem] bg-white border border-slate-100 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.05)] relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full -mr-16 -mt-16" />
+                <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-400 mb-8 relative z-10">Our Cultural DNA</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-8 relative z-10">
                   {cultureValues.map((val) => (
-                    <div key={val.title} className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded bg-white border border-slate-200 flex items-center justify-center">
-                        <val.icon size={12} className="text-slate-400" />
+                    <div key={val.title} className="flex items-center gap-4 group">
+                      <div className="w-8 h-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center group-hover:border-slate-900 transition-colors">
+                        <val.icon size={14} className="text-slate-400 group-hover:text-slate-900" />
                       </div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600">{val.title}</span>
+                      <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">{val.title}</span>
                     </div>
                   ))}
                 </div>
@@ -194,19 +209,72 @@ export default function CareerContact() {
                         required
                       />
                     </div>
-                    <div className="space-y-3">
+                    <div className="space-y-3 relative">
                       <label className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">Inquiry Type</label>
-                      <select
-                        className="w-full bg-transparent border-b border-slate-200 py-2 text-slate-900 outline-none transition-all focus:border-brandprimary appearance-none cursor-pointer font-bold"
-                        value={form.role}
-                        onChange={update("role")}
-                        required
-                      >
-                        <option value="Internship">Internship (3-6 mo)</option>
-                        <option value="Full-time">Full-time Engineering</option>
-                        <option value="Freelance">Project-based Contractor</option>
-                        <option value="Research">AI Research Fellowship</option>
-                      </select>
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={() => setIsOpen(!isOpen)}
+                          className="w-full bg-transparent border-b border-slate-200 py-2 text-slate-900 outline-none transition-all flex items-center justify-between group"
+                        >
+                          <span className={form.role ? "text-slate-900 font-bold" : "text-slate-300"}>
+                            {form.role || "Select Role"}
+                          </span>
+                          <ChevronDown size={14} className={`text-slate-300 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
+                        </button>
+
+                        <AnimatePresence>
+                          {isOpen && (
+                            <>
+                              <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
+                              <motion.div
+                                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                className="absolute left-0 right-0 top-full mt-2 bg-white border border-slate-100 rounded-2xl shadow-xl z-50 overflow-y-auto max-h-[300px] py-2 scrollbar-none"
+                              >
+                                {roles.map((r) => (
+                                  <button
+                                    key={r}
+                                    type="button"
+                                    onClick={() => {
+                                      setForm({ ...form, role: r });
+                                      setIsOpen(false);
+                                    }}
+                                    className={`w-full text-left px-5 py-3 text-sm transition-colors ${
+                                      form.role === r 
+                                        ? "bg-slate-900 text-white font-bold" 
+                                        : "text-slate-600 hover:bg-slate-50 font-medium"
+                                    }`}
+                                  >
+                                    {r}
+                                  </button>
+                                ))}
+                              </motion.div>
+                            </>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      {/* Optional "Other" input */}
+                      <AnimatePresence>
+                        {form.role === "Others" && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="pt-4"
+                          >
+                            <input
+                              className="w-full bg-transparent border-b border-slate-200 py-2 text-slate-900 outline-none transition-all placeholder:text-slate-300 focus:border-brandprimary text-sm italic font-medium"
+                              placeholder="Specify the role you're looking for..."
+                              value={otherRole}
+                              onChange={(e) => setOtherRole(e.target.value)}
+                              required
+                            />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </div>
 
@@ -378,12 +446,10 @@ export default function CareerContact() {
                   We don't just hire for skills; we hire for obsession. If you spend your weekends fine-tuning models or hunting for Zero-Days, you belong at ConvoSec.
                 </p>
                 <div className="flex items-center gap-6">
-                  <div className="flex -space-x-3">
-                    {[1,2,3,4].map(i => (
-                      <div key={i} className="w-12 h-12 rounded-full border-4 border-slate-800 bg-slate-700 overflow-hidden shadow-sm">
-                        <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="Team member" className="" />
-                      </div>
-                    ))}
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-500">
+                      <Users size={20} />
+                    </div>
                   </div>
                   <div>
                     <p className="text-sm font-black text-white">Join our growing team</p>

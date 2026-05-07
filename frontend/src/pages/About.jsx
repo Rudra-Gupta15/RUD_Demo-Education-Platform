@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Brain, ShieldCheck, Users, Target, Linkedin, Github, Globe, Mail, ArrowUpRight, Sparkles, MoveRight } from "lucide-react";
 import SEO from "../components/SEO.jsx";
@@ -49,14 +50,16 @@ const services = [
     tag: "Education",
     desc: "Structured training programs covering Python fundamentals, Artificial Intelligence, Machine Learning, and Deep Learning — with hands-on project work throughout.",
     points: ["Python Foundations", "ML Algorithms", "Deep Learning", "Project Work"],
+    href: "/learning"
   },
   {
     icon: ShieldCheck,
     num: "02",
     title: "Cybersecurity Training (VAPT)",
     tag: "Security",
-    desc: "Courses under the Vulnerable Accessible Penetration Techniques (VAPT) framework covering Networking, Digital Forensics, and Compliance.",
+    desc: "Courses under the Vulnerability Assessment and Penetration Testing (VAPT) framework covering Networking, Digital Forensics, and Compliance.",
     points: ["Networking", "Digital Forensics", "Compliance", "VAPT Framework"],
+    href: "/learning"
   },
   {
     icon: Users,
@@ -65,6 +68,7 @@ const services = [
     tag: "Internships",
     desc: "Real-time internship placements on live company projects, managed by domain experts with continuous mentorship, evaluation, and certification.",
     points: ["Live Projects", "Expert Mentorship", "Performance Evaluation", "Zero Cost"],
+    href: "/projects"
   },
   {
     icon: Target,
@@ -73,6 +77,7 @@ const services = [
     tag: "Expertise",
     desc: "Each student or intern is assigned to a domain-specific expert who oversees their progress, provides technical guidance, and evaluates performance.",
     points: ["1-on-1 Guidance", "Technical Support", "Progress Tracking", "Milestone Checks"],
+    href: "/learning"
   },
   {
     icon: Sparkles,
@@ -81,6 +86,7 @@ const services = [
     tag: "Recognition",
     desc: "All course completers receive Completion Certificates and source code. Interns receive Letters of Recommendation based on performance.",
     points: ["Completion Certificates", "Project Source Code", "Letters of Recommendation", "Performance Badges"],
+    href: "/learning"
   },
 ];
 
@@ -195,10 +201,10 @@ const teamworkQuotes = [
 ];
 
 const stats = [
-  { value: "50+", label: "Projects Built" },
-  { value: "05", label: "Core Services" },
-  { value: "100%", label: "AI-Powered" },
-  { value: "4", label: "Expert Team" },
+  { value: "20+", label: "Projects Built" },
+  { value: "04", label: "Core Domains" },
+  { value: "100%", label: "Practical" },
+  { value: "Founders", label: "Led Mentorship" },
 ];
 
 /* ─── SERVICE ROW ───────────────────────────────────────────────── */
@@ -264,7 +270,7 @@ function ServiceRow({ service, idx }) {
               </div>
 
               {/* Interaction Circle — hidden on very small */}
-              <div className="shrink-0 relative hidden sm:block">
+              <Link to={service.href} className="shrink-0 relative hidden sm:block">
                 <motion.div
                   animate={{
                     scale: open ? 1.1 : 1,
@@ -285,7 +291,7 @@ function ServiceRow({ service, idx }) {
                     className="absolute inset-0 bg-blue-400 rounded-full -z-10"
                   />
                 )}
-              </div>
+              </Link>
             </div>
           </div>
         </div>

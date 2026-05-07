@@ -55,10 +55,10 @@ const features = [
 ];
 
 const stats = [
-  ["12k+", "learners trained"],
-  ["42", "cohorts shipped"],
-  ["96%", "project completion"],
-  ["28", "industry labs"]
+  ["850+", "learners trained"],
+  ["12", "cohorts shipped"],
+  ["94%", "project completion"],
+  ["8", "industry labs"]
 ];
 
 const testimonials = [
@@ -165,9 +165,9 @@ export default function Learning() {
     {
       title: "Learn. Grow.\nGet Ahead with AI",
       bulletPoints: [
-        "15,000+ Careers advanced",
-        "100+ Live classes every month",
-        "92% Report career success"
+        "500+ Careers advanced",
+        "Weekly interactive cohorts",
+        "Project-based mastery"
       ],
       primaryBtn: "Explore Programs",
       primaryUrl: "/courses",
@@ -178,9 +178,9 @@ export default function Learning() {
     {
       title: "Master Cyber Security.\nProtect the Future.",
       bulletPoints: [
-        "10,000+ Certified learners",
-        "Real SOC environments",
-        "88% Placement rate"
+        "200+ Certified learners",
+        "Hands-on laboratory access",
+        "Direct industry mentorship"
       ],
       primaryBtn: "Explore Labs",
       primaryUrl: "/projects",

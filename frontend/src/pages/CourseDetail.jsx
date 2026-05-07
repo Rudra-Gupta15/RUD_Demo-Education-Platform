@@ -104,11 +104,7 @@ export default function CourseDetail() {
           >
             <ArrowLeft size={15} /> All Courses
           </Link>
-          <div className="flex items-center gap-4 text-slate-400">
-            <Share2 size={15} className="cursor-pointer hover:text-slate-600 transition-colors" />
-            <Mail size={15} className="cursor-pointer hover:text-slate-600 transition-colors" />
-            <LinkIcon size={15} className="cursor-pointer hover:text-slate-600 transition-colors" />
-          </div>
+
         </div>
       </div>
 
@@ -188,6 +184,7 @@ export default function CourseDetail() {
                 <img
                   src={course.image}
                   alt={course.title}
+                  onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"; }}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent p-6 flex flex-col justify-end gap-3">
@@ -445,11 +442,9 @@ export default function CourseDetail() {
           <div className="max-w-3xl mx-auto p-8 md:p-12 rounded-2xl bg-slate-50 border border-slate-100 flex flex-col md:flex-row items-center gap-10">
             <div className="relative flex-shrink-0">
               <div className="absolute -inset-3 bg-blue-100/60 rounded-2xl blur-xl" />
-              <img
-                src={detail.instructor.avatar}
-                alt={detail.instructor.name}
-                className="relative w-28 h-28 rounded-2xl object-cover shadow-xl border-4 border-white"
-              />
+              <div className="relative w-28 h-28 rounded-2xl bg-white shadow-xl border-4 border-white flex items-center justify-center text-slate-200">
+                <Users size={48} strokeWidth={1.5} />
+              </div>
             </div>
             <div className="text-center md:text-left">
               <span className="inline-block px-3 py-1 rounded-full bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest mb-3">

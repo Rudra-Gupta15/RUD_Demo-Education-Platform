@@ -82,8 +82,9 @@ export default function Home() {
                   }}
                 >
                   <img
-                    src="22.jpg"
+                    src="/22.png"
                     alt="Pioneering AI & Cybersecurity Team"
+                    loading="lazy"
                     className="w-full h-full object-cover transition-all duration-700"
                   />
                 </div>
@@ -179,6 +180,7 @@ export default function Home() {
                 <img
                   src={pillar.img}
                   alt={pillar.name}
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className={`absolute inset-0 bg-gradient-to-t ${pillar.color} via-black/20 to-transparent opacity-80 transition-opacity group-hover:opacity-95`} />
@@ -246,6 +248,7 @@ export default function Home() {
                   src="/tech_office_collaboration_premium_1777889270846.png"
                   className="w-full h-full object-cover opacity-80"
                   alt="Tech Innovation"
+                  loading="lazy"
                 />
               </div>
             </Reveal>
@@ -279,7 +282,7 @@ export default function Home() {
         <div className="relative z-10 text-center max-w-2xl px-4">
           <Reveal>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0a192f] mb-4 sm:mb-6 tracking-tight">Ready to secure the future?</h2>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 mb-8 sm:mb-10 font-medium">Join thousands of professionals upgrading their skills today.</p>
+            <p className="text-base sm:text-lg md:text-xl text-slate-600 mb-8 sm:mb-10 font-medium">Join our growing community of professionals upgrading their skills today.</p>
             <Link to="/learning" className="inline-block bg-[#0052cc] text-white px-10 sm:px-12 py-4 sm:py-5 rounded-full font-bold hover:bg-blue-700 transition-colors shadow-[0_10px_30px_rgba(0,82,204,0.3)] hover:-translate-y-1">
               Get Started Now
             </Link>

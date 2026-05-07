@@ -3,8 +3,8 @@ import { Linkedin, Mail, MapPin, Instagram, Twitter } from "lucide-react";
 
 const footerData = {
   contact: [
-    { icon: Mail, text: "rudraconvosecai@gmail.com", href: "mailto:rudraconvosecai@gmail.com" },
-    { icon: MapPin, text: "Remote-first, Worldwide" },
+    { icon: Mail, text: "info@convosecai.com", href: "mailto:info@convosecai.com" },
+    { icon: MapPin, text: "Nagpur, India" },
     { icon: MapPin, text: "AI & Cybersecurity Hub" },
   ],
   programs: [

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckCircle2, Mail, MapPin, MessageSquare, Send, Building2, Briefcase, Globe, Shield, Zap, ArrowRight, Award, Users } from "lucide-react";
+import { CheckCircle2, Mail, MapPin, MessageSquare, Send, Building2, Briefcase, Globe, Shield, Zap, ArrowRight, Award, Users, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { api } from "../api/client.js";
 import Reveal from "../components/Reveal.jsx";
@@ -9,12 +9,12 @@ const contactInfo = [
   { 
     icon: Mail, 
     label: "Strategic Partnerships", 
-    value: "partners@convosec.ai", 
+    value: "info@convosecai.com", 
   },
   { 
     icon: Building2, 
     label: "Global Headquarters", 
-    value: "Tech Hub, Bangalore, IN", 
+    value: "Nagpur, India", 
   },
   { 
     icon: Globe, 
@@ -25,18 +25,18 @@ const contactInfo = [
 
 const benefits = [
   {
-    title: "Tailored AI Roadmaps",
-    desc: "Custom-engineered learning paths aligned with your specific technology stack and business objectives.",
+    title: "Bespoke AI Integration",
+    desc: "Accelerate your digital transformation with custom-engineered learning architectures designed to synchronize with your specific technology stack and long-term KPIs.",
     icon: Zap
   },
   {
-    title: "Vetted Talent Pipeline",
-    desc: "Direct access to our top-performing graduates specialized in Cybersecurity and Applied AI.",
+    title: "Elite Talent Acquisition",
+    desc: "Secure a definitive competitive advantage with direct access to our Tier-1 graduates—vetted specialists in defensive cybersecurity and applied artificial intelligence.",
     icon: Shield
   },
   {
-    title: "Enterprise Resilience",
-    desc: "Collaborative security auditing and AI implementation strategies to future-proof your infrastructure.",
+    title: "Institutional Resilience",
+    desc: "Future-proof your operations through collaborative security audits and strategic AI implementation designed to withstand the next generation of digital threats.",
     icon: Briefcase
   }
 ];
@@ -55,7 +55,11 @@ export default function BusinessContact() {
     setSubmitting(true);
     setStatus({ type: "", message: "" });
     try {
-      await api("/api/contact", { method: "POST", body: JSON.stringify({ ...form, subject: "Business Partnership" }) });
+      const industryValue = form.industry === "Others" ? `Other: ${otherIndustry}` : form.industry;
+      await api("/api/contact", { 
+        method: "POST", 
+        body: JSON.stringify({ ...form, industry: industryValue, subject: "Business Partnership" }) 
+      });
       setStatus({
         type: "success",
         message: "Your inquiry has been logged securely. Our executive team will reach out within 24 business hours."
@@ -67,6 +71,20 @@ export default function BusinessContact() {
       setSubmitting(false);
     }
   }
+  const [isOpen, setIsOpen] = useState(false);
+  const sectors = [
+    "Technology / SaaS",
+    "Finance & Banking",
+    "Healthcare & Life Sciences",
+    "Manufacturing & Industry 4.0",
+    "Retail & E-commerce",
+    "Energy & Utilities",
+    "Public Infrastructure",
+    "Research & Academia",
+    "Defense & Intelligence",
+    "Others"
+  ];
+  const [otherIndustry, setOtherIndustry] = useState("");
 
   return (
     <section className="relative min-h-screen bg-white text-slate-900 pt-32 pb-24 overflow-hidden">
@@ -97,16 +115,16 @@ export default function BusinessContact() {
           
           {/* Left: Benefits & Trust */}
           <div className="lg:col-span-5 space-y-12">
-            <div className="space-y-8">
+            <div className="space-y-10">
               {benefits.map((benefit, i) => (
                 <Reveal key={benefit.title} delay={0.1 + i * 0.1}>
-                  <div className="group flex gap-6 pb-8 border-b border-slate-100 last:border-0">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-900 group-hover:bg-brandprimary group-hover:text-white group-hover:border-brandprimary transition-all">
-                      <benefit.icon size={20} />
+                  <div className="group flex gap-8">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:border-slate-900 group-hover:text-slate-900 transition-all duration-300 shadow-sm">
+                      <benefit.icon size={22} strokeWidth={1.5} />
                     </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-slate-900 mb-2">{benefit.title}</h3>
-                      <p className="text-sm text-slate-500 leading-relaxed font-medium">{benefit.desc}</p>
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-bold text-slate-900 tracking-tight">{benefit.title}</h3>
+                      <p className="text-sm text-slate-500 leading-relaxed font-medium max-w-sm">{benefit.desc}</p>
                     </div>
                   </div>
                 </Reveal>
@@ -114,23 +132,27 @@ export default function BusinessContact() {
             </div>
 
             <Reveal delay={0.4}>
-              <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="flex -space-x-3">
-                    {[1, 2, 3, 4].map(i => (
-                      <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200" />
-                    ))}
+              <div className="mt-12 p-10 rounded-[2rem] bg-white border border-slate-100 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.05)] relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full -mr-16 -mt-16" />
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="flex -space-x-2">
+                      {[1, 2, 3].map(i => (
+                        <div key={i} className="w-9 h-9 rounded-full border-2 border-white bg-slate-100" />
+                      ))}
+                    </div>
+                    <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">Trusted globally</p>
                   </div>
-                  <p className="text-xs font-bold text-slate-900">Joined by 200+ Institutions</p>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <p className="text-2xl font-black text-brandprimary">98%</p>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Success Rate</p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-2xl font-black text-brandprimary">24h</p>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Response Time</p>
+                  
+                  <div className="grid grid-cols-2 gap-12">
+                    <div className="space-y-2">
+                      <p className="text-4xl font-black text-slate-900 tabular-nums tracking-tighter">98.4<span className="text-blue-600">%</span></p>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Success Index</p>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-4xl font-black text-slate-900 tabular-nums tracking-tighter">&lt;24<span className="text-blue-600">h</span></p>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Engagement Latency</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -187,21 +209,75 @@ export default function BusinessContact() {
                         required
                       />
                     </div>
-                    <div className="space-y-3">
+                    <div className="space-y-3 relative">
                       <label className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">Industry Sector</label>
-                      <select
-                        className="w-full bg-transparent border-b border-slate-200 py-2 text-slate-900 outline-none transition-all focus:border-brandprimary appearance-none cursor-pointer"
-                        value={form.industry}
-                        onChange={update("industry")}
-                        required
-                      >
-                        <option value="">Select Sector</option>
-                        <option value="SaaS">Technology / SaaS</option>
-                        <option value="Finance">Finance & Banking</option>
-                        <option value="Public">Public Infrastructure</option>
-                        <option value="Research">Research & Academia</option>
-                        <option value="Defense">Defense & Intelligence</option>
-                      </select>
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={() => setIsOpen(!isOpen)}
+                          className="w-full bg-transparent border-b border-slate-200 py-2 text-slate-900 outline-none transition-all flex items-center justify-between group"
+                        >
+                          <span className={form.industry ? "text-slate-900 font-medium" : "text-slate-300"}>
+                            {form.industry || "Select Sector"}
+                          </span>
+                          <ChevronDown size={14} className={`text-slate-300 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
+                        </button>
+
+                        <AnimatePresence>
+                          {isOpen && (
+                            <>
+                              {/* Backdrop to close */}
+                              <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
+                              
+                              <motion.div
+                                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                                className="absolute left-0 right-0 top-full mt-2 bg-white border border-slate-100 rounded-2xl shadow-xl z-50 overflow-y-auto max-h-[300px] py-2 scrollbar-none"
+                              >
+                                {sectors.map((sector) => (
+                                  <button
+                                    key={sector}
+                                    type="button"
+                                    onClick={() => {
+                                      setForm({ ...form, industry: sector });
+                                      setIsOpen(false);
+                                    }}
+                                    className={`w-full text-left px-5 py-3 text-sm transition-colors ${
+                                      form.industry === sector 
+                                        ? "bg-slate-900 text-white font-bold" 
+                                        : "text-slate-600 hover:bg-slate-50 font-medium"
+                                    }`}
+                                  >
+                                    {sector}
+                                  </button>
+                                ))}
+                              </motion.div>
+                            </>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      {/* Optional "Other" input */}
+                      <AnimatePresence>
+                        {form.industry === "Others" && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="pt-4"
+                          >
+                            <input
+                              className="w-full bg-transparent border-b border-slate-200 py-2 text-slate-900 outline-none transition-all placeholder:text-slate-300 focus:border-brandprimary text-sm italic"
+                              placeholder="Specify your industry..."
+                              value={otherIndustry}
+                              onChange={(e) => setOtherIndustry(e.target.value)}
+                              required
+                            />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </div>
 
@@ -297,8 +373,8 @@ export default function BusinessContact() {
                     </p>
                   </div>
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-full bg-slate-800 border border-slate-700 overflow-hidden">
-                      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Testimonial" className="" />
+                    <div className="w-14 h-14 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-500">
+                      <Building2 size={24} />
                     </div>
                     <div>
                       <p className="text-base font-bold">Marcus Thorne</p>

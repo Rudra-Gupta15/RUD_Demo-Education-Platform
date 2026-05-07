@@ -35,7 +35,7 @@ export const COURSE_DETAILS = {
     instructor: {
       name: "Dr. Anika Sharma",
       title: "Senior ML Engineer · Ex-Google Brain",
-      avatar: "https://i.pravatar.cc/200?u=anika-sharma",
+      avatar: null,
       bio: "Dr. Sharma has 10+ years of experience building ML systems at scale. She led the recommendation engine team at Google Brain before transitioning to education. Her philosophy: every concept must be learned by building something real.",
       socials: { linkedin: "#", mail: "anika@example.com" },
     },
@@ -97,7 +97,71 @@ export const COURSE_DETAILS = {
       { q: "What is the fee structure?", a: "A one-time enrollment fee with an optional EMI plan. Career success guarantee included." },
     ],
     isVapt: false,
-    mindmapImage: "/assets/ai_mindmap.png",
+    mindmapImage: "https://images.unsplash.com/photo-1518186239751-2477cf795151?auto=format&fit=crop&w=800&q=80",
+  },
+
+  /* ───────────────────────────────
+   *  Mathematics for ML
+   * ─────────────────────────────── */
+  "ml-mathematics": {
+    tagline: "The Foundation of AI",
+    fullDescription:
+      "Master the essential mathematics required to understand and build machine learning models. We cover Linear Algebra, Calculus, and Probability with a focus on how they apply to gradients, loss functions, and optimization.",
+    highlights: [
+      "Visual explanations of complex math",
+      "Python-based math implementations",
+      "Directly apply math to ML models",
+    ],
+    meta: {
+      duration: "2 Months",
+      level: "Beginner",
+      updated: "March 2025",
+      students: "2,100+",
+    },
+    instructor: {
+      name: "Nikky Bisen",
+      title: "AI Specialist & Educator",
+      avatar: null,
+      bio: "Nikky has a passion for making complex topics accessible. With years of experience in AI education, he focuses on the 'why' behind the math to help students build a deep intuition for algorithms.",
+      socials: { linkedin: "#", mail: "nikky@example.com" },
+    },
+    features: [
+      { title: "Visual Learning", desc: "Understand linear algebra through geometric intuition and code.", icon: "BarChart2" },
+      { title: "Calculus for ML", desc: "Master partial derivatives and chain rule for backpropagation.", icon: "Zap" },
+      { title: "Probability", desc: "Learn Bayes' theorem and distributions for statistical modeling.", icon: "Search" },
+      { title: "Optimization", desc: "Implement gradient descent from scratch using calculus.", icon: "Rocket" },
+    ],
+    syllabus: [
+      {
+        module: "Linear Algebra",
+        items: ["Vectors, Matrices, and Tensors", "Matrix Multiplication and Inverses", "Eigenvalues and Eigenvectors"],
+      },
+      {
+        module: "Calculus",
+        items: ["Derivatives and Gradients", "Chain Rule & Backpropagation", "Vector Calculus basics"],
+      },
+      {
+        module: "Probability & Stats",
+        items: ["Bayesian Inference", "Gaussian Distributions", "Maximum Likelihood Estimation"],
+      },
+    ],
+    outcomes: [
+      "Read and understand ML research papers",
+      "Implement optimization algorithms from scratch",
+      "Understand how loss functions actually work",
+      "Build a solid foundation for Deep Learning",
+    ],
+    learningJourney: [
+      { title: "Phase 1: Linear Algebra", desc: "Master the language of data and matrices.", img: "https://images.unsplash.com/photo-1509228468518-180dd482195b?auto=format&fit=crop&w=800&q=80" },
+      { title: "Phase 2: Calculus", desc: "Learn how models learn through gradients.", img: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80" },
+      { title: "Phase 3: Statistics", desc: "Understand uncertainty and data distributions.", img: "https://images.unsplash.com/photo-1551288049-bbbda5366391?auto=format&fit=crop&w=800&q=80" },
+    ],
+    faqs: [
+      { q: "Is this course for mathematicians?", a: "No. This is math for engineers. We focus on application and intuition using Python." },
+      { q: "Do I need to be good at math?", a: "Just high-school level math is enough. We build everything else from the ground up." },
+    ],
+    isVapt: false,
+    mindmapImage: "https://images.unsplash.com/photo-1518186239751-2477cf795151?auto=format&fit=crop&w=800&q=80",
   },
 
   /* ───────────────────────────────
@@ -121,7 +185,7 @@ export const COURSE_DETAILS = {
     instructor: {
       name: "Prof. Rajeev Menon",
       title: "AI Researcher · NeurIPS Contributor",
-      avatar: "https://i.pravatar.cc/200?u=rajeev-menon",
+      avatar: null,
       bio: "Rajeev has published 14 papers in top-tier AI venues including NeurIPS and ICML. He spent 8 years at DeepMind before founding this program. His approach: understand the math, then the code.",
       socials: { linkedin: "#", mail: "rajeev@example.com" },
     },
@@ -205,7 +269,7 @@ export const COURSE_DETAILS = {
     instructor: {
       name: "Sanya Kapoor",
       title: "GenAI Lead Engineer · Ex-OpenAI",
-      avatar: "https://i.pravatar.cc/200?u=sanya-kapoor",
+      avatar: null,
       bio: "Sanya spent 4 years at OpenAI working on fine-tuning infrastructure before joining the startup ecosystem. She has shipped GenAI products used by 500k+ users and brings that production mindset directly into the curriculum.",
       socials: { linkedin: "#", mail: "sanya@example.com" },
     },
@@ -289,7 +353,7 @@ export const COURSE_DETAILS = {
     instructor: {
       name: "Arjun Tiwari",
       title: "Certified Ethical Hacker · OSCP · CISSP",
-      avatar: "https://i.pravatar.cc/200?u=arjun-tiwari",
+      avatar: null,
       bio: "Arjun is a full-spectrum security professional with certifications in CEH, OSCP, and CISSP. He spent 8 years running red-team operations for Fortune 500 companies before launching this training program. His labs are based on real-world attack scenarios.",
       socials: { linkedin: "#", mail: "arjun@example.com" },
     },
@@ -374,7 +438,7 @@ export const COURSE_DETAILS = {
     instructor: {
       name: "Priya Nair",
       title: "Head of Analytics · Ex-McKinsey",
-      avatar: "https://i.pravatar.cc/200?u=priya-nair",
+      avatar: null,
       bio: "Priya spent 7 years as a data analyst at McKinsey & Company, advising Fortune 100 clients on data strategy. She has trained over 8,000 professionals in analytics and BI tools. Her teaching style: real business cases, zero fluff.",
       socials: { linkedin: "#", mail: "priya@example.com" },
     },
@@ -452,7 +516,7 @@ export function getCourseDetail(slug) {
       instructor: {
         name: "TBD",
         title: "Industry Expert",
-        avatar: "https://i.pravatar.cc/200?u=default",
+        avatar: null,
         bio: "Instructor details will be announced shortly.",
         socials: {},
       },
@@ -460,13 +524,13 @@ export function getCourseDetail(slug) {
       syllabus: [{ module: "Details coming soon", items: ["Full syllabus will be published before enrollment opens."] }],
       outcomes: ["Full details coming soon."],
       learningJourney: [
-        { title: "Phase 1", desc: "Coming soon.", img: "/assets/foundation.png" },
-        { title: "Phase 2", desc: "Coming soon.", img: "/assets/build.png" },
-        { title: "Phase 3", desc: "Coming soon.", img: "/assets/career.png" },
+        { title: "Phase 1", desc: "Coming soon.", img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=800&q=80" },
+        { title: "Phase 2", desc: "Coming soon.", img: "https://images.unsplash.com/photo-1518186239751-2477cf795151?auto=format&fit=crop&w=800&q=80" },
+        { title: "Phase 3", desc: "Coming soon.", img: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80" },
       ],
       faqs: [{ q: "When does this course start?", a: "Details will be announced shortly. Register your interest to be notified." }],
       isVapt: false,
-      mindmapImage: "/assets/ai_mindmap.png",
+      mindmapImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
     }
   );
 }
