@@ -151,17 +151,18 @@ export default function ChatWidget() {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="absolute bottom-20 right-0 w-[24rem] h-[32rem] max-w-[calc(100vw-2rem)] bg-white border border-slate-100 shadow-2xl rounded-2xl flex flex-col overflow-hidden"
+            className="absolute bottom-20 right-0 w-[24rem] h-[32rem] max-w-[calc(100vw-2rem)] bg-white border border-slate-900 shadow-2xl rounded-none flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-brandprimary text-white p-4 flex items-center justify-between shadow-sm">
-              <div className="flex items-center gap-3">
-                <div className="bg-white/20 p-2 rounded-xl">
+            <div className="bg-slate-900 text-white p-4 flex items-center justify-between shadow-sm relative overflow-hidden">
+              <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '8px 8px' }} />
+              <div className="flex items-center gap-3 relative z-10">
+                <div className="bg-white/10 p-2 rounded-none border border-white/10">
                   <Bot size={24} className="text-white animate-pulse" />
                 </div>
                 <div>
                   <h4 className="font-bold text-sm">ConvoSec AI Support Bot</h4>
-                  <span className="text-xs text-indigo-100">Online & Ready</span>
+                  <span className="text-xs text-slate-400">Online & Ready</span>
                 </div>
               </div>
               <button 
@@ -180,9 +181,9 @@ export default function ChatWidget() {
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div 
-                    className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm font-medium shadow-soft ${
+                    className={`max-w-[80%] rounded-none px-4 py-2.5 text-sm font-medium shadow-sm ${
                       msg.role === "user" 
-                        ? "bg-brandprimary text-white" 
+                        ? "bg-slate-900 text-white" 
                         : "bg-white text-slate-800 border border-slate-100"
                     }`}
                   >
@@ -192,10 +193,10 @@ export default function ChatWidget() {
               ))}
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-white text-slate-500 border border-slate-100 rounded-2xl px-4 py-3 text-sm font-medium shadow-soft flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-brandprimary animate-bounce" />
-                    <span className="w-2 h-2 rounded-full bg-brandprimary animate-bounce [animation-delay:0.2s]" />
-                    <span className="w-2 h-2 rounded-full bg-brandprimary animate-bounce [animation-delay:0.4s]" />
+                  <div className="bg-white text-slate-500 border border-slate-100 rounded-none px-4 py-3 text-sm font-medium shadow-sm flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-slate-900 animate-bounce" />
+                    <span className="w-2 h-2 rounded-full bg-slate-900 animate-bounce [animation-delay:0.2s]" />
+                    <span className="w-2 h-2 rounded-full bg-slate-900 animate-bounce [animation-delay:0.4s]" />
                   </div>
                 </div>
               )}
@@ -203,18 +204,18 @@ export default function ChatWidget() {
             </div>
 
             {/* Input Footer */}
-            <form onSubmit={handleSend} className="p-3 bg-white border-t border-slate-100 flex items-center gap-2">
+            <form onSubmit={handleSend} className="p-3 bg-white border-t border-slate-900/10 flex items-center gap-2">
               <input
                 type="text"
                 placeholder="Type your question..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="flex-1 border border-slate-200 bg-slate-50 rounded-xl px-4 py-3 text-sm font-medium outline-none transition focus:bg-white focus:border-brandprimary focus:ring-4 focus:ring-indigo-50 placeholder-slate-400"
+                className="flex-1 border border-slate-200 bg-slate-50 rounded-none px-4 py-3 text-sm font-medium outline-none transition focus:bg-white focus:border-slate-900 focus:ring-4 focus:ring-slate-50 placeholder-slate-400"
               />
               <button 
                 type="submit" 
                 disabled={!input.trim() || loading}
-                className="bg-brandprimary text-white p-3 rounded-xl shadow-soft hover:bg-indigo-700 transition active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-slate-900 text-white p-3 rounded-none shadow-md hover:bg-slate-800 transition active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send size={18} />
               </button>
@@ -228,13 +229,14 @@ export default function ChatWidget() {
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
-        className="w-16 h-16 rounded-full bg-brandprimary text-white shadow-2xl flex items-center justify-center relative border-4 border-white overflow-hidden group"
+        className="w-16 h-16 rounded-full bg-slate-900 text-white shadow-2xl flex items-center justify-center relative border-4 border-white overflow-hidden group"
       >
-        <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600 to-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '6px 6px' }} />
+        <div className="absolute inset-0 bg-slate-800 opacity-0 group-hover:opacity-100 transition-opacity" />
         {isOpen ? (
           <X size={28} className="relative z-10" />
         ) : (
-          <MessageCircle size={28} className="relative z-10" />
+          <Bot size={28} className="relative z-10" />
         )}
       </motion.button>
     </div>

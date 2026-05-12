@@ -41,12 +41,12 @@ export default function Checkout() {
       <section className="relative min-h-screen bg-white pt-32 flex flex-col items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 bg-subtle-grid pointer-events-none opacity-40" />
         <Reveal>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-none bg-slate-900 text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-8">
             Session Empty
           </div>
           <h2 className="text-6xl font-black text-slate-900 tracking-tighter mb-6">Your session is empty.</h2>
           <p className="text-slate-500 font-medium mb-12 max-w-md mx-auto">Re-initialize your learning roadmap by selecting a specialization from our catalog.</p>
-          <Link to="/courses" className="bg-slate-900 text-white font-black py-4 px-10 rounded-xl text-xs uppercase tracking-[0.2em] transition hover:bg-brandprimary">
+          <Link to="/courses" className="bg-slate-900 text-white font-black py-4 px-10 rounded-none text-xs uppercase tracking-[0.2em] transition hover:bg-slate-800">
             Explore Catalog
           </Link>
         </Reveal>
@@ -66,7 +66,7 @@ export default function Checkout() {
       {/* Checkout Header: Ultra Minimal */}
       <header className="relative z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 py-6 px-6 md:px-12 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-4 group">
-          <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white shadow-2xl shadow-slate-200 transition-transform group-hover:scale-105 active:scale-95 overflow-hidden p-1.5">
+          <div className="w-12 h-12 bg-white border border-slate-200 rounded-none flex items-center justify-center shadow-md transition-transform group-hover:scale-105 active:scale-95 overflow-hidden p-1">
             <img src="/logo.png" alt="ConvoSec" className="w-full h-full object-contain" />
           </div>
           <div className="flex flex-col">
@@ -85,7 +85,7 @@ export default function Checkout() {
           {/* Left Column: Transaction Details */}
           <div className="lg:col-span-7 space-y-16">
             <Reveal>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-slate-400 text-[9px] font-black uppercase tracking-[0.2em] mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-none bg-slate-50 border border-slate-200 text-slate-400 text-[9px] font-black uppercase tracking-[0.2em] mb-6">
                 Secure Transaction Layer
               </div>
               <h1 className="text-6xl font-black text-slate-900 tracking-tighter leading-none mb-4">Complete <br /> Enrollment.</h1>
@@ -112,11 +112,11 @@ export default function Checkout() {
                     <div
                       key={method.id}
                       onClick={() => setPaymentMethod(method.id)}
-                      className={`group cursor-pointer p-6 rounded-2xl border transition-all duration-300 ${paymentMethod === method.id ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-slate-100 hover:border-slate-300'}`}
+                      className={`group cursor-pointer p-6 rounded-none border transition-all duration-300 ${paymentMethod === method.id ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-slate-100 hover:border-slate-300'}`}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex gap-4">
-                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${paymentMethod === method.id ? 'bg-white/10 text-white' : 'bg-slate-50 text-slate-400'}`}>
+                          <div className={`w-10 h-10 rounded-none flex items-center justify-center transition-colors ${paymentMethod === method.id ? 'bg-white/10 text-white' : 'bg-slate-50 text-slate-400'}`}>
                             <method.icon size={20} />
                           </div>
                           <div>
@@ -135,7 +135,7 @@ export default function Checkout() {
                           animate={{ opacity: 1, height: "auto" }}
                           className="mt-6 pt-6 border-t border-white/10 space-y-4"
                         >
-                          <div className="p-4 bg-white/5 rounded-xl border border-white/10 text-[11px] leading-relaxed italic text-slate-400">
+                          <div className="p-4 bg-white/5 rounded-none border border-white/10 text-[11px] leading-relaxed italic text-slate-400">
                             A dynamic payment gateway will be initialized upon clicking "Finalize Enrollment". Please keep your mobile device ready for authorization.
                           </div>
                         </motion.div>
@@ -148,7 +148,7 @@ export default function Checkout() {
 
             {/* Verification Detail */}
             <Reveal delay={0.4}>
-              <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 grid sm:grid-cols-2 gap-8">
+              <div className="p-8 rounded-none bg-slate-50 border border-slate-200 grid sm:grid-cols-2 gap-8">
                 <div className="flex gap-4">
                   <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 shrink-0">
                     <Award size={16} />
@@ -181,7 +181,7 @@ export default function Checkout() {
                     {cartItems.map((item) => (
                       <div key={item.id} className="flex items-center justify-between gap-6 group">
                         <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-lg bg-white/5 overflow-hidden border border-white/10 shrink-0 transition-all duration-500">
+                          <div className="w-12 h-12 rounded-none bg-white/5 overflow-hidden border border-white/10 shrink-0 transition-all duration-500">
                             <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                           </div>
                           <div>
@@ -202,7 +202,7 @@ export default function Checkout() {
                       <span className="text-slate-900">₹{originalTotal.toFixed(2)}</span>
                     </div>
                     {discounts > 0 && (
-                      <div className="flex justify-between text-brandprimary">
+                      <div className="flex justify-between text-slate-900">
                         <span>Corporate Discount</span>
                         <span>-₹{discounts.toFixed(2)}</span>
                       </div>
@@ -222,7 +222,7 @@ export default function Checkout() {
                       <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Total Payable</span>
                       <span className="text-3xl font-black text-slate-900 tracking-tighter leading-none">₹{finalTotal.toFixed(2)}</span>
                     </div>
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest border border-slate-100 px-3 py-1 rounded-full">{cartCount} ITEM{cartCount > 1 ? 'S' : ''}</span>
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest border border-slate-100 px-3 py-1 rounded-none">{cartCount} ITEM{cartCount > 1 ? 'S' : ''}</span>
                   </div>
 
                   <button
@@ -243,7 +243,7 @@ export default function Checkout() {
                         alert("Transaction processing issue. Please contact support.");
                       }
                     }}
-                    className="w-full relative group bg-slate-900 text-white rounded-none px-8 py-5 text-sm font-black uppercase tracking-[0.2em] transition-all hover:bg-brandprimary overflow-hidden shadow-2xl shadow-slate-200"
+                    className="w-full relative group bg-slate-900 text-white rounded-none px-8 py-5 text-sm font-black uppercase tracking-[0.2em] transition-all hover:bg-slate-800 overflow-hidden shadow-2xl shadow-slate-200"
                   >
                     <span className="relative z-10 flex items-center justify-center gap-3">
                       Finalize Enrollment

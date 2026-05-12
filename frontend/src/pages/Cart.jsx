@@ -54,7 +54,7 @@ export default function Cart() {
             </p>
           </Reveal>
 
-          <div className="mt-12 flex flex-col items-center justify-center text-center py-20 bg-slate-50 rounded-3xl border border-slate-100">
+          <div className="mt-12 flex flex-col items-center justify-center text-center py-20 bg-slate-50 rounded-none border border-slate-100">
             <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center text-slate-400 mb-4">
               <ShoppingBag size={28} />
             </div>
@@ -64,7 +64,7 @@ export default function Cart() {
             </p>
             <Link
               to="/learning"
-              className="mt-6 inline-flex items-center gap-2 bg-brandprimary hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl text-sm transition-all duration-200 shadow-md shadow-indigo-100"
+              className="mt-6 inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-none text-sm transition-all duration-200 shadow-md shadow-indigo-100"
             >
               Explore Courses
             </Link>
@@ -87,17 +87,17 @@ export default function Cart() {
               {cartItems.map((item) => (
                 <div
                   key={item.id}
-                  className="flex flex-col sm:flex-row gap-6 p-6 bg-white border border-slate-100 rounded-2xl shadow-sm items-start hover:shadow-md transition-shadow duration-200"
+                  className="flex flex-col sm:flex-row gap-6 p-6 bg-white border border-slate-100 rounded-none shadow-sm items-start hover:shadow-md transition-shadow duration-200"
                 >
                   {/* Image */}
-                  <div className="w-full sm:w-44 h-32 sm:h-28 rounded-xl bg-slate-100 flex-shrink-0 overflow-hidden border border-slate-100 relative">
+                  <div className="w-full sm:w-44 h-32 sm:h-28 rounded-none bg-slate-100 flex-shrink-0 overflow-hidden border border-slate-100 relative">
                     <img
                       src={item.image}
                       alt={item.title}
                       className="w-full h-full object-cover"
                     />
                     {item.badges && item.badges.includes("Premium") && (
-                      <span className="absolute bottom-2 left-2 bg-brandprimary text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
+                      <span className="absolute bottom-2 left-2 bg-slate-900 text-white text-[10px] font-bold px-2 py-0.5 rounded-none flex items-center gap-1">
                         Premium
                       </span>
                     )}
@@ -143,26 +143,26 @@ export default function Cart() {
                   {/* Right Actions & Pricing */}
                   <div className="flex sm:flex-col justify-between items-end sm:items-end w-full sm:w-auto pt-4 sm:pt-0 border-t sm:border-t-0 border-slate-50 gap-4">
                     {/* Actions */}
-                    <div className="flex flex-row sm:flex-col gap-3 sm:gap-1.5 text-xs text-brandprimary font-bold">
+                    <div className="flex flex-row sm:flex-col gap-3 sm:gap-1.5 text-xs text-slate-900 font-bold">
                       <button
                         onClick={() => removeFromCart(item.id)}
-                        className="hover:text-indigo-800 transition"
+                        className="hover:text-slate-700 transition"
                       >
                         Remove
                       </button>
-                      <button className="hover:text-indigo-800 transition text-slate-400 font-medium">
+                      <button className="hover:text-slate-700 transition text-slate-400 font-medium">
                         Save for Later
                       </button>
-                      <button className="hover:text-indigo-800 transition text-slate-400 font-medium">
+                      <button className="hover:text-slate-700 transition text-slate-400 font-medium">
                         Move to Wishlist
                       </button>
                     </div>
 
                     {/* Prices */}
                     <div className="flex flex-col items-end">
-                      <div className="flex items-center gap-1 text-brandprimary font-black">
+                      <div className="flex items-center gap-1 text-slate-900 font-black">
                         <span className="text-sm md:text-base">{item.price}</span>
-                        <Tag size={12} className="fill-brandprimary text-brandprimary" />
+                        <Tag size={12} className="fill-slate-900 text-slate-900" />
                       </div>
                       {item.originalPrice && (
                         <span className="text-xs text-slate-400 line-through mt-0.5">{item.originalPrice}</span>
@@ -175,7 +175,7 @@ export default function Cart() {
           </div>
 
           {/* Order Summary / Sidebar */}
-          <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm lg:mt-24">
+          <div className="bg-white border border-slate-100 rounded-none p-6 shadow-sm lg:mt-28">
             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total:</p>
             <div className="flex flex-col">
               <span className="text-3xl font-black text-slate-900">₹{total.toFixed(2)}</span>
@@ -187,7 +187,7 @@ export default function Cart() {
               )}
             </div>
 
-            <Link to="/checkout" className="w-full mt-6 bg-brandprimary hover:bg-indigo-700 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-indigo-100">
+            <Link to="/checkout" className="w-full mt-6 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-4 rounded-none text-sm transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-indigo-100">
               <span>Proceed to Checkout</span>
               <ArrowRight size={16} />
             </Link>
@@ -198,9 +198,9 @@ export default function Cart() {
               <input
                 type="text"
                 placeholder="Enter Coupon Code"
-                className="flex-1 rounded-xl border border-slate-200 px-3 py-2 text-xs font-medium focus:border-brandprimary focus:outline-none"
+                className="flex-1 rounded-none border border-slate-200 px-3 py-2 text-xs font-medium focus:border-slate-900 focus:outline-none"
               />
-              <button className="rounded-xl border border-brandprimary text-brandprimary hover:bg-indigo-50 px-4 py-2 text-xs font-extrabold transition">
+              <button className="rounded-none border border-slate-900 text-slate-900 hover:bg-slate-50 px-4 py-2 text-xs font-extrabold transition">
                 Apply
               </button>
             </div>

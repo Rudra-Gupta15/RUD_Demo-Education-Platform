@@ -103,7 +103,7 @@ export default function BusinessContact() {
               Executive Partnerships
             </div>
             <h1 className="text-6xl lg:text-8xl font-black tracking-tighter leading-tight text-slate-900 mb-8 whitespace-nowrap">
-              Scale your <span className="text-brandprimary">Enterprise IQ.</span>
+              Scale your <span className="text-slate-900">Enterprise IQ.</span>
             </h1>
             <p className="text-xl text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed">
               We provide the pedagogical infrastructure and technical talent required to navigate the frontier of Applied AI and Cybersecurity.
@@ -119,7 +119,7 @@ export default function BusinessContact() {
               {benefits.map((benefit, i) => (
                 <Reveal key={benefit.title} delay={0.1 + i * 0.1}>
                   <div className="group flex gap-8">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:border-slate-900 group-hover:text-slate-900 transition-all duration-300 shadow-sm">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-none bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:border-slate-900 group-hover:text-slate-900 transition-all duration-300 shadow-sm">
                       <benefit.icon size={22} strokeWidth={1.5} />
                     </div>
                     <div className="space-y-2">
@@ -132,14 +132,20 @@ export default function BusinessContact() {
             </div>
 
             <Reveal delay={0.4}>
-              <div className="mt-12 p-10 rounded-[2rem] bg-white border border-slate-100 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.05)] relative overflow-hidden">
+              <div className="mt-12 p-10 rounded-none bg-white border border-slate-100 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.05)] relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full -mr-16 -mt-16" />
                 <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-8">
                     <div className="flex -space-x-2">
-                      {[1, 2, 3].map(i => (
-                        <div key={i} className="w-9 h-9 rounded-full border-2 border-white bg-slate-100" />
-                      ))}
+                      <div className="w-10 h-10 rounded-full border-2 border-white bg-slate-100 overflow-hidden shadow-sm">
+                        <img src="/corporate_partner_1.png" alt="Partner" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="w-10 h-10 rounded-full border-2 border-white bg-slate-100 overflow-hidden shadow-sm">
+                        <img src="/corporate_partner_2.png" alt="Partner" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="w-10 h-10 rounded-full border-2 border-white bg-slate-100 overflow-hidden shadow-sm">
+                        <img src="/corporate_partner_3.png" alt="Partner" className="w-full h-full object-cover" />
+                      </div>
                     </div>
                     <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">Trusted globally</p>
                   </div>
@@ -162,8 +168,8 @@ export default function BusinessContact() {
           {/* Right: Form */}
           <div className="lg:col-span-7">
             <Reveal delay={0.2}>
-              <div className="bg-white border border-slate-200 rounded-3xl p-8 lg:p-12 shadow-soft relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-brandprimary opacity-10" />
+              <div className="bg-white border border-slate-200 rounded-none p-8 lg:p-12 shadow-soft relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-slate-900 opacity-10" />
                 
                 <div className="mb-10 flex justify-between items-start">
                   <div>
@@ -178,7 +184,7 @@ export default function BusinessContact() {
                     <div className="space-y-3">
                       <label className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">Full Name</label>
                       <input
-                        className="w-full bg-transparent border-b border-slate-200 py-2 text-slate-900 outline-none transition-all placeholder:text-slate-300 focus:border-brandprimary"
+                        className="w-full bg-transparent border-b border-slate-200 py-2 text-slate-900 outline-none transition-all placeholder:text-slate-300 focus:border-slate-900"
                         placeholder=""
                         value={form.name}
                         onChange={update("name")}
@@ -188,7 +194,7 @@ export default function BusinessContact() {
                     <div className="space-y-3">
                       <label className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">Organization</label>
                       <input
-                        className="w-full bg-transparent border-b border-slate-200 py-2 text-slate-900 outline-none transition-all placeholder:text-slate-300 focus:border-brandprimary"
+                        className="w-full bg-transparent border-b border-slate-200 py-2 text-slate-900 outline-none transition-all placeholder:text-slate-300 focus:border-slate-900"
                         placeholder=""
                         value={form.company}
                         onChange={update("company")}
@@ -202,7 +208,7 @@ export default function BusinessContact() {
                       <label className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">Professional Email</label>
                       <input
                         type="email"
-                        className="w-full bg-transparent border-b border-slate-200 py-2 text-slate-900 outline-none transition-all placeholder:text-slate-300 focus:border-brandprimary"
+                        className="w-full bg-transparent border-b border-slate-200 py-2 text-slate-900 outline-none transition-all placeholder:text-slate-300 focus:border-slate-900"
                         placeholder=""
                         value={form.email}
                         onChange={update("email")}
@@ -234,7 +240,7 @@ export default function BusinessContact() {
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                 transition={{ duration: 0.2, ease: "easeOut" }}
-                                className="absolute left-0 right-0 top-full mt-2 bg-white border border-slate-100 rounded-2xl shadow-xl z-50 overflow-y-auto max-h-[300px] py-2 scrollbar-none"
+                                className="absolute left-0 right-0 top-full mt-2 bg-white border border-slate-100 rounded-none shadow-xl z-50 overflow-y-auto max-h-[300px] py-2 scrollbar-none"
                               >
                                 {sectors.map((sector) => (
                                   <button
@@ -269,7 +275,7 @@ export default function BusinessContact() {
                             className="pt-4"
                           >
                             <input
-                              className="w-full bg-transparent border-b border-slate-200 py-2 text-slate-900 outline-none transition-all placeholder:text-slate-300 focus:border-brandprimary text-sm italic"
+                              className="w-full bg-transparent border-b border-slate-200 py-2 text-slate-900 outline-none transition-all placeholder:text-slate-300 focus:border-slate-900 text-sm italic"
                               placeholder="Specify your industry..."
                               value={otherIndustry}
                               onChange={(e) => setOtherIndustry(e.target.value)}
@@ -284,7 +290,7 @@ export default function BusinessContact() {
                   <div className="space-y-3">
                     <label className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">Partnership Objectives</label>
                     <textarea
-                      className="w-full min-h-[120px] bg-slate-50 border border-slate-200 rounded-xl p-4 text-slate-900 outline-none transition-all placeholder:text-slate-300 focus:border-brandprimary focus:ring-1 focus:ring-brandprimary/20 resize-none"
+                      className="w-full min-h-[120px] bg-slate-50 border border-slate-200 rounded-none p-4 text-slate-900 outline-none transition-all placeholder:text-slate-300 focus:border-slate-900 focus:ring-1 focus:ring-slate-900/20 resize-none"
                       placeholder=""
                       value={form.message}
                       onChange={update("message")}
@@ -311,7 +317,7 @@ export default function BusinessContact() {
 
                   <button
                     disabled={submitting}
-                    className="w-full relative group bg-slate-900 text-white rounded-xl px-8 py-5 text-sm font-black uppercase tracking-[0.2em] transition-all hover:bg-brandprimary disabled:opacity-50 overflow-hidden"
+                    className="w-full relative group bg-slate-900 text-white rounded-none px-8 py-5 text-sm font-black uppercase tracking-[0.2em] transition-all hover:bg-slate-800 disabled:opacity-50 overflow-hidden"
                   >
                     <span className="relative z-10 flex items-center justify-center gap-3">
                       {submitting ? "Processing..." : "Submit Proposal"}
@@ -367,7 +373,7 @@ export default function BusinessContact() {
                 </h2>
                 <div className="space-y-8">
                   <div className="flex gap-6">
-                    <div className="flex-shrink-0 w-px h-24 bg-brandprimary" />
+                    <div className="flex-shrink-0 w-px h-24 bg-white/20" />
                     <p className="text-xl text-slate-400 font-medium leading-relaxed italic">
                       "Our partnership with ConvoSec redefined how our engineering team approached AI security. Their specialized training was the catalyst for our global infrastructure overhaul."
                     </p>
@@ -387,8 +393,8 @@ export default function BusinessContact() {
             
             <Reveal delay={0.2}>
               <div className="relative group">
-                <div className="absolute inset-0 bg-brandprimary/20 blur-[100px] opacity-20 pointer-events-none" />
-                <div className="relative rounded-2xl overflow-hidden transition-all duration-1000 border border-slate-800">
+                <div className="absolute inset-0 bg-slate-900/20 blur-[100px] opacity-20 pointer-events-none" />
+                <div className="relative rounded-none overflow-hidden transition-all duration-1000 border border-slate-800">
                   <img 
                     src="/business_collaboration_premium_1777889008154.png" 
                     alt="Corporate Partnership" 

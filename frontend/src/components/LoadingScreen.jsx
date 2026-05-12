@@ -13,32 +13,72 @@ export default function LoadingScreen() {
     >
       <div className="relative flex flex-col items-center">
         {/* Large Logo in Center */}
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{
-            duration: 1.5,
-            ease: [0.43, 0.13, 0.23, 0.96]
-          }}
-          className="w-48 h-48 md:w-64 md:h-64 rounded-full border-[8px] border-white shadow-[0_20px_50px_-10px_rgba(0,0,0,0.1)] overflow-hidden bg-[#0a0a0a] p-0 flex items-center justify-center z-10 relative"
-        >
-          {/* Subtle spinning loader behind the image until it loads */}
-          {!isImageLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center">
-               <motion.div 
-                 animate={{ rotate: 360 }}
-                 transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-                 className="w-10 h-10 border-4 border-blue-100 border-t-blue-600 rounded-full"
-               />
-            </div>
-          )}
-          <img
-            src="/logo.png"
-            alt="ConvoSec AI Logo"
-            onLoad={() => setIsImageLoaded(true)}
-            className={`w-full h-full object-contain transition-all duration-1000 ease-in-out ${isImageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+          <div className="relative p-4">
+          {/* 1. Middle Shield Arc */}
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-1.5 z-0"
+          >
+            <svg className="w-full h-full opacity-60" viewBox="0 0 100 100">
+              <motion.circle
+                cx="50"
+                cy="50"
+                r="46"
+                fill="none"
+                stroke="url(#load-shield-grad)"
+                strokeWidth="3"
+                strokeDasharray="80 160"
+                strokeLinecap="round"
+                animate={{ strokeDasharray: ["60 180", "120 120", "60 180"] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <defs>
+                <linearGradient id="load-shield-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#001529" />
+                  <stop offset="100%" stopColor="#004aad" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </motion.div>
+
+          {/* 3. Core Pulse Aura */}
+          <motion.div
+            animate={{ 
+              scale: [1, 1.15, 1],
+              opacity: [0.15, 0.4, 0.15]
+            }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-4 bg-gradient-to-br from-[#001529] to-[#002147] rounded-full blur-[60px] z-0"
           />
-        </motion.div>
+
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{
+              duration: 1.5,
+              ease: [0.43, 0.13, 0.23, 0.96]
+            }}
+            className="w-48 h-48 md:w-64 md:h-64 rounded-full border-[8px] border-white shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] overflow-hidden bg-white p-6 flex items-center justify-center z-10 relative"
+          >
+            {/* Subtle spinning loader behind the image until it loads */}
+            {!isImageLoaded && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                 <motion.div 
+                   animate={{ rotate: 360 }}
+                   transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+                   className="w-10 h-10 border-4 border-blue-100 border-t-blue-600 rounded-full"
+                 />
+              </div>
+            )}
+            <img
+              src="/logo.png"
+              alt="ConvoSec AI Logo"
+              onLoad={() => setIsImageLoaded(true)}
+              className={`w-full h-full object-contain transition-all duration-1000 ease-in-out ${isImageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+            />
+          </motion.div>
+        </div>
 
         {/* Loading text or brand name */}
         <motion.div

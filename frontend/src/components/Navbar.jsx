@@ -60,8 +60,29 @@ export default function Navbar() {
             to="/"
             className="flex items-center gap-2 sm:gap-3 bg-white rounded-full py-1.5 pl-1.5 pr-4 sm:pr-6 hover:scale-[1.01] active:scale-95 transition-all shadow-md shrink-0"
           >
-            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border border-slate-100 shadow-sm bg-black p-0 flex items-center justify-center">
-              <img src="/logo.png" alt="Logo" className="w-full h-full object-contain scale-[0.85]" />
+            <div className="relative p-1">
+              {/* Synchronized Quantum Shield Arc (Mini) */}
+              <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 z-0"
+              >
+                <svg className="w-full h-full opacity-60" viewBox="0 0 100 100">
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="46"
+                    fill="none"
+                    stroke="#001529"
+                    strokeWidth="4"
+                    strokeDasharray="80 160"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </motion.div>
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border border-slate-200 shadow-inner bg-white p-1.5 flex items-center justify-center relative z-10">
+                <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+              </div>
             </div>
             <div className="flex flex-col">
               <span className="text-[13px] sm:text-sm font-[900] text-black leading-none tracking-tight">ConvoSec AI</span>
@@ -94,7 +115,7 @@ export default function Navbar() {
               >
                 <Building2 size={20} strokeWidth={2.5} />
               </button>
-              <div className="absolute top-full right-0 mt-4 w-48 bg-white rounded-2xl shadow-2xl border border-slate-100 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-2 group-hover:translate-y-0 pointer-events-auto">
+              <div className="absolute top-full -right-4 mt-10 w-48 bg-white rounded-none shadow-2xl border border-slate-100 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 delay-150 group-hover:delay-0 translate-y-1 group-hover:translate-y-0 pointer-events-auto before:absolute before:inset-x-0 before:-top-10 before:h-10 before:content-['']">
                 <Link to="/contact/business" className="block px-4 py-3 text-[10px] font-black uppercase tracking-wider text-slate-700 hover:bg-slate-50 rounded-xl transition-all">Business</Link>
                 <Link to="/contact/careers" className="block px-4 py-3 text-[10px] font-black uppercase tracking-wider text-slate-700 hover:bg-slate-50 rounded-xl transition-all">Career</Link>
               </div>
@@ -116,7 +137,7 @@ export default function Navbar() {
             <div className="w-9 h-9 rounded-full bg-black flex items-center justify-center text-white shadow-md">
               <User size={18} strokeWidth={2.5} />
             </div>
-            <div className="absolute top-full right-0 mt-4 w-56 bg-white rounded-3xl shadow-2xl border border-slate-100 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-2 group-hover:translate-y-0 pointer-events-auto">
+            <div className="absolute top-full -right-4 mt-6 w-56 bg-white rounded-none shadow-2xl border border-slate-100 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 delay-150 group-hover:delay-0 translate-y-1 group-hover:translate-y-0 pointer-events-auto before:absolute before:inset-x-0 before:-top-6 before:h-6 before:content-['']">
               {user ? (
                 <>
                   <div className="px-4 py-3 border-b border-slate-50 mb-1">

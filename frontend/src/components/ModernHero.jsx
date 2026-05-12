@@ -135,28 +135,60 @@ export default function ModernHero() {
           transition={{ duration: 1.2, ease: [0.43, 0.13, 0.23, 0.96], delay: 0.2 }}
           className="relative flex justify-center items-center order-first lg:order-last -mt-6 lg:-mt-12 mb-8 lg:mb-0"
         >
-          <motion.div 
-            layoutId="hero-logo"
-            className="relative w-[320px] sm:w-[380px] md:w-[420px] lg:w-full lg:max-w-[480px] aspect-square rounded-full border-[10px] sm:border-[16px] border-white shadow-[0_50px_120px_-30px_rgba(0,0,0,0.25)] overflow-hidden bg-[#0a0a0a] p-0 flex items-center justify-center z-10"
-          >
-            {/* Main Logo Image fitted in circle */}
-            <img
-              src="/logo.png"
-              alt="ConvoSec AI Hero"
-              className="w-full h-full object-contain scale-[0.85]"
+          <div className="relative p-6 xl:p-10">
+            {/* 1. Middle Security Shield (Counter-rotating Arc) */}
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-2 z-0"
+            >
+              <svg className="w-full h-full" viewBox="0 0 100 100">
+                <motion.circle
+                  cx="50"
+                  cy="50"
+                  r="47"
+                  fill="none"
+                  stroke="url(#shield-gradient)"
+                  strokeWidth="2.5"
+                  strokeDasharray="60 180"
+                  strokeLinecap="round"
+                  animate={{ strokeDasharray: ["40 200", "120 120", "40 200"] }}
+                  transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <defs>
+                  <linearGradient id="shield-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#001a4d" />
+                    <stop offset="100%" stopColor="#003399" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </motion.div>
+
+            {/* 2. Core Pulse Aura */}
+            <motion.div
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.1, 0.25, 0.1]
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute inset-6 bg-gradient-to-br from-[#001a4d] to-[#003399] rounded-full blur-[80px] z-0"
             />
 
-            {/* Subtle internal glow */}
-            <div className="absolute inset-0 rounded-full shadow-[inset_0_0_80px_rgba(0,0,0,0.4)] pointer-events-none" />
-          </motion.div>
+            <motion.div
+              layoutId="hero-logo"
+              className="relative w-[320px] sm:w-[380px] md:w-[420px] lg:w-full lg:max-w-[480px] aspect-square rounded-full border-[12px] sm:border-[18px] border-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] overflow-hidden bg-white p-6 flex items-center justify-center z-10"
+            >
+              {/* Main Logo Image fitted in circle */}
+              <img
+                src="/logo.png"
+                alt="ConvoSec AI Hero"
+                className="w-full h-full object-contain"
+              />
 
-          {/* Animated Glow effect behind logo */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.4 }}
-            transition={{ delay: 1.5 }}
-            className="absolute inset-0 bg-blue-100 rounded-full blur-[120px] -z-10 animate-pulse"
-          />
+              {/* Internal subtle depth shadow */}
+              <div className="absolute inset-0 rounded-full shadow-[inset_0_0_60px_rgba(0,0,0,0.03)] pointer-events-none" />
+            </motion.div>
+          </div>
         </motion.div>
       </div>
 
