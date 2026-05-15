@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { ShieldCheck, ArrowRight, CheckCircle2, Shield, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../state/AuthContext.jsx";
 import SEO from "../components/SEO.jsx";
-import { api } from "../api/client.js";
+import { supabase } from "../lib/supabase.js";
 import Reveal from "../components/Reveal.jsx";
 
 export default function Auth() {
@@ -19,24 +19,15 @@ export default function Auth() {
     setLoading(true);
     setError("");
     try {
-      // In a production app, this would be a redirect to the OAuth provider
-      // For this demo, we simulate a successful provider response
-      const mockData = {
-        name: `${provider} User`,
-        email: `${provider.toLowerCase()}@example.com`,
-        provider: provider
-      };
-
-      const res = await api("/api/auth/social-login", {
-        method: "POST",
-        body: JSON.stringify(mockData)
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: provider.toLowerCase(),
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`
+        }
       });
 
-      localStorage.setItem("quorion_token", res.token);
-      // We need to reload or update the state to reflect the login
-      // Since we don't have a direct 'setUser' here, we navigate to 
-      // trigger the AuthContext's effect or just reload
-      window.location.href = res.user.email === "lucifer@convosecai.com" ? "/dev-dashboard" : "/dashboard";
+      if (error) throw error;
+      // The browser will redirect to the provider
     } catch (err) {
       setError(`Social Auth Failed: ${err.message}`);
     } finally {

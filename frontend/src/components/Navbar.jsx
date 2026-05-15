@@ -115,7 +115,7 @@ export default function Navbar() {
               >
                 <Building2 size={20} strokeWidth={2.5} />
               </button>
-              <div className="absolute top-full -right-4 mt-10 w-48 bg-white rounded-none shadow-2xl border border-slate-100 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 delay-150 group-hover:delay-0 translate-y-1 group-hover:translate-y-0 pointer-events-auto before:absolute before:inset-x-0 before:-top-10 before:h-10 before:content-['']">
+              <div className="absolute top-full -right-4 mt-10 w-48 bg-white rounded-2xl shadow-2xl border border-slate-100 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 delay-150 group-hover:delay-0 translate-y-1 group-hover:translate-y-0 pointer-events-auto before:absolute before:inset-x-0 before:-top-10 before:h-10 before:content-['']">
                 <Link to="/contact/business" className="block px-4 py-3 text-[10px] font-black uppercase tracking-wider text-slate-700 hover:bg-slate-50 rounded-xl transition-all">Business</Link>
                 <Link to="/contact/careers" className="block px-4 py-3 text-[10px] font-black uppercase tracking-wider text-slate-700 hover:bg-slate-50 rounded-xl transition-all">Career</Link>
               </div>
@@ -137,7 +137,7 @@ export default function Navbar() {
             <div className="w-9 h-9 rounded-full bg-black flex items-center justify-center text-white shadow-md">
               <User size={18} strokeWidth={2.5} />
             </div>
-            <div className="absolute top-full -right-4 mt-6 w-56 bg-white rounded-none shadow-2xl border border-slate-100 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 delay-150 group-hover:delay-0 translate-y-1 group-hover:translate-y-0 pointer-events-auto before:absolute before:inset-x-0 before:-top-6 before:h-6 before:content-['']">
+            <div className="absolute top-full -right-4 mt-6 w-56 bg-white rounded-2xl shadow-2xl border border-slate-100 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 delay-150 group-hover:delay-0 translate-y-1 group-hover:translate-y-0 pointer-events-auto before:absolute before:inset-x-0 before:-top-6 before:h-6 before:content-['']">
               {user ? (
                 <>
                   <div className="px-4 py-3 border-b border-slate-50 mb-1">

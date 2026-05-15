@@ -1,48 +1,68 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { api } from "../api/client.js";
+import { supabase } from "../lib/supabase.js";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(Boolean(localStorage.getItem("quorion_token")));
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("quorion_token");
-    if (!token) return;
+    // Check active sessions and sets the user
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
-    api("/api/auth/me")
-      .then((data) => setUser(data.user))
-      .catch(() => localStorage.removeItem("quorion_token"))
-      .finally(() => setLoading(false));
+    // Listen for changes on auth state (logged in, signed out, etc.)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  async function login(payload) {
-    const data = await api("/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify(payload)
+  async function login({ email, password }) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
     });
-    localStorage.setItem("quorion_token", data.token);
+
+    if (error) throw error;
     setUser(data.user);
     return data.user;
   }
 
-  async function signup(payload) {
-    const data = await api("/api/auth/signup", {
-      method: "POST",
-      body: JSON.stringify(payload)
+  async function signup({ email, password, name }) {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          name: name,
+        },
+      },
     });
-    localStorage.setItem("quorion_token", data.token);
+
+    if (error) throw error;
     setUser(data.user);
     return data.user;
   }
 
-  function logout() {
-    localStorage.removeItem("quorion_token");
+  async function logout() {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
     setUser(null);
   }
 
-  const value = useMemo(() => ({ user, loading, login, signup, logout }), [user, loading]);
+  const value = useMemo(() => ({ 
+    user: user ? { ...user, name: user.user_metadata?.name || user.email.split('@')[0] } : null, 
+    loading, 
+    login, 
+    signup, 
+    logout 
+  }), [user, loading]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
