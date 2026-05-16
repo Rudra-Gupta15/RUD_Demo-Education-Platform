@@ -40,7 +40,7 @@ const IndustryPillar = ({ tag, title, desc, image, index, activeIndex, setActive
       <div className="relative flex-1 flex flex-col justify-between p-6 z-10 pointer-events-none">
         {/* Header */}
         <div className="flex flex-col h-full">
-          <motion.span 
+          <motion.span
             animate={{ opacity: isActive ? 1 : 0.6 }}
             className="text-[9px] font-black uppercase tracking-[0.3em] text-blue-400 mb-4"
           >

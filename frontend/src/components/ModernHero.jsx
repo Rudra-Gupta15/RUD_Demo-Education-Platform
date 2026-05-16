@@ -47,7 +47,7 @@ export default function ModernHero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-[#f1f5f9] text-[#0f172a] overflow-hidden font-['Outfit'] flex items-center pt-28 sm:pt-32">
+    <section className="relative min-h-screen bg-[#f1f5f9] text-[#0f172a] overflow-hidden font-['Outfit'] flex items-center pt-32 sm:pt-40 lg:pt-32">
       {/* Background Image with Neural Network & Scale Effect */}
       <motion.div
         initial={{ scale: 1 }}
@@ -67,7 +67,7 @@ export default function ModernHero() {
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-3xl"
+          className="max-w-3xl -mt-12 lg:mt-0"
         >
           {/* Eyebrow */}
           <motion.p
@@ -91,7 +91,7 @@ export default function ModernHero() {
               <span className="bg-gradient-to-r from-[#020617] via-[#10102e] to-[#1e1b4b] bg-clip-text text-transparent">
                 ConvoSec AI
               </span>
-              
+
               {/* Aggressive Star Layer (High Visibility) */}
               <motion.span
                 className="absolute inset-0 bg-clip-text text-transparent pointer-events-none select-none overflow-hidden"
@@ -109,13 +109,13 @@ export default function ModernHero() {
                   backgroundClip: "text",
                   filter: "drop-shadow(0 0 4px rgba(255,255,255,0.8))",
                 }}
-                animate={{ 
+                animate={{
                   opacity: [0.5, 1, 0.5],
                 }}
-                transition={{ 
-                  duration: 2, 
-                  repeat: Infinity, 
-                  ease: "easeInOut" 
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
                 }}
               >
                 ConvoSec AI
@@ -130,14 +130,14 @@ export default function ModernHero() {
               ].map((pos, i) => (
                 <motion.div
                   key={i}
-                  animate={{ 
+                  animate={{
                     scale: [0, 1.2, 0],
                     opacity: [0, 1, 0],
                   }}
-                  transition={{ 
-                    duration: 1.5 + i * 0.5, 
-                    repeat: Infinity, 
-                    delay: i * 0.7 
+                  transition={{
+                    duration: 1.5 + i * 0.5,
+                    repeat: Infinity,
+                    delay: i * 0.7
                   }}
                   className="absolute w-1 h-1 bg-white rounded-full blur-[1px] shadow-[0_0_8px_white]"
                   style={{ top: pos.top, left: pos.left, pointerEvents: "none" }}
@@ -235,12 +235,12 @@ export default function ModernHero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: [0.43, 0.13, 0.23, 0.96], delay: 0.2 }}
-          className="relative flex justify-center items-center order-first lg:order-last -mt-6 lg:-mt-12 mb-8 lg:mb-0"
+          className="relative flex justify-center items-center lg:order-last mb-8 lg:mb-0"
         >
           <div className="relative w-full aspect-square max-w-[420px] flex items-center justify-center">
             {/* Pulsing Aura */}
             <div className="absolute inset-0 bg-blue-100/50 rounded-full animate-pulse scale-110 blur-3xl z-0" />
-            
+
             {/* Video Container */}
             <div className="relative z-10 w-full aspect-square rounded-full shadow-[0_30px_90px_-15px_rgba(0,0,0,0.3)] overflow-hidden bg-black flex items-center justify-center">
               <video
@@ -252,7 +252,7 @@ export default function ModernHero() {
               >
                 <source src="/Hero.mp4" type="video/mp4" />
               </video>
-              
+
               {/* Inner Glossy Overlay */}
               <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
             </div>
