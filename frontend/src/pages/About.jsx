@@ -192,6 +192,7 @@ const stats = [
 function ServiceRow({ service, idx }) {
   const [open, setOpen] = useState(false);
   const [ref, inView] = useReveal("-40px");
+  const Icon = service.icon;
 
   return (
     <motion.div
@@ -201,77 +202,100 @@ function ServiceRow({ service, idx }) {
       transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
     >
       <div
-        className="group border-t border-slate-100 cursor-pointer relative overflow-hidden transition-all duration-500 hover:bg-slate-50/50 px-3 sm:px-6 -mx-3 sm:-mx-6 rounded-2xl"
+        className="group border-t border-slate-100 cursor-pointer relative overflow-hidden transition-all duration-500 hover:bg-white px-4 sm:px-8 -mx-4 sm:-mx-8 rounded-[2rem] hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.08)]"
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
       >
-        {/* Animated accent background */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-50/50 to-transparent translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700 ease-out" />
+        {/* Dynamic Shimmer Sweep */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <motion.div
+            initial={{ x: "-100%" }}
+            whileHover={{ x: "100%" }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-12"
+          />
+        </div>
+        
+        {/* Breathing Side Glow */}
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-blue-600 group-hover:h-1/3 transition-all duration-500 rounded-r-full shadow-[0_0_20px_rgba(37,99,235,0.6)]" />
 
-        <div className="relative flex items-start gap-4 sm:gap-8 py-6 sm:py-8 lg:py-10 z-10">
-          {/* Stylistic Number */}
-          <div className="shrink-0 w-10 sm:w-16">
-            <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] block mb-2 opacity-50 group-hover:opacity-100 transition-opacity">
-              Phase
-            </span>
-            <span className="text-2xl sm:text-3xl font-black text-slate-200 group-hover:text-blue-200 transition-colors duration-500 leading-none">
-              {service.num}
-            </span>
+        <div className="relative flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12 py-6 sm:py-8 z-10">
+          {/* Phase & Icon with Dynamic Pulse */}
+          <div className="shrink-0 flex items-center gap-4 lg:w-40">
+            <div className="relative">
+              <span className="text-[9px] font-black text-blue-600 uppercase tracking-[0.3em] block mb-0.5 opacity-50 group-hover:opacity-100 transition-opacity">
+                Phase
+              </span>
+              <span className="text-3xl sm:text-4xl font-black text-slate-200 group-hover:text-blue-100 transition-colors duration-500 leading-none">
+                {service.num}
+              </span>
+            </div>
+            <div className="relative">
+              <motion.div 
+                animate={{ 
+                  boxShadow: ["0 0 0px rgba(37,99,235,0)", "0 0 20px rgba(37,99,235,0.4)", "0 0 0px rgba(37,99,235,0)"] 
+                }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                className="w-11 h-11 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-500 transition-all duration-500"
+              >
+                <Icon size={20} strokeWidth={1.5} />
+              </motion.div>
+              {/* Refined Ambient Bloom on Hover */}
+              <div className="absolute inset-0 rounded-xl bg-blue-500/25 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+            </div>
           </div>
 
-          {/* Main content */}
+          {/* Main content area */}
           <div className="flex-1 min-w-0">
-            <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-16">
-              {/* Title block */}
-              <div className="lg:w-80 shrink-0">
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors duration-300 mb-2 sm:mb-3">
+            <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12">
+              <div className="lg:w-72 shrink-0">
+                <h3 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors duration-300 mb-2 leading-tight">
                   {service.title}
                 </h3>
-                <span className="inline-block text-[10px] font-bold uppercase tracking-[0.2em] text-white bg-slate-900 px-3 py-1.5 rounded-full">
-                  {service.tag}
+                <span className="inline-flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white bg-slate-900 px-3 py-1 rounded-full group-hover:bg-blue-600 transition-all duration-300 relative overflow-hidden">
+                  <div className="w-1 h-1 rounded-full bg-blue-400 animate-pulse relative z-10" />
+                  <span className="relative z-10">{service.tag}</span>
+                  {/* Subtle tag sweep */}
+                  <motion.div
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    className="absolute inset-0 bg-white/20 skew-x-12"
+                  />
                 </span>
               </div>
 
-              {/* Description & Detail */}
               <div className="flex-1 min-w-0">
-                <p className="text-slate-500 leading-relaxed text-sm sm:text-base mb-4 sm:mb-6 group-hover:text-slate-700 transition-colors">
+                <p className="text-slate-500 leading-relaxed text-sm mb-4 group-hover:text-slate-700 transition-colors font-medium">
                   {service.desc}
                 </p>
 
                 <div className="flex flex-wrap gap-2">
                   {service.points.map((p) => (
-                    <span
+                    <motion.span
                       key={p}
-                      className="text-[11px] font-bold text-slate-600 bg-white border border-slate-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl shadow-sm group-hover:border-blue-200 group-hover:bg-blue-50/50 transition-all"
+                      whileHover={{ y: -1, scale: 1.02 }}
+                      className="text-[10px] font-bold text-slate-600 bg-white/70 backdrop-blur-md border border-slate-100 px-3 py-1.5 rounded-lg shadow-sm group-hover:border-blue-200 group-hover:bg-blue-50/80 transition-all flex items-center gap-2"
                     >
+                      <div className="w-1 h-1 rounded-full bg-slate-300 group-hover:bg-blue-500 transition-colors" />
                       {p}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
               </div>
 
-              {/* Interaction Circle — hidden on very small */}
-              <Link to={service.href} className="shrink-0 relative hidden sm:block">
+              <Link to={service.href} className="shrink-0 relative hidden lg:block self-center">
                 <motion.div
                   animate={{
-                    scale: open ? 1.1 : 1,
-                    backgroundColor: open ? "#2563eb" : "transparent"
+                    backgroundColor: open ? "rgb(37 99 235)" : "white",
+                    boxShadow: open ? "0 0 25px rgba(37,99,235,0.4)" : "0 0 0px rgba(0,0,0,0)"
                   }}
-                  className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center transition-all duration-300"
+                  className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center transition-all duration-300 shadow-sm group-hover:border-blue-600"
                 >
                   <ArrowUpRight
                     size={20}
                     className={`${open ? "text-white" : "text-slate-400"} transition-colors`}
                   />
                 </motion.div>
-                {open && (
-                  <motion.div
-                    initial={{ scale: 0.8, opacity: 0.5 }}
-                    animate={{ scale: 1.5, opacity: 0 }}
-                    transition={{ duration: 1, repeat: Infinity }}
-                    className="absolute inset-0 bg-blue-400 rounded-full -z-10"
-                  />
-                )}
               </Link>
             </div>
           </div>
@@ -548,8 +572,8 @@ export default function About() {
 
   return (
     <div className="bg-[#f8fafc] min-h-screen font-['Outfit'] overflow-x-hidden">
-      <SEO 
-        title="About Us | Our Vision & Expert Team" 
+      <SEO
+        title="About Us | Our Vision & Expert Team"
         description="Learn about ConvoSec AI's mission to bridge the gap between technical education and real-world project execution in AI, ML, and Cybersecurity."
         keywords="about ConvoSec AI, AI education mission, cybersecurity training team, Rudra Rajpure, Nikky Bisen"
       />
@@ -697,9 +721,9 @@ export default function About() {
 
 
       {/* ── VISUAL IDENTITY GRID — SEAMLESS & COMPACT ── */}
-      <section ref={missionRef} className="py-16 sm:py-20 bg-white">
-        <div className="container-shell px-0 md:px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 auto-rows-[250px] sm:auto-rows-[300px] lg:h-[600px] overflow-hidden rounded-xl md:rounded-3xl border border-slate-100">
+      <section ref={missionRef} className="py-0 bg-white">
+        <div className="w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 auto-rows-[250px] sm:auto-rows-[300px] lg:h-[650px] overflow-hidden border-none rounded-none">
 
             {/* Vision Statement (Large) */}
             <FadeReveal className="lg:col-span-2 lg:row-span-2 h-full">

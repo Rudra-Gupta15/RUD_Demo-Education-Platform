@@ -6,38 +6,10 @@ import ModernHero from "../components/ModernHero.jsx";
 import SpecializedSolutions from "../components/SpecializedSolutions.jsx";
 import LoadingScreen from "../components/LoadingScreen.jsx";
 import SEO from "../components/SEO.jsx";
+import IndustryTree from "../components/IndustryTree.jsx";
 import { useState, useEffect } from "react";
 
-const INDUSTRIES_DATA = [
-  {
-    id: "education",
-    name: "Coaching & Education",
-    desc: "Structured courses in AI/ML, Cybersecurity (VAPT), and Business Analytics.",
-    img: "/study.jpg",
-    color: "from-indigo-600/90"
-  },
-  {
-    id: "projects",
-    name: "Project Development",
-    desc: "Bespoke AI and Security solutions built for modern business demands.",
-    img: "/pro.png",
-    color: "from-blue-600/90"
-  },
-  {
-    id: "corporate",
-    name: "Corporate Collaboration",
-    desc: "Partnering with companies for specialized R&D and consultancy.",
-    img: "/col.png",
-    color: "from-slate-900/90"
-  },
-  {
-    id: "internships",
-    name: "Internships & Placement",
-    desc: "Industry-aligned programs to prepare talent for real-world roles.",
-    img: "/intern.png",
-    color: "from-blue-900/90"
-  }
-];
+
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -52,8 +24,8 @@ export default function Home() {
 
   return (
     <div className="bg-white min-h-screen font-sans overflow-x-hidden selection:bg-blue-500 selection:text-white text-slate-900">
-      <SEO 
-        title="ConvoSec | Empowering Minds, Engineering Futures" 
+      <SEO
+        title="ConvoSec | Empowering Minds, Engineering Futures"
         description="ConvoSec AI (convosecai) is a premium AI and cybersecurity education platform. ConvoSec offers live cohorts, recorded labs, and real-world projects."
         keywords="convosec, convosecai, ConvoSec AI, convo sec, AI education, cybersecurity courses, ethical hacking, SOC analyst, LLM"
       />
@@ -152,52 +124,8 @@ export default function Home() {
       {/* ── SPECIALIZED SOLUTIONS SECTION ── */}
       <SpecializedSolutions />
 
-      {/* ── OUR INDUSTRIES SECTION ── */}
-      <section className="py-12 sm:py-16 bg-slate-50 overflow-hidden min-h-[70vh] sm:min-h-[80vh] flex items-center">
-        <div className="container-shell w-full">
-          <div className="text-center mb-8 sm:mb-10 space-y-2">
-            <Reveal>
-              <div className="w-12 h-1.5 bg-blue-600 rounded-full mx-auto mb-4" />
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900">Our Industries</h2>
-              <p className="text-slate-500 font-medium max-w-2xl mx-auto text-sm sm:text-base">
-                We deliver specialized AI and Cybersecurity solutions across diverse sectors,
-                driving innovation and securing digital infrastructure globally.
-              </p>
-            </Reveal>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
-            {INDUSTRIES_DATA.map((pillar, i) => (
-              <motion.div
-                key={pillar.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.6, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -10, scale: 1.02, transition: { duration: 0.3 } }}
-                className="group relative h-[240px] sm:h-[280px] lg:h-[320px] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-xl shadow-slate-200 border-4 border-white cursor-pointer"
-              >
-                <img
-                  src={pillar.img}
-                  alt={pillar.name}
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className={`absolute inset-0 bg-gradient-to-t ${pillar.color} via-black/20 to-transparent opacity-80 transition-opacity group-hover:opacity-95`} />
-                <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end">
-                  <h3 className="text-xl sm:text-2xl font-black text-white mb-1 sm:mb-2">
-                    {pillar.name}
-                  </h3>
-                  <p className="text-white/90 text-sm font-medium leading-relaxed max-w-[280px]">
-                    {pillar.desc}
-                  </p>
-                  <div className="mt-3 sm:mt-4 w-10 h-1 bg-white rounded-full transform origin-left transition-transform duration-500 scale-x-0 group-hover:scale-x-100" />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── OUR INDUSTRIES SECTION (DYNAMIC TREE) ── */}
+      <IndustryTree />
 
       {/* ── DETAILED FEATURE SECTION (PILL IMAGE) — hidden on mobile ── */}
       <section className="py-20 sm:py-32 bg-white overflow-hidden">

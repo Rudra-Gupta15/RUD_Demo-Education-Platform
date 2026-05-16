@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -37,19 +37,31 @@ function Typewriter({ words }) {
 }
 
 export default function ModernHero() {
+  const [currentContent, setCurrentContent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentContent((prev) => (prev === 0 ? 1 : 0));
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <section className="relative min-h-screen bg-white text-[#0f172a] overflow-hidden font-['Outfit'] flex items-center pt-28 sm:pt-32">
-      {/* Background Image with Neural Network */}
-      <div
-        className="absolute inset-0 z-0 opacity-40 bg-center bg-cover"
+    <section className="relative min-h-screen bg-[#f1f5f9] text-[#0f172a] overflow-hidden font-['Outfit'] flex items-center pt-28 sm:pt-32">
+      {/* Background Image with Neural Network & Scale Effect */}
+      <motion.div
+        initial={{ scale: 1 }}
+        animate={{ scale: 1.15 }}
+        transition={{ duration: 20, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
+        className="absolute inset-0 z-0 opacity-60 bg-center bg-cover"
         style={{ backgroundImage: "url('/hero_bg.png')" }}
       />
 
-      {/* Subtle overlay to ensure text readability */}
-      <div className="absolute inset-0 bg-white/20 z-0" />
+      {/* Radial Vignette & Darkening Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/30 to-slate-200/50 z-0" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(15,23,42,0.2)_100%)] z-0" />
 
       <div className="container-shell relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full py-8 lg:py-0">
-
         {/* Left Side: Text Content */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -57,142 +69,198 @@ export default function ModernHero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="max-w-3xl"
         >
-          {/* Logo Name / Brand */}
-          <motion.h2
+          {/* Eyebrow */}
+          <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-6xl lg:text-8xl font-black text-[#0f172a] mb-4 tracking-tighter drop-shadow-[6px_6px_0px_rgba(15,23,42,0.08)]"
+            className="text-[#0047AB] font-bold tracking-[0.25em] uppercase text-xs sm:text-sm mb-4"
           >
-            ConvoSec AI
-          </motion.h2>
+            Welcome to our innovation space
+          </motion.p>
 
-          {/* Main Headline */}
+          {/* Main Brand Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="font-black leading-[1.1] tracking-tight mb-6 sm:mb-8 text-[#0f172a]"
+            className="text-5xl lg:text-7xl font-black mb-6 tracking-tighter"
           >
-            <div className="text-[2.25rem] lg:text-5xl md:whitespace-nowrap">
-              <span>Unifying </span>
-              <span className="text-[#00a8cc]">
-                <Typewriter words={["Intelligence", "Neural Networks", "Data Streams"]} />
+            <span className="relative inline-block group">
+              {/* Midnight Base Text */}
+              <span className="bg-gradient-to-r from-[#020617] via-[#10102e] to-[#1e1b4b] bg-clip-text text-transparent">
+                ConvoSec AI
               </span>
-            </div>
-            <div className="text-[2.25rem] lg:text-5xl md:whitespace-nowrap">
-              <span>Securing </span>
-              <span className="text-[#004aad]">
-                <Typewriter words={["Every Signal", "Global Networks", "Future Systems"]} />
-              </span>
-            </div>
+              
+              {/* Aggressive Star Layer (High Visibility) */}
+              <motion.span
+                className="absolute inset-0 bg-clip-text text-transparent pointer-events-none select-none overflow-hidden"
+                style={{
+                  backgroundImage: `
+                    radial-gradient(3px 3px at 15% 25%, white, transparent),
+                    radial-gradient(2.5px 2.5px at 35% 65%, white, transparent),
+                    radial-gradient(3.5px 3.5px at 55% 15%, white, transparent),
+                    radial-gradient(2.5px 2.5px at 75% 75%, white, transparent),
+                    radial-gradient(3px 3px at 90% 40%, white, transparent),
+                    radial-gradient(2px 2px at 45% 85%, white, transparent),
+                    radial-gradient(4px 4px at 65% 50%, white, transparent)
+                  `,
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  filter: "drop-shadow(0 0 4px rgba(255,255,255,0.8))",
+                }}
+                animate={{ 
+                  opacity: [0.5, 1, 0.5],
+                }}
+                transition={{ 
+                  duration: 2, 
+                  repeat: Infinity, 
+                  ease: "easeInOut" 
+                }}
+              >
+                ConvoSec AI
+              </motion.span>
+
+              {/* Individual "Hero" Stars for Maximum Twinkle */}
+              {[
+                { top: "20%", left: "12%" },
+                { top: "70%", left: "42%" },
+                { top: "15%", left: "68%" },
+                { top: "80%", left: "85%" },
+              ].map((pos, i) => (
+                <motion.div
+                  key={i}
+                  animate={{ 
+                    scale: [0, 1.2, 0],
+                    opacity: [0, 1, 0],
+                  }}
+                  transition={{ 
+                    duration: 1.5 + i * 0.5, 
+                    repeat: Infinity, 
+                    delay: i * 0.7 
+                  }}
+                  className="absolute w-1 h-1 bg-white rounded-full blur-[1px] shadow-[0_0_8px_white]"
+                  style={{ top: pos.top, left: pos.left, pointerEvents: "none" }}
+                />
+              ))}
+            </span>
           </motion.h1>
 
-          {/* Tagline & Slogan */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="mb-7 sm:mb-10"
-          >
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-8 h-[2px] bg-[#00a8cc] shrink-0" />
-              <p className="text-base sm:text-lg lg:text-2xl text-slate-700 font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em]">
-                Convolutional Intelligence
-              </p>
+          {/* Dynamic Content Switching - Rigid height container to eliminate all flexing */}
+          <div className="relative w-full mb-6">
+            <div className="relative h-[220px] sm:h-[260px] lg:h-[220px]">
+              <AnimatePresence mode="wait">
+                {currentContent === 0 ? (
+                  <motion.div
+                    key="ai-content"
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="absolute inset-0 flex flex-col justify-start"
+                  >
+                    {/* Sub-headline */}
+                    <h2 className="text-slate-700 font-bold text-2xl lg:text-4xl mb-4 leading-[1.1] max-w-2xl">
+                      Next-Generation AI Product Development & Strategic Enterprise Consulting
+                    </h2>
+
+                    {/* Detailed Paragraph */}
+                    <p className="text-slate-500 font-medium text-base lg:text-xl max-w-2xl leading-relaxed">
+                      We specialize in building secure, scalable AI ecosystems and conducting rigorous business transformation through LLM integration, Computer Vision, and Enterprise Automation to drive sustainable growth and innovation.
+                    </p>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="cyber-content"
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="absolute inset-0 flex flex-col justify-start"
+                  >
+                    {/* Sub-headline */}
+                    <h2 className="text-slate-700 font-bold text-2xl lg:text-4xl mb-4 leading-[1.1] max-w-2xl">
+                      Modern Cybersecurity Solutions for Businesses, Startups & Digital Products
+                    </h2>
+
+                    {/* Detailed Paragraph */}
+                    <p className="text-slate-500 font-medium text-base lg:text-xl max-w-2xl leading-relaxed">
+                      We help businesses strengthen their digital infrastructure through practical cybersecurity solutions focused on prevention, detection, compliance, secure development, and risk reduction.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            <p className="text-sm sm:text-lg lg:text-xl text-slate-500 font-medium italic pl-11">
-              "Secure Every Signal."
-            </p>
-          </motion.div>
+
+            {/* Content Indicators (Dots) */}
+            <div className="flex gap-2 mt-8">
+              {[0, 1].map((idx) => (
+                <motion.div
+                  key={idx}
+                  onClick={() => setCurrentContent(idx)}
+                  animate={{
+                    width: currentContent === idx ? 24 : 8,
+                    backgroundColor: currentContent === idx ? "#004aad" : "#cbd5e1",
+                  }}
+                  className="h-2 rounded-full cursor-pointer transition-all duration-300 hover:bg-[#004aad]/50"
+                />
+              ))}
+            </div>
+          </div>
 
           {/* Action Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="flex flex-wrap gap-3 sm:gap-5"
+            className="flex flex-wrap gap-4"
           >
             <Link
               to="/about"
-              className="px-7 sm:px-10 py-3 sm:py-4 bg-[#004aad] text-white rounded-full font-black text-sm lg:text-base transition-all hover:bg-[#003a8a] hover:shadow-xl hover:shadow-blue-200 active:scale-95 uppercase tracking-wider"
+              className="px-8 py-3.5 bg-[#004aad] text-white rounded-full font-bold text-sm transition-all hover:bg-[#003a8a] hover:shadow-xl hover:shadow-blue-200 active:scale-95 uppercase tracking-wider"
             >
               About Us
             </Link>
             <Link
               to="/projects"
-              className="px-7 sm:px-10 py-3 sm:py-4 bg-transparent border-2 border-[#00a8cc] text-[#00a8cc] rounded-full font-black text-sm lg:text-base hover:bg-[#00a8cc] hover:text-white transition-all active:scale-95 uppercase tracking-wider"
+              className="px-8 py-3.5 bg-transparent border-2 border-[#00a8cc] text-[#00a8cc] rounded-full font-bold text-sm hover:bg-[#00a8cc] hover:text-white transition-all active:scale-95 uppercase tracking-wider"
             >
               Explore Innovation
             </Link>
           </motion.div>
         </motion.div>
 
-        {/* Right Side: Hero Logo / Shield */}
+        {/* Right Side: Circular Video Area */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: [0.43, 0.13, 0.23, 0.96], delay: 0.2 }}
           className="relative flex justify-center items-center order-first lg:order-last -mt-6 lg:-mt-12 mb-8 lg:mb-0"
         >
-          <div className="relative p-6 xl:p-10">
-            {/* 1. Middle Security Shield (Counter-rotating Arc) */}
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-2 z-0"
-            >
-              <svg className="w-full h-full" viewBox="0 0 100 100">
-                <motion.circle
-                  cx="50"
-                  cy="50"
-                  r="47"
-                  fill="none"
-                  stroke="url(#shield-gradient)"
-                  strokeWidth="2.5"
-                  strokeDasharray="60 180"
-                  strokeLinecap="round"
-                  animate={{ strokeDasharray: ["40 200", "120 120", "40 200"] }}
-                  transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                />
-                <defs>
-                  <linearGradient id="shield-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#001a4d" />
-                    <stop offset="100%" stopColor="#003399" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </motion.div>
-
-            {/* 2. Core Pulse Aura */}
-            <motion.div
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.1, 0.25, 0.1]
-              }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute inset-6 bg-gradient-to-br from-[#001a4d] to-[#003399] rounded-full blur-[80px] z-0"
-            />
-
-            <motion.div
-              layoutId="hero-logo"
-              className="relative w-[320px] sm:w-[380px] md:w-[420px] lg:w-full lg:max-w-[480px] aspect-square rounded-full border-[12px] sm:border-[18px] border-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] overflow-hidden bg-white p-6 flex items-center justify-center z-10"
-            >
-              {/* Main Logo Image fitted in circle */}
-              <img
-                src="/logo.png"
-                alt="ConvoSec AI Hero"
-                className="w-full h-full object-contain"
-              />
-
-              {/* Internal subtle depth shadow */}
-              <div className="absolute inset-0 rounded-full shadow-[inset_0_0_60px_rgba(0,0,0,0.03)] pointer-events-none" />
-            </motion.div>
+          <div className="relative w-full aspect-square max-w-[420px] flex items-center justify-center">
+            {/* Pulsing Aura */}
+            <div className="absolute inset-0 bg-blue-100/50 rounded-full animate-pulse scale-110 blur-3xl z-0" />
+            
+            {/* Video Container */}
+            <div className="relative z-10 w-full aspect-square rounded-full shadow-[0_30px_90px_-15px_rgba(0,0,0,0.3)] overflow-hidden bg-black flex items-center justify-center">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover scale-125"
+              >
+                <source src="/Hero.mp4" type="video/mp4" />
+              </video>
+              
+              {/* Inner Glossy Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
+            </div>
           </div>
         </motion.div>
       </div>
 
-      {/* Bottom Scroll Indicator (Optional, but looks premium) */}
+      {/* Bottom Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
