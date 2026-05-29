@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
 
+# Exclude private and authentication routes from search engines
+Disallow: /auth
+Disallow: /dashboard
+Disallow: /dev-dashboard
+Disallow: /checkout
+Disallow: /cart
+
 Sitemap: https://convosecai.com/sitemap.xml

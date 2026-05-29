@@ -1,38 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Pages -->
   <url>
     <loc>https://convosecai.com/</loc>
-    <lastmod>2026-05-06</lastmod>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.00</priority>
   </url>
   <url>
-    <loc>https://convosecai.com/catalog</loc>
-    <lastmod>2026-05-06</lastmod>
-    <priority>0.80</priority>
+    <loc>https://convosecai.com/courses</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://convosecai.com/learning</loc>
-    <lastmod>2026-05-06</lastmod>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  
+  <!-- Content & Resources -->
+  <url>
+    <loc>https://convosecai.com/catalog</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://convosecai.com/projects</loc>
-    <lastmod>2026-05-06</lastmod>
-    <priority>0.70</priority>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://convosecai.com/blog</loc>
-    <lastmod>2026-05-06</lastmod>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Company & Contact -->
+  <url>
+    <loc>https://convosecai.com/about</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://convosecai.com/about</loc>
-    <lastmod>2026-05-06</lastmod>
+    <loc>https://convosecai.com/contact/business</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>0.60</priority>
   </url>
   <url>
-    <loc>https://convosecai.com/auth</loc>
-    <lastmod>2026-05-06</lastmod>
-    <priority>0.50</priority>
+    <loc>https://convosecai.com/contact/careers</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
   </url>
 </urlset>
