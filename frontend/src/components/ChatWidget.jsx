@@ -81,31 +81,25 @@ export default function ChatWidget() {
             role: "system",
             content: `You are ConvoSec AI, the official intelligent assistant for the ConvoSec platform. 
             
-            Company Overview:
+            Company Overview & Credits:
             - Name: ConvoSec AI
-            - Tagline: Secure Every Signal.
+            - Founder & CEO: Rudra Rajgure
             - Mission: Empowering Minds, Engineering Futures.
             - Focus: Unifying Convolutional Intelligence and Cybersecurity.
             
-            Key Services & Offerings:
-            1. Coaching & Education: Specialized tracks in AI/ML, VAPT (Vulnerability Assessment & Penetration Testing), and Business Analytics.
-            2. Project Development: Building bespoke AI and Security solutions for modern businesses.
+            What We Do (Our Services):
+            1. Education: Industrial-grade tracks in AI/ML and Cybersecurity (VAPT). We offer live cohorts, recorded labs, and real-world projects.
+            2. Project Development: Building bespoke AI and Security solutions, including AI SaaS, Computer Vision, LLM integrations, and network security for businesses.
             3. Corporate Collaboration: Partnering with organizations for specialized R&D and consultancy.
-            4. Internships & Placement: Industry-aligned programs to prepare talent for real-world roles.
             
-            Platform Features:
-            - Live Cohorts: Interactive learning with industry experts.
-            - Recorded Labs: Hands-on practice sessions available 24/7.
-            - Real-World Projects: Practical implementation of AI and Cyber security concepts.
-            - Knowledge Hub: Deep-dive technical articles and industry intelligence.
+            Our Courses (Which ones are best?):
+            - AI Mastery Roadmap (10 Phases): Covers everything from Python to Deep Learning, Generative AI (LLMs), and MLOps. 
+            - Cybersecurity Roadmap: Covers Ethical Hacking, VAPT, Digital Forensics, and SOC Analyst Bootcamps.
+            - Bestsellers/Recommended: "Generative AI & LLMs (Phase 6)" and "Ethical Hacking & VAPT (Course 2)" are our most popular and highly recommended courses.
             
-            Leadership Team:
-            - Rudra Gupta: AI Engineer & CEO.
-            - Samruddhi Khedkar: AI Engineer.
-            
-            Contact & Support:
-            - Website: https://convosec.ai
-            - Support: Available for technical inquiries, business collaborations, and internship applications.
+            Partnerships & Jobs:
+            - To partner with us: For corporate collaborations, R&D, or business consulting, contact us via https://convosecai.com/contact/business
+            - To get a job/internship: We offer industry-aligned internships to prepare talent. Visit https://convosecai.com/contact/careers or email support to apply for jobs and internships.
             
             Tone & Style:
             - Professional, authoritative, yet helpful and encouraging.
@@ -144,14 +138,14 @@ export default function ChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans">
+    <div className="fixed bottom-6 right-6 z-[999] font-sans">
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="absolute bottom-20 right-0 w-[24rem] h-[32rem] max-w-[calc(100vw-2rem)] bg-white border border-slate-900 shadow-2xl rounded-none flex flex-col overflow-hidden"
+            className="absolute bottom-20 right-0 w-[24rem] h-[32rem] max-h-[calc(100vh-16rem)] max-w-[calc(100vw-2rem)] bg-white border border-slate-900 shadow-2xl rounded-none flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="bg-slate-900 text-white p-4 flex items-center justify-between shadow-sm relative overflow-hidden">
@@ -165,12 +159,6 @@ export default function ChatWidget() {
                   <span className="text-xs text-slate-400">Online & Ready</span>
                 </div>
               </div>
-              <button 
-                onClick={() => setIsOpen(false)} 
-                className="hover:bg-white/10 p-1.5 rounded-lg transition"
-              >
-                <X size={20} />
-              </button>
             </div>
 
             {/* Chat Body */}

@@ -1519,6 +1519,195 @@ export const COURSE_DETAILS = {
     isVapt: false,
     mindmapImage: "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=800&q=80",
   },
+
+  /* ─────────────────────────────────────────────────────
+   *  CYBER SECURITY PHASES (0-5)
+   * ───────────────────────────────────────────────────── */
+  "cyber-phase0": {
+    tagline: "Computer & IT Foundations",
+    fullDescription: "Before you can secure a system, you must understand how it works. This phase covers the bedrock of IT — from computer architecture to operating systems and file systems.",
+    highlights: ["Master computer hardware fundamentals", "Understand Windows & Linux basics", "Navigate the terminal confidently"],
+    meta: { duration: "2-3 Weeks", level: "Beginner", updated: "May 2025", students: "500+" },
+    instructor: {
+      name: "Tanmay Sukhadeve",
+      title: "Cybersecurity Instructor",
+      avatar: null,
+      bio: "Tanmay has trained over 2,000 cybersecurity professionals. His teaching style is practical and direct.",
+      socials: { linkedin: "#", mail: "tanmay@example.com" },
+    },
+    features: [
+      { title: "Computer Basics", desc: "Understand CPU, RAM, and storage architecture.", icon: "Server" },
+      { title: "OS Foundations", desc: "How operating systems manage resources and processes.", icon: "Database" },
+      { title: "Terminal Mastery", desc: "Navigate systems entirely via command line.", icon: "Code" }
+    ],
+    syllabus: [
+      { module: "Computer Fundamentals", items: ["Hardware basics", "Memory management", "Storage systems"] },
+      { module: "Operating Systems", items: ["Windows vs Linux architecture", "File systems (NTFS, EXT4)", "Process management"] }
+    ],
+    outcomes: ["Understand core IT infrastructure", "Navigate OS environments via CLI"],
+    learningJourney: [
+      { title: "Phase 1: IT Basics", desc: "Learn the fundamentals of computing.", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" },
+      { title: "Phase 2: OS & CLI", desc: "Master the operating system and terminal.", img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80" }
+    ],
+    faqs: [{ q: "Is prior knowledge required?", a: "No, this starts from absolute scratch." }],
+    isVapt: false,
+    mindmapImage: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
+  },
+
+  "cyber-phase1": {
+    tagline: "Networking Fundamentals",
+    fullDescription: "Networks are the battlefield of cybersecurity. Understand how data moves across the internet, master the OSI model, and learn to analyze network traffic with Wireshark.",
+    highlights: ["Master TCP/IP and OSI models", "Deep dive into IP addressing and subnetting", "Perform packet analysis"],
+    meta: { duration: "3-4 Weeks", level: "Beginner", updated: "May 2025", students: "1,200+" },
+    instructor: {
+      name: "Tanmay Sukhadeve",
+      title: "Cybersecurity Instructor",
+      avatar: null,
+      bio: "Tanmay brings networking concepts to life with visual explanations and packet-level analysis.",
+      socials: { linkedin: "#", mail: "tanmay@example.com" },
+    },
+    features: [
+      { title: "OSI Model", desc: "The 7 layers of networking explained.", icon: "Server" },
+      { title: "Subnetting", desc: "Master IP addressing and CIDR notation.", icon: "Database" },
+      { title: "Packet Analysis", desc: "Use Wireshark to dissect network traffic.", icon: "Search" }
+    ],
+    syllabus: [
+      { module: "Networking Concepts", items: ["OSI & TCP/IP Models", "IP Addressing & Subnetting", "Routing & Switching"] },
+      { module: "Protocols & Analysis", items: ["DNS, DHCP, HTTP/HTTPS", "TCP vs UDP", "Wireshark packet analysis"] }
+    ],
+    outcomes: ["Design and subnet networks", "Analyze PCAP files for anomalies"],
+    learningJourney: [
+      { title: "Phase 1: Networking Core", desc: "Learn how networks are built.", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" },
+      { title: "Phase 2: Packet Level", desc: "Look inside the traffic using Wireshark.", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc48?auto=format&fit=crop&w=800&q=80" }
+    ],
+    faqs: [{ q: "Do I need hardware?", a: "No, all networking labs are virtualized." }],
+    isVapt: false,
+    mindmapImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc48?auto=format&fit=crop&w=800&q=80",
+  },
+
+  "cyber-phase2": {
+    tagline: "Linux & System Administration",
+    fullDescription: "Linux is the operating system of hackers and defenders. Gain complete control over Linux systems, user permissions, services, and basic hardening techniques.",
+    highlights: ["Navigate Linux like a pro", "Manage users, groups, and permissions", "Secure and harden Linux servers"],
+    meta: { duration: "3-4 Weeks", level: "Beginner", updated: "May 2025", students: "1,500+" },
+    instructor: {
+      name: "Tanmay Sukhadeve",
+      title: "Cybersecurity Instructor",
+      avatar: null,
+      bio: "Tanmay makes Linux administration intuitive and practical for security professionals.",
+      socials: { linkedin: "#", mail: "tanmay@example.com" },
+    },
+    features: [
+      { title: "Command Line", desc: "Bash scripting and terminal utilities.", icon: "Code" },
+      { title: "Permissions", desc: "Master chmod, chown, and ACLs.", icon: "Shield" },
+      { title: "System Hardening", desc: "Lock down services and configure firewalls.", icon: "CheckCircle2" }
+    ],
+    syllabus: [
+      { module: "Linux Core", items: ["File system hierarchy", "Command line basics", "User & group management"] },
+      { module: "Administration", items: ["Process management", "Services (systemd)", "Basic server hardening"] }
+    ],
+    outcomes: ["Administer Linux servers", "Implement basic security controls"],
+    learningJourney: [
+      { title: "Phase 1: Linux Basics", desc: "Get comfortable in the terminal.", img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80" },
+      { title: "Phase 2: Administration", desc: "Manage and secure the system.", img: "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=800&q=80" }
+    ],
+    faqs: [{ q: "Which distro is used?", a: "Ubuntu and Kali Linux." }],
+    isVapt: false,
+    mindmapImage: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+  },
+
+  "cyber-phase3": {
+    tagline: "Cyber Security Foundations",
+    fullDescription: "Bridge the gap between IT and Security. Learn the core principles of information security, cryptography, and risk management.",
+    highlights: ["Master the CIA Triad", "Understand encryption and hashing", "Analyze the modern threat landscape"],
+    meta: { duration: "3-4 Weeks", level: "Beginner", updated: "May 2025", students: "1,800+" },
+    instructor: {
+      name: "Tanmay Sukhadeve",
+      title: "Cybersecurity Instructor",
+      avatar: null,
+      bio: "Tanmay simplifies complex security concepts into digestible, real-world examples.",
+      socials: { linkedin: "#", mail: "tanmay@example.com" },
+    },
+    features: [
+      { title: "CIA Triad", desc: "The foundation of all security decisions.", icon: "Shield" },
+      { title: "Cryptography", desc: "Symmetric, asymmetric, and hashing.", icon: "Code" },
+      { title: "Threat Intel", desc: "Understand threat actors and their motives.", icon: "Search" }
+    ],
+    syllabus: [
+      { module: "Security Principles", items: ["CIA Triad", "Risk Management", "Security Controls"] },
+      { module: "Cryptography", items: ["Encryption basics", "Hashing & Digital Signatures", "PKI"] }
+    ],
+    outcomes: ["Apply security frameworks", "Understand cryptographic implementations"],
+    learningJourney: [
+      { title: "Phase 1: Concepts", desc: "Learn the theory of security.", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" },
+      { title: "Phase 2: Cryptography", desc: "Understand how data is protected.", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc48?auto=format&fit=crop&w=800&q=80" }
+    ],
+    faqs: [{ q: "Is this highly technical?", a: "This phase balances theory with practical examples." }],
+    isVapt: false,
+    mindmapImage: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
+  },
+
+  "cyber-phase4": {
+    tagline: "Ethical Hacking & VAPT",
+    fullDescription: "Think like a hacker to defeat one. Master the penetration testing lifecycle from reconnaissance to exploitation using industry-standard tools.",
+    highlights: ["Conduct web application pentesting", "Exploit OWASP Top 10 vulnerabilities", "Write professional VAPT reports"],
+    meta: { duration: "6-8 Weeks", level: "Intermediate", updated: "May 2025", students: "2,500+" },
+    instructor: {
+      name: "Tanmay Sukhadeve",
+      title: "Cybersecurity Instructor",
+      avatar: null,
+      bio: "Tanmay's VAPT training is strictly hands-on, simulating real-world enterprise environments.",
+      socials: { linkedin: "#", mail: "tanmay@example.com" },
+    },
+    features: [
+      { title: "Reconnaissance", desc: "OSINT and network scanning.", icon: "Search" },
+      { title: "Exploitation", desc: "Web and network attacks.", icon: "Zap" },
+      { title: "Reporting", desc: "Professional pentest reports.", icon: "FileText" }
+    ],
+    syllabus: [
+      { module: "Information Gathering", items: ["OSINT", "Nmap scanning", "Vulnerability assessment"] },
+      { module: "Web Exploitation", items: ["OWASP Top 10", "Burp Suite mastery", "SQLi & XSS"] }
+    ],
+    outcomes: ["Perform comprehensive pentests", "Exploit common vulnerabilities"],
+    learningJourney: [
+      { title: "Phase 1: Recon & Scan", desc: "Map the attack surface.", img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" },
+      { title: "Phase 2: Exploit", desc: "Attack vulnerable systems in the lab.", img: "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=800&q=80" }
+    ],
+    faqs: [{ q: "Is this legal?", a: "Yes, all attacks are performed in an authorized lab environment." }],
+    isVapt: true,
+    mindmapImage: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
+  },
+
+  "cyber-phase5": {
+    tagline: "Digital Forensics & Incident Response",
+    fullDescription: "When an attack happens, you are the first responder. Learn digital evidence collection, log analysis, and how to track attackers across compromised systems.",
+    highlights: ["Acquire and analyze digital evidence", "Reconstruct attack timelines", "Handle active security incidents"],
+    meta: { duration: "6-8 Weeks", level: "Advanced", updated: "May 2025", students: "1,100+" },
+    instructor: {
+      name: "Tanmay Sukhadeve",
+      title: "Cybersecurity Instructor",
+      avatar: null,
+      bio: "Tanmay teaches DFIR through realistic incident simulations based on actual enterprise breaches.",
+      socials: { linkedin: "#", mail: "tanmay@example.com" },
+    },
+    features: [
+      { title: "Evidence Collection", desc: "Disk and memory imaging.", icon: "Database" },
+      { title: "Log Analysis", desc: "Timeline reconstruction.", icon: "Search" },
+      { title: "Malware Basics", desc: "Identify Indicators of Compromise.", icon: "Shield" }
+    ],
+    syllabus: [
+      { module: "Digital Forensics", items: ["Chain of Custody", "Disk Forensics (Autopsy)", "Memory Forensics"] },
+      { module: "Incident Response", items: ["IR Lifecycle", "Log Analysis", "Malware Identification"] }
+    ],
+    outcomes: ["Conduct forensic investigations", "Respond to enterprise incidents"],
+    learningJourney: [
+      { title: "Phase 1: Forensics", desc: "Collect and analyze evidence.", img: "https://images.unsplash.com/photo-1614064641913-6b71a2ea3a0e?auto=format&fit=crop&w=800&q=80" },
+      { title: "Phase 2: Incident Response", desc: "Hunt threats and respond to breaches.", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc48?auto=format&fit=crop&w=800&q=80" }
+    ],
+    faqs: [{ q: "What tools are covered?", a: "Autopsy, Volatility, FTK Imager, and more." }],
+    isVapt: false,
+    mindmapImage: "https://images.unsplash.com/photo-1614064641913-6b71a2ea3a0e?auto=format&fit=crop&w=800&q=80",
+  }
 };
 
 /**

@@ -98,12 +98,12 @@ export default function CourseDetail() {
       {/* ── Breadcrumb bar ── */}
       <div className="bg-white border-b border-slate-100 pt-24 pb-3 sticky top-0 z-40 shadow-sm">
         <div className="container-shell flex items-center justify-between">
-          <Link
-            to="/courses"
+          <button
+            onClick={() => navigate(-1)}
             className="flex items-center gap-2 text-sm text-slate-500 hover:text-blue-600 font-bold transition-colors"
           >
             <ArrowLeft size={15} /> All Courses
-          </Link>
+          </button>
 
         </div>
       </div>
