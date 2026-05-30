@@ -109,21 +109,21 @@ export default function CourseDetail() {
       </div>
 
       {/* ── Hero ── */}
-      <section className="py-16 md:py-20 bg-white border-b border-slate-100">
+      <section className="pt-12 pb-20 md:pt-16 md:pb-28 bg-white border-b border-slate-100">
         <div className="container-shell">
-          <div className="grid lg:grid-cols-[1fr_380px] gap-12 items-start">
+          <div className="grid lg:grid-cols-[1fr_400px] gap-12 lg:gap-16 items-center">
 
             {/* Left */}
-            <div className="space-y-5">
-              <span className="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-[10px] font-black rounded-full uppercase tracking-widest">
+            <div className="space-y-6">
+              <span className="inline-block px-4 py-1.5 bg-blue-50 text-blue-700 text-xs font-black rounded-full uppercase tracking-widest">
                 {detail.tagline}
               </span>
 
-              <h1 className="text-3xl md:text-[2.75rem] font-black text-slate-900 leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-black text-slate-900 leading-[1.15]">
                 {course.title}
               </h1>
 
-              <p className="text-base text-slate-500 leading-relaxed max-w-xl font-medium">
+              <p className="text-lg text-slate-500 leading-relaxed max-w-2xl font-medium">
                 {detail.fullDescription}
               </p>
 
@@ -180,7 +180,7 @@ export default function CourseDetail() {
 
             {/* Right — Hero image card */}
             <div className="w-full">
-              <div className="relative rounded-2xl overflow-hidden border border-slate-100 shadow-lg aspect-[4/3]">
+              <div className="relative rounded-2xl overflow-hidden border border-slate-100 shadow-lg aspect-square">
                 <img
                   src={course.image}
                   alt={course.title}
@@ -206,7 +206,7 @@ export default function CourseDetail() {
                     {course.price === "TBC" ? "₹849" : course.price}
                   </span>
                   <span className="text-sm text-slate-300 line-through font-medium">
-                    ₹{course.originalPrice === "TBC" ? "3,499" : course.originalPrice}
+                    {course.originalPrice === "TBC" ? "₹3,499" : course.originalPrice}
                   </span>
                 </div>
                 <span className="text-[10px] font-black text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full uppercase tracking-wide">
@@ -221,19 +221,20 @@ export default function CourseDetail() {
 
       {/* ── Features Grid ── */}
       {detail.features?.length > 0 && (
-        <section className="py-16 bg-white border-b border-slate-100">
+        <section className="py-20 bg-white border-b border-slate-100">
           <div className="container-shell">
-            <h2 className="text-xl font-black text-slate-900 mb-10">What's Included</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8">
+            <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-10">What's Included</h2>
+            
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {detail.features.map((feat, i) => (
-                <div key={i} className="flex gap-4">
-                  <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 flex-shrink-0">
-                    <FeatureIcon name={feat.icon} />
+                <div key={i} className="p-6 rounded-xl border border-slate-200 hover:border-slate-300 bg-white transition-colors">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 flex-shrink-0">
+                      <FeatureIcon name={feat.icon} />
+                    </div>
+                    <h3 className="font-bold text-slate-900 text-sm">{feat.title}</h3>
                   </div>
-                  <div>
-                    <h3 className="font-black text-slate-900 text-sm mb-0.5">{feat.title}</h3>
-                    <p className="text-[12px] text-slate-500 leading-relaxed font-medium">{feat.desc}</p>
-                  </div>
+                  <p className="text-[13px] text-slate-500 leading-relaxed">{feat.desc}</p>
                 </div>
               ))}
             </div>
@@ -244,14 +245,14 @@ export default function CourseDetail() {
       {/* ── Overview + Mindmap ── */}
       <section className="py-20 bg-slate-50 border-b border-slate-100">
         <div className="container-shell">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-            <div className="space-y-10">
+            <div className="space-y-8">
               <div>
-                <h2 className="text-2xl font-black text-slate-900 mb-5">Course Overview</h2>
-                <div className="p-6 bg-white rounded-2xl border border-slate-100 shadow-sm flex gap-4">
-                  <BookOpen className="text-blue-600 flex-shrink-0 mt-0.5" size={22} />
-                  <p className="text-slate-600 text-sm leading-relaxed font-medium italic">
+                <h2 className="text-2xl font-black text-slate-900 mb-6">Course Overview</h2>
+                <div className="p-6 bg-white border border-slate-200 border-l-4 border-l-blue-600 rounded-r-xl flex gap-4">
+                  <BookOpen className="text-blue-600 flex-shrink-0 mt-1" size={20} />
+                  <p className="text-slate-700 text-[15px] leading-relaxed italic">
                     "{detail.fullDescription}"
                   </p>
                 </div>
@@ -264,13 +265,13 @@ export default function CourseDetail() {
                   { label: "Students", value: detail.meta.students, icon: Users },
                   { label: "Updated", value: detail.meta.updated, icon: CheckCircle2 },
                 ].map((m, i) => (
-                  <div key={i} className="p-4 bg-white rounded-xl border border-slate-100 flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+                  <div key={i} className="p-4 bg-white rounded-xl border border-slate-200 flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 flex-shrink-0">
                       <m.icon size={15} />
                     </div>
                     <div>
                       <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wide">{m.label}</p>
-                      <p className="text-sm font-black text-slate-900">{m.value}</p>
+                      <p className="text-sm font-bold text-slate-900">{m.value}</p>
                     </div>
                   </div>
                 ))}
@@ -279,16 +280,16 @@ export default function CourseDetail() {
 
             {/* Mindmap */}
             <div className="relative group">
-              <div className="relative rounded-2xl border border-slate-200 shadow-lg overflow-hidden aspect-square bg-slate-100">
+              <div className="relative rounded-xl border border-slate-200 shadow-sm overflow-hidden aspect-[4/3] bg-white">
                 <img
                   src={detail.mindmapImage}
                   alt="Course Roadmap"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"; }}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/5 to-transparent pointer-events-none" />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-sm border border-white/20 flex items-center gap-1.5">
+                <div className="absolute top-4 right-4 bg-white px-3 py-1.5 rounded-md border border-slate-200 shadow-sm flex items-center gap-1.5">
                   <Sparkles size={12} className="text-blue-600" />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-900">Curated Roadmap</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-900">Curated Roadmap</span>
                 </div>
               </div>
             </div>
@@ -300,105 +301,82 @@ export default function CourseDetail() {
       {/* ── Learning Journey ── */}
       <section className="py-20 bg-white border-b border-slate-100">
         <div className="container-shell">
-          <h2 className="text-2xl font-black text-slate-900 mb-10 text-center">Your Learning Journey</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-12 text-center">Your Learning Journey</h2>
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
             {detail.learningJourney.map((step, i) => (
-              <div key={i} className="group">
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-5 border border-slate-100 shadow-sm group-hover:shadow-md transition-all">
-                  <div className="absolute top-4 left-4 z-10 w-7 h-7 rounded-full bg-white shadow-sm flex items-center justify-center font-black text-xs text-blue-600">
+              <div key={i} className="flex flex-col p-6 rounded-xl border border-slate-200 bg-white">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm flex-shrink-0">
                     {i + 1}
                   </div>
+                  <h3 className="font-bold text-slate-900 text-[15px]">{step.title}</h3>
+                </div>
+                <p className="text-[13px] text-slate-500 leading-relaxed mb-6 flex-grow">{step.desc}</p>
+                <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-slate-100 bg-slate-50 mt-auto">
                   <img
                     src={step.img}
                     alt={step.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1518186239751-2477cf795151?auto=format&fit=crop&w=800&q=80"; }}
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                 </div>
-                <h3 className="font-black text-slate-900 mb-1.5 text-sm">{step.title}</h3>
-                <p className="text-xs text-slate-500 leading-relaxed font-medium">{step.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Syllabus / Outcomes Tabs ── */}
+      {/* ── Course Content & Outcomes ── */}
       <section className="py-20 bg-slate-50 border-b border-slate-100">
         <div className="container-shell">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl font-black text-slate-900 mb-8 text-center">Course Content</h2>
-
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-              {/* Tab bar */}
-              <div className="flex border-b border-slate-100">
-                {["curriculum", "outcomes"].map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`flex-1 py-3.5 text-[11px] font-black uppercase tracking-widest transition-all ${
-                      activeTab === tab
-                        ? "bg-slate-50 text-blue-600 border-b-2 border-blue-600"
-                        : "text-slate-400 hover:bg-slate-50"
-                    }`}
-                  >
-                    {tab}
-                  </button>
+          
+          {/* Curriculum */}
+          <div className="mb-20">
+            <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-10 text-center">Course Content</h2>
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden p-8 md:p-10">
+              <div className="space-y-6">
+                {detail.syllabus.map((mod, i) => (
+                  <div key={i} className="flex gap-6">
+                    <div className="flex flex-col items-center">
+                      <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-black text-sm flex-shrink-0">
+                        {String(i + 1).padStart(2, "0")}
+                      </div>
+                      {i !== detail.syllabus.length - 1 && (
+                        <div className="w-px h-full bg-slate-100 my-2" />
+                      )}
+                    </div>
+                    <div className="pb-4">
+                      <h3 className="text-base font-black text-slate-900 mb-3 mt-2">{mod.module}</h3>
+                      <ul className="space-y-2.5">
+                        {mod.items.map((item, j) => (
+                          <li key={j} className="flex items-start gap-3 text-sm text-slate-600">
+                            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
+                            <span className="leading-relaxed">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 ))}
-              </div>
-
-              <div className="p-8">
-                <AnimatePresence mode="wait">
-                  {activeTab === "curriculum" ? (
-                    <motion.div
-                      key="curriculum"
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      className="space-y-8"
-                    >
-                      {detail.syllabus.map((mod, i) => (
-                        <div key={i} className="flex gap-5">
-                          <span className="font-black text-slate-200 text-2xl tabular-nums flex-shrink-0 w-8">
-                            {String(i + 1).padStart(2, "0")}
-                          </span>
-                          <div>
-                            <h3 className="text-sm font-black text-slate-900 mb-2">{mod.module}</h3>
-                            <ul className="space-y-1.5">
-                              {mod.items.map((item, j) => (
-                                <li key={j} className="flex items-center gap-2.5 text-xs text-slate-500 font-medium">
-                                  <span className="w-1 h-1 rounded-full bg-slate-300 flex-shrink-0" />
-                                  {item}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      ))}
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="outcomes"
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      className="space-y-3"
-                    >
-                      <p className="text-sm font-medium text-slate-500 mb-5">By the end of this course, you will be able to:</p>
-                      {detail.outcomes.map((out, i) => (
-                        <div key={i} className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-100">
-                          <div className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <Check size={11} className="text-blue-600" strokeWidth={3} />
-                          </div>
-                          <span className="text-sm font-bold text-slate-700">{out}</span>
-                        </div>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
             </div>
           </div>
+
+          {/* Outcomes */}
+          <div>
+            <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-10 text-center">What You'll Learn</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {detail.outcomes.map((out, i) => (
+                <div key={i} className="flex items-start gap-4 p-6 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-slate-300 transition-colors">
+                  <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Check size={16} className="text-emerald-600" strokeWidth={3} />
+                  </div>
+                  <span className="text-[14px] font-medium text-slate-700 leading-relaxed">{out}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </section>
 

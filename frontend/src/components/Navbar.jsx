@@ -61,26 +61,7 @@ export default function Navbar() {
             className="flex items-center gap-2 sm:gap-3 bg-white rounded-full py-1.5 pl-1.5 pr-4 sm:pr-6 hover:scale-[1.01] active:scale-95 transition-all shadow-md shrink-0"
           >
             <div className="relative p-1">
-              {/* Synchronized Quantum Shield Arc (Mini) */}
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 z-0"
-              >
-                <svg className="w-full h-full opacity-60" viewBox="0 0 100 100">
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="46"
-                    fill="none"
-                    stroke="#001529"
-                    strokeWidth="4"
-                    strokeDasharray="80 160"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </motion.div>
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border border-slate-200 shadow-inner bg-white p-1.5 flex items-center justify-center relative z-10">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border border-slate-200 shadow-inner bg-white p-1.5 flex items-center justify-center">
                 <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
               </div>
             </div>

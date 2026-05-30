@@ -83,65 +83,49 @@ const testimonials = [
 ];
 
 const categories = [
-  "Most Popular",
-  "Generative AI",
+  "Data Science & AI Roadmap",
+  "Cyber Security Roadmap",
   "AI & Machine Learning",
-  "Data Science & Business Analytics",
-  "Project Management",
-  "Cyber Security",
-  "Agile and Scrum",
-  "Cloud Computing & DevOps",
-  "Business and Leadership",
-  "Software Development",
-  "Product and Design"
+  "Cybersecurity / VAPT",
+  "Cybersecurity"
 ];
 
 const programs = [
   {
     id: 1,
-    categories: ["Most Popular", "AI & Machine Learning"],
-    title: "Artificial Intelligence & Machine Learning",
+    categories: ["Data Science & AI Roadmap", "AI & Machine Learning"],
+    title: "Foundation (0 → Beginner)",
     partner: "ConvoSec Academy",
     duration: "Flexible (Project-Based)",
     cohortStart: "Ongoing Enrollment",
-    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=800&q=80",
     logo: "CSA"
   },
   {
     id: 2,
-    categories: ["Most Popular", "Generative AI", "AI Fundamentals"],
-    title: "Deep Learning Mastery",
+    categories: ["Data Science & AI Roadmap", "AI & Machine Learning"],
+    title: "Machine Learning Core",
     partner: "ConvoSec Academy",
     duration: "Flexible (Project-Based)",
     cohortStart: "Ongoing Enrollment",
-    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1518186239751-2477cf795151?auto=format&fit=crop&w=800&q=80",
     logo: "CSA"
   },
   {
     id: 3,
-    categories: ["Most Popular", "Cyber Security"],
-    title: "Cybersecurity / VAPT Professional",
+    categories: ["Data Science & AI Roadmap", "AI & Machine Learning"],
+    title: "Deep Learning",
     partner: "ConvoSec Academy",
     duration: "Flexible (Project-Based)",
     cohortStart: "Ongoing Enrollment",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
-    logo: "CSA"
-  },
-  {
-    id: 4,
-    categories: ["Most Popular", "Data Science & Business Analytics"],
-    title: "Data & Business Analytics",
-    partner: "ConvoSec Academy",
-    duration: "12 Weeks (Flexible)",
-    cohortStart: "Ongoing Enrollment",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80",
     logo: "CSA"
   }
 ];
 
 export default function Learning() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [activeCategory, setActiveCategory] = useState("Most Popular");
+  const [activeCategory, setActiveCategory] = useState("Data Science & AI Roadmap");
   const navigate = useNavigate();
 
   const [isVisible, setIsVisible] = useState(true);
@@ -417,45 +401,63 @@ export default function Learning() {
                 .filter((p) => p.categories.includes(activeCategory))
                 .map((program) => (
                   <Reveal key={program.id}>
-                    <div className="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-soft flex flex-col h-full group transition-all">
-                      {/* Image Container */}
-                      <div className="relative h-48 overflow-hidden bg-slate-100">
+                    <div
+                      onClick={() => navigate("/courses")}
+                      className="group relative flex flex-col h-[380px] bg-[#0b0f19] border border-white/5 rounded-[2rem] shadow-2xl hover:-translate-y-2 transition-all duration-500 cursor-pointer"
+                    >
+                      {/* Background Layer with isolated clipping */}
+                      <div className="absolute inset-0 rounded-[2rem] overflow-hidden">
                         <img
                           src={program.image}
                           alt={program.title}
                           onError={(e) => {
                             e.target.src = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80";
                           }}
-                          className="w-full h-full object-cover transition-transform duration-500"
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-50"
                         />
-                        {/* Overlapping Partner Badge */}
-                        <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg p-2 flex items-center gap-2 shadow-sm border border-slate-100/50 max-w-[calc(100%-2rem)]">
-                          <div className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center font-black text-xs text-black shrink-0">
-                            {program.logo}
-                          </div>
-                          <span className="text-xs font-bold text-slate-800 truncate">
-                            {program.partner}
-                          </span>
-                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-[#0b0f19]/80 to-transparent" />
                       </div>
 
-                      {/* Content */}
-                      <div className="p-6 flex flex-col flex-1">
-                        <h3 className="text-lg font-extrabold text-slate-900 mb-4 line-clamp-2">
+                      {/* Watermark Number */}
+                      <span className="absolute -top-4 left-0 text-[140px] font-light text-white/[0.04] leading-none select-none font-serif tracking-tighter">
+                        {program.id.toString().padStart(2, '0')}
+                      </span>
+
+                      {/* Top Right Pill (Category) */}
+                      <div className="absolute top-6 right-6 border border-white/10 bg-white/5 backdrop-blur-md text-white/80 text-[9px] uppercase tracking-[0.2em] px-4 py-2 rounded-full font-medium z-10 max-w-[120px] truncate text-center">
+                        {program.categories[program.categories.length - 1]}
+                      </div>
+
+                      {/* Top Left Partner Badge */}
+                      <div className="absolute top-6 left-6 bg-white/10 backdrop-blur-md rounded-full px-3 py-1.5 flex items-center gap-2 border border-white/10 z-10">
+                        <div className="w-5 h-5 rounded-full bg-black/40 flex items-center justify-center font-black text-[9px] text-white shrink-0">
+                          {program.logo}
+                        </div>
+                        <span className="text-[10px] font-bold text-white/90">
+                          {program.partner}
+                        </span>
+                      </div>
+
+                      {/* Content Bottom */}
+                      <div className="relative mt-auto p-8 flex flex-col items-start w-full pointer-events-none">
+                        <div className="space-y-1 mb-4 text-[10px] text-white/50 font-medium uppercase tracking-wider">
+                          <p>Duration: <span className="text-white/80">{program.duration}</span></p>
+                          <p>Cohort: <span className="text-white/80">{program.cohortStart}</span></p>
+                        </div>
+
+                        <h3 className="font-serif text-[24px] leading-[1.2] text-white mb-6 line-clamp-2">
                           {program.title}
                         </h3>
 
-                        <div className="mt-auto space-y-2 text-sm text-slate-500 font-semibold mb-6">
-                          <p>Duration: <span className="text-slate-700">{program.duration}</span></p>
-                          <p>Cohort Starts: <span className="text-slate-700">{program.cohortStart}</span></p>
+                        {/* Bottom row */}
+                        <div className="flex items-center justify-between w-full mt-2">
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-white/80 group-hover:text-white transition-colors">
+                            View Program
+                          </span>
+                          <div className="w-12 h-12 rounded-full border border-white/20 bg-white/5 backdrop-blur-md flex items-center justify-center text-white transition-all duration-300 group-hover:bg-white group-hover:text-black">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+                          </div>
                         </div>
-
-                        <Link
-                          to="/courses"
-                          className="w-full text-center py-3 rounded-lg border border-slate-200 text-sm font-bold text-black hover:bg-slate-50 hover:border-black/30 transition-all mt-auto"
-                        >
-                          View Program
-                        </Link>
                       </div>
                     </div>
                   </Reveal>

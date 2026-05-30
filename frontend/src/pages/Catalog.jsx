@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Heart, ShieldCheck, ArrowLeft, Clock, BarChart2,
@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../state/CartContext.jsx";
 import Reveal from "../components/Reveal.jsx";
 import SEO from "../components/SEO.jsx";
-import { demoCourses, dataScienceRoadmap } from "../data/courses.js";
+import { demoCourses, dataScienceRoadmap, cyberSecurityRoadmap } from "../data/courses.js";
 
 /* ─── helpers ─────────────────────────────────────────── */
 const parsePrice = (s) => parseInt((s || "0").replace(/[₹,]/g, ""));
@@ -54,116 +54,65 @@ const PHASE_IMAGES = [
 ══════════════════════════════════════════════════════════ */
 
 /* ── Course Card ── */
-function CourseCard({ course, onAddToCart, onClick }) {
+function CourseCard({ course, index = 0, onAddToCart, onClick }) {
   const isBest = course.rating >= 4.9;
-  const d = discountPct(course.price, course.originalPrice);
 
   return (
     <div
-      className="group relative flex flex-col h-full bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer"
+      className="group relative flex flex-col h-[380px] bg-[#0b0f19] border border-white/5 rounded-[2rem] overflow-hidden shadow-2xl hover:-translate-y-2 transition-all duration-500 cursor-pointer"
       onClick={() => onClick(course)}
     >
-      {/* Thumbnail */}
-      <div className="relative h-44 overflow-hidden flex-shrink-0">
+      {/* Background Layer with isolated clipping to fix Safari/Chrome corner bug */}
+      <div className="absolute inset-0 rounded-[2rem] overflow-hidden">
+        {/* Background Image */}
         <img
           src={course.image}
           alt={course.title}
           onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"; }}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-50"
         />
-        {/* Scrim */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-[#0b0f19]/80 to-transparent" />
+      </div>
+      
+      {/* Watermark Number */}
+      <span className="absolute -top-4 left-0 text-[140px] font-light text-white/[0.04] leading-none select-none font-serif tracking-tighter">
+        {(index + 1).toString().padStart(2, '0')}
+      </span>
 
-        {/* Badges */}
+      {/* Combined Top Badge */}
+      <div className="absolute top-6 left-6 flex items-center rounded-full overflow-hidden shadow-xl bg-[#0b101a]/90 backdrop-blur-md border border-white/10">
         {isBest && (
-          <span className="absolute top-3 left-3 bg-amber-400 text-amber-900 text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wide shadow-sm">
-            Bestseller
-          </span>
+          <div className="bg-gradient-to-r from-amber-500/20 to-amber-500/5 text-amber-400 text-[10px] font-bold uppercase tracking-[0.15em] px-4 py-1.5 border-r border-white/10">
+            Best Seller
+          </div>
         )}
-        <span className="absolute top-3 right-3 bg-black/60 text-white text-[9px] font-semibold px-2.5 py-1 rounded-full">
-          {course.difficulty || "All Levels"}
-        </span>
-
-        {/* Wishlist — appears on hover */}
-        <button
-          onClick={(e) => { e.stopPropagation(); }}
-          className="absolute bottom-3 right-3 w-7 h-7 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:text-rose-500"
-          title="Save to wishlist"
-        >
-          <Heart size={14} />
-        </button>
+        <div className="text-white/90 text-[10px] font-bold uppercase tracking-[0.15em] px-4 py-1.5">
+          {course.topic || "Course"}
+        </div>
       </div>
 
-      {/* Body */}
-      <div className="flex flex-col flex-1 p-4">
-        {/* Title */}
-        <h3 className="text-[13px] font-bold text-slate-900 leading-snug mb-1.5 line-clamp-2">
+      {/* Content Bottom */}
+      <div className="relative mt-auto p-8 flex flex-col items-start w-full">
+        <h3 className="font-serif text-[24px] leading-[1.2] text-white mb-6">
           {course.title}
         </h3>
-
-        {/* Instructor */}
-        <p className="flex items-center gap-1.5 text-[11px] text-slate-400 font-medium mb-2.5">
-          <User size={11} className="flex-shrink-0" />
-          {course.instructor}
-        </p>
-
-        {/* Rating */}
-        <div className="flex items-center gap-1.5 mb-2">
-          <span className="text-[12px] font-bold text-amber-600">{course.rating.toFixed(1)}</span>
-          <span className="text-[10px] text-amber-400 tracking-wide">{starStr(course.rating)}</span>
-          <span className="text-[10px] text-slate-400">({course.reviews.toLocaleString()})</span>
-        </div>
-
-        {/* Meta */}
-        <div className="flex items-center gap-1.5 text-[10px] text-slate-400 mb-3">
-          <Clock size={11} className="flex-shrink-0" />
-          <span>{course.duration || "Flexible"}</span>
-          <span className="w-1 h-1 rounded-full bg-slate-300" />
-          <BarChart2 size={11} className="flex-shrink-0" />
-          <span>{course.difficulty || "All Levels"}</span>
-        </div>
-
-        {/* Tags */}
-        {course.badges?.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mb-3">
-            {course.badges.map((b) => (
-              <span key={b} className="text-[9px] font-semibold px-2 py-0.5 rounded-md border border-slate-200 text-slate-500">
-                {b}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {/* Price + CTA */}
-        <div className="mt-auto pt-3 border-t border-slate-100">
-          <div className="flex items-baseline justify-between mb-2.5">
-            <div className="flex items-baseline gap-2">
-              <span className="text-[17px] font-black text-slate-900">
-                {course.price === "TBC" ? "₹849" : course.price}
-              </span>
-              <span className="text-[11px] text-slate-300 line-through font-medium">
-                {course.originalPrice === "TBC" ? "₹3,499" : course.originalPrice}
-              </span>
-              <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-md">
-                {d}% off
-              </span>
-            </div>
-            <div className="flex items-center gap-1 text-blue-600 group-hover:translate-x-0.5 transition-transform text-[10px] font-black uppercase tracking-wider">
-              <span>More</span>
-              <span>→</span>
-            </div>
-          </div>
-
-          {/* Add to Cart — slides in on hover */}
-          <button
-            onClick={(e) => { e.stopPropagation(); handleAddToCart(course); }}
-            className="w-full py-2 rounded-xl border border-blue-200 bg-blue-50 text-blue-700 text-[12px] font-bold
-                       opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0
-                       transition-all duration-200 hover:bg-blue-600 hover:text-white hover:border-blue-600 active:scale-95 flex items-center justify-center gap-1.5"
+        
+        {/* Bottom row with Cart button and Arrow */}
+        <div className="flex items-center justify-between w-full mt-2">
+           <button
+            onClick={(e) => { e.stopPropagation(); onAddToCart(course); }}
+            className="px-5 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white/90 text-[11px] font-bold uppercase tracking-wider
+                       opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0
+                       transition-all duration-300 hover:bg-white hover:text-black flex items-center gap-2"
           >
             <ShoppingCart size={13} />
-            Add to cart
+            Add
           </button>
+          
+          <div className="w-12 h-12 rounded-full border border-white/20 bg-white/5 backdrop-blur-md flex items-center justify-center text-white transition-all duration-300 group-hover:bg-white group-hover:text-black ml-auto">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+          </div>
         </div>
       </div>
     </div>
@@ -171,76 +120,65 @@ function CourseCard({ course, onAddToCart, onClick }) {
 }
 
 /* ── Roadmap Phase Card ── */
-function RoadmapCard({ phase, index, navigate }) {
-  const d = Math.round((1 - (499 + index * 100) / 1299) * 100);
-
+function RoadmapCard({ phase, index, navigate, onAddToCart }) {
   return (
     <div
       onClick={() => navigate(`/courses/${phase.slug}`)}
-      className="group relative flex flex-col h-full bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer"
+      className="group relative flex flex-col h-[380px] bg-[#0b0f19] border border-white/5 rounded-[2rem] overflow-hidden shadow-2xl hover:-translate-y-2 transition-all duration-500 cursor-pointer"
     >
-      {/* Thumbnail */}
-      <div className="relative h-44 overflow-hidden flex-shrink-0">
+      {/* Background Layer with isolated clipping to fix Safari/Chrome corner bug */}
+      <div className="absolute inset-0 rounded-[2rem] overflow-hidden">
+        {/* Background Image */}
         <img
-          src={PHASE_IMAGES[index]}
+          src={PHASE_IMAGES[index % PHASE_IMAGES.length]}
           alt={phase.title}
           onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"; }}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-50"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-[#0b0f19]/80 to-transparent" />
+      </div>
+      
+      {/* Watermark Number */}
+      <span className="absolute -top-4 left-0 text-[140px] font-light text-white/[0.04] leading-none select-none font-serif tracking-tighter">
+        {(index + 1).toString().padStart(2, '0')}
+      </span>
 
-        {phase.isHot && (
-          <span className="absolute top-3 left-3 bg-amber-400 text-amber-900 text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wide shadow-sm">
-            Bestseller
-          </span>
-        )}
-        <span className="absolute top-3 right-3 bg-black/60 text-white text-[9px] font-semibold px-2.5 py-1 rounded-full">
-          Phase {phase.phase}
-        </span>
+      {/* Top Right Pill */}
+      <div className="absolute top-6 right-6 border border-white/10 bg-white/5 backdrop-blur-md text-white/80 text-[9px] uppercase tracking-[0.2em] px-4 py-2 rounded-full font-medium">
+        PHASE {phase.phase}
       </div>
 
-      {/* Body */}
-      <div className="flex flex-col flex-1 p-4">
-        {/* Phase label */}
-        <p className="flex items-center gap-1.5 text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-1.5">
-          <Route size={11} className="flex-shrink-0" />
-          Roadmap · Phase {phase.phase}
-        </p>
-
-        <h3 className="text-[13px] font-bold text-slate-900 leading-snug mb-1.5 line-clamp-2">
+      {/* Content Bottom */}
+      <div className="relative mt-auto p-8 flex flex-col items-start w-full">
+        
+        <h3 className="font-serif text-[24px] leading-[1.2] text-white mb-6">
           {phase.title}
         </h3>
-
-
-
-        {/* Rating */}
-        <div className="flex items-center gap-1.5 mb-3">
-          <span className="text-[12px] font-bold text-amber-600">4.9</span>
-          <span className="text-[10px] text-amber-400 tracking-wide">★★★★★</span>
-          <span className="text-[10px] text-slate-400">(2.4k)</span>
-        </div>
-
-        {/* Topics as tags */}
-        <div className="flex flex-wrap gap-1.5 mb-3">
-          {phase.topics.slice(0, 3).map((t) => (
-            <span key={t.name} className="text-[9px] font-semibold px-2 py-0.5 rounded-md border border-slate-200 text-slate-500">
-              {t.name}
-            </span>
-          ))}
-        </div>
-
-        {/* Price */}
-        <div className="mt-auto pt-3 border-t border-slate-100">
-          <div className="flex items-baseline justify-between">
-            <div className="flex items-baseline gap-2">
-              <span className="text-[17px] font-black text-slate-900">₹{499 + index * 100}</span>
-              <span className="text-[11px] text-slate-300 line-through">₹1,299</span>
-              <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-md">{d}% off</span>
-            </div>
-            <div className="flex items-center gap-1 text-blue-600 group-hover:translate-x-0.5 transition-transform text-[10px] font-black uppercase tracking-wider">
-              <span>More</span>
-              <span>→</span>
-            </div>
+        
+        {/* Bottom row */}
+        <div className="flex items-center justify-between w-full mt-2">
+           <button
+            onClick={(e) => { 
+              e.stopPropagation(); 
+              if(onAddToCart) onAddToCart({ 
+                id: `phase-${phase.phase}`, 
+                title: phase.title, 
+                price: "₹Free", 
+                originalPrice: "₹1,299", 
+                image: PHASE_IMAGES[index % PHASE_IMAGES.length] 
+              }); 
+            }}
+            className="px-5 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white/90 text-[11px] font-bold uppercase tracking-wider
+                       opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0
+                       transition-all duration-300 hover:bg-white hover:text-black flex items-center gap-2"
+          >
+            <ShoppingCart size={13} />
+            Add
+          </button>
+          
+          <div className="w-12 h-12 rounded-full border border-white/20 bg-white/5 backdrop-blur-md flex items-center justify-center text-white transition-all duration-300 group-hover:bg-white group-hover:text-black ml-auto">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
           </div>
         </div>
       </div>
@@ -248,8 +186,75 @@ function RoadmapCard({ phase, index, navigate }) {
   );
 }
 
-/* ── Course Detail Modal ── */
+/* ── Scrollable Row with Arrow Buttons ── */
+function ScrollRow({ children }) {
+  const rowRef = useRef(null);
+  const [canLeft, setCanLeft]   = useState(false);
+  const [canRight, setCanRight] = useState(true);
 
+  const updateArrows = useCallback(() => {
+    const el = rowRef.current;
+    if (!el) return;
+    setCanLeft(el.scrollLeft > 8);
+    setCanRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 8);
+  }, []);
+
+  useEffect(() => {
+    const el = rowRef.current;
+    if (!el) return;
+    updateArrows();
+    el.addEventListener("scroll", updateArrows, { passive: true });
+    const ro = new ResizeObserver(updateArrows);
+    ro.observe(el);
+    return () => { el.removeEventListener("scroll", updateArrows); ro.disconnect(); };
+  }, [updateArrows]);
+
+  const scroll = (dir) => {
+    const el = rowRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * 640, behavior: "smooth" });
+  };
+
+  return (
+    <div>
+      {/* Arrow controls — top right, above the cards */}
+      <div className="flex justify-end gap-2 mb-1">
+        <button
+          onClick={() => scroll(-1)}
+          disabled={!canLeft}
+          aria-label="Scroll left"
+          className={`w-8 h-8 rounded-full border flex items-center justify-center text-xs font-bold transition-all duration-200 active:scale-95
+            ${canLeft
+              ? "bg-white border-slate-300 text-slate-700 shadow-sm hover:bg-blue-600 hover:text-white hover:border-blue-600 cursor-pointer"
+              : "bg-slate-100 border-slate-200 text-slate-300 cursor-not-allowed"
+            }`}
+        >
+          ‹
+        </button>
+        <button
+          onClick={() => scroll(1)}
+          disabled={!canRight}
+          aria-label="Scroll right"
+          className={`w-8 h-8 rounded-full border flex items-center justify-center text-xs font-bold transition-all duration-200 active:scale-95
+            ${canRight
+              ? "bg-white border-slate-300 text-slate-700 shadow-sm hover:bg-blue-600 hover:text-white hover:border-blue-600 cursor-pointer"
+              : "bg-slate-100 border-slate-200 text-slate-300 cursor-not-allowed"
+            }`}
+        >
+          ›
+        </button>
+      </div>
+
+      {/* Scrollable track */}
+      <div
+        ref={rowRef}
+        className="flex items-stretch gap-5 overflow-x-auto py-4 pb-10 scrollbar-none snap-x snap-mandatory -mx-6 px-6"
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
 
 /* ── Toast ── */
 function Toast({ message, show }) {
@@ -431,27 +436,53 @@ export default function Catalog() {
 
         {/* ── Roadmap Section ── */}
         {showRoadmap && (
-          <div className="mb-14">
-            <Reveal y={0}>
-              <div className="flex items-end justify-between mb-5">
-                <div>
-                  <p className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] mb-1.5">Strategic Learning Path</p>
-                  <h2 className="text-2xl font-black text-slate-900 tracking-tight">
-                    Data Science &amp; <span className="text-blue-600">AI Roadmap</span>
-                  </h2>
-                </div>
-                <span className="text-[11px] font-bold text-slate-400">8 phases</span>
-              </div>
-            </Reveal>
-
-            <div className="flex items-stretch gap-5 overflow-x-auto py-6 pb-12 scrollbar-none snap-x snap-mandatory -mx-6 px-6">
-              {dataScienceRoadmap.map((phase, i) => (
-                <Reveal key={phase.phase} y={0} className="flex-shrink-0 snap-start h-auto">
-                  <div className="w-[300px] h-full">
-                    <RoadmapCard phase={phase} index={i} navigate={navigate} />
+          <div className="mb-14 flex flex-col gap-12">
+            <div>
+              <Reveal y={0}>
+                <div className="flex items-end justify-between mb-5">
+                  <div>
+                    <p className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] mb-1.5">Strategic Learning Path</p>
+                    <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+                      Data Science &amp; <span className="text-blue-600">AI Roadmap</span>
+                    </h2>
                   </div>
-                </Reveal>
-              ))}
+                  <span className="text-[11px] font-bold text-slate-400">8 phases</span>
+                </div>
+              </Reveal>
+
+              <ScrollRow>
+                {dataScienceRoadmap.map((phase, i) => (
+                  <Reveal key={phase.phase} y={0} className="flex-shrink-0 snap-start h-[380px]">
+                    <div className="w-[300px] h-full">
+                      <RoadmapCard phase={phase} index={i} navigate={navigate} onAddToCart={handleAddToCart} />
+                    </div>
+                  </Reveal>
+                ))}
+              </ScrollRow>
+            </div>
+
+            <div>
+              <Reveal y={0}>
+                <div className="flex items-end justify-between mb-5">
+                  <div>
+                    <p className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] mb-1.5">Strategic Learning Path</p>
+                    <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+                      Cyber Security <span className="text-blue-600">Roadmap</span>
+                    </h2>
+                  </div>
+                  <span className="text-[11px] font-bold text-slate-400">6 phases</span>
+                </div>
+              </Reveal>
+
+              <ScrollRow>
+                {cyberSecurityRoadmap.map((phase, i) => (
+                  <Reveal key={phase.phase} y={0} className="flex-shrink-0 snap-start h-[380px]">
+                    <div className="w-[300px] h-full">
+                      <RoadmapCard phase={phase} index={i} navigate={navigate} onAddToCart={handleAddToCart} />
+                    </div>
+                  </Reveal>
+                ))}
+              </ScrollRow>
             </div>
           </div>
         )}
@@ -478,19 +509,20 @@ export default function Catalog() {
                     </div>
                   </Reveal>
 
-                  <div className="flex items-stretch gap-5 overflow-x-auto py-6 pb-12 scrollbar-none snap-x snap-mandatory -mx-6 px-6">
-                    {list.map((course) => (
-                      <Reveal key={course.id} y={0} className="flex-shrink-0 snap-start h-auto">
+                  <ScrollRow>
+                    {list.map((course, idx) => (
+                      <Reveal key={course.id} y={0} className="flex-shrink-0 snap-start h-[380px]">
                         <div className="w-[300px] h-full">
                           <CourseCard
                             course={course}
+                            index={idx}
                             onAddToCart={handleAddToCart}
                             onClick={(c) => navigate(`/courses/${c.slug}`)}
                           />
                         </div>
                       </Reveal>
                     ))}
-                  </div>
+                  </ScrollRow>
                 </div>
               );
             })}
