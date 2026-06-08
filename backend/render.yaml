@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: quorion-api
+    name: ConvoSec_AI-api
     env: node
     plan: free
     buildCommand: npm install
@@ -9,7 +9,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: DATABASE_URL
-        value: ./data/quorion.sqlite
+        value: ./data/ConvoSec_AI.sqlite
       - key: JWT_SECRET
         sync: false
       - key: CLIENT_ORIGIN

@@ -36,7 +36,7 @@ app.use(
 );
 
 app.get("/health", (req, res) => {
-  res.json({ status: "ok", service: "quorion-api" });
+  res.json({ status: "ok", service: "convosec-api" });
 });
 
 app.use("/api/auth", authRoutes);
@@ -54,7 +54,7 @@ if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
   initializeDatabase()
     .then(() => {
       app.listen(config.port, () => {
-        console.log(`Quorion API running on http://localhost:${config.port}`);
+        console.log(`ConvoSec_AI API running on http://localhost:${config.port}`);
       });
     })
     .catch((error) => {
@@ -64,3 +64,4 @@ if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
 }
 
 export default app;
+

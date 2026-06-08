@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { getDb } from "../db/database.js";
 import { requireAdmin } from "../middleware/auth.js";
-import { getAllUsers, deleteUser } from "../utils/jsonDb.js";
 import { upload } from "../utils/upload.js";
 
 const router = Router();
@@ -12,14 +11,14 @@ router.get("/stats", requireAdmin, async (req, res, next) => {
   try {
     const db = await getDb();
 
-    const users = await getAllUsers();
-    const userCount = users.length;
+    const usersRes = await db.get("SELECT COUNT(*) as count FROM users");
+    const userCount = parseInt(usersRes.count);
     const courseCount = await db.get("SELECT COUNT(*) as count FROM courses");
     const blogCount = await db.get("SELECT COUNT(*) as count FROM blogs");
     const contactCount = await db.get("SELECT COUNT(*) as count FROM contacts");
 
     const recentContacts = await db.all("SELECT * FROM contacts ORDER BY created_at DESC LIMIT 5");
-    const recentUsers = [...users].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 5);
+    const recentUsers = await db.all("SELECT id, name, email, role, created_at FROM users ORDER BY created_at DESC LIMIT 5");
 
     res.json({
       stats: {
@@ -39,9 +38,9 @@ router.get("/stats", requireAdmin, async (req, res, next) => {
 // User Management
 router.get("/users", requireAdmin, async (req, res, next) => {
   try {
-    const users = await getAllUsers();
-    const sorted = [...users].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-    res.json({ users: sorted.map(u => ({ id: u.id, name: u.name, email: u.email, role: u.role, created_at: u.created_at })) });
+    const db = await getDb();
+    const sorted = await db.all("SELECT id, name, email, role, created_at FROM users ORDER BY created_at DESC");
+    res.json({ users: sorted });
   } catch (error) {
     next(error);
   }
@@ -49,7 +48,8 @@ router.get("/users", requireAdmin, async (req, res, next) => {
 
 router.delete("/users/:id", requireAdmin, async (req, res, next) => {
   try {
-    await deleteUser(req.params.id);
+    const db = await getDb();
+    await db.run("DELETE FROM users WHERE id = ?", req.params.id);
     res.status(204).send();
   } catch (error) {
     next(error);

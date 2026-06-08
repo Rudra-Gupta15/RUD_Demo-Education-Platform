@@ -1,26 +1,27 @@
-# ConvoSec AI Education Platform
+# ConvoSec_AI: Next-Generation Cybersecurity & AI Startup
 
-A full-stack, production-ready EdTech platform for AI and cybersecurity education. Features a polished dark-theme Vite/React frontend with Tailwind CSS, Framer Motion animations, and an Express/SQLite backend with JWT authentication and full CRUD REST APIs.
+ConvoSec_AI is a cutting-edge startup bridging the gap between Artificial Intelligence and Enterprise Cybersecurity. This repository contains the full-stack, production-ready infrastructure powering our dynamic corporate platform, service offerings, AI agent integrations, and industry insights.
+
+Featuring a highly polished dark-theme frontend powered by Vite/React with Tailwind CSS and Framer Motion, and a robust Node.js/PostgreSQL backend with JWT authentication and full REST APIs.
 
 ---
 
-## ✨ Feature Highlights
+## ✨ Platform Capabilities
 
-| Feature | Details |
+| Capability | Details |
 |---|---|
-| **Landing Page** | Hero with animated cosmic background, CountUp stats, star-rated testimonials, feature cards |
-| **Courses** | AI & Cybersecurity categories, difficulty filters, detail pages with numbered syllabus |
-| **Online Learning** | Live + recorded sessions, animated progress bars, personalized dashboard |
-| **Blog / Articles** | Category filters, paragraph-formatted article pages with author meta |
-| **Projects Showcase** | Real-world builds like the AI-driven Financial Suggestions Application |
-| **About** | Immersive hero section, team cards, mission stats, value cards |
-| **Contact** | Info panel + form that saves to SQLite via REST API |
-| **Auth** | JWT signup/login, token persisted to localStorage, navbar logout |
-| **404** | Animated space-themed error page with glitch effect |
+| **Dynamic Startup Landing** | High-conversion hero section with animated cosmic background, CountUp metrics, client testimonials, and service cards. |
+| **Enterprise Services** | AI & Cybersecurity consulting and integration offerings, service tier filters, and detailed capability breakdowns. |
+| **Client Portal** | Secure environment for client onboarding, live session tracking, progress monitoring, and personalized dashboards. |
+| **Industry Insights (Blog)** | Category filters and professionally formatted articles featuring thought leadership and security advisories. |
+| **Product Showcase** | Real-world AI builds and proprietary internal tools, like our Autonomous Vulnerability Triage system. |
+| **Corporate Identity** | Immersive "About Us" section detailing company mission, team structure, and core values. |
+| **Sales & Contact** | Lead generation panel saving inquiries directly to PostgreSQL via REST API. |
+| **Secure Authentication** | Full JWT signup/login flow, persistent sessions, and RBAC (Role-Based Access Control) for clients and admins. |
 
 ---
 
-## 🧱 Tech Stack
+## 🧱 Technology Stack
 
 **Frontend**
 - React 18 + Vite 6
@@ -31,157 +32,92 @@ A full-stack, production-ready EdTech platform for AI and cybersecurity educatio
 
 **Backend**
 - Node.js + Express 4
-- SQLite via `sqlite` + `sqlite3`
-- JWT via `jsonwebtoken` + `bcryptjs`
+- PostgreSQL (via `pg`)
+- JWT Auth (`jsonwebtoken` + `bcryptjs`)
 - Zod (validation) + Helmet + Morgan + Rate limiting
 
-**Deployment**
+**Infrastructure & Deployment**
 - Frontend → Vercel
 - Backend → Render
+- Database → Hosted PostgreSQL
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Development Quick Start
 
 ### 1. Install Dependencies
 
 ```bash
-cd "c:\Study\Projects\RUD-Demo Education Platform"
-npm run install:all
+cd "c:\Study\Projects\ConvoSec_AI"
+npm install
 ```
 
 ### 2. Configure Environment
 
 ```bash
-# Backend
-cp backend/.env.example backend/.env
-# Edit backend/.env — set JWT_SECRET to a random 32-char string
+# Backend Environment (backend/.env)
+PORT=5000
+DATABASE_URL=postgresql://<YOUR_POSTGRES_USER>:<YOUR_POSTGRES_PASSWORD>@localhost:5432/ConvoSec
+JWT_SECRET=super-secret-key-replace-in-production
+CLIENT_ORIGIN=http://localhost:3000
+NODE_ENV=development
 
-# Frontend
-cp frontend/.env.example frontend/.env
-# VITE_API_URL defaults to http://localhost:5000 (no change needed for local dev)
+# Frontend Environment (frontend/.env)
+VITE_API_URL=http://localhost:5000
 ```
 
-### 3. Run Development Servers
+### 3. Setup PostgreSQL Database
+1. Ensure PostgreSQL is installed locally.
+2. Create a new database named `ConvoSec`.
+3. The backend script will automatically connect, initialize the schema, and seed required starting data upon startup.
+
+### 4. Run Development Servers
 
 ```bash
 npm run dev
 ```
 
-- **Frontend**: http://localhost:5173
+- **Frontend Application**: http://localhost:3000
 - **Backend API**: http://localhost:5000
-- **Health check**: http://localhost:5000/health
-
-The backend auto-creates `backend/data/convosec.sqlite` and seeds demo courses, blogs, projects, and learning sessions on first run.
+- **Health Check**: http://localhost:5000/health
 
 ---
 
-## 🌐 API Reference
+## 🌐 Core API Architecture
 
-### Auth
+### Authentication
 | Method | Path | Auth | Description |
 |---|---|---|---|
-| POST | `/api/auth/signup` | — | Create account, returns JWT |
-| POST | `/api/auth/login` | — | Login, returns JWT |
-| GET | `/api/auth/me` | ✓ | Fetch current user profile |
+| POST | `/api/auth/signup` | — | Register new client/user, returns JWT |
+| POST | `/api/auth/login` | — | Authenticate user, returns JWT |
+| GET | `/api/auth/me` | ✓ | Validate session and fetch profile |
 
-### Courses
+### Content Management (Services/Courses)
 | Method | Path | Auth | Description |
 |---|---|---|---|
-| GET | `/api/courses` | — | List all (supports `?category=&difficulty=`) |
-| GET | `/api/courses/:slug` | — | Single course with syllabus |
-| POST | `/api/courses` | ✓ | Create course |
-| PUT | `/api/courses/:id` | ✓ | Update course |
-| DELETE | `/api/courses/:id` | ✓ | Delete course |
+| GET | `/api/courses` | — | Retrieve all service offerings |
+| POST | `/api/courses` | ✓ | Create new service/course offering |
 
-### Blogs
+### Insights & Products
 | Method | Path | Auth | Description |
 |---|---|---|---|
-| GET | `/api/blogs` | — | List all (supports `?category=`) |
-| GET | `/api/blogs/:slug` | — | Single article |
-| POST | `/api/blogs` | ✓ | Create article |
-| PUT | `/api/blogs/:id` | ✓ | Update article |
-| DELETE | `/api/blogs/:id` | ✓ | Delete article |
+| GET | `/api/blogs` | — | Fetch all insights/articles |
+| GET | `/api/projects` | — | Fetch product showcases |
 
-### Other
+### Lead Generation
 | Method | Path | Auth | Description |
 |---|---|---|---|
-| GET | `/api/projects` | — | All projects |
-| POST | `/api/projects` | ✓ | Create project |
-| GET | `/api/learning` | — | Learning sessions |
-| POST | `/api/contact` | — | Save contact message |
+| POST | `/api/contact` | — | Submit contact/sales inquiry |
 
 ---
 
-## 📦 Environment Variables
+## 🔐 Security & Auth Flow
 
-### `backend/.env`
-```env
-PORT=5000
-JWT_SECRET=change-me-to-a-random-32-char-secret
-CLIENT_ORIGIN=http://localhost:5173
-DATABASE_URL=./data/convosec.sqlite
-NODE_ENV=development
-```
-
-### `frontend/.env`
-```env
-VITE_API_URL=http://localhost:5000
-```
+1. Client submits registration/login payload → `POST /api/auth/signup` or `/login`
+2. Backend securely hashes password using `bcrypt` (12 rounds) and generates a stateless JWT.
+3. Token is persisted client-side and attached as a Bearer token to subsequent API requests.
+4. `AuthContext` seamlessly manages global session state and route protection.
 
 ---
 
-## 🚢 Production Deployment
-
-### Vercel (Frontend)
-1. Push `frontend/` to a GitHub repo
-2. Import on Vercel → set **Framework: Vite**
-3. Add env var: `VITE_API_URL=https://your-backend.onrender.com`
-
-### Render (Backend)
-1. Create a **Web Service** pointing to `backend/`
-2. Build command: `npm install`
-3. Start command: `npm start`
-4. Add env vars: `JWT_SECRET`, `CLIENT_ORIGIN`, `NODE_ENV=production`
-
----
-
-## 🗂️ Folder Structure
-
-```
-ConvoSec AI/
-├── frontend/
-│   ├── src/
-│   │   ├── api/          # Fetch client
-│   │   ├── components/   # Navbar, Footer, CosmicBackground, Reveal, Skeleton
-│   │   ├── hooks/        # useApi data fetching hook
-│   │   ├── pages/        # All 11 pages
-│   │   ├── state/        # AuthContext (JWT)
-│   │   ├── App.jsx       # Router + AnimatePresence
-│   │   ├── main.jsx      # Entry point
-│   │   └── styles.css    # Global CSS + component layer
-│   ├── index.html        # SEO meta tags + inline SVG favicon
-│   └── tailwind.config.js
-└── backend/
-    └── src/
-        ├── db/           # SQLite init + seed data
-        ├── middleware/   # JWT auth + error handler
-        ├── routes/       # auth, courses, blogs, projects, learning, contact
-        ├── utils/        # Row parsers (JSON fields)
-        ├── config.js     # dotenv config
-        └── server.js     # Express app
-```
-
----
-
-## 🔐 Auth Flow
-
-1. User submits signup/login form → `POST /api/auth/signup` or `/login`
-2. Backend hashes password with bcrypt (12 rounds), issues a 7-day JWT
-3. Token stored in `localStorage` as `convosec_token`
-4. `AuthContext` re-validates token via `GET /api/auth/me` on page load
-5. Navbar shows user name + logout button when authenticated
-
----
-
-*Built with ❤️ by Rudra Gupta.*
+*Engineered by Rudra Gupta. Property of ConvoSec_AI.*

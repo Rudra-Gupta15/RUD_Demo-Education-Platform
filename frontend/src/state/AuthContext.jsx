@@ -1,63 +1,77 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { supabase } from "../lib/supabase.js";
 
 const AuthContext = createContext(null);
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check active sessions and sets the user
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
+    const token = localStorage.getItem("token");
+    if (!token) {
       setLoading(false);
-    });
+      return;
+    }
 
-    // Listen for changes on auth state (logged in, signed out, etc.)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
+    fetch(`${API_URL}/api/auth/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error("Invalid token");
+        return res.json();
+      })
+      .then(data => {
+        setUser(data.user);
+      })
+      .catch(() => {
+        localStorage.removeItem("token");
+        setUser(null);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   async function login({ email, password }) {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+    const res = await fetch(`${API_URL}/api/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
     });
 
-    if (error) throw error;
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Failed to login");
+
+    localStorage.setItem("token", data.token);
     setUser(data.user);
     return data.user;
   }
 
   async function signup({ email, password, name }) {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          name: name,
-        },
-      },
+    const res = await fetch(`${API_URL}/api/auth/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password, name })
     });
 
-    if (error) throw error;
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Failed to signup");
+
+    localStorage.setItem("token", data.token);
     setUser(data.user);
     return data.user;
   }
 
   async function logout() {
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
+    localStorage.removeItem("token");
     setUser(null);
   }
 
   const value = useMemo(() => ({ 
-    user: user ? { ...user, name: user.user_metadata?.name || user.email.split('@')[0] } : null, 
+    user, 
     loading, 
     login, 
     signup, 

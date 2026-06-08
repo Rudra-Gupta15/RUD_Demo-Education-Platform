@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { ShieldCheck, ArrowRight, CheckCircle2, Shield, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../state/AuthContext.jsx";
 import SEO from "../components/SEO.jsx";
-import { supabase } from "../lib/supabase.js";
 import Reveal from "../components/Reveal.jsx";
 
 export default function Auth() {
@@ -19,15 +18,15 @@ export default function Auth() {
     setLoading(true);
     setError("");
     try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: provider.toLowerCase(),
-        options: {
-          redirectTo: `${window.location.origin}/dashboard`
-        }
+      const res = await fetch("http://localhost:5000/api/auth/social-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: provider + " User", email: provider.toLowerCase() + "@example.com", provider })
       });
-
-      if (error) throw error;
-      // The browser will redirect to the provider
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to social login");
+      localStorage.setItem("token", data.token);
+      navigate("/dashboard");
     } catch (err) {
       setError(`Social Auth Failed: ${err.message}`);
     } finally {

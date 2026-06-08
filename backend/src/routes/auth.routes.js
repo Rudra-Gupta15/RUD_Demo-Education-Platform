@@ -2,7 +2,7 @@ import { Router } from "express";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { requireAuth, signToken } from "../middleware/auth.js";
-import { findUserByEmail, addUser, findUserById } from "../utils/jsonDb.js";
+import { getDb } from "../db/database.js";
 
 const router = Router();
 
@@ -29,19 +29,20 @@ function publicUser(user) {
 
 router.post("/signup", async (req, res, next) => {
   try {
+    const db = await getDb();
     const body = signupSchema.parse(req.body);
-    const existing = await findUserByEmail(body.email);
+    const existing = await db.get("SELECT * FROM users WHERE email = ?", body.email);
 
     if (existing) {
       return res.status(409).json({ message: "An account with this email already exists" });
     }
 
     const passwordHash = await bcrypt.hash(body.password, 12);
-    const user = await addUser({
-      name: body.name,
-      email: body.email.toLowerCase(),
-      password_hash: passwordHash
-    });
+    const result = await db.run(
+      "INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?) RETURNING *",
+      body.name, body.email.toLowerCase(), passwordHash, "student"
+    );
+    const user = result.rows[0];
 
     res.status(201).json({ user: publicUser(user), token: signToken(user) });
   } catch (error) {
@@ -54,8 +55,9 @@ router.post("/signup", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
   try {
+    const db = await getDb();
     const body = loginSchema.parse(req.body);
-    const user = await findUserByEmail(body.email);
+    const user = await db.get("SELECT * FROM users WHERE email = ?", body.email);
     const valid = user ? await bcrypt.compare(body.password, user.password_hash) : false;
 
     if (!valid) {
@@ -73,17 +75,16 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/social-login", async (req, res, next) => {
   try {
+    const db = await getDb();
     const { name, email, provider } = req.body;
-    let user = await findUserByEmail(email);
+    let user = await db.get("SELECT * FROM users WHERE email = ?", email);
 
     if (!user) {
-      // Create a mock social user if they don't exist
-      user = await addUser({
-        name,
-        email: email.toLowerCase(),
-        password_hash: "SOCIAL_AUTH_NODE", // Placeholder for social accounts
-        provider: provider
-      });
+      const result = await db.run(
+        "INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?) RETURNING *",
+        name, email.toLowerCase(), "SOCIAL_AUTH_NODE", "student"
+      );
+      user = result.rows[0];
     }
 
     res.json({ user: publicUser(user), token: signToken(user) });
@@ -94,7 +95,8 @@ router.post("/social-login", async (req, res, next) => {
 
 router.get("/me", requireAuth, async (req, res, next) => {
   try {
-    const user = await findUserById(req.user.id);
+    const db = await getDb();
+    const user = await db.get("SELECT * FROM users WHERE id = ?", req.user.id);
     if (!user) return res.status(404).json({ message: "User not found" });
     return res.json({ user: publicUser(user) });
   } catch (error) {

@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { useAuth } from "../state/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import { api } from "../api/client";
-import { supabase } from "../lib/supabase.js";
 import { demoCourses } from "../data/courses";
 import SEO from "../components/SEO.jsx";
 import {
@@ -162,26 +161,17 @@ export default function AdminDashboard() {
       if (targetTab === "overview") {
         let statsObj = { users: 0, courses: 0, contacts: 0 };
 
-        // Fetch from Supabase
-        const { count: uCount } = await supabase.from('profiles').select('*', { count: 'exact', head: true });
-        const { data: recentUsers } = await supabase.from('profiles').select('*').order('created_at', { ascending: false }).limit(5);
-
-        // Try to fetch from API for others, fallback to 0
         try {
           const res = await api("/api/admin/stats");
-          statsObj = { ...res.stats, users: uCount || res.stats.users };
-          setOverviewData({ users: recentUsers || res.recentUsers || [], contacts: res.recentContacts || [] });
+          statsObj = { ...res.stats };
+          setOverviewData({ users: res.recentUsers || [], contacts: res.recentContacts || [] });
         } catch (e) {
-          statsObj.users = uCount || 0;
-          setOverviewData({ users: recentUsers || [], contacts: [] });
+          setOverviewData({ users: [], contacts: [] });
         }
         setStats(statsObj);
       } else if (targetTab === "users") {
-        const { data: users, error } = await supabase.from('profiles').select('*').order('created_at', { ascending: false });
-        if (error) {
-          const res = await api("/api/admin/users");
-          setData(res.users || []);
-        } else setData(users || []);
+        const res = await api("/api/admin/users");
+        setData(res.users || []);
       } else if (targetTab === "courses") {
         const res = await api("/api/courses");
         setData(res.courses || []);

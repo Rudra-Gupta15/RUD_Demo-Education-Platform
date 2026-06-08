@@ -157,7 +157,7 @@ export default function Learning() {
       primaryUrl: "/courses",
       secondaryBtn: "Try ConvoSec for Business",
       secondaryUrl: "/contact",
-      image: "/hero1.png"
+      image: "/ai.png"
     },
     {
       title: "Master Cyber Security.\nProtect the Future.",
@@ -170,7 +170,7 @@ export default function Learning() {
       primaryUrl: "/projects",
       secondaryBtn: "Enterprise Training",
       secondaryUrl: "/contact",
-      image: "/hero2.png"
+      image: "/hero_cyber.png"
     }
   ];
 

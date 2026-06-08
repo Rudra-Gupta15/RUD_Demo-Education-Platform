@@ -145,6 +145,25 @@ const team = [
     github: "https://github.com/samruddhikhedkar02",
     email: "samruddhi@convosec.ai",
   },
+  {
+    name: "Nikky Bisen",
+    initials: "NB",
+    role: "Co-Founder & CTO",
+    image: "/Nikky.jpg",
+    bio: "Passionate AI/ML engineer specializing in intelligent systems and scalable neural architectures. Leads all technical strategy and engineering culture.",
+    linkedin: "https://www.linkedin.com/in/nikky-bisen-4a609115a/",
+    email: "nikky@convosec.ai",
+  },
+  {
+    name: "Rudra Gupta",
+    initials: "RG",
+    role: "Full Stack Developer",
+    image: "/Rudra.png",
+    bio: "Frontend specialist and extension developer focused on building practical, user-facing AI tools. Published author of multiple production Chrome extensions.",
+    linkedin: "https://www.linkedin.com/in/rudra-kumar-gupta/",
+    portfolio: "https://rudra-gupta.vercel.app/",
+    email: "rudra.gupta@convosec.ai",
+  }
 ];
 
 
@@ -188,118 +207,124 @@ const stats = [
   { value: "Founders", label: "Led Mentorship" },
 ];
 
-/* ─── SERVICE ROW ───────────────────────────────────────────────── */
-function ServiceRow({ service, idx }) {
-  const [open, setOpen] = useState(false);
+/* ─── CAPABILITIES TABS ─────────────────────────────────────────── */
+function CapabilitiesTabs({ services }) {
+  const [activeTab, setActiveTab] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const [ref, inView] = useReveal("-40px");
-  const Icon = service.icon;
+
+  // Auto-play effect
+  useEffect(() => {
+    if (isPaused || !inView) return;
+    const timer = setInterval(() => {
+      setActiveTab((prev) => (prev + 1) % services.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [isPaused, inView, services.length]);
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="flex flex-col lg:flex-row gap-8 lg:gap-16"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
     >
-      <div
-        className="group border-t border-slate-100 cursor-pointer relative overflow-hidden transition-all duration-500 hover:bg-white px-4 sm:px-8 -mx-4 sm:-mx-8 rounded-[2rem] hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.08)]"
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-      >
-        {/* Dynamic Shimmer Sweep */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <motion.div
-            initial={{ x: "-100%" }}
-            whileHover={{ x: "100%" }}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-12"
-          />
-        </div>
-        
-        {/* Breathing Side Glow */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-blue-600 group-hover:h-1/3 transition-all duration-500 rounded-r-full shadow-[0_0_20px_rgba(37,99,235,0.6)]" />
+      {/* Left: Tab List */}
+      <div className="lg:w-[35%] shrink-0 flex flex-col gap-2">
+        {services.map((service, idx) => {
+          const isActive = activeTab === idx;
+          const Icon = service.icon;
+          return (
+            <button
+              key={service.num}
+              onClick={() => {
+                setActiveTab(idx);
+                setIsPaused(true);
+              }}
+              className={`relative flex items-center gap-5 p-5 rounded-2xl text-left transition-all duration-300 ${isActive
+                  ? "bg-white border-2 border-slate-900 shadow-[0_8px_30px_rgb(0,0,0,0.06)] scale-[1.02]"
+                  : "bg-transparent border-2 border-transparent hover:bg-slate-50 scale-100"
+                }`}
+            >
+              <div className={`w-12 h-12 shrink-0 rounded-xl flex items-center justify-center transition-colors duration-300 ${isActive ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-400 group-hover:bg-slate-200 group-hover:text-slate-500"
+                }`}>
+                <Icon size={20} strokeWidth={2} />
+              </div>
 
-        <div className="relative flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12 py-6 sm:py-8 z-10">
-          {/* Phase & Icon with Dynamic Pulse */}
-          <div className="shrink-0 flex items-center gap-4 lg:w-40">
-            <div className="relative">
-              <span className="text-[9px] font-black text-blue-600 uppercase tracking-[0.3em] block mb-0.5 opacity-50 group-hover:opacity-100 transition-opacity">
-                Phase
-              </span>
-              <span className="text-3xl sm:text-4xl font-black text-slate-200 group-hover:text-blue-100 transition-colors duration-500 leading-none">
-                {service.num}
-              </span>
-            </div>
-            <div className="relative">
-              <motion.div 
-                animate={{ 
-                  boxShadow: ["0 0 0px rgba(37,99,235,0)", "0 0 20px rgba(37,99,235,0.4)", "0 0 0px rgba(37,99,235,0)"] 
-                }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                className="w-11 h-11 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-500 transition-all duration-500"
-              >
-                <Icon size={20} strokeWidth={1.5} />
-              </motion.div>
-              {/* Refined Ambient Bloom on Hover */}
-              <div className="absolute inset-0 rounded-xl bg-blue-500/25 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
-            </div>
-          </div>
-
-          {/* Main content area */}
-          <div className="flex-1 min-w-0">
-            <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12">
-              <div className="lg:w-72 shrink-0">
-                <h3 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors duration-300 mb-2 leading-tight">
+              <div>
+                <span className={`block text-[10px] font-bold uppercase tracking-widest mb-1 transition-colors duration-300 ${isActive ? "text-blue-600" : "text-slate-400"
+                  }`}>
+                  Phase {service.num}
+                </span>
+                <span className={`block text-[15px] font-black transition-colors duration-300 ${isActive ? "text-slate-900" : "text-slate-600 group-hover:text-slate-900"
+                  }`}>
                   {service.title}
-                </h3>
-                <span className="inline-flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white bg-slate-900 px-3 py-1 rounded-full group-hover:bg-blue-600 transition-all duration-300 relative overflow-hidden">
-                  <div className="w-1 h-1 rounded-full bg-blue-400 animate-pulse relative z-10" />
-                  <span className="relative z-10">{service.tag}</span>
-                  {/* Subtle tag sweep */}
-                  <motion.div
-                    initial={{ x: "-100%" }}
-                    whileHover={{ x: "100%" }}
-                    className="absolute inset-0 bg-white/20 skew-x-12"
-                  />
                 </span>
               </div>
 
-              <div className="flex-1 min-w-0">
-                <p className="text-slate-500 leading-relaxed text-sm mb-4 group-hover:text-slate-700 transition-colors font-medium">
-                  {service.desc}
-                </p>
-
-                <div className="flex flex-wrap gap-2">
-                  {service.points.map((p) => (
-                    <motion.span
-                      key={p}
-                      whileHover={{ y: -1, scale: 1.02 }}
-                      className="text-[10px] font-bold text-slate-600 bg-white/70 backdrop-blur-md border border-slate-100 px-3 py-1.5 rounded-lg shadow-sm group-hover:border-blue-200 group-hover:bg-blue-50/80 transition-all flex items-center gap-2"
-                    >
-                      <div className="w-1 h-1 rounded-full bg-slate-300 group-hover:bg-blue-500 transition-colors" />
-                      {p}
-                    </motion.span>
-                  ))}
-                </div>
-              </div>
-
-              <Link to={service.href} className="shrink-0 relative hidden lg:block self-center">
+              {/* Subtle active indicator arrow on the right */}
+              {isActive && (
                 <motion.div
-                  animate={{
-                    backgroundColor: open ? "rgb(37 99 235)" : "white",
-                    boxShadow: open ? "0 0 25px rgba(37,99,235,0.4)" : "0 0 0px rgba(0,0,0,0)"
-                  }}
-                  className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center transition-all duration-300 shadow-sm group-hover:border-blue-600"
+                  layoutId="activeTabArrow"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-900"
                 >
-                  <ArrowUpRight
-                    size={20}
-                    className={`${open ? "text-white" : "text-slate-400"} transition-colors`}
-                  />
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </motion.div>
-              </Link>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Right: Content Display */}
+      <div className="flex-1 bg-white rounded-3xl p-8 sm:p-12 border border-slate-100 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden min-h-[400px] flex flex-col justify-center">
+        {/* Subtle background decor */}
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-50 rounded-full blur-[100px] -z-10 -mr-20 -mt-20 pointer-events-none" />
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-full mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+              {services[activeTab].tag}
             </div>
-          </div>
-        </div>
+
+            <h3 className="text-3xl sm:text-4xl font-black text-slate-900 leading-tight tracking-tight mb-6">
+              {services[activeTab].title}
+            </h3>
+
+            <p className="text-slate-500 text-lg leading-relaxed font-medium mb-10 max-w-2xl">
+              {services[activeTab].desc}
+            </p>
+
+            <div className="grid sm:grid-cols-2 gap-4 mb-10">
+              {services[activeTab].points.map((p, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <div className="w-6 h-6 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </div>
+                  <span className="text-sm font-bold text-slate-700">{p}</span>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              to={services[activeTab].href}
+              className="inline-flex items-center gap-3 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-xl transition-colors duration-300 group"
+            >
+              Explore Program
+              <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </Link>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </motion.div>
   );
@@ -427,131 +452,46 @@ const stackItems = [
 ];
 
 function AppliedAIStack() {
-  const [items, setItems] = useState(stackItems);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setItems((prev) => {
-        const [first, ...rest] = prev;
-        return [...rest, first];
-      });
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const handleItemClick = (clickedItem) => {
-    setItems((prev) => {
-      const index = prev.findIndex(item => item.id === clickedItem.id);
-      if (index === 0) return prev;
-      const part1 = prev.slice(index);
-      const part2 = prev.slice(0, index);
-      return [...part1, ...part2];
-    });
-  };
-
-  const activeItem = items[0];
-  const sideItems = items.slice(1);
-
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_0.6fr] gap-6 items-stretch">
-      {/* Left: Big Active Item */}
-      <motion.div
-        layout
-        key={activeItem.id}
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="relative min-h-[440px] rounded-[2rem] p-8 lg:p-12 bg-white border border-slate-100 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col justify-center group"
-      >
-        {/* Animated Background Decor */}
-        <div className={`absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br ${activeItem.color} opacity-[0.03] rounded-full -mr-64 -mt-64 blur-3xl`} />
-
-        <div className="relative z-10">
-          <motion.span
-            layoutId={`id-${activeItem.id}`}
-            className={`inline-block px-5 py-2 rounded-full bg-gradient-to-r ${activeItem.color} text-white text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-lg shadow-blue-500/20`}
-          >
-            Phase {activeItem.id}
-          </motion.span>
-
-          <motion.h3
-            layoutId={`title-${activeItem.id}`}
-            className="text-3xl lg:text-4xl font-black text-slate-900 mb-5 tracking-tight leading-[1.1]"
-          >
-            {activeItem.title}
-          </motion.h3>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-slate-500 text-lg lg:text-xl leading-relaxed mb-8 font-medium max-w-xl"
-          >
-            {activeItem.desc}
-          </motion.p>
-
-          <div className="flex flex-wrap gap-4">
-            {activeItem.details.map((detail, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3 + i * 0.1 }}
-                className="px-6 py-3 bg-slate-50 text-slate-700 text-sm font-bold rounded-2xl border border-slate-100 shadow-sm"
-              >
-                {detail}
-              </motion.span>
-            ))}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+      {stackItems.map((item) => (
+        <div
+          key={item.id}
+          className="group rounded-[2rem] overflow-hidden transition-all duration-500 border flex flex-col bg-white border-slate-200 hover:border-slate-900 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)]"
+        >
+          {/* Header */}
+          <div className="flex flex-col p-6 sm:p-8">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-4xl sm:text-5xl font-black text-blue-600 transition-colors duration-500 group-hover:text-slate-900">
+                {item.id}
+              </span>
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900">
+              {item.title}
+            </h3>
           </div>
-        </div>
 
-        {/* Decorative corner icon */}
-        <div className="absolute bottom-10 right-10 opacity-5 group-hover:opacity-10 transition-opacity">
-          <Brain size={100} />
-        </div>
-      </motion.div>
-
-      {/* Right: Small Side Items */}
-      <div className="flex flex-col gap-6 justify-center">
-        <AnimatePresence mode="popLayout">
-          {sideItems.map((item) => (
-            <motion.div
-              layout
-              key={item.id}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              onClick={() => handleItemClick(item)}
-              className="cursor-pointer group relative p-6 rounded-[1.5rem] bg-white border border-slate-100 hover:border-blue-200 transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1"
-            >
-              <div className="flex items-center gap-6">
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white font-black text-xl shadow-lg shadow-blue-500/10`}>
-                  {item.id}
-                </div>
-                <div className="flex-1">
-                  <h4 className="text-slate-900 font-black text-lg group-hover:text-blue-600 transition-colors">
-                    {item.title.split(":")[0]}
-                  </h4>
-                  <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-1">
-                    Click to Expand
-                  </p>
-                </div>
-                <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-blue-600 group-hover:text-white transition-all">
-                  <ArrowUpRight size={18} />
+          {/* Body */}
+          <div className="px-6 sm:px-8 pb-8 pt-0 flex-1 flex flex-col">
+            <div className="border-t border-slate-100 pt-6 flex flex-col gap-6 flex-1">
+              <p className="text-slate-500 text-base leading-relaxed font-medium">
+                {item.desc}
+              </p>
+              <div className="flex flex-col gap-3 mt-auto">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Key Focus Areas</p>
+                <div className="flex flex-col gap-2">
+                  {item.details.map((detail, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0 mt-1.5" />
+                      <span className="text-slate-700 font-bold text-sm leading-tight">{detail}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-
-        {/* Static Note */}
-        <div className="mt-4 p-6 rounded-[1.5rem] bg-slate-900 text-white relative overflow-hidden group">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-          <p className="text-sm font-bold leading-relaxed relative z-10">
-            "Our AI framework is built on a philosophy of continuous adaptation—integrating emerging tools as they redefine the global landscape."
-          </p>
+            </div>
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 }
@@ -862,33 +802,27 @@ export default function About() {
       {/* ══════════════════════════════════════════════════════════
           SERVICES
       ══════════════════════════════════════════════════════════ */}
-      <section className="py-28 bg-[#f8fafc]">
+      <section className="py-24 bg-[#f8fafc]">
         <div className="container-shell">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
             <FadeReveal>
-              <p className="text-xs font-bold text-blue-600 uppercase tracking-[0.3em] mb-5">Capabilities</p>
-              <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[0.95]">
+              <p className="text-xs font-bold text-blue-600 uppercase tracking-[0.3em] mb-4">Capabilities</p>
+              <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.1]">
                 Comprehensive AI & <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">
+                <span className="text-blue-600">
                   Cyber Solutions
                 </span>
               </h2>
             </FadeReveal>
             <FadeReveal delay={0.1} className="lg:max-w-md">
-              <p className="text-slate-400 text-lg leading-relaxed font-medium">
+              <p className="text-slate-500 text-base leading-relaxed font-medium">
                 End-to-end services navigating the complex intersection of artificial intelligence
                 and modern security architecture at global scale.
               </p>
             </FadeReveal>
           </div>
 
-          {/* Editorial service list */}
-          <div>
-            {services.map((service, idx) => (
-              <ServiceRow key={service.num} service={service} idx={idx} />
-            ))}
-            <div className="border-t border-slate-200" />
-          </div>
+          <CapabilitiesTabs services={services} />
         </div>
       </section>
 
@@ -1020,52 +954,55 @@ export default function About() {
               </div>
             </div>
 
-            <FadeReveal delay={0.15} className="relative">
+            <FadeReveal delay={0.15} className="relative w-full max-w-sm lg:max-w-md mx-auto">
               <div className="absolute -top-4 -right-4 w-24 h-24 border-t-2 border-r-2 border-blue-200 rounded-tr-2xl" />
               <div className="absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-slate-200 rounded-bl-2xl" />
 
-              <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.15)] bg-slate-900 aspect-square">
+              <div className="relative w-full rounded-2xl overflow-hidden border border-slate-200 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.15)] bg-slate-900 aspect-square">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activePhil}
-                    initial={{ x: "100%" }}
-                    animate={{ x: 0 }}
-                    exit={{ x: "-100%" }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    initial={{ opacity: 0, scale: 1.05 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
                     className="absolute inset-0"
                   >
                     <img
-                      src={teamworkQuotes[activePhil % teamworkQuotes.length].image}
+                      src={`/${teamworkQuotes[activePhil % teamworkQuotes.length].image}`}
                       alt="Teamwork Quote"
-                      className="w-full h-full object-cover transition-all duration-700"
+                      className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/30 to-transparent" />
                   </motion.div>
                 </AnimatePresence>
 
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-left">
-                  <motion.div
-                    key={activePhil}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    <p className="text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mb-3">Wisdom in Collaboration</p>
-                    <h3 className="text-white text-xl lg:text-2xl font-bold tracking-tight leading-tight mb-4 italic">
-                      "{teamworkQuotes[activePhil % teamworkQuotes.length].slogan}"
-                    </h3>
-                    <div className="flex items-center gap-3 border-t border-white/10 pt-4">
-                      <div className="w-1 h-8 bg-blue-500" />
-                      <div>
-                        <p className="text-white text-sm font-black uppercase tracking-widest">
-                          {teamworkQuotes[activePhil % teamworkQuotes.length].author}
-                        </p>
-                        <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">
-                          {teamworkQuotes[activePhil % teamworkQuotes.length].role}
-                        </p>
+                <div className="absolute bottom-0 left-0 right-0 p-8 text-left z-10">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activePhil}
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -15 }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                    >
+                      <p className="text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mb-3">Wisdom in Collaboration</p>
+                      <h3 className="text-white text-xl lg:text-2xl font-bold tracking-tight leading-tight mb-4 italic">
+                        "{teamworkQuotes[activePhil % teamworkQuotes.length].slogan}"
+                      </h3>
+                      <div className="flex items-center gap-3 border-t border-white/10 pt-4">
+                        <div className="w-1 h-8 bg-blue-500" />
+                        <div>
+                          <p className="text-white text-sm font-black uppercase tracking-widest">
+                            {teamworkQuotes[activePhil % teamworkQuotes.length].author}
+                          </p>
+                          <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">
+                            {teamworkQuotes[activePhil % teamworkQuotes.length].role}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
               </div>
             </FadeReveal>

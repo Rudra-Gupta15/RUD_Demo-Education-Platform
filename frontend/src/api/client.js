@@ -1,7 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? "" : "http://localhost:5000");
 
 export async function api(path, options = {}) {
-  const token = localStorage.getItem("quorion_token");
+  const token = localStorage.getItem("token");
   const response = await fetch(`${API_URL}${path}`, {
     ...options,
     headers: {
