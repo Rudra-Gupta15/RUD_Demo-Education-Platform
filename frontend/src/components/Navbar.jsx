@@ -19,15 +19,22 @@ export default function Navbar() {
   useEffect(() => { setMobileOpen(false); }, [location.pathname]);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY < 50) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(currentScrollY < lastScrollY.current);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          if (currentScrollY < 50) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(currentScrollY < lastScrollY.current);
+          }
+          lastScrollY.current = currentScrollY;
+          setScrolled(currentScrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
       }
-      lastScrollY.current = currentScrollY;
-      setScrolled(currentScrollY > 20);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -53,7 +60,7 @@ export default function Navbar() {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: isVisible ? 0 : -120, opacity: isVisible ? 1 : 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="pointer-events-auto flex items-center bg-white/80 backdrop-blur-xl rounded-full p-1.5 sm:p-2 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.12)] border border-slate-200 w-full lg:w-auto"
+          className="pointer-events-auto flex items-center bg-white/80 backdrop-blur-xl rounded-full p-1.5 sm:p-2 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.12)] border border-slate-200 w-full lg:w-auto will-change-transform transform-gpu"
         >
           {/* Brand */}
           <Link
@@ -170,7 +177,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="fixed top-[72px] sm:top-[80px] left-3 right-3 z-[99] bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl border border-slate-100 p-5 lg:hidden"
+            className="fixed top-[72px] sm:top-[80px] left-3 right-3 z-[99] bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl border border-slate-100 p-5 lg:hidden will-change-transform transform-gpu"
           >
             {/* Nav Links */}
             <nav className="flex flex-col gap-1.5">

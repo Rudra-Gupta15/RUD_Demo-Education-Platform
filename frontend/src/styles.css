@@ -173,12 +173,6 @@ select {
   }
 }
 
-/* ─── Mobile zoom-out for better fit ─── */
-@media (max-width: 640px) {
-  html {
-    zoom: 0.9;
-  }
-}
 
 /* ─── Performance Optimization for Low-End Devices (Potato PCs) ─── */
 /* Disable expensive GPU blur operations globally */
