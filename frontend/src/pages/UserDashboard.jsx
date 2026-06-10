@@ -27,12 +27,12 @@ import SEO from "../components/SEO.jsx";
 
 // ── Styles ────────────────────────────────────────────────────────────────────
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
   .ud-dash *, .ud-dash *::before, .ud-dash *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   .ud-dash {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
     display: flex;
     min-height: 100vh;
     background: #f8fafc;
@@ -83,10 +83,10 @@ const css = `
     cursor: pointer; transition: all 0.2s;
     margin-bottom: 4px; border: 1px solid transparent; width: 100%;
     background: transparent; text-align: left;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     color: #64748b; font-size: 14px; font-weight: 500;
   }
-  .ud-nav-item.active { background: #eff6ff; color: #2563eb; font-weight: 600; border-color: #dbeafe; }
+  .ud-nav-item.active { background: #f8fafc; color: #0f172a; font-weight: 600; border-left: 3px solid #2563eb; border-radius: 0 8px 8px 0; }
 
   .ud-user {
     margin: 16px; padding: 16px;
@@ -121,6 +121,12 @@ const css = `
 
   .ud-content { padding: 24px; flex: 1; max-width: 1300px; margin: 0 auto; width: 100%; }
 
+  /* ── Sections ── */
+  .ud-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; margin-top: 16px; }
+  .ud-section-title { font-size: 18px; font-weight: 700; color: #0f172a; letter-spacing: -0.01em; }
+  .ud-section-link { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700; color: #2563eb; background: none; border: none; cursor: pointer; transition: color 0.2s; }
+  .ud-section-link:hover { color: #1d4ed8; }
+
   /* ── Responsive Grids ── */
   .ud-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px; }
   .ud-course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -128,13 +134,17 @@ const css = `
 
   /* ── Hero ── */
   .ud-hero {
-    background: #0f172a; border-radius: 20px; padding: 48px; color: #fff;
+    background: #0f172a; border-radius: 12px; padding: 32px 40px; color: #fff;
     display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 32px; box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.3);
+    margin-bottom: 32px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
     position: relative; overflow: hidden;
   }
   .ud-hero-content { max-width: 500px; position: relative; z-index: 2; }
-  .ud-hero-gfx { position: relative; z-index: 1; }
+  .ud-hero-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #60a5fa; background: rgba(37, 99, 235, 0.15); padding: 4px 12px; border-radius: 6px; margin-bottom: 16px; letter-spacing: 0.05em; text-transform: uppercase; border: 1px solid rgba(59, 130, 246, 0.2); }
+  .ud-hero-title { font-size: 28px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; line-height: 1.2; }
+  .ud-hero-para { font-size: 14px; color: #94a3b8; line-height: 1.6; margin-bottom: 24px; font-weight: 400; }
+  .ud-hero-btn { display: inline-flex; align-items: center; gap: 8px; background: #3b82f6; color: white; padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; }
+  .ud-hero-btn:hover { background: #2563eb; transform: translateY(-1px); }
 
   /* ── Overlay ── */
   .ud-overlay {
@@ -165,23 +175,31 @@ const css = `
   }
 
   /* ... rest of existing card/metric styles ... */
-  .ud-metric { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; display: flex; align-items: center; gap: 20px; }
-  .ud-metric-icon { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-  .ud-metric-val { font-size: 26px; font-weight: 800; color: #0f172a; }
-  .ud-metric-lbl { font-size: 13px; color: #64748b; font-weight: 600; }
+  .ud-metric { background: #fff; border: 1px solid #f1f5f9; border-radius: 12px; padding: 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.02); }
+  .ud-metric-icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+  .ud-metric-val { font-size: 22px; font-weight: 700; color: #0f172a; }
+  .ud-metric-lbl { font-size: 13px; color: #64748b; font-weight: 500; }
 
-  .ud-course-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; }
-  .ud-course-thumb { aspect-ratio: 16/9; overflow: hidden; border-bottom: 1px solid #f1f5f9; }
-  .ud-course-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .ud-course-card { background: #fff; border: 1px solid #f1f5f9; border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.02); }
+  .ud-course-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -10px rgba(0,0,0,0.08); border-color: #cbd5e1; }
+  .ud-course-thumb { aspect-ratio: 16/9; overflow: hidden; border-bottom: 1px solid #f1f5f9; position: relative; }
+  .ud-course-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+  .ud-course-card:hover .ud-course-thumb img { transform: scale(1.05); }
+  .ud-course-badge { position: absolute; top: 12px; left: 12px; background: rgba(15, 23, 42, 0.75); color: white; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.1); }
   .ud-course-body { padding: 20px; }
-  .ud-course-title { font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; }
+  .ud-course-title { font-size: 15px; font-weight: 600; color: #0f172a; margin-bottom: 16px; }
   .ud-progress-bar { height: 6px; background: #f1f5f9; border-radius: 99px; overflow: hidden; margin-bottom: 8px; }
   .ud-progress-fill { height: 100%; background: #2563eb; }
-  .ud-progress-meta { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #64748b; }
+  .ud-progress-meta { display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; color: #64748b; }
 
-  .ud-panel { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; }
-  .ud-feed-item { display: flex; gap: 16px; align-items: flex-start; padding: 12px; }
+  .ud-panel { background: #fff; border: 1px solid #f1f5f9; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.02); }
+  .ud-panel-title { font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 20px; letter-spacing: -0.01em; }
+  .ud-feed { display: flex; flex-direction: column; gap: 12px; }
+  .ud-feed-item { display: flex; gap: 16px; align-items: flex-start; padding: 12px; background: #f8fafc; border-radius: 12px; border: 1px solid #f1f5f9; transition: all 0.2s; }
+  .ud-feed-item:hover { background: #fff; border-color: #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
   .ud-feed-icon { width: 36px; height: 36px; border-radius: 10px; background: #eff6ff; color: #2563eb; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ud-feed-text { font-size: 13px; font-weight: 600; color: #0f172a; line-height: 1.4; }
+  .ud-feed-time { font-size: 11px; color: #64748b; margin-top: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
 `;
 
 export default function UserDashboard() {
@@ -340,9 +358,6 @@ function OverviewTab({ firstName, courses, isLoading, navigate }) {
           <button className="ud-hero-btn" onClick={() => navigate("/learning")}>
             Resume Learning <ArrowRight size={16} />
           </button>
-        </div>
-        <div className="ud-hero-gfx" style={{ opacity: 0.2 }}>
-          <Cpu size={180} />
         </div>
       </div>
 

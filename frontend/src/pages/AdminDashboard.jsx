@@ -34,7 +34,7 @@ const T = {
   purpleBg: "#f5f3ff",
   teal: "#14b8a6",
   mono: "'JetBrains Mono', 'Fira Code', monospace",
-  sans: "'Inter', system-ui, sans-serif",
+  sans: "'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif",
 };
 
 // ── Mock Generators for Ops Monitoring ─────────────────────────────────────────
@@ -54,10 +54,10 @@ const genLogEntry = (i) => {
 };
 
 const DEPS = [
-  { name: "Supabase DB", status: "healthy", latency: 12, region: "ap-south-1", icon: "🗄" },
-  { name: "Supabase Auth", status: "healthy", latency: 18, region: "ap-south-1", icon: "🔐" },
-  { name: "Supabase Storage", status: "degraded", latency: 412, region: "ap-south-1", icon: "📦" },
-  { name: "Cloudflare Edge", status: "healthy", latency: 4, region: "edge", icon: "⚡" },
+  { name: "PostgreSQL Database", status: "healthy", latency: 12, region: "localhost", icon: "🗄" },
+  { name: "Express API (Auth)", status: "healthy", latency: 18, region: "localhost", icon: "🔐" },
+  { name: "Local File System", status: "healthy", latency: 42, region: "localhost", icon: "📦" },
+  { name: "Vite React Frontend", status: "healthy", latency: 4, region: "client", icon: "⚡" },
 ];
 
 // ── Shared UI Components ───────────────────────────────────────────────────────
@@ -114,7 +114,7 @@ const MethodBadge = ({ method }) => {
 };
 
 const Card = ({ children, style = {} }) => (
-  <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 12, padding: "20px", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", ...style }}>
+  <div style={{ background: T.surface, border: `1px solid ${T.borderLight}`, borderRadius: 12, padding: "20px", boxShadow: "0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.02)", ...style }}>
     {children}
   </div>
 );
@@ -223,7 +223,7 @@ export default function AdminDashboard() {
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
         .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 6px; cursor: pointer; color: ${T.muted}; transition: 0.2s; border: 1px solid transparent; width: 100%; background: transparent; text-align: left; }
         .nav-item:hover { background: ${T.surfaceHover}; color: ${T.text}; }
-        .nav-item.active { background: ${T.surfaceHover}; color: ${T.text}; border-color: ${T.border}; }
+        .nav-item.active { background: ${T.surfaceHover}; color: ${T.text}; border-color: transparent; border-left: 3px solid ${T.accent}; border-radius: 0 6px 6px 0; font-weight: 600; }
         .row-hover:hover { background: ${T.surfaceHover} !important; }
         .btn { padding: 6px 12px; border-radius: 6px; border: 1px solid ${T.border}; background: ${T.surface}; color: ${T.text}; cursor: pointer; font-size: 12px; display: flex; align-items: center; gap: 6px; }
         .btn-primary { background: ${T.accentDim}; border-color: ${T.accent}; }
@@ -232,13 +232,15 @@ export default function AdminDashboard() {
 
       {/* ── Sidebar ── */}
       <aside style={{ width: 260, position: "fixed", top: 0, left: 0, bottom: 0, background: "#ffffff", borderRight: `1px solid ${T.border}`, padding: "20px", display: "flex", flexDirection: "column", boxShadow: "4px 0 20px rgba(0,0,0,0.02)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 30, padding: "0 10px" }}>
-          <div style={{ width: 34, height: 34, background: T.accent, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: "#fff", boxShadow: `0 4px 12px ${T.accent}44` }}>⌘</div>
+        <Link to="/" style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 30, padding: "0 10px", textDecoration: "none" }}>
+          <div style={{ width: 32, height: 32, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", border: `1px solid ${T.borderLight}`, background: "#fff" }}>
+            <img src="/logo.png" alt="ConvoSec AI" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          </div>
           <div>
-            <div style={{ fontWeight: 800, fontSize: 16, color: T.text, letterSpacing: "-0.02em" }}>ConvoSec AI</div>
+            <div style={{ fontWeight: 700, fontSize: 16, color: T.text, letterSpacing: "-0.02em" }}>ConvoSec AI</div>
             <div style={{ fontSize: 10, color: T.muted, textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 600 }}>Command Center</div>
           </div>
-        </div>
+        </Link>
 
         <nav style={{ flex: 1, display: "flex", flexDirection: "column", gap: 4 }}>
           {menuItems.map(item => (
@@ -265,7 +267,7 @@ export default function AdminDashboard() {
       <main style={{ marginLeft: 260, padding: "30px 40px" }}>
         <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 32 }}>
           <div style={{ flex: 1 }}>
-            <h1 style={{ fontSize: 20, fontWeight: 700, marginBottom: 4 }}>{tabLabel}</h1>
+            <h1 style={{ fontSize: 20, fontWeight: 600, marginBottom: 4 }}>{tabLabel}</h1>
             <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 12, color: T.muted }}>
               <span style={{ display: "flex", alignItems: "center", gap: 6 }}><Activity size={12} color={T.green} /> {activeUsers} operators online</span>
               <span>•</span>
@@ -340,7 +342,7 @@ function OverviewTab({ stats, data, isLoading, setTab }) {
           <Card key={i} style={{ cursor: 'pointer' }} onClick={() => m.id !== 'status' && setTab(m.id)}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
               <div>
-                <div style={{ fontSize: 11, color: T.muted, textTransform: "uppercase", marginBottom: 8 }}>{m.label}</div>
+                <div style={{ fontSize: 11, color: T.muted, textTransform: "uppercase", marginBottom: 8, fontWeight: 600 }}>{m.label}</div>
                 <div style={{ fontSize: 24, fontWeight: 700, fontFamily: T.mono }}>{isLoading ? "…" : m.value}</div>
               </div>
               <m.icon size={20} color={m.color} opacity={0.8} />
@@ -425,7 +427,7 @@ function UsersTab({ data, isLoading, onDelete, onEdit, query }) {
           </tr>
         </thead>
         <tbody>
-          {isLoading ? <tr><td colSpan={5} style={{ padding: 40, textAlign: "center", color: T.muted }}>Synchronizing with Supabase...</td></tr> :
+          {isLoading ? <tr><td colSpan={5} style={{ padding: 40, textAlign: "center", color: T.muted }}>Fetching from PostgreSQL...</td></tr> :
             filtered.map((u, i) => (
               <tr key={i} className="row-hover" style={{ borderBottom: `1px solid ${T.borderLight}` }}>
                 <td style={{ padding: "14px 20px" }}>
@@ -557,10 +559,10 @@ function MessagesTab({ data, isLoading, onDelete, query }) {
 
 function EnvTab({ revealedKeys, setRevealedKeys }) {
   const envs = [
-    { k: "VITE_SUPABASE_URL", v: import.meta.env.VITE_SUPABASE_URL, s: false },
-    { k: "VITE_SUPABASE_ANON_KEY", v: import.meta.env.VITE_SUPABASE_ANON_KEY, s: true },
     { k: "VITE_API_URL", v: import.meta.env.VITE_API_URL, s: false },
-    { k: "NODE_ENV", v: "production", s: false },
+    { k: "VITE_NEWS_API_KEY", v: import.meta.env.VITE_NEWS_API_KEY, s: true },
+    { k: "VITE_GROQ_API_KEY", v: import.meta.env.VITE_GROQ_API_KEY, s: true },
+    { k: "NODE_ENV", v: "development", s: false },
   ];
   return (
     <Card style={{ padding: 0 }}>
@@ -584,8 +586,8 @@ function EnvTab({ revealedKeys, setRevealedKeys }) {
 
 function StatusTab() {
   const incidents = [
-    { time: "12m ago", msg: "Supabase Storage latency spike", status: "ongoing" },
-    { time: "2h ago", msg: "API Gateway rate limit adjustments", status: "resolved" },
+    { time: "12m ago", msg: "Database query latency spike", status: "resolved" },
+    { time: "2h ago", msg: "Express API rate limit adjustments", status: "resolved" },
   ];
   return (
     <div>

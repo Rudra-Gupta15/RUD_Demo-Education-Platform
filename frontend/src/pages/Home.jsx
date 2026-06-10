@@ -61,16 +61,7 @@ export default function Home() {
                   />
                 </div>
 
-                {/* Floating Industry Badge */}
-                <motion.div
-                  initial={{ scale: 0, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
-                  className="absolute -bottom-8 sm:-bottom-10 right-[15%] w-28 h-28 sm:w-40 sm:h-40 rounded-full bg-[#0a3d62] border-[4px] sm:border-[6px] border-white shadow-2xl flex flex-col items-center justify-center text-white text-center z-20"
-                >
-                  <span className="text-2xl sm:text-3xl font-black leading-none">NEXT</span>
-                  <span className="text-[8px] sm:text-[10px] font-bold uppercase tracking-widest mt-1">GEN<br />STARTUP</span>
-                </motion.div>
+
 
                 {/* Background decorative frame */}
                 <div
@@ -88,9 +79,9 @@ export default function Home() {
             <Reveal delay={0.2}>
               <div className="space-y-4 sm:space-y-6">
                 <div className="w-16 h-1 bg-[#2563eb] rounded-full" />
-                <h2 className="text-2xl sm:text-3xl md:text-[2.75rem] font-black text-slate-900 leading-[1.1] tracking-tight">
-                  Pioneering AI & <br />
-                  <span className="text-blue-600">Cybersecurity Excellence</span>
+                <h2 className="text-2xl sm:text-3xl md:text-[2.75rem] font-bold text-slate-900 leading-[1.1] tracking-tight">
+                  Build Secure & <br />
+                  <span className="text-blue-600">Intelligent Systems</span>
                 </h2>
                 <div className="space-y-3 sm:space-y-4 text-slate-500 text-sm sm:text-base md:text-lg leading-relaxed font-medium">
                   <p>
@@ -171,7 +162,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_2px,transparent_2px),linear-gradient(to_bottom,#f1f5f9_2px,transparent_2px)] bg-[size:60px_60px] opacity-80 z-0" />
 
             <Reveal delay={0.3}>
-              <div className="relative w-[260px] h-[500px] lg:w-[280px] lg:h-[550px] rounded-[10rem] overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.2)] border-[12px] border-white z-10 bg-slate-900">
+              <div className="relative w-[260px] h-[500px] lg:w-[280px] lg:h-[550px] rounded-full overflow-hidden shadow-xl border-8 border-white z-10 bg-slate-900">
                 <img
                   src="/tech_office_collaboration_premium_1777889270846.png"
                   className="w-full h-full object-cover opacity-80"
@@ -181,19 +172,7 @@ export default function Home() {
               </div>
             </Reveal>
 
-            {/* Floating Badges */}
-            <Reveal delay={0.5}>
-              <div className="absolute top-1/4 -left-4 lg:-left-6 bg-white rounded-full p-3 lg:p-4 shadow-2xl border border-slate-50 flex flex-col items-center justify-center w-24 h-24 lg:w-32 lg:h-32 z-20 hover:-translate-y-2 transition-transform cursor-default">
-                <Terminal size={28} className="text-blue-600 mb-1 lg:mb-2" />
-                <span className="text-[9px] font-black text-center text-[#0a192f] uppercase tracking-widest leading-none">AI Engine</span>
-              </div>
-            </Reveal>
-            <Reveal delay={0.6}>
-              <div className="absolute bottom-1/3 -right-4 lg:-right-6 bg-white rounded-full p-3 lg:p-4 shadow-2xl border border-slate-50 flex flex-col items-center justify-center w-24 h-24 lg:w-32 lg:h-32 z-20 hover:-translate-y-2 transition-transform cursor-default">
-                <Shield size={28} className="text-blue-600 mb-1 lg:mb-2" />
-                <span className="text-[9px] font-black text-center text-[#0a192f] uppercase tracking-widest leading-none">Cyber Shield</span>
-              </div>
-            </Reveal>
+
           </div>
         </div>
       </section>
@@ -203,9 +182,7 @@ export default function Home() {
         {/* Hexagon/Geometric Background Pattern */}
         <div className="absolute inset-0 opacity-40 bg-[radial-gradient(#94a3b8_2px,transparent_2px)] [background-size:30px_30px]" />
 
-        {/* Abstract Light Shapes */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl opacity-60" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl opacity-60" />
+
 
         <div className="relative z-10 text-center max-w-2xl px-4">
           <Reveal>
