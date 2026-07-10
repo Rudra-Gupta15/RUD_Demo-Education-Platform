@@ -145,25 +145,6 @@ const team = [
     github: "https://github.com/samruddhikhedkar02",
     email: "samruddhi@convosec.ai",
   },
-  {
-    name: "Nikky Bisen",
-    initials: "NB",
-    role: "Co-Founder & CTO",
-    image: "/Nikky.jpg",
-    bio: "Passionate AI/ML engineer specializing in intelligent systems and scalable neural architectures. Leads all technical strategy and engineering culture.",
-    linkedin: "https://www.linkedin.com/in/nikky-bisen-4a609115a/",
-    email: "nikky@convosec.ai",
-  },
-  {
-    name: "Rudra Gupta",
-    initials: "RG",
-    role: "Full Stack Developer",
-    image: "/Rudra.png",
-    bio: "Frontend specialist and extension developer focused on building practical, user-facing AI tools. Published author of multiple production Chrome extensions.",
-    linkedin: "https://www.linkedin.com/in/rudra-kumar-gupta/",
-    portfolio: "https://rudra-gupta.vercel.app/",
-    email: "rudra.gupta@convosec.ai",
-  }
 ];
 
 
